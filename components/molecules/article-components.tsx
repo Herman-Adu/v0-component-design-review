@@ -572,7 +572,7 @@ export function FeatureGrid({
 export function MetricsGrid({
   metrics,
 }: {
-  metrics: { label: string; value: string; change?: string; positive?: boolean }[]
+  metrics: { label: string; value: string; change?: string; positive?: boolean; description?: string }[]
 }) {
   const guardedMetrics = guardArrayProp(metrics, "MetricsGrid", "metrics")
   if (!guardedMetrics) return <PropGuardDiagnostic componentName="MetricsGrid" propName="metrics" received={metrics === undefined ? "undefined" : "null"} />
@@ -582,6 +582,9 @@ export function MetricsGrid({
         <div key={index} className="bg-card border border-border rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-accent mb-1">{metric.value}</div>
           <div className="text-sm text-muted-foreground mb-1">{metric.label}</div>
+          {metric.description && (
+            <div className="text-xs text-muted-foreground/70 mt-1">{metric.description}</div>
+          )}
           {metric.change && (
             <div className={`text-xs ${metric.positive ? "text-green-500" : "text-red-500"}`}>
               {metric.positive ? "+" : ""}{metric.change}
