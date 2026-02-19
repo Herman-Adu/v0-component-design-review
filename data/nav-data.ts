@@ -234,6 +234,24 @@ const dmLinkedInItems: NavItem[] = [
   { href: `${DM}/linkedin/analytics`, label: "Analytics", icon: LineChart },
 ]
 
+const dmTwitterItems: NavItem[] = [
+  { href: `${DM}/twitter`, label: "Overview", icon: Globe },
+  { href: `${DM}/twitter/composer`, label: "Tweet Composer", icon: PenSquare },
+  { href: `${DM}/twitter/threads`, label: "Thread Builder", icon: FileText },
+  { href: `${DM}/twitter/hashtag-strategy`, label: "Hashtag Strategy", icon: Tag },
+  { href: `${DM}/twitter/engagement`, label: "Engagement Playbook", icon: UsersRound },
+  { href: `${DM}/twitter/analytics`, label: "Analytics", icon: LineChart },
+]
+
+const dmFacebookItems: NavItem[] = [
+  { href: `${DM}/facebook`, label: "Overview", icon: Globe },
+  { href: `${DM}/facebook/page-management`, label: "Page Management", icon: Building2 },
+  { href: `${DM}/facebook/composer`, label: "Post Composer", icon: PenSquare },
+  { href: `${DM}/facebook/events`, label: "Events & Promotions", icon: Megaphone },
+  { href: `${DM}/facebook/messenger`, label: "Messenger Templates", icon: FileText },
+  { href: `${DM}/facebook/analytics`, label: "Analytics", icon: LineChart },
+]
+
 export const digitalMarketingSection: NavSection = {
   title: "Digital Marketing",
   icon: Megaphone,
@@ -253,8 +271,18 @@ export const digitalMarketingSection: NavSection = {
       icon: Share2,
       children: dmLinkedInItems,
     },
-    { href: `${DM}/twitter`, label: "Twitter/X", icon: Globe },
-    { href: `${DM}/facebook`, label: "Facebook", icon: Globe },
+    {
+      href: `${DM}/twitter`,
+      label: "Twitter/X",
+      icon: Globe,
+      children: dmTwitterItems,
+    },
+    {
+      href: `${DM}/facebook`,
+      label: "Facebook",
+      icon: Globe,
+      children: dmFacebookItems,
+    },
   ],
 }
 
