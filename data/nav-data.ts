@@ -51,6 +51,13 @@ import {
   BarChart3,
   FolderCog,
   Cog,
+  Megaphone,
+  Search,
+  Tag,
+  DollarSign,
+  Building2,
+  PenSquare,
+  LineChart,
 } from "lucide-react"
 
 import { articles } from "@/data/content-library/articles"
@@ -197,15 +204,43 @@ export const adminSection: NavSection = {
   icon: ShieldCheck,
   items: [
     { href: "/dashboard/admin", label: "Overview", icon: ShieldCheck },
+  ],
+}
+
+// ---------------------------------------------------------------------------
+// Digital Marketing -- Platform Marketing & Content Distribution
+// ---------------------------------------------------------------------------
+// Consolidates content tools, social media, and per-platform marketing.
+// Google subsection built out first; LinkedIn, Twitter/X, Facebook stubs.
+
+const DM = "/dashboard/admin/digital-marketing"
+
+const dmGoogleItems: NavItem[] = [
+  { href: `${DM}/google`, label: "Overview", icon: Search },
+  { href: `${DM}/google/business-profile`, label: "Business Profile & FAQs", icon: Building2 },
+  { href: `${DM}/google/seo`, label: "SEO & Site Optimization", icon: Search },
+  { href: `${DM}/google/tag-manager`, label: "Tag Manager", icon: Tag },
+  { href: `${DM}/google/ads-campaigns`, label: "Ads & Campaigns", icon: DollarSign },
+  { href: `${DM}/google/analytics`, label: "Analytics & Reporting", icon: LineChart },
+  { href: `${DM}/google/composer`, label: "Content Composer", icon: PenSquare },
+]
+
+export const digitalMarketingSection: NavSection = {
+  title: "Digital Marketing",
+  icon: Megaphone,
+  items: [
+    { href: DM, label: "Overview", icon: Megaphone },
+    { href: `${DM}/getting-started`, label: "Getting Started", icon: Rocket },
+    { href: `${DM}/content-strategy`, label: "Content Strategy", icon: TrendingUp },
     {
-      href: "/dashboard/content-library/social",
-      label: "Content Tools",
-      icon: FileText,
-      children: [
-        { href: "/dashboard/content-library/social", label: "Social Media", icon: Share2 },
-        { href: "/dashboard/admin/content-strategy", label: "Content Strategy", icon: TrendingUp },
-      ],
+      href: `${DM}/google`,
+      label: "Google",
+      icon: Search,
+      children: dmGoogleItems,
     },
+    { href: `${DM}/linkedin`, label: "LinkedIn", icon: Share2 },
+    { href: `${DM}/twitter`, label: "Twitter/X", icon: Globe },
+    { href: `${DM}/facebook`, label: "Users", icon: Globe },
   ],
 }
 
