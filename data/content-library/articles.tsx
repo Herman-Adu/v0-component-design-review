@@ -1,5 +1,5 @@
 export type ArticleLevel = "beginner" | "intermediate" | "advanced"
-export type ArticleCategory = "architecture" | "security" | "forms" | "performance" | "best-practices" | "rendering" | "business" | "testing" | "devops" | "ai-tooling"
+export type ArticleCategory = "architecture" | "security" | "forms" | "performance" | "best-practices" | "rendering" | "business" | "accessibility" | "testing" | "devops" | "ai-tooling"
 
 export interface Article {
   id: string
