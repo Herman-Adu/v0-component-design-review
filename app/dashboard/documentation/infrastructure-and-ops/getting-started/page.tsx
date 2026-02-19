@@ -69,7 +69,6 @@ export default function InfrastructureGettingStartedPage() {
             </div>
           ))}
         </div>
-      </section>
 
       {/* Prerequisites */}
       <DocSectionHeader id="prerequisites">Prerequisites</DocSectionHeader>
