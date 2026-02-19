@@ -287,7 +287,7 @@ export default function SendConfigurationPage() {
                   </div>
                   <div className="text-right shrink-0 flex items-center gap-2">
                     {v.secret && v.isSet && (
-                      <Shield className="h-3.5 w-3.5 text-amber-400" title="Secret -- value hidden" />
+                      <span title="Secret -- value hidden"><Shield className="h-3.5 w-3.5 text-amber-400" /></span>
                     )}
                     {v.isSet ? (
                       <code className="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded">
@@ -348,7 +348,7 @@ export default function SendConfigurationPage() {
                   </div>
                   <div className="text-right shrink-0 flex items-center gap-2">
                     {v.secret && v.isSet && (
-                      <Shield className="h-3.5 w-3.5 text-amber-400" title="Secret -- value hidden" />
+                      <span title="Secret -- value hidden"><Shield className="h-3.5 w-3.5 text-amber-400" /></span>
                     )}
                     {v.isSet ? (
                       <code className="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded">
