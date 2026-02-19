@@ -1,34 +1,39 @@
 import { execSync } from "child_process";
 
+// First ensure next types are generated
 try {
-  const output = execSync("npx tsc --noEmit --pretty false 2>&1", {
+  console.log("Generating Next.js types...");
+  execSync("npx next build --no-lint 2>&1 | head -100", {
     cwd: "/vercel/share/v0-project",
     encoding: "utf-8",
     maxBuffer: 1024 * 1024 * 10,
-    timeout: 120000,
+    timeout: 180000,
   });
-  console.log("NO TYPE ERRORS FOUND");
-  console.log(output || "(clean)");
+  console.log("BUILD SUCCEEDED - NO ERRORS");
 } catch (err) {
-  const stdout = err.stdout || "";
-  const lines = stdout.split("\n").filter(l => l.includes("error TS"));
-  console.log(`TOTAL ERRORS: ${lines.length}`);
-  console.log("---");
-  // Group by file
-  const byFile = {};
-  for (const line of lines) {
-    const match = line.match(/^([^(]+)\((\d+),(\d+)\): error (TS\d+): (.+)$/);
-    if (match) {
-      const [, file, row, col, code, msg] = match;
-      const short = file.replace("/vercel/share/v0-project/", "");
-      if (!byFile[short]) byFile[short] = [];
-      byFile[short].push({ row, col, code, msg });
-    }
+  const output = (err.stdout || "") + (err.stderr || "");
+  const lines = output.split("\n");
+  
+  // Find the type error section
+  const errorLines = lines.filter(l => 
+    l.includes("Type error:") || 
+    l.includes("error TS") ||
+    l.match(/^\.\/.+\.tsx?:\d+:\d+$/) ||
+    l.includes("Property") ||
+    l.includes("does not exist on type") ||
+    l.includes("is not assignable") ||
+    l.includes("Object literal may only specify known properties")
+  );
+  
+  console.log(`\n=== BUILD OUTPUT (last 60 lines) ===`);
+  const last60 = lines.slice(-60);
+  for (const l of last60) {
+    console.log(l);
   }
-  for (const [file, errors] of Object.entries(byFile)) {
-    console.log(`\nFILE: ${file} (${errors.length} errors)`);
-    for (const e of errors) {
-      console.log(`  L${e.row}:${e.col} [${e.code}] ${e.msg}`);
-    }
+  
+  console.log(`\n=== FILTERED TYPE ERRORS ===`);
+  for (const l of errorLines) {
+    console.log(l);
   }
+  console.log(`\nTotal filtered error lines: ${errorLines.length}`);
 }

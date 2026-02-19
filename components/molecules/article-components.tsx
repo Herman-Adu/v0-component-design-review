@@ -547,7 +547,7 @@ export function FeatureGrid({
   features,
   columns = 3,
 }: {
-  features: { icon: ReactNode; title: string; description: string }[]
+  features: { icon?: ReactNode; title: string; description: string; items?: string[] }[]
   columns?: 2 | 3 | 4
 }) {
   const guardedFeatures = guardArrayProp(features, "FeatureGrid", "features")
@@ -562,9 +562,19 @@ export function FeatureGrid({
     <div className={`grid ${colClass[columns]} gap-4 my-6`}>
       {guardedFeatures.map((feature, index) => (
         <div key={index} className="bg-card border border-border rounded-lg p-4">
-          <div className="text-accent mb-3">{feature.icon}</div>
+          {feature.icon && <div className="text-accent mb-3">{feature.icon}</div>}
           <h4 className="font-semibold text-foreground mb-2">{feature.title}</h4>
           <p className="text-sm text-muted-foreground">{feature.description}</p>
+          {feature.items && feature.items.length > 0 && (
+            <ul className="mt-2 space-y-1">
+              {feature.items.map((item, i) => (
+                <li key={i} className="text-xs text-muted-foreground/80 flex items-center gap-1.5">
+                  <span className="h-1 w-1 rounded-full bg-accent/50 flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       ))}
     </div>
@@ -610,7 +620,7 @@ export function DataFlowDiagram({
   nodes,
   title,
 }: {
-  nodes: { id?: string; label: string; description?: string; icon?: ReactNode }[]
+  nodes: { id?: string; label: string; description?: string; icon?: ReactNode; items?: string[] }[]
   title?: string
   connections?: string[]
   flow?: "horizontal" | "vertical"
