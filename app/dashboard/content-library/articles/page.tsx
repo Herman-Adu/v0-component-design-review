@@ -32,10 +32,14 @@ function getCategoryColor(category: ArticleCategory) {
       return "bg-cyan-500/10 text-cyan-500"
     case "business":
       return "bg-emerald-500/10 text-emerald-500"
+    case "accessibility":
+      return "bg-indigo-500/10 text-indigo-500"
     case "testing":
       return "bg-orange-500/10 text-orange-500"
     case "devops":
       return "bg-pink-500/10 text-pink-500"
+    case "ai-tooling":
+      return "bg-violet-500/10 text-violet-500"
     default:
       return "bg-muted text-muted-foreground"
   }

@@ -179,6 +179,8 @@ function getCategoryColor(category: Article["category"]) {
       return "bg-orange-500/10 text-orange-500"
     case "devops":
       return "bg-pink-500/10 text-pink-500"
+    case "ai-tooling":
+      return "bg-violet-500/10 text-violet-500"
     default:
       return "bg-muted text-muted-foreground"
   }
