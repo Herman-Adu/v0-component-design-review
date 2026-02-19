@@ -248,35 +248,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         />
 
         <ComparisonCards
-          title="Provider Placement Strategies"
-          items={[
-            {
-              title: "Root-Level Providers",
-              description: "Place at the root layout for concerns needed across the entire app",
-              pros: [
-                "Theme, auth, and toast are always available",
-                "Single instance guarantees consistency",
-                "Simple mental model for developers",
-              ],
-              cons: [
-                "Slightly larger root layout",
-                "All providers initialise on first page load",
-              ],
-            },
-            {
-              title: "Feature-Level Providers",
-              description: "Place at the feature layout ONLY for concerns scoped to that feature",
-              pros: [
-                "Providers only load when feature is accessed",
-                "Keeps feature state isolated",
-                "Good for feature flags, feature-specific stores",
-              ],
-              cons: [
-                "Must ensure no duplication with parent providers",
-                "Feature components cannot share context with root",
-              ],
-            },
+          leftTitle="Root-Level Providers"
+          leftItems={[
+            "Theme, auth, and toast are always available",
+            "Single instance guarantees consistency",
+            "Simple mental model for developers",
           ]}
+          leftType="positive"
+          rightTitle="Feature-Level Providers"
+          rightItems={[
+            "Providers only load when feature is accessed",
+            "Keeps feature state isolated",
+            "Good for feature flags, feature-specific stores",
+          ]}
+          rightType="positive"
         />
 
         {/* Section 6 */}
@@ -359,20 +344,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               name: "app/",
               type: "folder",
               children: [
-                { name: "layout.tsx", type: "file", label: "Imports <Providers> -- ONLY place" },
+                { name: "layout.tsx", type: "file", description: "Imports Providers -- ONLY place" },
                 {
                   name: "dashboard/",
                   type: "folder",
                   children: [
-                    { name: "layout.tsx", type: "file", label: "Server Component, NO providers" },
-                    { name: "page.tsx", type: "file", label: "Inherits all context from root" },
+                    { name: "layout.tsx", type: "file", description: "Server Component, NO providers" },
+                    { name: "page.tsx", type: "file", description: "Inherits all context from root" },
                   ],
                 },
                 {
                   name: "admin/",
                   type: "folder",
                   children: [
-                    { name: "layout.tsx", type: "file", label: "Server Component, NO providers" },
+                    { name: "layout.tsx", type: "file", description: "Server Component, NO providers" },
                   ],
                 },
               ],
@@ -381,7 +366,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               name: "components/",
               type: "folder",
               children: [
-                { name: "providers.tsx", type: "file", label: "'use client' -- single source of truth" },
+                { name: "providers.tsx", type: "file", description: "use client -- single source of truth" },
               ],
             },
           ]}

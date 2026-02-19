@@ -216,27 +216,24 @@ grep -rn "use client" app/**/layout.tsx
         </p>
 
         <ComparisonCards
-          title="Impact by Device Class"
-          items={[
-            {
-              title: "Desktop (fast CPU, fast network)",
-              description: "Impact barely noticeable to users but measurable in metrics",
-              pros: ["Extra JS parsed in ~200ms", "Hydration completes quickly", "Users unlikely to notice"],
-              cons: ["180KB wasted bandwidth", "Higher memory usage", "Wasted server compute for hydration"],
-            },
-            {
-              title: "Mobile (slow CPU, variable network)",
-              description: "Significant user-facing impact on interaction readiness",
-              pros: [],
-              cons: [
-                "Extra JS takes 800ms-1.5s to parse",
-                "Main thread blocked during hydration",
-                "Buttons unresponsive for 1-2s after visible",
-                "High INP (Interaction to Next Paint) scores",
-                "Data usage impact on metered connections",
-              ],
-            },
+          leftTitle="Desktop (fast CPU, fast network)"
+          leftItems={[
+            "Extra JS parsed in ~200ms",
+            "Hydration completes quickly",
+            "Users unlikely to notice",
+            "180KB wasted bandwidth",
+            "Higher memory usage",
           ]}
+          leftType="positive"
+          rightTitle="Mobile (slow CPU, variable network)"
+          rightItems={[
+            "Extra JS takes 800ms-1.5s to parse",
+            "Main thread blocked during hydration",
+            "Buttons unresponsive for 1-2s after visible",
+            "High INP (Interaction to Next Paint) scores",
+            "Data usage impact on metered connections",
+          ]}
+          rightType="negative"
         />
 
         {/* Section 5 */}

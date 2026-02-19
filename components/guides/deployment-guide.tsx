@@ -34,29 +34,24 @@ export function DeploymentGuideContent() {
         </section>
 
         <ComparisonCards
-          title="Deployment Path Comparison"
-          cards={[
-            {
-              title: "PaaS (Vercel + Strapi Cloud)",
-              items: [
-                { label: "Setup Time", status: "positive", text: "Minutes" },
-                { label: "Scaling", status: "positive", text: "Automatic" },
-                { label: "Control", status: "negative", text: "Limited" },
-                { label: "Cost at Scale", status: "negative", text: "Higher" },
-                { label: "Best For", status: "neutral", text: "Small teams, MVPs" },
-              ],
-            },
-            {
-              title: "Docker / VPS",
-              items: [
-                { label: "Setup Time", status: "negative", text: "Hours" },
-                { label: "Scaling", status: "neutral", text: "Manual / orchestrated" },
-                { label: "Control", status: "positive", text: "Full" },
-                { label: "Cost at Scale", status: "positive", text: "Lower" },
-                { label: "Best For", status: "neutral", text: "Production, multi-site" },
-              ],
-            },
+          leftTitle="PaaS (Vercel + Strapi Cloud)"
+          leftItems={[
+            "Setup: Minutes",
+            "Scaling: Automatic",
+            "Control: Limited",
+            "Cost at scale: Higher",
+            "Best for: Small teams, MVPs",
           ]}
+          leftType="positive"
+          rightTitle="Docker / VPS"
+          rightItems={[
+            "Setup: Hours",
+            "Scaling: Manual / orchestrated",
+            "Control: Full",
+            "Cost at scale: Lower",
+            "Best for: Production, multi-site",
+          ]}
+          rightType="positive"
         />
 
         <section>

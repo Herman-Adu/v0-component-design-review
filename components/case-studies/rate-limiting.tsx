@@ -338,8 +338,8 @@ export async function checkRateLimit(
         <ComparisonCards
           leftTitle="Before: Decorative Security"
           rightTitle="After: Production-Grade Defence"
-          leftData={caseStudy.problem.issues}
-          rightData={caseStudy.solution.improvements}
+          leftItems={caseStudy.problem.issues}
+          rightItems={caseStudy.solution.improvements}
         />
 
         <VerticalFlow

@@ -204,21 +204,22 @@ export function PerformanceBudgetsArticleContent() {
         <SectionHeader number="05" title="Measurement Tools" id="measurement-tools" />
 
         <ComparisonCards
-          title="Lab vs Field Measurement"
-          items={[
-            {
-              title: "Lab Measurement",
-              description: "Controlled environment, repeatable, catches regressions before deploy",
-              pros: ["Consistent results", "Part of CI/CD", "Catches regressions early", "Free (Lighthouse)"],
-              cons: ["Doesn't reflect real users", "Single device/network profile", "Can miss real-world issues"],
-            },
-            {
-              title: "Field Measurement",
-              description: "Real user data from production, reflects actual experience",
-              pros: ["Real user experience", "Diverse devices/networks", "Geographic variety", "Catches real issues"],
-              cons: ["Delayed feedback", "Statistical noise", "Requires traffic volume", "Costs money (RUM tools)"],
-            },
+          leftTitle="Lab Measurement"
+          leftItems={[
+            "Consistent results",
+            "Part of CI/CD pipeline",
+            "Catches regressions early",
+            "Free (Lighthouse)",
           ]}
+          leftType="positive"
+          rightTitle="Field Measurement"
+          rightItems={[
+            "Real user experience data",
+            "Diverse devices and networks",
+            "Geographic variety",
+            "Catches real-world issues",
+          ]}
+          rightType="positive"
         />
 
         <InfoBox type="tip">

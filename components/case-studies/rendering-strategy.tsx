@@ -64,7 +64,7 @@ export function RenderingStrategyContent({ caseStudy }: { caseStudy: CaseStudy }
 
         <ComparisonCards
           leftTitle="What We Had"
-          leftData={[
+          leftItems={[
             "All pages: dynamic SSR",
             "No static generation",
             "No ISR configured",
@@ -72,7 +72,7 @@ export function RenderingStrategyContent({ caseStudy }: { caseStudy: CaseStudy }
             "Uniform slow performance",
           ]}
           rightTitle="What We Needed"
-          rightData={[
+          rightItems={[
             "Static pages for marketing",
             "ISR for content that changes",
             "Dynamic for user-specific data",
@@ -189,13 +189,14 @@ export const dynamic = 'force-static'`}
         {/* Section 5: Results */}
         <SectionHeader id="results" number={5} title="Results" />
         <BeforeAfterComparison
-          title="Performance Impact"
-          items={[
-            { label: "Avg TTFB (marketing)", before: "890ms", after: "12ms" },
-            { label: "Avg TTFB (docs)", before: "890ms", after: "45ms (cached)" },
-            { label: "Server compute per day", before: "~50,000 renders", after: "~8,000 renders" },
-            { label: "CDN cache hit rate", before: "0%", after: "78%" },
-            { label: "Monthly server cost", before: "Baseline", after: "-40% reduction" },
+          beforeTitle="Before: SSR Everywhere"
+          afterTitle="After: Per-Route Strategy"
+          improvements={[
+            { metric: "Avg TTFB (marketing)", before: "890ms", after: "12ms" },
+            { metric: "Avg TTFB (docs)", before: "890ms", after: "45ms (cached)" },
+            { metric: "Server compute per day", before: "~50,000 renders", after: "~8,000 renders" },
+            { metric: "CDN cache hit rate", before: "0%", after: "78%" },
+            { metric: "Monthly server cost", before: "Baseline", after: "-40% reduction" },
           ]}
         />
 
@@ -208,7 +209,7 @@ export const dynamic = 'force-static'`}
           ]}
         />
 
-        <InfoBox type="success" title="Key Win">
+        <InfoBox type="tip" title="Key Win">
           Marketing pages went from 890ms TTFB to 12ms -- a 98.7% improvement -- by simply serving 
           pre-built HTML from the CDN edge. No code changes to the components themselves were needed.
         </InfoBox>

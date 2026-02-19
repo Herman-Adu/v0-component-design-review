@@ -81,7 +81,7 @@ export function MultiStepFormContent({ caseStudy }: { caseStudy: CaseStudy }) {
 
         <ComparisonCards
           leftTitle="Prototype Issues"
-          leftData={[
+          leftItems={[
             "Single 400+ line component",
             "useState for all form state",
             "Client-only Zod validation",
@@ -90,7 +90,7 @@ export function MultiStepFormContent({ caseStudy }: { caseStudy: CaseStudy }) {
             "Data lost on navigation",
           ]}
           rightTitle="Production Requirements"
-          rightData={[
+          rightItems={[
             "Multi-step with separate components",
             "Zustand store with persistence",
             "Dual-layer: client + server validation",
@@ -217,13 +217,14 @@ export const useServiceRequestStore = create<ServiceRequestState>()(
         {/* Section 4: Results */}
         <SectionHeader id="results" number={4} title="Results" />
         <BeforeAfterComparison
-          title="Form Quality Metrics"
-          items={[
-            { label: "Component size", before: "400+ lines (1 file)", after: "~80 lines avg (7 files)" },
-            { label: "Validation layers", before: "Client only", after: "Client + Server (shared Zod)" },
-            { label: "Accessibility score", before: "42%", after: "96%" },
-            { label: "Form completion rate", before: "~60%", after: "~82%" },
-            { label: "State persistence", before: "Lost on navigation", after: "Persisted via Zustand" },
+          beforeTitle="Before: Monolith Form"
+          afterTitle="After: Multi-Step Architecture"
+          improvements={[
+            { metric: "Component size", before: "400+ lines (1 file)", after: "~80 lines avg (7 files)" },
+            { metric: "Validation layers", before: "Client only", after: "Client + Server (shared Zod)" },
+            { metric: "Accessibility score", before: "42%", after: "96%" },
+            { metric: "Form completion rate", before: "~60%", after: "~82%" },
+            { metric: "State persistence", before: "Lost on navigation", after: "Persisted via Zustand" },
           ]}
         />
 

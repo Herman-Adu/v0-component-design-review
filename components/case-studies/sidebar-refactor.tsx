@@ -69,8 +69,8 @@ export function SidebarRefactorContent({ caseStudy }: { caseStudy: CaseStudy }) 
         <ComparisonCards
           leftTitle="Symptoms"
           rightTitle="Root Causes"
-          leftData={caseStudy.problem.issues}
-          rightData={[
+          leftItems={caseStudy.problem.issues}
+          rightItems={[
             "Data (nav items) mixed with presentation (JSX)",
             "No separation of concerns",
             "No type safety on nav structure",

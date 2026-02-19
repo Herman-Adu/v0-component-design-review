@@ -191,14 +191,14 @@ tar: Error is not recoverable: exiting now`}
         <ComparisonCards
           leftTitle="Rules File (v0-rules.md)"
           rightTitle="State File (project-state.ts)"
-          leftData={[
+          leftItems={[
             "Session budget: max 15 ops",
             "Max 2 edits per file per session",
             "Tarball protection protocol",
             "3-axis review after major tasks",
             "Self-management between sessions",
           ]}
-          rightData={[
+          rightItems={[
             "Current file counts and page counts",
             "Content conversion progress",
             "Review history summary",

@@ -46,16 +46,14 @@ export function ServiceRequestLifecycleArticleContent() {
           description="Every service request follows the same predictable path from the moment a customer submits the form to the final follow-up. Understanding this lifecycle helps business administrators track jobs, identify bottlenecks, and improve response times -- without needing to understand any code."
         />
 
-        <InfoBox
-          type="info"
-          title="Who Is This For?"
-          items={[
-            "Business administrators who manage service request queues",
-            "Project leads who oversee electrician job assignments",
-            "Operations managers tracking response times and SLAs",
-            "Anyone who needs to understand the system without technical jargon",
-          ]}
-        />
+        <InfoBox type="info" title="Who Is This For?">
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Business administrators who manage service request queues</li>
+            <li>Project leads who oversee electrician job assignments</li>
+            <li>Operations managers tracking response times and SLAs</li>
+            <li>Anyone who needs to understand the system without technical jargon</li>
+          </ul>
+        </InfoBox>
 
         <MetricsGrid
           metrics={[
@@ -128,15 +126,13 @@ export function ServiceRequestLifecycleArticleContent() {
           can correct their input without losing any data.
         </p>
 
-        <InfoBox
-          type="important"
-          title="Why Two Layers of Validation?"
-          items={[
-            "Browser validation: Instant feedback, catches typos and missing fields immediately",
-            "Server validation: Security layer that cannot be bypassed, prevents malicious input",
-            "Both use the same rules (Zod schemas) so they always agree on what's valid",
-          ]}
-        />
+        <InfoBox type="important" title="Why Two Layers of Validation?">
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Browser validation: Instant feedback, catches typos and missing fields immediately</li>
+            <li>Server validation: Security layer that cannot be bypassed, prevents malicious input</li>
+            <li>{"Both use the same rules (Zod schemas) so they always agree on what's valid"}</li>
+          </ul>
+        </InfoBox>
 
         <SubSectionHeader id="stage-3-confirmation" title="Stage 3: Confirmation" />
 
@@ -228,16 +224,14 @@ export function ServiceRequestLifecycleArticleContent() {
           ]}
         />
 
-        <InfoBox
-          type="tip"
-          title="Reading the Data Flow"
-          items={[
-            "Left to right: The primary flow from customer submission to job completion",
-            "The Email System connects to multiple stages (confirmation, assignment, completion, follow-up)",
-            "The Database is the central store -- every stage reads from and writes to it",
-            "The Admin Dashboard is the control point where human decisions happen",
-          ]}
-        />
+        <InfoBox type="tip" title="Reading the Data Flow">
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Left to right: The primary flow from customer submission to job completion</li>
+            <li>{"The Email System connects to multiple stages (confirmation, assignment, completion, follow-up)"}</li>
+            <li>The Database is the central store -- every stage reads from and writes to it</li>
+            <li>The Admin Dashboard is the control point where human decisions happen</li>
+          </ul>
+        </InfoBox>
 
         {/* ---------- Section 4: Status Tracking ---------- */}
         <SectionHeader
@@ -278,16 +272,14 @@ export function ServiceRequestLifecycleArticleContent() {
           ]}
         />
 
-        <InfoBox
-          type="warning"
-          title="Email Delivery"
-          items={[
-            "Emails are sent via Resend (transactional email service) for reliable delivery",
-            "If an email fails to send, the system retries up to 3 times with exponential backoff",
-            "Failed emails are logged but never block the request from progressing",
-            "Check the Email Infrastructure section of the admin dashboard for delivery reports",
-          ]}
-        />
+        <InfoBox type="warning" title="Email Delivery">
+          <ul className="list-disc pl-4 space-y-1">
+            <li>{"Emails are sent via Resend (transactional email service) for reliable delivery"}</li>
+            <li>If an email fails to send, the system retries up to 3 times with exponential backoff</li>
+            <li>Failed emails are logged but never block the request from progressing</li>
+            <li>Check the Email Infrastructure section of the admin dashboard for delivery reports</li>
+          </ul>
+        </InfoBox>
 
         {/* ---------- Section 6: Key Performance Metrics ---------- */}
         <SectionHeader
@@ -350,15 +342,13 @@ export function ServiceRequestLifecycleArticleContent() {
           ]}
         />
 
-        <InfoBox
-          type="tip"
-          title="Escalation Path"
-          items={[
-            "Unresolved issues after 48 hours: Escalate to operations manager",
-            "Customer complaints about quality: Route to senior electrician for review",
-            "System errors (emails not sending, form not loading): Contact technical support",
-          ]}
-        />
+        <InfoBox type="tip" title="Escalation Path">
+          <ul className="list-disc pl-4 space-y-1">
+            <li>{"Unresolved issues after 48 hours: Escalate to operations manager"}</li>
+            <li>{"Customer complaints about quality: Route to senior electrician for review"}</li>
+            <li>{"System errors (emails not sending, form not loading): Contact technical support"}</li>
+          </ul>
+        </InfoBox>
 
         {/* ---------- Key Takeaway ---------- */}
         <div id="takeaway">
