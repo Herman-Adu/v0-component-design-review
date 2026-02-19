@@ -454,15 +454,18 @@ interface FileTreeItem {
   type: "folder" | "file"
   children?: FileTreeItem[]
   highlight?: boolean
+  indent?: number
+  description?: string
 }
 
 export function FileTree({ items, title }: { items: FileTreeItem[]; title?: string }) {
   const guardedItems = guardArrayProp(items, "FileTree", "items")
   if (!guardedItems) return <PropGuardDiagnostic componentName="FileTree" propName="items" received={items === undefined ? "undefined" : "null"} />
   const renderItem = (item: FileTreeItem, depth: number = 0, path: string = "") => {
+    const effectiveDepth = item.indent ?? depth
     const uniquePath = path ? `${path}/${item.name}` : item.name
     return (
-      <div key={uniquePath} style={{ paddingLeft: `${depth * 16}px` }}>
+      <div key={uniquePath} style={{ paddingLeft: `${effectiveDepth * 16}px` }}>
         <div className={`flex items-center gap-2 py-1 ${item.highlight ? "text-accent font-medium" : "text-muted-foreground"}`}>
           {item.type === "folder" ? (
             <Folder className="h-4 w-4 text-accent" />
@@ -470,6 +473,9 @@ export function FileTree({ items, title }: { items: FileTreeItem[]; title?: stri
             <File className="h-4 w-4" />
           )}
           <span className="text-sm font-mono">{item.name}</span>
+          {item.description && (
+            <span className="text-xs text-muted-foreground/60 ml-1">{"// "}{item.description}</span>
+          )}
         </div>
         {item.children?.map((child) => renderItem(child, depth + 1, uniquePath))}
       </div>
