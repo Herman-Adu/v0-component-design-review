@@ -10,7 +10,7 @@ import type { ComponentType } from "react"
 import { DeployingNextjsVercelContent } from "@/components/tutorials/deploying-nextjs-vercel"
 import { MultiStepFormsServerActionsContent } from "@/components/tutorials/multi-step-forms-server-actions"
 import { EmailTemplatesReactEmailContent } from "@/components/tutorials/email-templates-react-email"
-import { E2eTestingPlaywrightContent } from "@/components/tutorials/e2e-testing-playwright"
+import { E2ETestingPlaywrightContent } from "@/components/tutorials/e2e-testing-playwright"
 import { BuildingAtomicComponentContent } from "@/components/tutorials/building-atomic-component"
 import { ServerSideValidationContent } from "@/components/tutorials/server-side-validation"
 import { ZustandFormStoreContent } from "@/components/tutorials/zustand-form-store"
@@ -28,7 +28,7 @@ const richContentMap: Record<string, ComponentType> = {
   "deploying-nextjs-to-vercel": DeployingNextjsVercelContent,
   "building-multi-step-forms-with-server-actions": MultiStepFormsServerActionsContent,
   "building-email-templates-react-email": EmailTemplatesReactEmailContent,
-  "e2e-testing-playwright-nextjs": E2eTestingPlaywrightContent,
+  "e2e-testing-playwright-nextjs": E2ETestingPlaywrightContent,
   "building-atomic-component": BuildingAtomicComponentContent,
   "server-side-validation": ServerSideValidationContent,
   "zustand-form-store": ZustandFormStoreContent,
