@@ -240,7 +240,7 @@ export const digitalMarketingSection: NavSection = {
     },
     { href: `${DM}/linkedin`, label: "LinkedIn", icon: Share2 },
     { href: `${DM}/twitter`, label: "Twitter/X", icon: Globe },
-    { href: `${DM}/facebook`, label: "Users", icon: Globe },
+    { href: `${DM}/facebook`, label: "Facebook", icon: Globe },
   ],
 }
 
