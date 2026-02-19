@@ -430,18 +430,18 @@ function discoverGaps(): Gap[] {
 
   // Also scan lessons learned for content opportunities
   LESSONS_LEARNED.forEach((lesson) => {
-    const titleWords = lesson.incident.toLowerCase().split(/\s+/).filter((w) => w.length > 3)
+    const titleWords = lesson.title.toLowerCase().split(/\s+/).filter((w) => w.length > 3)
     const hasContent = allContent.some((item) =>
       titleWords.filter((w) => item.title.toLowerCase().includes(w)).length >= 2,
     )
     if (!hasContent) {
       gaps.push({
         id: `lesson-${lesson.id}`,
-        title: `Lesson learned: "${lesson.incident}" not yet documented as content`,
+        title: `Lesson learned: "${lesson.title}" not yet documented as content`,
         type: "review-knowledge",
         priority: "medium",
         category: "Review Knowledge",
-        description: `${lesson.rootCause.slice(0, 200)}... This hard-won lesson would make valuable content for preventing similar issues.`,
+        description: `${lesson.lesson.slice(0, 200)}... This hard-won lesson would make valuable content for preventing similar issues.`,
         suggestedAction: `Create a case study or article covering: what happened, why, what went wrong, the correct fix, and prevention measures.`,
         effort: "large",
         status: "open",
