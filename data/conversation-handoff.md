@@ -1,15 +1,51 @@
-# Session 10 Handoff -- Fresh Chat Migration
-**Last Session:** S9 (sandbox corrupted, code verified on localhost)
-**Current Session:** S10
+# Session 13 Handoff -- Build Stabilisation (Clean Slate)
+**Last Session:** S12 (context exhausted, edits may be partially applied)
+**Current Session:** S13
 **Date:** 2026-02-19
 
 ## Quick Recovery
 Paste into new v0 chat:
 > Continuing Electrical Services project. Read /data/conversation-handoff.md for context.
 > Rules auto-load from .v0/rules.md.
-> Session 10: Fresh chat after sandbox migration. Verify preview renders.
-> Read /.v0/state.json for project state.
+> Session 13: BUILD STABILISATION. The ONLY goal is a clean Vercel build.
+> FIRST ACTION: Write a script that runs `npx next build 2>&1` and capture ALL errors.
+> Then fix every error, re-run build script, confirm zero errors, THEN push.
 > Model: v0-max for all tasks.
+
+## S13 CRITICAL TASK: Fix All Build Errors
+
+### Root Cause
+`article-components.tsx` defines shared component types (FeatureGrid, DataFlowDiagram, 
+StepFlow, MetricsGrid, KeyTakeaway, FileTree, etc.) but many consumer files (28 articles, 
+18 case studies, 15 tutorials, 3 guides) pass extra properties not in the types.
+
+### Error Pattern: "Object literal may only specify known properties"
+The SAME class of error keeps appearing: a component type is missing props that consumers use.
+
+### Known Fixes Applied in S12 (may need re-verification)
+These edits were made in S12 but context degradation means some may not have persisted:
+
+1. `StepFlow` -- `number` made optional, accepts `string | number`
+2. `MetricsGrid` -- added `description?: string`
+3. `DataFlowDiagram` -- added `id?`, `connections?`, `flow?`, `items?`
+4. `KeyTakeaway` -- added `title?`, `points?: string[]`
+5. `RelatedArticles` -- added `slug?` with href fallback
+6. `ArticleIcons` -- added `Settings`, `Layout` exports
+7. `InfoBox` -- added `"danger"` to type union
+8. `FileTreeItem` -- added `indent?`, `description?`
+9. `FeatureGrid` -- added `items?: string[]`, made `icon` optional
+10. `DocSectionHeader` -- 6 instances in api-and-graphql fixed (title= -> children)
+11. `tableOfContents=` removed from strategic-overview pages
+12. GSAP `lightning-arc.tsx` -- array keyframes wrapped in `keyframes: {}`
+13. Stale `/admin/content-strategy/page.tsx` deleted (moved to DM)
+
+### S13 Workflow (MANDATORY)
+1. Run `npx next build 2>&1 | head -100` via script to get ALL current errors
+2. Read the output -- get the complete error list
+3. Fix ALL errors in one batch (the file is `components/molecules/article-components.tsx`)
+4. Re-run build script to verify zero errors
+5. ONLY THEN push to GitHub
+6. NO incremental pushes -- single clean push after verified build
 
 ---
 
@@ -47,9 +83,15 @@ Paste into new v0 chat:
 - Configuration: overview, template/brand, email preview, A/B subjects, recipient groups, scheduling
 - Infrastructure: overview, send config, delivery logs, version history, security audit
 
+### Admin: Digital Marketing (28 pages) -- Sessions 10-11
+- Overview + Getting Started + Content Strategy
+- Google: overview, ads-campaigns, analytics, business-profile, composer, seo, tag-manager
+- Facebook: overview, analytics, composer, events, messenger, page-management
+- LinkedIn: overview, analytics, articles, company-page, composer, connection-strategy
+- Twitter: overview, analytics, composer, engagement, hashtag-strategy, threads
+
 ### Admin: Other
 - Admin overview dashboard
-- Content Strategy page
 
 ---
 
