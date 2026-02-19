@@ -2,7 +2,7 @@
 
 import React from "react"
 
- import { Check, X, Info, AlertTriangle, Lightbulb, Zap, ArrowRight, ArrowDown, Folder, File, ChevronRight, Star, TrendingUp, Shield, Code, Database, Layers, GitBranch, Clock, Users, Target, CheckCircle2, XCircle, Minus, User, Wrench, Calendar, FileText, Navigation, BarChart } from "lucide-react"
+import { Check, X, Info, AlertTriangle, Lightbulb, Zap, ArrowRight, ArrowDown, Folder, File, ChevronRight, Star, TrendingUp, Shield, Code, Database, Layers, GitBranch, Clock, Users, Target, CheckCircle2, XCircle, Minus, User, Wrench, Calendar, FileText, Navigation, BarChart, Settings, LayoutGrid } from "lucide-react"
 import type { ReactNode } from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -108,7 +108,7 @@ export function InfoBox({
   title,
 }: {
   children: ReactNode
-  type?: "info" | "warning" | "tip" | "important"
+  type?: "info" | "warning" | "tip" | "important" | "danger"
   title?: string
 }) {
   const styles = {
@@ -161,7 +161,7 @@ export function InfoBox({
 // STEP FLOW DIAGRAM (Horizontal)
 // ============================================
 
-export function StepFlow({ steps, title }: { steps: { number: number; title: string; description: string }[]; title?: string }) {
+export function StepFlow({ steps, title }: { steps: { number?: number | string; title: string; description: string }[]; title?: string }) {
   const guardedSteps = guardArrayProp(steps, "StepFlow", "steps")
   if (!guardedSteps) return <PropGuardDiagnostic componentName="StepFlow" propName="steps" received={steps === undefined ? "undefined" : "null"} />
   return (
@@ -169,8 +169,8 @@ export function StepFlow({ steps, title }: { steps: { number: number; title: str
       {title && <h4 className="font-semibold text-foreground mb-4">{title}</h4>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {guardedSteps.map((step, index) => (
-          <div key={`step-${index}-${step.number}`} className="text-center relative">
-            <div className="text-2xl font-bold text-accent mb-2">{step.number}</div>
+          <div key={`step-${index}-${step.number ?? index}`} className="text-center relative">
+            <div className="text-2xl font-bold text-accent mb-2">{step.number ?? index + 1}</div>
             <div className="font-semibold text-foreground text-sm mb-1">{step.title}</div>
             <div className="text-xs text-muted-foreground">{step.description}</div>
             {index < steps.length - 1 && (
@@ -604,8 +604,10 @@ export function DataFlowDiagram({
   nodes,
   title,
 }: {
-  nodes: { label: string; description?: string; icon?: ReactNode }[]
+  nodes: { id?: string; label: string; description?: string; icon?: ReactNode }[]
   title?: string
+  connections?: string[]
+  flow?: "horizontal" | "vertical"
 }) {
   const guardedNodes = guardArrayProp(nodes, "DataFlowDiagram", "nodes")
   if (!guardedNodes) return <PropGuardDiagnostic componentName="DataFlowDiagram" propName="nodes" received={nodes === undefined ? "undefined" : "null"} />
@@ -678,7 +680,7 @@ export function DecisionTree({
 // KEY TAKEAWAY BOX
 // ============================================
 
-export function KeyTakeaway({ children }: { children: ReactNode }) {
+export function KeyTakeaway({ children, title, points }: { children?: ReactNode; title?: string; points?: string[] }) {
   return (
     <div className="bg-gradient-to-r from-accent/10 to-accent/5 border border-accent/30 rounded-lg p-6 my-8">
       <div className="flex items-start gap-3">
@@ -686,8 +688,18 @@ export function KeyTakeaway({ children }: { children: ReactNode }) {
           <Target className="h-5 w-5 text-accent" />
         </div>
         <div>
-          <h4 className="font-semibold text-foreground mb-2">Key Takeaway</h4>
-          <div className="text-sm text-muted-foreground leading-relaxed">{children}</div>
+          <h4 className="font-semibold text-foreground mb-2">{title || "Key Takeaway"}</h4>
+          {children && <div className="text-sm text-muted-foreground leading-relaxed">{children}</div>}
+          {points && points.length > 0 && (
+            <ul className="text-sm text-muted-foreground leading-relaxed space-y-2 mt-2">
+              {points.map((point, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <Check className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
@@ -701,7 +713,7 @@ export function KeyTakeaway({ children }: { children: ReactNode }) {
 export function RelatedArticles({
   articles,
 }: {
-  articles: { title: string; href: string; level?: string }[]
+  articles: { title: string; href?: string; slug?: string; level?: string }[]
 }) {
   const guardedArticles = guardArrayProp(articles, "RelatedArticles", "articles")
   if (!guardedArticles) return <PropGuardDiagnostic componentName="RelatedArticles" propName="articles" received={articles === undefined ? "undefined" : "null"} />
@@ -712,7 +724,7 @@ export function RelatedArticles({
         {guardedArticles.map((article, index) => (
           <Link
             key={index}
-            href={article.href}
+            href={article.href || (article.slug ? `/dashboard/content-library/articles/${article.slug}` : "#")}
             className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors group"
           >
             <span className="text-sm text-foreground group-hover:text-accent transition-colors">
@@ -960,6 +972,8 @@ export const ArticleIcons = {
   Calendar,
   Navigation,
   BarChart,
+  Settings,
+  Layout: LayoutGrid,
 }
 
 // ============================================
