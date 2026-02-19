@@ -225,6 +225,15 @@ const dmGoogleItems: NavItem[] = [
   { href: `${DM}/google/composer`, label: "Content Composer", icon: PenSquare },
 ]
 
+const dmLinkedInItems: NavItem[] = [
+  { href: `${DM}/linkedin`, label: "Overview", icon: Share2 },
+  { href: `${DM}/linkedin/company-page`, label: "Company Page", icon: Building2 },
+  { href: `${DM}/linkedin/composer`, label: "Post Composer", icon: PenSquare },
+  { href: `${DM}/linkedin/articles`, label: "Article Publisher", icon: FileText },
+  { href: `${DM}/linkedin/connection-strategy`, label: "Connection Strategy", icon: UsersRound },
+  { href: `${DM}/linkedin/analytics`, label: "Analytics", icon: LineChart },
+]
+
 export const digitalMarketingSection: NavSection = {
   title: "Digital Marketing",
   icon: Megaphone,
@@ -238,7 +247,12 @@ export const digitalMarketingSection: NavSection = {
       icon: Search,
       children: dmGoogleItems,
     },
-    { href: `${DM}/linkedin`, label: "LinkedIn", icon: Share2 },
+    {
+      href: `${DM}/linkedin`,
+      label: "LinkedIn",
+      icon: Share2,
+      children: dmLinkedInItems,
+    },
     { href: `${DM}/twitter`, label: "Twitter/X", icon: Globe },
     { href: `${DM}/facebook`, label: "Facebook", icon: Globe },
   ],
