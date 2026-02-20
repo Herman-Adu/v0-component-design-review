@@ -116,7 +116,7 @@ export default function DocumentAdministrationOverviewPage() {
       {/* Section Cards */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Sections</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {sections.map((section) => (
             <Card key={section.title} className="border-border/50">
               <CardHeader className="pb-3">
@@ -148,7 +148,7 @@ export default function DocumentAdministrationOverviewPage() {
       {/* Highlights */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Key Capabilities</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="responsive-grid-3">
           {highlights.map((item) => (
             <Card key={item.title} className="border-border/50">
               <CardContent className="flex gap-4 p-5">
@@ -174,7 +174,7 @@ export default function DocumentAdministrationOverviewPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="responsive-grid-3">
             <div className="flex items-center gap-3 rounded-lg border border-border/50 p-4">
               <Shield className="h-5 w-5 text-emerald-400" />
               <div>
