@@ -62,7 +62,7 @@ export default function ContentStrategyPage() {
         </div>
 
         {/* Metrics Overview */}
-        <div className="grid gap-4 md:grid-cols-4 mb-8">
+        <div className="responsive-grid-4 mb-8">
           {contentMetrics.map((metric) => (
             <Card key={metric.label}>
               <CardContent className="p-4">
@@ -122,8 +122,7 @@ export default function ContentStrategyPage() {
             <CardDescription>Multi-platform content distribution targeting specific audiences</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
-              {distributionChannels.map((channel) => (
+            <div className="responsive-grid-2">
                 <div key={channel.name} className="flex items-start gap-3 p-4 rounded-lg border">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted shrink-0">
                     <channel.icon className="h-4 w-4 text-foreground" />
@@ -152,8 +151,7 @@ export default function ContentStrategyPage() {
             <CardDescription>Standards every content piece must meet before publishing</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
-              {editorialGuidelines.map((guideline) => (
+            <div className="responsive-grid-2">
                 <div key={guideline.title} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30">
                   <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                   <div>
