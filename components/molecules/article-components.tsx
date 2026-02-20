@@ -410,14 +410,17 @@ export function CodeBlock({
   code,
   language = "typescript",
   filename,
+  title,
   highlightLines,
 }: {
   code: string
   language?: string
   filename?: string
+  title?: string
   highlightLines?: number[]
 }) {
   const [copied, setCopied] = useState(false)
+  const label = filename || title
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code)
@@ -427,9 +430,9 @@ export function CodeBlock({
 
   return (
     <div className="my-6 rounded-lg overflow-hidden border border-border">
-      {filename && (
+      {label && (
         <div className="bg-muted/50 px-4 py-2 border-b border-border flex items-center justify-between">
-          <span className="text-xs text-muted-foreground font-mono">{filename}</span>
+          <span className="text-xs text-muted-foreground font-mono">{label}</span>
           <button
             onClick={copyToClipboard}
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
