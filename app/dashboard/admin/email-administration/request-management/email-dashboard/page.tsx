@@ -297,7 +297,7 @@ export default function EmailJobsPage() {
 
       {/* Stats */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="responsive-grid-6">
           {statCards.map((card) => (
             <Card key={card.label} className={`${card.accent ? "border-accent/30" : "border-border"}`}>
               <CardContent className="p-3 space-y-1">

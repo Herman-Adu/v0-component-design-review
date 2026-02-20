@@ -476,7 +476,7 @@ export default function EmailTemplateManagementPage() {
 
         {/* ---- Company Details Tab ---- */}
         <TabsContent value="company" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="responsive-grid-2">
             {/* Business Identity */}
             <Card>
               <CardHeader>
@@ -515,7 +515,7 @@ export default function EmailTemplateManagementPage() {
                   <Label htmlFor="address-line1">Address Line 1</Label>
                   <Input id="address-line1" value={company.addressLine1} onChange={(e) => updateCompany("addressLine1", e.target.value)} />
                 </div>
-                <div className="grid gap-4 grid-cols-2">
+                <div className="responsive-grid-2">
                   <div className="space-y-2">
                     <Label htmlFor="address-city">City</Label>
                     <Input id="address-city" value={company.city} onChange={(e) => updateCompany("city", e.target.value)} />
@@ -639,7 +639,7 @@ export default function EmailTemplateManagementPage() {
 
         {/* ---- Brand Colors Tab ---- */}
         <TabsContent value="colors" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="responsive-grid-2">
             {/* Core Brand Colors */}
             <Card>
               <CardHeader>
@@ -707,7 +707,7 @@ export default function EmailTemplateManagementPage() {
               <CardDescription>Service request templates use urgency-specific color treatments for headers, badges, and alert banners</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="responsive-grid-3">
                 {(["routine", "urgent", "emergency"] as const).map((level) => (
                   <div key={level} className="space-y-4">
                     <div className="flex items-center gap-2">
@@ -776,7 +776,7 @@ export default function EmailTemplateManagementPage() {
 
         {/* ---- SLA & Response Times Tab ---- */}
         <TabsContent value="sla" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="responsive-grid-2">
             {/* Service Request SLAs */}
             <Card>
               <CardHeader>
@@ -846,7 +846,7 @@ export default function EmailTemplateManagementPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="responsive-grid-3">
                   <div className="space-y-2">
                     <h4 className="font-medium text-foreground text-sm">Customer Emails</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -886,7 +886,7 @@ export default function EmailTemplateManagementPage() {
                           <Badge variant="outline" className="text-xs">Urgency Variants</Badge>
                         )}
                       </div>
-                      <div className="grid gap-2 md:grid-cols-3 text-xs">
+                      <div className="responsive-grid-3 text-xs">
                         <div>
                           <span className="text-muted-foreground">Subject Line:</span>
                           <p className="font-mono text-foreground mt-0.5">{tmpl.subject}</p>

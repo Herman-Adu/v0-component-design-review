@@ -141,7 +141,7 @@ export default function RecipientGroupsPage() {
 
       {/* Stats */}
       {stats && (
-        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        <div className="responsive-grid-icon-2-4">
           <Card>
             <CardContent className="p-5">
               <p className="text-sm text-muted-foreground">Groups</p>
@@ -218,7 +218,7 @@ export default function RecipientGroupsPage() {
             <CardTitle className="text-lg">Create New Group</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="responsive-grid-2">
               <div className="space-y-2">
                 <Label className="text-sm">Group Name</Label>
                 <Input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="e.g. Emergency Response Team" />
@@ -360,7 +360,7 @@ export default function RecipientGroupsPage() {
                       <p className="text-sm font-medium text-foreground flex items-center gap-2">
                         <UserPlus className="h-4 w-4" /> Add Member
                       </p>
-                      <div className="grid gap-3 md:grid-cols-3">
+                      <div className="responsive-grid-3">
                         <Input placeholder="Name" value={memberName} onChange={(e) => setMemberName(e.target.value)} className="text-sm" />
                         <Input placeholder="Email" value={memberEmail} onChange={(e) => setMemberEmail(e.target.value)} className="text-sm font-mono" />
                         <Input placeholder="Role" value={memberRole} onChange={(e) => setMemberRole(e.target.value)} className="text-sm" />

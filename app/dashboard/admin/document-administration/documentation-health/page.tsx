@@ -440,7 +440,7 @@ export default function DocSystemOverviewPage() {
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="responsive-grid-5">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Coverage</CardTitle>
@@ -498,7 +498,7 @@ export default function DocSystemOverviewPage() {
           <CardDescription>Run automated checks against the documentation system to detect issues</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="responsive-grid-2">
             {healthChecks.map((check) => {
               const Icon = check.icon
               return (
@@ -550,7 +550,7 @@ export default function DocSystemOverviewPage() {
           <CardDescription>Data-driven content with dynamic [slug] routing and filter logic</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="responsive-grid-3">
             <div className="border border-border rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-foreground">Articles</h3>
@@ -685,7 +685,7 @@ export default function DocSystemOverviewPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="responsive-grid-3">
             <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">How It Works</p>
               <p className="text-xs text-muted-foreground">

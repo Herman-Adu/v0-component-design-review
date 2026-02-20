@@ -358,7 +358,7 @@ export default function RouteVerificationPage() {
             <CardDescription>Click "Run Checks" to verify every route in the system</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="responsive-grid-2">
               <div className="space-y-3">
                 <h3 className="font-semibold text-foreground">Static Route Registry</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -384,7 +384,7 @@ export default function RouteVerificationPage() {
       {/* Results */}
       {run && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="responsive-grid-icon-2-4">
             <Card className="cursor-pointer hover:border-foreground/20 transition-colors" onClick={() => setFilterStatus("all")}>
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-foreground">{run.results.length}</div>

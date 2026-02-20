@@ -85,7 +85,7 @@ export default function EmailPreviewPage() {
       </div>
 
       {/* Template Selector */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="responsive-grid-3">
         {TEMPLATE_GROUPS.map((group) => {
           const isActiveGroup = group.templates.some((t) => t.id === activeTemplate)
           const GroupIcon = group.icon
@@ -227,7 +227,7 @@ export default function EmailPreviewPage() {
       {/* Template Info */}
       <Card className="border-border/50">
         <CardContent className="pt-6">
-          <div className="grid gap-4 md:grid-cols-3 text-sm">
+          <div className="responsive-grid-3 text-sm">
             <div>
               <span className="font-medium text-foreground">Template File</span>
               <p className="text-muted-foreground mt-1">

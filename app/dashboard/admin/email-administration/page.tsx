@@ -126,7 +126,7 @@ export default function EmailAdministrationOverviewPage() {
       {/* Section Cards */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Sections</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {sections.map((section) => (
             <Card key={section.title} className="border-border/50">
               <CardHeader className="pb-3">
@@ -158,7 +158,7 @@ export default function EmailAdministrationOverviewPage() {
       {/* Highlights */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Key Capabilities</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="responsive-grid-3">
           {highlights.map((item) => (
             <Card key={item.title} className="border-border/50">
               <CardContent className="flex gap-4 p-5">

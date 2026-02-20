@@ -550,7 +550,7 @@ export default function TestingGuidePage() {
           </Card>
 
           {/* Processing by Type */}
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="responsive-grid-3">
             <Card className="border-blue-500/20 bg-card">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-2">

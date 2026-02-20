@@ -155,7 +155,7 @@ export default function EmailConfigurationPage() {
       </Card>
 
       {/* Quick Actions */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+      <div className="responsive-grid-3">
         {features.map((item) => (
           <Card key={item.title} className="border-accent/30">
             <CardContent className="p-4 flex items-center justify-between gap-3">
@@ -179,7 +179,7 @@ export default function EmailConfigurationPage() {
       {/* Email Types */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Email Types</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {emailTypes.map((email) => (
             <Card key={email.type} className="border-border/50">
               <CardContent className="p-5 space-y-3">
@@ -217,7 +217,7 @@ export default function EmailConfigurationPage() {
       {/* Feature Cards */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Pages</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {features.map((feature) => (
             <Card key={feature.title} className="border-border/50">
               <CardHeader className="pb-3">
@@ -253,7 +253,7 @@ export default function EmailConfigurationPage() {
         <h2 className="text-xl font-semibold text-foreground mb-4">Architecture</h2>
         <Card className="border-border/50">
           <CardContent className="p-6">
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="responsive-grid-3">
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                   <Shield className="h-4 w-4 text-accent" />
@@ -289,7 +289,7 @@ export default function EmailConfigurationPage() {
       {/* Config Highlights */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Configuration Highlights</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {configHighlights.map((item) => (
             <Card key={item.title} className="border-border/50">
               <CardContent className="flex gap-4 p-5">
