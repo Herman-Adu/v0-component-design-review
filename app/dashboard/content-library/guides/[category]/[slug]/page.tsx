@@ -5,9 +5,9 @@ import { guides, type Guide } from "@/data/content-library/guides"
 import type { ComponentType } from "react"
 
 // Rich content components for guides
-import { SecurityArchitectureContent } from "@/components/guides/security-architecture"
-import { DeploymentGuideContent } from "@/components/guides/deployment-guide"
-import { TestingStrategyContent } from "@/components/guides/testing-strategy"
+import { SecurityArchitectureContent } from "@/features/dashboard/content-library/guides/security-architecture"
+import { DeploymentGuideContent } from "@/features/dashboard/content-library/guides/deployment-guide"
+import { TestingStrategyContent } from "@/features/dashboard/content-library/guides/testing-strategy"
 
 // Map slugs to rich content components
 const richContentMap: Record<string, ComponentType> = {

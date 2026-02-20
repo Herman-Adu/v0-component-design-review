@@ -7,21 +7,21 @@ import { CodeBlock } from "@/components/atoms/code-block"
 import type { ComponentType } from "react"
 
 // Rich content components for tutorials (article-quality)
-import { DeployingNextjsVercelContent } from "@/components/tutorials/deploying-nextjs-vercel"
-import { MultiStepFormsServerActionsContent } from "@/components/tutorials/multi-step-forms-server-actions"
-import { EmailTemplatesReactEmailContent } from "@/components/tutorials/email-templates-react-email"
-import { E2ETestingPlaywrightContent } from "@/components/tutorials/e2e-testing-playwright"
-import { BuildingAtomicComponentContent } from "@/components/tutorials/building-atomic-component"
-import { ServerSideValidationContent } from "@/components/tutorials/server-side-validation"
-import { ZustandFormStoreContent } from "@/components/tutorials/zustand-form-store"
-import { RateLimitingImplementationContent } from "@/components/tutorials/rate-limiting-implementation"
-import { YourFirstNextjsAppContent } from "@/components/tutorials/your-first-nextjs-app"
-import { YourFirstStrapiCollectionContent } from "@/components/tutorials/your-first-strapi-collection"
-import { UnitTestingVitestContent } from "@/components/tutorials/unit-testing-vitest"
-import { ConnectingNextjsToStrapiContent } from "@/components/tutorials/connecting-nextjs-to-strapi"
+import { DeployingNextjsVercelContent } from "@/features/dashboard/content-library/tutorials/deploying-nextjs-vercel"
+import { MultiStepFormsServerActionsContent } from "@/features/dashboard/content-library/tutorials/multi-step-forms-server-actions"
+import { EmailTemplatesReactEmailContent } from "@/features/dashboard/content-library/tutorials/email-templates-react-email"
+import { E2ETestingPlaywrightContent } from "@/features/dashboard/content-library/tutorials/e2e-testing-playwright"
+import { BuildingAtomicComponentContent } from "@/features/dashboard/content-library/tutorials/building-atomic-component"
+import { ServerSideValidationContent } from "@/features/dashboard/content-library/tutorials/server-side-validation"
+import { ZustandFormStoreContent } from "@/features/dashboard/content-library/tutorials/zustand-form-store"
+import { RateLimitingImplementationContent } from "@/features/dashboard/content-library/tutorials/rate-limiting-implementation"
+import { YourFirstNextjsAppContent } from "@/features/dashboard/content-library/tutorials/your-first-nextjs-app"
+import { YourFirstStrapiCollectionContent } from "@/features/dashboard/content-library/tutorials/your-first-strapi-collection"
+import { UnitTestingVitestContent } from "@/features/dashboard/content-library/tutorials/unit-testing-vitest"
+import { ConnectingNextjsToStrapiContent } from "@/features/dashboard/content-library/tutorials/connecting-nextjs-to-strapi"
 // Removed: UnderstandingReactHydrationContent, BuildingHydrationSafeSidebarContent
 // These used broken shared molecule props. Content renders via markdown fallback path.
-import { ErrorBoundariesAndLoadingStatesContent } from "@/components/tutorials/error-boundaries-and-loading-states"
+import { ErrorBoundariesAndLoadingStatesContent } from "@/features/dashboard/content-library/tutorials/error-boundaries-and-loading-states"
 
 // Map slugs to rich content components
 const richContentMap: Record<string, ComponentType> = {
