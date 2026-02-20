@@ -111,7 +111,7 @@ export default function EngagementPlaybookPage() {
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Daily Engagement Routine</h2>
         <p className="text-sm text-muted-foreground mb-4">35 minutes per day. Consistency beats intensity -- do this daily rather than spending hours once a week.</p>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {dailyRoutine.map((block) => (
             <Card key={block.time} className="border-border/50">
               <CardHeader className="pb-2">
