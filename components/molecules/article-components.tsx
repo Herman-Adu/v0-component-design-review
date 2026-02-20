@@ -108,7 +108,7 @@ export function InfoBox({
   title,
 }: {
   children: ReactNode
-  type?: "info" | "warning" | "tip" | "important" | "danger"
+  type?: "info" | "warning" | "tip" | "important" | "danger" | "success" | "note"
   title?: string
 }) {
   const styles = {
@@ -136,6 +136,16 @@ export function InfoBox({
       bg: "bg-red-500/10 border-red-500/30",
       icon: <Zap className="h-5 w-5 text-red-500 flex-shrink-0" />,
       defaultTitle: "Danger",
+    },
+    success: {
+      bg: "bg-green-500/10 border-green-500/30",
+      icon: <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />,
+      defaultTitle: "Success",
+    },
+    note: {
+      bg: "bg-accent/10 border-accent/30",
+      icon: <Info className="h-5 w-5 text-accent flex-shrink-0" />,
+      defaultTitle: "Note",
     },
   }
 
@@ -580,7 +590,7 @@ export function FeatureGrid({
   features,
   columns = 3,
 }: {
-  features: { icon?: ReactNode; title: string; description: string; items?: string[] }[]
+  features: { icon?: ReactNode; title: string; description: string; items?: string[]; color?: string }[]
   columns?: 2 | 3 | 4
 }) {
   const guardedFeatures = guardArrayProp(features, "FeatureGrid", "features")
@@ -621,7 +631,7 @@ export function FeatureGrid({
 export function MetricsGrid({
   metrics,
 }: {
-  metrics: { label: string; value: string; change?: string; positive?: boolean; description?: string }[]
+  metrics: { label: string; value: string; change?: string; positive?: boolean; description?: string; color?: string }[]
 }) {
   const guardedMetrics = guardArrayProp(metrics, "MetricsGrid", "metrics")
   if (!guardedMetrics) return <PropGuardDiagnostic componentName="MetricsGrid" propName="metrics" received={metrics === undefined ? "undefined" : "null"} />
@@ -653,7 +663,7 @@ export function DataFlowDiagram({
   nodes,
   title,
 }: {
-  nodes: { id?: string; label: string; description?: string; icon?: ReactNode; items?: string[] }[]
+  nodes: { id?: string; label: string; description?: string; icon?: ReactNode; items?: string[]; color?: string }[]
   title?: string
   connections?: string[]
   flow?: "horizontal" | "vertical"
@@ -692,7 +702,7 @@ export function DecisionTree({
   decisions,
 }: {
   title?: string
-  decisions: { condition: string; result: string; recommended?: boolean }[]
+  decisions: { condition: string; result: string; recommended?: boolean; color?: string }[]
 }) {
   const guardedDecisions = guardArrayProp(decisions, "DecisionTree", "decisions")
   if (!guardedDecisions) return <PropGuardDiagnostic componentName="DecisionTree" propName="decisions" received={decisions === undefined ? "undefined" : "null"} />
@@ -762,7 +772,7 @@ export function KeyTakeaway({ children, title, points }: { children?: ReactNode;
 export function RelatedArticles({
   articles,
 }: {
-  articles: { title: string; href?: string; slug?: string; level?: string }[]
+  articles: { title: string; href?: string; slug?: string; level?: string; description?: string; category?: string }[]
 }) {
   const guardedArticles = guardArrayProp(articles, "RelatedArticles", "articles")
   if (!guardedArticles) return <PropGuardDiagnostic componentName="RelatedArticles" propName="articles" received={articles === undefined ? "undefined" : "null"} />
