@@ -161,19 +161,26 @@ export function InfoBox({
 // STEP FLOW DIAGRAM (Horizontal)
 // ============================================
 
-export function StepFlow({ steps, title }: { steps: { number?: number | string; title: string; description: string }[]; title?: string }) {
+export function StepFlow({ steps, title }: { steps: { number?: number | string; title?: string; label?: string; description: string }[]; title?: string }) {
   const guardedSteps = guardArrayProp(steps, "StepFlow", "steps")
   if (!guardedSteps) return <PropGuardDiagnostic componentName="StepFlow" propName="steps" received={steps === undefined ? "undefined" : "null"} />
+
+  // Normalise: accept "label" as alias for "title"
+  const normalizedSteps = guardedSteps.map(step => ({
+    ...step,
+    title: step.title || step.label || "Step",
+  }))
+
   return (
     <div className="bg-card border border-border rounded-lg p-6 my-6">
       {title && <h4 className="font-semibold text-foreground mb-4">{title}</h4>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {guardedSteps.map((step, index) => (
+        {normalizedSteps.map((step, index) => (
           <div key={`step-${index}-${step.number ?? index}`} className="text-center relative">
             <div className="text-2xl font-bold text-accent mb-2">{step.number ?? index + 1}</div>
             <div className="font-semibold text-foreground text-sm mb-1">{step.title}</div>
             <div className="text-xs text-muted-foreground">{step.description}</div>
-            {index < steps.length - 1 && (
+            {index < normalizedSteps.length - 1 && (
               <ArrowRight className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-4 w-4 text-muted-foreground hidden md:block" />
             )}
           </div>
@@ -191,22 +198,29 @@ export function VerticalFlow({
   steps, 
   title 
 }: { 
-  steps: { title: string; description: string; icon?: ReactNode }[]
+  steps: { title?: string; label?: string; description: string; icon?: ReactNode; color?: string }[]
   title?: string 
 }) {
   const guardedSteps = guardArrayProp(steps, "VerticalFlow", "steps")
   if (!guardedSteps) return <PropGuardDiagnostic componentName="VerticalFlow" propName="steps" received={steps === undefined ? "undefined" : "null"} />
+
+  // Normalise: accept "label" as alias for "title"
+  const normalizedSteps = guardedSteps.map(step => ({
+    ...step,
+    title: step.title || step.label || "Step",
+  }))
+
   return (
     <div className="bg-card border border-border rounded-lg p-6 my-6">
       {title && <h4 className="font-semibold text-foreground mb-6">{title}</h4>}
       <div className="relative">
-        {guardedSteps.map((step, index) => (
+        {normalizedSteps.map((step, index) => (
           <div key={index} className="flex gap-4 pb-6 last:pb-0">
             <div className="flex flex-col items-center">
               <div className="w-10 h-10 rounded-full bg-accent/20 border-2 border-accent flex items-center justify-center text-accent">
                 {step.icon || <span className="font-bold text-sm">{index + 1}</span>}
               </div>
-              {index < guardedSteps.length - 1 && (
+              {index < normalizedSteps.length - 1 && (
                 <div className="w-0.5 flex-1 bg-accent/30 mt-2" />
               )}
             </div>
@@ -824,27 +838,36 @@ export function StatsTable({
 // NUMBERED LIST
 // ============================================
 
+type NumberedListItem = string | { title: string; description?: string }
+
 export function NumberedList({
   items,
   title,
 }: {
-  items: { title: string; description: string }[]
+  items: NumberedListItem[]
   title?: string
 }) {
   const guardedItems = guardArrayProp(items, "NumberedList", "items")
   if (!guardedItems) return <PropGuardDiagnostic componentName="NumberedList" propName="items" received={items === undefined ? "undefined" : "null"} />
+
+  // Normalise: accept plain strings or {title, description} objects
+  const normalizedItems = guardedItems.map((item) => {
+    if (typeof item === "string") return { title: item, description: undefined }
+    return item
+  })
+
   return (
     <div className="my-6">
       {title && <h4 className="font-semibold text-foreground mb-4">{title}</h4>}
       <ol className="space-y-4">
-        {guardedItems.map((item, index) => (
+        {normalizedItems.map((item, index) => (
           <li key={index} className="flex gap-4">
             <span className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 text-accent font-bold flex items-center justify-center text-sm">
               {index + 1}
             </span>
             <div className="flex-1 pt-1">
               <span className="font-medium text-foreground">{item.title}</span>
-              <p className="text-muted-foreground text-sm mt-1">{item.description}</p>
+              {item.description && <p className="text-muted-foreground text-sm mt-1">{item.description}</p>}
             </div>
           </li>
         ))}
@@ -857,21 +880,34 @@ export function NumberedList({
 // PROCESS FLOW (Horizontal timeline with arrows)
 // ============================================
 
+type ProcessFlowStep = string | { label?: string; title?: string; sublabel?: string; description?: string; color?: string }
+
 export function ProcessFlow({
   steps,
   title,
 }: {
-  steps: { label: string; sublabel?: string; color?: string }[]
+  steps: ProcessFlowStep[]
   title?: string
 }) {
   const guardedSteps = guardArrayProp(steps, "ProcessFlow", "steps")
   if (!guardedSteps) return <PropGuardDiagnostic componentName="ProcessFlow" propName="steps" received={steps === undefined ? "undefined" : "null"} />
+
+  // Normalise: accept plain strings, {label, sublabel, color}, or {title, description}
+  const normalizedSteps = guardedSteps.map((step) => {
+    if (typeof step === "string") return { label: step, sublabel: undefined, color: undefined }
+    return {
+      label: step.label || step.title || "Step",
+      sublabel: step.sublabel || step.description,
+      color: step.color,
+    }
+  })
+
   return (
     <div className="my-8">
       {title && <h4 className="font-semibold text-foreground mb-4">{title}</h4>}
       <div className="bg-card border border-border rounded-lg p-6">
         <div className="flex items-center justify-between gap-2 overflow-x-auto">
-          {guardedSteps.map((step, index) => (
+          {normalizedSteps.map((step, index) => (
             <div key={index} className="flex items-center">
               <div
                 className={`px-4 py-3 rounded-lg text-center min-w-[120px] ${
@@ -887,7 +923,7 @@ export function ProcessFlow({
                 <div className="font-medium text-foreground text-sm">{step.label}</div>
                 {step.sublabel && <div className="text-xs text-muted-foreground mt-1">{step.sublabel}</div>}
               </div>
-              {index < guardedSteps.length - 1 && (
+              {index < normalizedSteps.length - 1 && (
                 <ArrowRight className="w-5 h-5 text-muted-foreground mx-2 flex-shrink-0" />
               )}
             </div>
