@@ -444,9 +444,51 @@ export default function DocSystemOverviewPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Coverage</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="responsive-grid-3">
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{STATS.pages.total}</div>
+            <p className="text-xs text-muted-foreground">Documentation Pages</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Components</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{COMPONENT_COUNTS.total}</div>
+            <p className="text-xs text-muted-foreground">UI Components</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Content</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">
+              {articles.length + tutorials.length + caseStudies.length + guides.length}
+            </div>
+            <p className="text-xs text-muted-foreground">Library Items</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Health Checks</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{healthChecks.length}</div>
+            <p className="text-xs text-muted-foreground">Active Tools</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Data Source</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="responsive-grid-3">
             <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">How It Works</p>
               <p className="text-xs text-muted-foreground">
