@@ -123,6 +123,7 @@ export default function ContentStrategyPage() {
           </CardHeader>
           <CardContent>
             <div className="responsive-grid-2">
+              {distributionChannels.map((channel) => (
                 <div key={channel.name} className="flex items-start gap-3 p-4 rounded-lg border">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted shrink-0">
                     <channel.icon className="h-4 w-4 text-foreground" />
@@ -152,6 +153,7 @@ export default function ContentStrategyPage() {
           </CardHeader>
           <CardContent>
             <div className="responsive-grid-2">
+              {editorialGuidelines.map((guideline) => (
                 <div key={guideline.title} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30">
                   <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                   <div>
