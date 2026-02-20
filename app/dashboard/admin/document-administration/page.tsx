@@ -148,7 +148,7 @@ export default function DocumentAdministrationOverviewPage() {
       {/* Highlights */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Key Capabilities</h2>
-        <div className="responsive-grid-6">
+        <div className="responsive-grid-3">
           {highlights.map((item) => (
             <Card key={item.title} className="border-border/50">
               <CardContent className="flex gap-4 p-5">
