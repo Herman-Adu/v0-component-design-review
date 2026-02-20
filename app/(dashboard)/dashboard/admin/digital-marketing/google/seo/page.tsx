@@ -181,7 +181,7 @@ export default function GoogleSEOPage() {
           <Zap className="h-5 w-5 text-blue-500" />
           Core Web Vitals Targets
         </h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {coreWebVitals.map((vital) => (
             <Card key={vital.metric} className="border-border/50">
               <CardContent className="p-5">

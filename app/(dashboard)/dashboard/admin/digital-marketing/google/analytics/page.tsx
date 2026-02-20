@@ -153,7 +153,7 @@ export default function GoogleAnalyticsPage() {
           <BarChart3 className="h-5 w-5 text-blue-500" />
           Key Metrics Dashboard
         </h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="responsive-grid-6">
           {keyMetrics.map((m) => {
             const Icon = m.icon
             return (
@@ -202,8 +202,7 @@ export default function GoogleAnalyticsPage() {
           <FileText className="h-5 w-5 text-blue-500" />
           Custom Report Templates
         </h2>
-        <div className="grid gap-4 md:grid-cols-2">
-          {reportTemplates.map((report) => (
+        <div className="responsive-grid-2">
             <Card key={report.name} className="border-border/50">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">

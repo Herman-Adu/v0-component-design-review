@@ -119,8 +119,7 @@ export default function GoogleAdsCampaignsPage() {
           <Target className="h-5 w-5 text-blue-500" />
           Campaign Types
         </h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          {campaignTypes.map((camp) => {
+        <div className="responsive-grid-3">
             const Icon = camp.icon
             return (
               <Card key={camp.type} className="border-border/50">
@@ -193,8 +192,7 @@ export default function GoogleAdsCampaignsPage() {
           <Ban className="h-5 w-5 text-blue-500" />
           Negative Keyword Lists
         </h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {negativeKeywords.map((group) => (
+        <div className="responsive-grid-3">
             <Card key={group.category} className="border-border/50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm">{group.category}</CardTitle>
