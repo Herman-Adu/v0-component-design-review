@@ -85,7 +85,7 @@ export default function EmailPreviewPage() {
       </div>
 
       {/* Template Selector */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="responsive-grid-3">
         {TEMPLATE_GROUPS.map((group) => {
           const isActiveGroup = group.templates.some((t) => t.id === activeTemplate)
           const GroupIcon = group.icon

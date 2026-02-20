@@ -130,7 +130,7 @@ export default function EmailInfrastructureOverviewPage() {
       {/* Feature Cards */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Pages</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {features.map((feature) => (
             <Card key={feature.title} className="border-border/50">
               <CardHeader className="pb-3">
@@ -164,7 +164,7 @@ export default function EmailInfrastructureOverviewPage() {
       {/* System Architecture */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">System Components</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="responsive-grid-3">
           {systemChecks.map((check) => (
             <Card key={check.title} className="border-border/50">
               <CardContent className="flex gap-4 p-5">

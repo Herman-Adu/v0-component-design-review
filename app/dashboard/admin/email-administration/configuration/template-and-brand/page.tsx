@@ -476,7 +476,7 @@ export default function EmailTemplateManagementPage() {
 
         {/* ---- Company Details Tab ---- */}
         <TabsContent value="company" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="responsive-grid-2">
             {/* Business Identity */}
             <Card>
               <CardHeader>

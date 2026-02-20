@@ -176,7 +176,7 @@ export default function EmailSchedulingPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-5">
+      <div className="responsive-grid-5">
         {([
           { label: "Queued", value: stats.queued, color: "text-blue-400" },
           { label: "Scheduled", value: stats.scheduled, color: "text-amber-400" },
@@ -210,7 +210,7 @@ export default function EmailSchedulingPage() {
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="responsive-grid-2">
         {/* Business Hours Configuration */}
         <Card>
           <CardHeader className="pb-3">
