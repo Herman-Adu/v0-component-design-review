@@ -81,7 +81,7 @@ export function TableOfContents({ items }: { items: TOCItem[] }) {
 // SECTION HEADERS
 // ============================================
 
-export function SectionHeader({ number, title, id }: { number: string; title: string; id?: string }) {
+export function SectionHeader({ number, title, id }: { number: string | number; title: string; id?: string }) {
   return (
     <h2 id={id} className="text-2xl font-bold text-foreground mt-12 mb-6 flex items-baseline gap-3 scroll-mt-24">
       <span className="text-accent font-mono">{number}</span>
