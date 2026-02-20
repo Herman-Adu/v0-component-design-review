@@ -142,7 +142,7 @@ export default function HashtagStrategyPage() {
             <h2 className="text-lg font-semibold text-foreground">{cat.category}</h2>
             <p className="text-xs text-muted-foreground">{cat.description}</p>
           </div>
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="responsive-grid-3">
             {cat.tags.map((t) => (
               <Card key={t.tag} className="border-border/50">
                 <CardContent className="p-4 flex items-center justify-between">
