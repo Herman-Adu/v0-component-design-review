@@ -85,7 +85,7 @@ export default function DocQAPage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="responsive-grid-3 mb-8">
+        <div className="grid gap-4 md:grid-cols-3 mb-8">
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <CheckCircle2 className="h-8 w-8 text-green-500" />
@@ -116,7 +116,7 @@ export default function DocQAPage() {
         </div>
 
         {/* QA Tools Grid */}
-        <div className="responsive-grid-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {qaTools.map((tool) => (
             <Card key={tool.href} className="group hover:shadow-md transition-shadow">
               <CardHeader className="pb-3">

@@ -440,63 +440,260 @@ export default function DocSystemOverviewPage() {
       </div>
 
       {/* Overview Stats */}
-      <div className="responsive-grid-5">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Coverage</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">{STATS.pages.total}</div>
-            <p className="text-xs text-muted-foreground">Documentation Pages</p>
+            <div className="text-3xl font-bold text-green-500">{overallCoverage}%</div>
+            <p className="text-xs text-muted-foreground mt-1">{totalDocumented}/{totalItems} items</p>
           </CardContent>
         </Card>
-
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Components</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Doc Sections</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">{COMPONENT_COUNTS.total}</div>
-            <p className="text-xs text-muted-foreground">UI Components</p>
+            <div className="text-3xl font-bold text-foreground">{documentationSections.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">Active pages</p>
           </CardContent>
         </Card>
-
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Content</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Content Items</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">
-              {articles.length + tutorials.length + caseStudies.length + guides.length}
-            </div>
-            <p className="text-xs text-muted-foreground">Library Items</p>
+            <div className="text-3xl font-bold text-accent">{totalContent}</div>
+            <p className="text-xs text-muted-foreground mt-1">{contentLibraryStructure.articles.total}A + {contentLibraryStructure.caseStudies.total}CS + {contentLibraryStructure.tutorials.total}T</p>
           </CardContent>
         </Card>
-
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Version</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">v3.0</div>
+            <p className="text-xs text-muted-foreground mt-1">Feb 6, 2026</p>
+          </CardContent>
+        </Card>
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Health Checks</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">{healthChecks.length}</div>
-            <p className="text-xs text-muted-foreground">Active Tools</p>
+            <div className="text-3xl font-bold text-cyan-500">{healthChecks.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">Automated tools</p>
           </CardContent>
         </Card>
+      </div>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Data Source</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="responsive-grid-3">
-              <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
+      {/* Health Check Tools */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Activity className="h-5 w-5 text-cyan-500" />
+            Health Check Tools
+          </CardTitle>
+          <CardDescription>Run automated checks against the documentation system to detect issues</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 md:grid-cols-2">
+            {healthChecks.map((check) => {
+              const Icon = check.icon
+              return (
+                <Link
+                  key={check.name}
+                  href={check.href}
+                  className="group flex items-start gap-4 p-4 rounded-lg border border-border hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-all"
+                >
+                  <Icon className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-semibold text-foreground group-hover:text-cyan-500 transition-colors">{check.name}</h3>
+                      <HealthStatusBadge status={check.status} />
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">{check.description}</p>
+                    {check.lastRun && (
+                      <p className="text-xs text-muted-foreground mt-2">Last run: {check.lastRun}</p>
+                    )}
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-cyan-500 shrink-0 mt-1 transition-colors" />
+                </Link>
+              )
+            })}
+          </div>
+          <div className="mt-4 flex justify-end gap-2">
+            <Link href="/dashboard/admin/document-administration/quality-engineering">
+              <Button variant="outline" className="gap-2 bg-transparent">
+                <Activity className="h-4 w-4" />
+                Quality Engineering
+              </Button>
+            </Link>
+            <Link href="/dashboard/admin/document-administration/quality-engineering/fix-actions">
+              <Button variant="outline" className="gap-2 bg-transparent">
+                <Wrench className="h-4 w-4" />
+                Fix Actions
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Content Library Structure */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FolderTree className="h-5 w-5" />
+            Content Library
+          </CardTitle>
+          <CardDescription>Data-driven content with dynamic [slug] routing and filter logic</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-foreground">Articles</h3>
+                <span className="text-2xl font-bold text-foreground">{contentLibraryStructure.articles.total}</span>
+              </div>
+              <div className="space-y-1 text-sm">
+                {Object.entries(contentLibraryStructure.articles.byLevel).map(([level, count]) => (
+                  <div key={level} className="flex justify-between">
+                    <span className={level === "beginner" ? "text-green-500" : level === "intermediate" ? "text-yellow-500" : "text-red-500"}>{level}</span>
+                    <span className="text-muted-foreground">{count}</span>
+                  </div>
+                ))}
+              </div>
+              <code className="block text-xs bg-muted p-2 rounded">{contentLibraryStructure.articles.dynamicRoute}</code>
+            </div>
+
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-foreground">Case Studies</h3>
+                <span className="text-2xl font-bold text-foreground">{contentLibraryStructure.caseStudies.total}</span>
+              </div>
+              <div className="space-y-1 text-sm">
+                {Object.entries(contentLibraryStructure.caseStudies.byCategory).map(([cat, count]) => (
+                  <div key={cat} className="flex justify-between">
+                    <span className="text-muted-foreground capitalize">{cat}</span>
+                    <span className="text-muted-foreground">{count as number}</span>
+                  </div>
+                ))}
+              </div>
+              <code className="block text-xs bg-muted p-2 rounded">{contentLibraryStructure.caseStudies.dynamicRoute}</code>
+            </div>
+
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-foreground">Tutorials</h3>
+                <span className="text-2xl font-bold text-foreground">{contentLibraryStructure.tutorials.total}</span>
+              </div>
+              <div className="space-y-1 text-sm">
+                {Object.entries(contentLibraryStructure.tutorials.byLevel).map(([level, count]) => (
+                  <div key={level} className="flex justify-between">
+                    <span className={level === "beginner" ? "text-green-500" : level === "intermediate" ? "text-yellow-500" : "text-red-500"}>{level}</span>
+                    <span className="text-muted-foreground">{count}</span>
+                  </div>
+                ))}
+              </div>
+              <code className="block text-xs bg-muted p-2 rounded">{contentLibraryStructure.tutorials.dynamicRoute}</code>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Documentation Sections Status */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="h-5 w-5" />
+            All Documentation Sections ({documentationSections.length})
+          </CardTitle>
+          <CardDescription>Current status of every documentation page in the system</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {documentationSections.map((section) => (
+              <div key={section.path} className="border border-border rounded-lg p-4">
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <Link href={section.path} className="font-semibold text-foreground hover:text-accent transition-colors">
+                      {section.name}
+                    </Link>
+                    <p className="text-xs text-muted-foreground">{section.path}</p>
+                  </div>
+                  <StatusBadge status={section.status} />
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {section.coversComponents.map((component) => (
+                    <span key={component} className="px-2 py-0.5 bg-muted rounded text-xs text-muted-foreground">{component}</span>
+                  ))}
+                </div>
+                {section.notes && (
+                  <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-2">Note: {section.notes}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Codebase Coverage */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Code className="h-5 w-5" />
+            Codebase Coverage
+          </CardTitle>
+          <CardDescription>Documentation alignment with actual codebase files</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {codebaseCoverage.map((area) => (
+              <div key={area.area} className="border border-border rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold text-foreground">{area.area}</h3>
+                  <span className="text-sm text-muted-foreground">{area.documentedItems}/{area.totalItems}</span>
+                </div>
+                <CoverageBar documented={area.documentedItems} total={area.totalItems} />
+                <details className="mt-2">
+                  <summary className="text-sm text-muted-foreground cursor-pointer hover:text-foreground">
+                    View files ({area.files.length})
+                  </summary>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {area.files.map((file) => (
+                      <code key={file} className="px-2 py-0.5 bg-muted rounded text-xs">{file}</code>
+                    ))}
+                  </div>
+                </details>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Centralized Manifest & Gap Analysis */}
+      <Card className="border-accent/30">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Database className="h-5 w-5 text-accent" />
+            <CardTitle>Centralized Manifest System</CardTitle>
+            <Badge className="bg-green-500/20 text-green-400 border-0 ml-2">Active</Badge>
+          </div>
+          <CardDescription>
+            All documentation stats are sourced from data/doc-manifest.ts -- the single source of truth.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">How It Works</p>
               <p className="text-xs text-muted-foreground">
                 The manifest imports real data arrays and computes counts via .length.
                 All doc pages import STATS instead of hardcoding numbers.
               </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
+            </div>
+            <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">After Any Change</p>
               <ul className="text-xs text-muted-foreground space-y-1">
                 <li>1. Add/remove content in data arrays</li>
@@ -504,16 +701,16 @@ export default function DocSystemOverviewPage() {
                 <li>3. All pages reflect new numbers</li>
                 <li>4. Run Count Validation to verify</li>
               </ul>
-              </div>
-              <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
+            </div>
+            <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
               <p className="text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">v0 Custom Rules:</span>{" "}
                 Rules in .v0/rules.md instruct the AI to always import from the manifest, never hardcode
                 stats, and run validation after feature changes.
               </p>
-              </div>
             </div>
-          </CardContent>
+          </div>
+        </CardContent>
       </Card>
 
       {/* Changelog */}

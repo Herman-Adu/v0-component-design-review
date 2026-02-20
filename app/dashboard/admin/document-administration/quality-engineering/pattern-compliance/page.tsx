@@ -507,7 +507,7 @@ export default function PatternCompliancePage() {
         </CardHeader>
         {checkRun && (
           <CardContent>
-            <div className="responsive-grid-3">
+            <div className="grid grid-cols-3 gap-4">
               <div className="rounded-lg bg-emerald-500/10 p-3 text-center">
                 <div className="text-2xl font-bold text-emerald-500">{checkRun.passCount}</div>
                 <div className="text-xs text-muted-foreground">Passed</div>
@@ -527,7 +527,7 @@ export default function PatternCompliancePage() {
 
       {/* What This Checks */}
       {!checkRun && (
-        <div className="responsive-grid-2">
+        <div className="grid gap-4 md:grid-cols-2">
           {[
             {
               title: "Data Integrity",

@@ -292,7 +292,7 @@ export default function TOCIntegrityPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="responsive-grid-3">
+          <div className="grid gap-4 md:grid-cols-3">
             <div className="space-y-2">
               <h3 className="font-semibold text-foreground">1. Data Layer</h3>
               <code className="block text-xs bg-background/80 p-3 rounded border border-border">
@@ -326,7 +326,7 @@ export default function TOCIntegrityPage() {
             <CardDescription>Static analysis of {tocComponentRegistry.length} TOC-enabled components</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="responsive-grid-2">
+            <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-3">
                 <h3 className="font-semibold text-foreground">Registry Checks</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -353,7 +353,7 @@ export default function TOCIntegrityPage() {
       {/* Results */}
       {run && (
         <>
-          <div className="responsive-grid-icon-2-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card className="cursor-pointer hover:border-foreground/20 transition-colors" onClick={() => setFilterStatus("all")}>
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-foreground">{run.results.length}</div>

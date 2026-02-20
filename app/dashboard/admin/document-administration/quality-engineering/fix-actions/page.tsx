@@ -301,7 +301,7 @@ export default function FixActionsPage() {
         </CardHeader>
         {hasRun && (
           <CardContent>
-            <div className="responsive-grid-5">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               <div className="rounded-lg border border-border p-3 text-center">
                 <p className="text-2xl font-bold text-foreground">{fixes.length}</p>
                 <p className="text-xs text-muted-foreground">Total Issues</p>
@@ -551,7 +551,7 @@ export default function FixActionsPage() {
         <h2 className="text-xl font-bold text-foreground border-b border-border pb-2">
           Related Health Checks
         </h2>
-        <div className="responsive-grid-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           {[
             { href: "/dashboard/admin/document-administration/quality-engineering/count-validation", label: "Count Validation", desc: "Verify data array counts match documentation claims" },
             { href: "/dashboard/admin/document-administration/quality-engineering/route-verification", label: "Route Verification", desc: "Check all sidebar nav links resolve to real pages" },
