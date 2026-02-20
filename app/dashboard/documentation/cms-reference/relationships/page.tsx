@@ -204,7 +204,7 @@ export default function RelationshipsPage() {
             <h3 className="font-semibold text-foreground">Browser (Next.js Frontend)</h3>
             <Badge variant="outline" className="text-xs ml-auto">Pages & Components</Badge>
           </div>
-          <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
+          <div className="responsive-grid-icon-2-4">
             {["/articles/[slug]", "/tutorials/[slug]", "/case-studies/[slug]", "/service-request", "/contact", "/quotation", "/dashboard/*", "Layout + Nav"].map((route) => (
               <div key={route} className="p-2 rounded border border-rose-500/15 bg-background/50 text-center">
                 <code className="text-xs text-rose-500">{route}</code>
@@ -227,7 +227,7 @@ export default function RelationshipsPage() {
             <h3 className="font-semibold text-foreground">API Layer (Strapi REST + GraphQL)</h3>
             <Badge variant="outline" className="text-xs ml-auto">24+ Endpoints</Badge>
           </div>
-          <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
+          <div className="responsive-grid-icon-2-4">
             {["/api/articles", "/api/tutorials", "/api/case-studies", "/api/service-requests", "/api/contact-inquiries", "/api/quotation-requests", "/api/site-settings", "/graphql"].map((ep) => (
               <div key={ep} className="p-2 rounded border border-accent/15 bg-background/50 text-center">
                 <code className="text-xs text-accent">{ep}</code>
@@ -250,7 +250,7 @@ export default function RelationshipsPage() {
             <h3 className="font-semibold text-foreground">Strapi CMS (Content Types)</h3>
             <Badge variant="outline" className="text-xs ml-auto">6 Collections + 4 Singles</Badge>
           </div>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="responsive-grid-2">
             <div>
               <p className="text-xs text-muted-foreground mb-2 font-medium">Collection Types</p>
               <div className="grid gap-1.5 grid-cols-2">
@@ -288,7 +288,7 @@ export default function RelationshipsPage() {
             <h3 className="font-semibold text-foreground">Shared Components (Reusable)</h3>
             <Badge variant="outline" className="text-xs ml-auto">18 Components</Badge>
           </div>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="responsive-grid-2">
             <div>
               <p className="text-xs text-muted-foreground mb-2 font-medium">Content Components (10)</p>
               <div className="flex flex-wrap gap-1.5">
@@ -322,7 +322,7 @@ export default function RelationshipsPage() {
             <h3 className="font-semibold text-foreground">PostgreSQL Database</h3>
             <Badge variant="outline" className="text-xs ml-auto">Persistent Storage</Badge>
           </div>
-          <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
+          <div className="responsive-grid-icon-2-4">
             {["articles", "tutorials", "case_studies", "service_requests", "contact_inquiries", "quotations", "components_*", "upload_files"].map((t) => (
               <div key={t} className="p-2 rounded border border-amber-500/15 bg-background/50 text-center">
                 <code className="text-xs text-amber-500">{t}</code>
@@ -672,7 +672,7 @@ const res = await fetch(\`\${STRAPI_URL}/api/case-studies?\${query}\`)`}
       {/* Related Documentation */}
       <section className="space-y-4 mt-8">
         <h2 className="text-2xl font-bold text-foreground border-b border-border pb-2">Related Documentation</h2>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {[
     { href: "/dashboard/documentation/cms-reference/content-collections", icon: BookOpen, title: "Content Collections", desc: "Article, Tutorial, Case Study schemas" },
     { href: "/dashboard/documentation/cms-reference/shared-components", icon: Layers, title: "Shared Components", desc: `${STATS.backend.sharedComponents.total} reusable Strapi components` },

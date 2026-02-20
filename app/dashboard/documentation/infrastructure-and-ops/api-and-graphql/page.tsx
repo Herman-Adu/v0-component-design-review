@@ -707,7 +707,7 @@ export default function APIDocumentationPage() {
           <CodeBlock title="lib/api/auth.ts" language="typescript" code={AUTH_CODE} />
         </Spoiler>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="responsive-grid-2">
           <Card className="border-green-500/20">
             <CardHeader>
               <CardTitle className="text-base text-green-400">API Token (Server-to-Server)</CardTitle>
@@ -731,7 +731,7 @@ export default function APIDocumentationPage() {
           <CodeBlock title="lib/api/error-handler.ts" language="typescript" code={ERROR_HANDLING_CODE} />
         </Spoiler>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="responsive-grid-4">
           {[
             { code: "400", label: "Bad Request", desc: "Invalid input or validation error", color: "amber" },
             { code: "401", label: "Unauthorized", desc: "Missing or invalid authentication", color: "red" },

@@ -37,7 +37,7 @@ export default function DeploymentPage() {
         <p className="text-muted-foreground">
           Deploy frontend and backend separately for better scalability and independent updates.
         </p>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="responsive-grid-2">
           <Card>
             <CardHeader>
               <Cloud className="h-8 w-8 text-accent mb-2" />
@@ -252,7 +252,7 @@ jobs:
       {/* Monitoring */}
       <section className="space-y-6">
         <DocSectionHeader id="monitoring">Monitoring & Analytics</DocSectionHeader>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="responsive-grid-2">
           {[
             { icon: Activity, title: "Vercel Analytics", desc: "Real-time web analytics and Web Vitals monitoring built into Vercel" },
             { icon: Shield, title: "Error Tracking", desc: "Use Sentry for error tracking and performance monitoring" },

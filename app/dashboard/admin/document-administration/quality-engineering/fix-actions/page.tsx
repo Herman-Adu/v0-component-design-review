@@ -253,7 +253,7 @@ export default function FixActionsPage() {
   const skippedCount = fixes.filter((f) => f.status === "skipped").length
 
   return (
-    <div className="space-y-8 max-w-5xl">
+    <div className="space-y-8">
       {/* Header */}
       <div>
         <Link

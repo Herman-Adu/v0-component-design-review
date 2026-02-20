@@ -214,7 +214,7 @@ export default function ComponentSystemPage() {
       {/* System Stats */}
       <section className="space-y-6">
         <DocSectionHeader id="system-glance">System at a Glance</DocSectionHeader>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="responsive-grid-4">
           {[
             { label: "Custom Components", value: String(STATS.frontend.components.total), detail: "Across 7 categories", color: "text-accent" },
             { label: "Article Sub-Components", value: String(COMPONENT_COUNTS.articleSubComponents.count), detail: "Inside article-components.tsx", color: "text-blue-400" },

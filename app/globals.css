@@ -38,11 +38,20 @@
   --sidebar-border: oklch(0.922 0.003 286.32);
   --sidebar-ring: oklch(0.745 0.153 72.338);
 
-  /* Documentation Layout Responsive Variables - Mobile First */
-  --doc-max-width: 100%;
-  --doc-padding-x: 1rem;
-  --doc-padding-y: 2rem;
-  --doc-gap: 1rem;
+  /* Content Layout Responsive Variables - Mobile First */
+  /* These drive ALL sidebar content areas (documentation, admin, content-library, etc.) */
+  --content-max-width: 100%;
+  --content-padding-x: 1rem;
+  --content-padding-y: 2rem;
+  --content-gap: 1rem;
+
+  /* Backward-compat aliases (consumed by doc-specific components) */
+  --doc-max-width: var(--content-max-width);
+  --doc-padding-x: var(--content-padding-x);
+  --doc-padding-y: var(--content-padding-y);
+  --doc-gap: var(--content-gap);
+
+  /* TOC-specific (documentation only) */
   --toc-width: 0;
   --toc-display: none;
   --content-width: 100%;
@@ -69,19 +78,19 @@
 /* SM Breakpoint: 640px (phones, small tablets) */
 @media (min-width: 640px) {
   :root {
-    --doc-padding-x: 1.5rem;
-    --doc-padding-y: 2rem;
-    --doc-gap: 1.5rem;
+    --content-padding-x: 1.5rem;
+    --content-padding-y: 2rem;
+    --content-gap: 1.5rem;
   }
 }
 
 /* MD Breakpoint: 768px (tablets, landscape phones) - TOC HIDDEN */
 @media (min-width: 768px) {
   :root {
-    --doc-max-width: 100%;
-    --doc-padding-x: 1.5rem;
-    --doc-padding-y: 2rem;
-    --doc-gap: 1.5rem;
+    --content-max-width: 100%;
+    --content-padding-x: 1.5rem;
+    --content-padding-y: 2rem;
+    --content-gap: 1.5rem;
     --toc-width: 0;
     --toc-display: none;
     --content-width: 100%;
@@ -92,13 +101,13 @@
 /* LG Breakpoint: 1024px (desktops) - TOC SHOWS HERE */
 @media (min-width: 1024px) {
   :root {
-    --doc-max-width: 88rem;
-    --doc-padding-x: 1.5rem;
-    --doc-padding-y: 2rem;
-    --doc-gap: 2rem;
+    --content-max-width: 88rem;
+    --content-padding-x: 1.5rem;
+    --content-padding-y: 2rem;
+    --content-gap: 2rem;
     --toc-width: 224px;
     --toc-display: block;
-    --content-width: calc(100% - var(--toc-width) - var(--doc-gap));
+    --content-width: calc(100% - var(--toc-width) - var(--content-gap));
     --font-size-base: 1.0625rem;
   }
 }
@@ -106,13 +115,13 @@
 /* XL Breakpoint: 1280px (ultra-wide desktops) */
 @media (min-width: 1280px) {
   :root {
-    --doc-max-width: 90rem;
-    --doc-padding-x: 2rem;
-    --doc-padding-y: 3rem;
-    --doc-gap: 2.5rem;
+    --content-max-width: 90rem;
+    --content-padding-x: 2rem;
+    --content-padding-y: 3rem;
+    --content-gap: 2.5rem;
     --toc-width: 256px;
     --toc-display: block;
-    --content-width: calc(100% - var(--toc-width) - var(--doc-gap));
+    --content-width: calc(100% - var(--toc-width) - var(--content-gap));
     --font-size-base: 1.0625rem;
   }
 }
@@ -222,27 +231,27 @@
 
   /* Dynamic Padding Utilities */
   .px-dynamic {
-    padding-left: var(--doc-padding-x);
-    padding-right: var(--doc-padding-x);
+    padding-left: var(--content-padding-x);
+    padding-right: var(--content-padding-x);
   }
 
   .py-dynamic {
-    padding-top: var(--doc-padding-y);
-    padding-bottom: var(--doc-padding-y);
+    padding-top: var(--content-padding-y);
+    padding-bottom: var(--content-padding-y);
   }
 
   .p-dynamic {
-    padding: var(--doc-padding-y) var(--doc-padding-x);
+    padding: var(--content-padding-y) var(--content-padding-x);
   }
 
   /* Dynamic Gap Utilities */
   .gap-dynamic {
-    gap: var(--doc-gap);
+    gap: var(--content-gap);
   }
 
   /* Dynamic Max Width */
   .max-w-dynamic {
-    max-width: var(--doc-max-width);
+    max-width: var(--content-max-width);
   }
 
   /* TOC Display Control */
@@ -459,48 +468,8 @@
     flex: 1;
   }
 
-  /* RESPONSIVE GRID UTILITIES */
-  .responsive-grid-3 {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .responsive-grid-3 {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .responsive-grid-3 {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .responsive-grid-3 {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  .responsive-grid-2 {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .responsive-grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
+  /* NOTE: responsive-grid-3 and responsive-grid-2 canonical definitions are above.
+     Duplicates removed in Session 16 - Unified Content Layout. */
 
   /* Responsive text overflow - scales down on small screens */
   .text-truncate-responsive {
@@ -572,7 +541,7 @@
 
   /* Responsive Spacing Scale */
   .space-dynamic-x {
-    gap: var(--doc-gap);
+    gap: var(--content-gap);
   }
 
   /* Avoid Horizontal Scroll - All Content Containers */

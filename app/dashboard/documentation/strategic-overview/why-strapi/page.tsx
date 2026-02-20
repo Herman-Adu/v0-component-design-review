@@ -416,7 +416,7 @@ export default function CTOOverviewPage() {
           Ready to Get Started?
         </h2>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           <Card className="border-accent/50">
             <CardContent className="pt-6">
               <h3 className="font-semibold text-foreground mb-2">For Technical Teams</h3>

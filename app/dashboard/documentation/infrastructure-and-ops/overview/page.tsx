@@ -91,7 +91,7 @@ export default function InfrastructureOpsPage() {
       </div>
 
       {/* Quick stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="responsive-grid-3">
         <Card className="border-emerald-500/20">
           <CardHeader className="pb-2">
             <CardDescription>Operational Areas</CardDescription>
@@ -122,7 +122,7 @@ export default function InfrastructureOpsPage() {
       </div>
 
       {/* Feature cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="responsive-grid-2">
         {features.map((feature) => {
           const Icon = feature.icon
           return (

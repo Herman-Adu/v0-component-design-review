@@ -253,7 +253,7 @@ export default function TroubleshootingPage() {
           These are the fastest way to diagnose most issues.
         </Callout>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="responsive-grid-2">
           <div className="border border-border rounded-lg p-4">
             <h3 className="font-semibold mb-2 text-foreground">Check Browser Console</h3>
             <p className="text-sm text-muted-foreground">Press F12 to open DevTools and check Console tab for errors</p>

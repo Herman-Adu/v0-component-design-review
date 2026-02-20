@@ -138,7 +138,7 @@ export default function EmailSchedulingPage() {
 
   if (loading || !config || !stats) {
     return (
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="space-y-6">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" asChild><Link href="/dashboard/admin/email"><ArrowLeft className="h-4 w-4" /></Link></Button>
           <h1 className="text-2xl font-bold text-foreground">Email Scheduling</h1>
@@ -151,7 +151,7 @@ export default function EmailSchedulingPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">

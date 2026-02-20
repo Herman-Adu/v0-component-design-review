@@ -456,7 +456,7 @@ export default function PatternCompliancePage() {
     : {}
 
   return (
-    <div className="space-y-8 max-w-5xl">
+    <div className="space-y-8">
       {/* Header */}
       <div>
         <Link
