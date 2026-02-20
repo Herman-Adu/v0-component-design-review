@@ -39,7 +39,7 @@ export function LightningArc({ isActive, delay = 0 }: LightningArcProps) {
         ease: "power2.inOut",
       },
     ).to([pathRef.current, glowRef.current], {
-      opacity: [1, 0.6, 1],
+      keyframes: { opacity: [1, 0.6, 1] },
       duration: 0.3,
       ease: "sine.inOut",
     })

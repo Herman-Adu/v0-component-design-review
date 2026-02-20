@@ -69,7 +69,6 @@ export default function InfrastructureGettingStartedPage() {
             </div>
           ))}
         </div>
-      </section>
 
       {/* Prerequisites */}
       <DocSectionHeader id="prerequisites">Prerequisites</DocSectionHeader>
@@ -92,7 +91,7 @@ export default function InfrastructureGettingStartedPage() {
             </Card>
           ))}
         </div>
-      </section>
+
 
       {/* Step 1: Environment Setup */}
       <DocSectionHeader id="environment-setup">Environment Setup</DocSectionHeader>
@@ -143,7 +142,7 @@ NODE_ENV=development
 APP_URL=http://localhost:3000`}
           />
         </Spoiler>
-      </section>
+
 
       {/* Step 2: API Configuration */}
       <DocSectionHeader id="api-configuration">API Setup with Validation</DocSectionHeader>
@@ -194,7 +193,7 @@ export async function POST(request: Request) {
         <Callout type="success" title="Type Safety">
           Using Zod ensures both request validation and TypeScript type inference from the same schema.
         </Callout>
-      </section>
+
 
       {/* Step 3: Database Setup */}
       <DocSectionHeader id="database-setup">Database Connection</DocSectionHeader>
@@ -250,7 +249,7 @@ export async function getClient() {
 }`}
           />
         </Spoiler>
-      </section>
+
 
       {/* Step 4: Security Hardening */}
       <DocSectionHeader id="security-hardening">Security Implementation</DocSectionHeader>
@@ -303,7 +302,7 @@ export function rateLimit(ip: string, maxRequests = 100, windowMs = 900000): boo
         <Callout type="warning" title="Production Security">
           Use external rate limiting (Redis) in production. In-memory storage is for development only.
         </Callout>
-      </section>
+
 
       {/* Step 5: Deployment Preparation */}
       <DocSectionHeader id="deployment-preparation">Deployment Preparation</DocSectionHeader>
@@ -369,7 +368,7 @@ LOG_LEVEL=info`}
         <Callout type="success" title="Ready to Deploy!">
           Your infrastructure is now configured for production. See the Deployment section for platform-specific guidance.
         </Callout>
-      </section>
+
 
       {/* Next Steps */}
       <DocSectionHeader id="next-steps">Next Steps</DocSectionHeader>
@@ -387,7 +386,7 @@ LOG_LEVEL=info`}
             </Card>
           ))}
         </div>
-      </section>
+
     </DocPage>
   )
 }

@@ -186,7 +186,7 @@ function checkNamingConventions(): PatternCheck[] {
   })
 
   // Rule: IDs should be unique positive integers (sequential is ideal but not required)
-  const articleIds = articles.map((a) => a.id).sort((a, b) => a - b)
+  const articleIds = articles.map((a) => Number(a.id)).sort((a, b) => a - b)
   const allPositive = articleIds.every((id) => id > 0)
   const allUnique = new Set(articleIds).size === articleIds.length
   results.push({

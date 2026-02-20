@@ -86,11 +86,6 @@ export default function StrategicOverviewPage() {
         { label: "Audience", value: "All Roles" },
         { label: "Last Updated", value: "2026-02-11" },
       ]}
-      tableOfContents={[
-        { id: "documentation-sections", label: "Documentation Sections" },
-        { id: "by-audience", label: "By Audience" },
-        { id: "how-docs-are-organised", label: "How Docs Are Organised" },
-      ]}
     >
       <section id="documentation-sections">
         <h2 className="text-2xl font-bold text-foreground mb-6">Documentation Sections</h2>

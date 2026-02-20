@@ -20,6 +20,7 @@ import {
   Compass,
   FlaskConical,
   Target,
+  Megaphone,
 } from "lucide-react"
 import Link from "next/link"
 import { articles } from "@/data/content-library/articles"
@@ -105,12 +106,12 @@ const docSystemTools = [
 
 const contentTools = [
   {
-    href: "/dashboard/content-library/social",
-    icon: Share2,
-    title: "Social Media",
-    description: "Manage social media posts and content for LinkedIn, Twitter, and Facebook campaigns.",
+    href: "/dashboard/admin/digital-marketing",
+    icon: Megaphone,
+    title: "Digital Marketing",
+    description: "Platform marketing for Google, LinkedIn, Twitter/X, and Facebook. SEO, ads, content composers, and analytics.",
     status: "Available",
-    badge: "Content",
+    badge: "Marketing",
     badgeColor: "bg-accent/10 text-accent",
   },
   {
@@ -118,15 +119,6 @@ const contentTools = [
     icon: MailCheck,
     title: "Email Preview",
     description: "Preview and test email templates before sending to customers and business notifications.",
-    status: "Available",
-    badge: "Content",
-    badgeColor: "bg-accent/10 text-accent",
-  },
-  {
-    href: "/dashboard/admin/content-strategy",
-    icon: TrendingUp,
-    title: "Content Strategy",
-    description: "Content calendar, distribution strategy, and editorial planning for the learning hub.",
     status: "Available",
     badge: "Content",
     badgeColor: "bg-accent/10 text-accent",

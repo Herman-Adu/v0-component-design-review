@@ -20,6 +20,8 @@ export interface DocBadge {
   label: string
   variant?: "default" | "outline" | "destructive"
   className?: string
+  /** Shorthand colour key -- maps to tailwind bg/text classes */
+  color?: "blue" | "red" | "amber" | "green" | "purple" | "cyan" | "pink" | "teal"
 }
 
 // A badge item can be a DocBadge object, a plain string, or a pre-rendered JSX element
@@ -118,6 +120,17 @@ function DocTOC({ sections }: { sections: DocSection[] }) {
 // DocPage Wrapper
 // ---------------------------------------------------------------------------
 
+const COLOR_MAP: Record<string, string> = {
+  blue: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  red: "bg-red-500/10 text-red-500 border-red-500/20",
+  amber: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+  green: "bg-green-500/10 text-green-500 border-green-500/20",
+  purple: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+  cyan: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
+  pink: "bg-pink-500/10 text-pink-500 border-pink-500/20",
+  teal: "bg-teal-500/10 text-teal-500 border-teal-500/20",
+}
+
 function renderBadgeItem(item: DocBadgeItem, index: number) {
   // Pre-rendered JSX element (React element)
   if (React.isValidElement(item)) return <React.Fragment key={index}>{item}</React.Fragment>
@@ -125,8 +138,10 @@ function renderBadgeItem(item: DocBadgeItem, index: number) {
   if (typeof item === "string") return <Badge key={item} variant="outline">{item}</Badge>
   // DocBadge object
   const b = item as DocBadge
+  const colorClass = b.color ? COLOR_MAP[b.color] ?? "" : ""
+  const cls = [colorClass, b.className].filter(Boolean).join(" ") || undefined
   return (
-    <Badge key={b.label} variant={b.variant ?? "default"} className={b.className}>
+    <Badge key={b.label} variant={b.variant ?? "default"} className={cls}>
       {b.label}
     </Badge>
   )

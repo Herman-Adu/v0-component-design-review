@@ -11,7 +11,7 @@
  * - Composable - Schemas can be combined and reused
  */
 
-import { z } from "zod"
+import { z } from "zod";
 
 // Step 1: Personal Information Schema
 export const personalInfoSchema = z.object({
@@ -27,8 +27,11 @@ export const personalInfoSchema = z.object({
 
   email: z.string().email("Please enter a valid email address"),
 
-  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number is too long"),
-})
+  phone: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number is too long"),
+});
 
 // Step 2: Service Details Schema
 export const serviceDetailsSchema = z.object({
@@ -40,7 +43,7 @@ export const serviceDetailsSchema = z.object({
     .string()
     .min(10, "Please provide at least 10 characters describing your needs")
     .max(500, "Description must be less than 500 characters"),
-})
+});
 
 // Step 3: Property Information Schema
 export const propertyInfoSchema = z.object({
@@ -52,12 +55,18 @@ export const propertyInfoSchema = z.object({
 
   postcode: z
     .string()
-    .regex(/^[A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2}$/i, "Please enter a valid UK postcode (e.g., SW1A 1AA, EC1A 1BB)"),
+    .regex(
+      /^[A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2}$/i,
+      "Please enter a valid UK postcode (e.g., SW1A 1AA, EC1A 1BB)",
+    ),
 
   propertyType: z.enum(["residential", "commercial"]),
 
-  accessInstructions: z.string().max(200, "Access instructions must be less than 200 characters").optional(),
-})
+  accessInstructions: z
+    .string()
+    .max(200, "Access instructions must be less than 200 characters")
+    .optional(),
+});
 
 // Step 4: Schedule Preferences Schema
 export const schedulePreferencesSchema = z.object({
@@ -68,7 +77,7 @@ export const schedulePreferencesSchema = z.object({
   alternativeDate: z.string().optional(),
 
   flexibleScheduling: z.boolean(),
-})
+});
 
 // Combined schema for final validation (Step 5: Review)
 export const completeFormSchema = z.object({
@@ -76,11 +85,14 @@ export const completeFormSchema = z.object({
   serviceDetails: serviceDetailsSchema,
   propertyInfo: propertyInfoSchema,
   schedulePreferences: schedulePreferencesSchema,
-})
+});
 
 // Export types inferred from schemas
-export type PersonalInfoInput = z.infer<typeof personalInfoSchema>
-export type ServiceDetailsInput = z.infer<typeof serviceDetailsSchema>
-export type PropertyInfoInput = z.infer<typeof propertyInfoSchema>
-export type SchedulePreferencesInput = z.infer<typeof schedulePreferencesSchema>
-export type CompleteFormInput = z.infer<typeof completeFormSchema>
+export type PersonalInfoInput = z.infer<typeof personalInfoSchema>;
+export type ServiceDetailsInput = z.infer<typeof serviceDetailsSchema>;
+export type PropertyInfoInput = z.infer<typeof propertyInfoSchema>;
+export type SchedulePreferencesInput = z.infer<
+  typeof schedulePreferencesSchema
+>;
+export type CompleteFormInput = z.infer<typeof completeFormSchema>;
+export type ServiceRequestData = CompleteFormInput;

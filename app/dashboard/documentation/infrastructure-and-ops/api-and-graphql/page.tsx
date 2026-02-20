@@ -612,7 +612,7 @@ export default function APIDocumentationPage() {
     >
       {/* API Endpoints Overview */}
       <section className="space-y-6">
-        <DocSectionHeader id="api-endpoints-overview" title="API Endpoints Overview" />
+        <DocSectionHeader id="api-endpoints-overview">API Endpoints Overview</DocSectionHeader>
 
         <Callout type="info" title="Base URL Configuration">
           All API endpoints use the base URL configured in your environment. For development, this
@@ -639,7 +639,7 @@ export default function APIDocumentationPage() {
 
       {/* REST API Usage */}
       <section className="space-y-6">
-        <DocSectionHeader id="rest-api-usage" title="REST API Usage" />
+        <DocSectionHeader id="rest-api-usage">REST API Usage</DocSectionHeader>
 
         <Tabs defaultValue="fetch" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
@@ -677,7 +677,7 @@ export default function APIDocumentationPage() {
 
       {/* GraphQL API */}
       <section className="space-y-6">
-        <DocSectionHeader id="graphql-api" title="GraphQL API" />
+        <DocSectionHeader id="graphql-api">GraphQL API</DocSectionHeader>
 
         <Callout type="info" title="Enable GraphQL Plugin">
           GraphQL is available via the @strapi/plugin-graphql package. Install it and restart Strapi
@@ -695,7 +695,7 @@ export default function APIDocumentationPage() {
 
       {/* Authentication & Security */}
       <section className="space-y-6">
-        <DocSectionHeader id="authentication-security" title="Authentication & Security" />
+        <DocSectionHeader id="authentication-security">{"Authentication & Security"}</DocSectionHeader>
 
         <Callout type="warning" title="Token Security">
           Never expose your full-access API token to the client. Use server-side API routes or Server
@@ -725,7 +725,7 @@ export default function APIDocumentationPage() {
 
       {/* Error Handling */}
       <section className="space-y-6">
-        <DocSectionHeader id="error-handling" title="Error Handling" />
+        <DocSectionHeader id="error-handling">Error Handling</DocSectionHeader>
 
         <Spoiler title="Centralised Error Handler" defaultOpen>
           <CodeBlock title="lib/api/error-handler.ts" language="typescript" code={ERROR_HANDLING_CODE} />
@@ -755,7 +755,7 @@ export default function APIDocumentationPage() {
 
       {/* Rate Limiting */}
       <section className="space-y-6">
-        <DocSectionHeader id="rate-limiting" title="Rate Limiting" />
+        <DocSectionHeader id="rate-limiting">Rate Limiting</DocSectionHeader>
 
         <Spoiler title="Rate Limit Configuration" defaultOpen>
           <CodeBlock title="config/middlewares.ts + API route" language="typescript" code={RATE_LIMIT_CODE} />

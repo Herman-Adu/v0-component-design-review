@@ -83,11 +83,6 @@ export default function StrategicGettingStartedPage() {
         { label: "Audience", value: "All Roles" },
         { label: "Last Updated", value: "2026-02-11" },
       ]}
-      tableOfContents={[
-        { id: "recommended-path", label: "Recommended Path" },
-        { id: "section-starting-points", label: "Section Starting Points" },
-        { id: "quick-links", label: "Quick Links" },
-      ]}
     >
       <section id="recommended-path">
         <h2 className="text-2xl font-bold text-foreground mb-6">Recommended Path</h2>

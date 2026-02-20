@@ -1,16 +1,16 @@
 /**
  * Security Module Exports
- * 
+ *
  * Centralized exports for all security-related utilities.
  */
 
 export {
-  RateLimiter,
+  createRateLimiter,
   rateLimiters,
   getClientIdentifier,
   type RateLimitResult,
-  type RateLimiterOptions,
-} from "./rate-limiter"
+  type RateLimitConfig,
+} from "./rate-limiter";
 
 export {
   generateCsrfToken,
@@ -19,4 +19,4 @@ export {
   validateCsrfToken,
   validateOrigin,
   securityCheck,
-} from "./csrf"
+} from "./csrf";

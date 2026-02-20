@@ -32,6 +32,7 @@ import { SidebarSkeleton } from "@/components/molecules/sidebar-skeleton"
 import type { NavItem, NavSection } from "@/data/nav-data"
 import {
   adminSection,
+  digitalMarketingSection,
   documentAdministrationSection,
   emailAdministrationSection,
   strategicOverviewSection,
@@ -144,6 +145,7 @@ export function DocsSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <NavCollapsible section={adminSection} pathname={pathname} />
+              <NavCollapsible section={digitalMarketingSection} pathname={pathname} />
               <NavCollapsible section={documentAdministrationSection} pathname={pathname} />
               <NavCollapsible section={emailAdministrationSection} pathname={pathname} />
             </SidebarMenu>

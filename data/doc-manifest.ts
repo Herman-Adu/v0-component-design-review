@@ -322,6 +322,7 @@ export type DocAudience =
   | "CTO / Project Lead"
   | "Developer / Architect"
   | "DevOps / WebAdmin"
+  | "DevOps / Developer"
   | "Business Admin / Office Staff"
   | "QA / Testing"
   | "All Roles"
