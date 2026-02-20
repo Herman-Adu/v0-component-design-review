@@ -2,7 +2,6 @@ import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MetricsGrid } from "@/components/organisms"
 import {
   LineChart,
   ArrowRight,
@@ -154,14 +153,25 @@ export default function GoogleAnalyticsPage() {
           <BarChart3 className="h-5 w-5 text-blue-500" />
           Key Metrics Dashboard
         </h2>
-        <MetricsGrid 
-          metrics={keyMetrics.map(m => ({
-            label: m.metric,
-            value: m.description,
-            icon: m.icon,
-            category: m.category
-          }))}
-        />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {keyMetrics.map((m) => {
+            const Icon = m.icon
+            return (
+              <Card key={m.metric} className="border-border/50">
+                <CardContent className="p-5">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-center w-9 h-9 rounded-md bg-blue-500/10">
+                      <Icon className="h-4 w-4 text-blue-500" />
+                    </div>
+                    <Badge variant="outline" className="text-[10px]">{m.category}</Badge>
+                  </div>
+                  <p className="font-semibold text-foreground text-sm mb-1">{m.metric}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{m.description}</p>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
       </div>
 
       {/* Conversion Goals */}
