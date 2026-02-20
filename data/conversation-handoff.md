@@ -1,7 +1,8 @@
-# Session 14 Handoff -- TypeScript Contract Fix + Architecture Refactor
-**Last Session:** S13 (partial fixes, build still broken)
-**Current Session:** S14
-**Date:** 2026-02-20
+# Session 16 Handoff -- Clean Build, Architecture Complete
+**Last Sessions:** S14-S15 (TypeScript contract fix + architecture move + 33 batch fixes)
+**Next Session:** S16
+**Date:** 2026-02-21
+**Build Status:** CLEAN -- Deployed to Vercel, site live
 
 ## Model Selection Protocol (MANDATORY)
 v0 CANNOT change the model -- the user MUST select it manually in the v0 UI dropdown.
@@ -15,136 +16,123 @@ Before starting each task, v0 MUST:
 - **v0 (default)** -- standard implementation, single-feature builds, component creation
 - **v0 Mini** -- single-file styling edits, copy changes, doc updates, simple prop fixes
 
-**For Session 14:** Start on v0 Max (audit + batch type fix). Switch to v0 Mini for individual file edits once the plan is clear. Switch back to v0 Max for architecture refactor.
-
 ## Quick Recovery
 Paste into new v0 chat:
 > Continuing Electrical Services project. Read /data/conversation-handoff.md for context.
 > Rules auto-load from .v0/rules.md.
-> Session 14: TypeScript contract fix for clean build, then architecture refactor.
-> FIRST: Read article-components.tsx fully. Audit every component interface.
-> Then grep every consumer file for prop mismatches. Fix ALL in one batch.
-> Verify build locally BEFORE any push.
+> Session 16: Clean build achieved. Ready for Phase 2 (Responsive Grid System).
+> Also read SYNC_HANDOFF_DOCUMENT.md for Phase 2 responsive grid plan.
 > Announce model needed for each task and STOP for me to switch.
 
 ---
 
-## BUILD STATUS: BROKEN
+## BUILD STATUS: CLEAN (Deployed)
 
-### The Problem (systemic, not isolated)
-`components/molecules/article-components.tsx` (1045 lines, 20+ component definitions) has strict TypeScript interfaces. 80+ consumer files across articles/, tutorials/, case-studies/, guides/ pass props that don't match. `next build` stops at the FIRST error, so fixing one reveals the next. One-by-one patching does not work.
+### What Was Fixed in S14-S15 (v0 + Local)
 
-### Error Class: "Object literal may only specify known properties"
-Every error is the same pattern: a consumer passes a prop name or shape the component interface doesn't accept.
+**v0 Contributions (article-components.tsx interface widenings):**
 
-### Fixes Applied in S12-S13 (verified committed)
-| Component | Fix | Status |
-|---|---|---|
-| `CodeBlock` | Added `title?: string`, unified display via `label = filename \|\| title` | DONE |
-| `StepFlow` | `number` made optional, accepts `string \| number` | DONE (S12) |
-| `MetricsGrid` | Added `description?: string` | DONE (S12) |
-| `DataFlowDiagram` | Added `id?`, `connections?`, `flow?`, `items?` | DONE (S12) |
-| `KeyTakeaway` | Added `title?`, `points?: string[]` | DONE (S12) |
-| `RelatedArticles` | Added `slug?` with href fallback | DONE (S12) |
-| `InfoBox` | Added `"danger"` to type union | DONE (S12) |
-| `FileTreeItem` | Added `indent?`, `description?` | DONE (S12) |
-| `FeatureGrid` | Added `items?: string[]`, made `icon` optional | DONE (S12) |
-| `ComparisonCards` | Fixed 8 consumers: leftData->leftItems, rightData->rightItems, removed title+items object shape, removed cards= | DONE (S13) |
-| `BeforeAfterComparison` | Fixed 2 consumers: title+items -> beforeTitle/afterTitle+improvements, label->metric | DONE (S13) |
-| `InfoBox` | Fixed 5 consumers: items={[...]} -> children JSX; fixed 1 type="success" -> type="tip" | DONE (S13) |
-| `FileTree` | Fixed 4 consumers: label -> description | DONE (S13) |
+| Component | Fix |
+|-----------|-----|
+| `BeforeAfterComparison` | Added `title?`, `beforeItems?`, `afterItems?`, `label` alias in nested `before`/`after` objects |
+| `ArchitectureDiagram` | Widened layers to accept `label?` as alias for `name`, defaulted `color` |
+| `ProcessFlow` | Union type `string \| {label?, title?, sublabel?, description?, color?}` with normalization |
+| `VerticalFlow` | Added `label?`, `color?` aliases with normalization |
+| `NumberedList` | Union type `string \| {title, description?}` with normalization |
+| `StepFlow` | Added `label?` as alias for `title` with normalization |
+| `SectionHeader` | Widened `number` from `string` to `string \| number` |
+| `DataFlowDiagram` | Added `color?` to nodes |
+| `DecisionTree` | Added `color?` to decisions |
+| `FeatureGrid` | Added `color?` to features |
+| `MetricsGrid` | Added `color?` to metrics |
+| `RelatedArticles` | Added `description?`, `category?` to articles |
+| `InfoBox` | Added `"success"`, `"note"` to type union + style entries |
+| `DocAudience` | Added `"DevOps / Developer"` to union in `doc-manifest.ts` |
 
-### Known REMAINING Errors (not yet fixed)
-These are the same class -- more consumers with prop mismatches we haven't reached yet because `next build` stops at the first error. The systematic fix is:
+**Local Fixes (33 Batches via GitHub Copilot):**
 
-**Step 1:** Read the FULL `article-components.tsx` file. Document every component's exact interface.
-**Step 2:** Grep all 80+ consumer files for every prop they pass to each component.
-**Step 3:** For each mismatch, decide: add the prop to the interface (if it makes sense) OR fix the consumer.
-**Step 4:** Apply ALL fixes in one batch. Verify build. Push once.
+| Category | Pattern | Files |
+|----------|---------|-------|
+| `TOCItem` missing `level` | Added `level: 2` to all TOC items | ~15 tutorials + guides |
+| `FeatureGrid` unsupported `title` | Added heading above, removed `title` prop | ~10 files |
+| `SectionHeader` missing `number`/`description` | Added `number`, moved `description` to paragraph | ~6 files |
+| `StatsTable` rows as objects | Added `headers`, converted to `string[][]` | ~4 guides |
+| `DataFlowDiagram` connections as objects | Converted to `"from->to"` strings | 1 tutorial |
+| `FileTree` items `label` -> `description` | Renamed property | 1 article |
+| `SideBySideComparison` invalid type | `"instant"` -> `"static"` | 1 article |
+| `ContactInfoStep` missing `showCompany` | Added optional prop + conditional render | 1 shared step |
+| `QuotationReviewStep` nested partials | New `QuotationReviewData` type | 1 feature |
+| `ServiceRequestData` missing export | Added alias type export | 2 feature files |
+| `lib/security` export mismatches | Exported `createRateLimiter`, types | 2 files |
+| `lib/store` generic constraints | Tightened to `Record<string, Record<string, unknown>>` | 1 file |
+| `CodeExplanation` legacy | Replaced with `CodeBlock` + summary | 2 guides |
+| Tailwind canonical classes | `flex-shrink-0` -> `shrink-0`, etc. | ~3 files |
 
-### Missing Modules (all resolved in S13)
-| Module | Status |
-|---|---|
-| `lib/email/config/email-config.tsx` | Already existed as .tsx (deleted erroneous .ts duplicate) |
-| `hooks/use-hydration.tsx` | Already existed as .tsx (deleted erroneous .ts duplicate) |
-| `lib/utils/date-utils.ts` | Created in S13 (exports minDate, formatDateUK) |
+### Architecture Move (Complete)
+
+```
+BEFORE:                              AFTER:
+components/                          features/dashboard/content-library/
+  articles/     (32 files)   --->      articles/     (26 files)
+  tutorials/    (16 files)   --->      tutorials/    (16 files)
+  case-studies/ (17 files)   --->      case-studies/ (17 files)
+  guides/       (4 files)    --->      guides/       (4 files)
+
+components/ (now SHARED UI ONLY)
+  admin/ atoms/ molecules/ organisms/ ui/ providers/ animations/
+
+Route files updated:
+  app/dashboard/content-library/articles/[category]/[slug]/page.tsx
+  app/dashboard/content-library/tutorials/[category]/[slug]/page.tsx
+  app/dashboard/content-library/case-studies/[category]/[slug]/page.tsx
+  app/dashboard/content-library/guides/[category]/[slug]/page.tsx
+```
 
 ---
 
-## ARCHITECTURE ASSESSMENT
+## WHAT IS READY FOR NEXT (Phase 2: Responsive Grid System)
 
-### Current State
-```
-features/                 (3 features properly structured)
-  contact/                components/ hooks/ schemas/ api/ types/ index.ts
-  quotation/              components/ hooks/ schemas/ api/ types/ index.ts
-  service-request/        components/ hooks/ schemas/ api/ types/ index.ts
+Full plan in `SYNC_HANDOFF_DOCUMENT.md` sections "Phase 2 Implementation Plan"
 
-components/               (mixed: shared UI + domain content -- PROBLEM)
-  atoms/                  ~10 files (form-input, date-picker, theme-toggle)
-  molecules/              ~10 files (article-components.tsx = 1045 lines, 20+ components)
-  organisms/              ~5 files (shared-steps)
-  ui/                     ~45 files (shadcn primitives)
-  animations/             3 files
-  providers/              2 files
-  articles/               32 files -- SHOULD BE in features/
-  tutorials/              16 files -- SHOULD BE in features/
-  case-studies/           17 files -- SHOULD BE in features/
-  guides/                 4 files -- SHOULD BE in features/
-  admin/                  5 files -- SHOULD BE in features/
+### Phase 2.1: Global Responsive Grid Utilities
+- Add grid CSS variables to `app/globals.css`
+- Create `responsive-grid-3` utility class (1 -> 2 -> 3 cols)
+- Create `responsive-card` + `responsive-card-grow-tablet` utilities
+- Create `lib/responsive-grid.ts` component helpers
 
-lib/                      (mixed: shared + domain-specific)
-  email/                  config/ services/ templates/
-  actions/                email-admin, render-email, security-audit
-  security/               csrf, rate-limiter
-  sanitize/               input-sanitizer
-  store/                  Zustand global store
-  utils/                  date-utils
-  validation/             validation schemas
-  forms/                  form types
-  patterns/               hydration-patterns
+### Phase 2.2: Proof of Concept
+- Apply to `strategic-overview/overview/page.tsx`
+- Test at 320px, 768px, 1024px, 1280px
 
-data/                     content-library/ doc-manifest/ nav-data
-app/                      ~95 page.tsx route files
-```
+### Phase 2.3: Systematic Application
+- Apply to 17 remaining documentation pages with grids
+- 62 total grid instances across documentation
 
-### Target State
-```
-features/
-  contact/                (DONE)
-  quotation/              (DONE)
-  service-request/        (DONE)
-  dashboard/
-    admin/                components/ lib/ types/
-    content-library/      components/ (4 data-driven renderers) lib/ types/
-    documentation/        components/ lib/ types/
-
-components/               (GLOBAL SHARED ONLY)
-  atoms/  molecules/  organisms/  ui/  providers/  animations/
-
-lib/                      (GLOBAL SHARED ONLY)
-  email/  security/  sanitize/  validation/  store/  utils/
-
-types/                    (shared interfaces only)
-```
-
-### Key Insight: 60+ Content Components Are Bespoke Wrappers
-Each article/tutorial/case-study/guide component is essentially the same layout (SectionHeader + InfoBox + CodeBlock + ComparisonCards etc.) with different data. They should be ~4 data-driven renderers consuming content data from `data/content-library/`.
+### Audit Results (from SYNC_HANDOFF):
+- 3-column grids: 23 instances
+- 2-column grids: 24 instances
+- 4-column grids: 4 instances
+- Mixed: 11 instances
 
 ---
 
-## WHAT IS COMPLETE (Sessions 1-11)
+## COMPLETE PROJECT STATUS
 
-### Public Pages (4)
+### Public Pages (4) -- DONE
 Home, Services, Get a Quote, Contact Us
 
-### Multi-Step Forms (3)
-Service Request (6 steps), Quotation (7 steps), Contact (5 steps) -- all with Zustand + Resend
+### Multi-Step Forms (3) -- DONE
+Service Request (6 steps), Quotation (7 steps), Contact (5 steps)
 
-### Dashboard (75+ pages)
+### Dashboard (75+ pages) -- DONE
 - Documentation: Strategic Overview (6), CMS Reference (7), App Reference (9), Infra & Ops (6)
 - Content Library: Articles (26), Case Studies (18), Tutorials (15), Guides (3), Social
 - Admin: Document Admin (10), Email Admin (15), Digital Marketing (28), Overview
+
+### Phase 1: Responsive Documentation Layout -- DONE
+- CSS variable system in `globals.css`
+- Documentation layout with responsive TOC
+- CodeBlock responsive typography
 
 ---
 
@@ -152,25 +140,30 @@ Service Request (6 steps), Quotation (7 steps), Contact (5 steps) -- all with Zu
 Next.js 16, React 19, TypeScript strict, TailwindCSS v4, shadcn/ui, Zustand, Zod v3, Framer Motion, GSAP, Resend, pnpm
 
 ## KEY FILES
-- `components/molecules/article-components.tsx` -- THE molecule library (1045 lines, 20+ components). This is ground zero for type errors.
-- `data/content-library/articles.tsx` -- Article content data (contains real imports AND code example strings -- must distinguish)
-- `lib/email/config/email-config.tsx` -- Email config (NOTE: .tsx extension)
-- `hooks/use-hydration.tsx` -- Hydration hook (NOTE: .tsx extension)
-
-## SESSION MANAGEMENT PROTOCOL
-- **Token budget:** Monitor context window. At ~70% usage, STOP work, summarise progress, update this handoff, and tell user to start a new session.
-- **Op budget:** 15 ops per session. Announce op count at session start and after each major action.
-- **Model switching:** STOP and ask user to switch model before each task phase. Never assume model is correct.
-- **Timeout prevention:** Keep responses concise. Use parallel tool calls. Avoid re-reading files already in context.
-- **Handoff discipline:** Update this file BEFORE session ends, not after. Include: what was done, what failed, what's next, exact file paths.
+- `components/molecules/article-components.tsx` -- Molecule library (22 components, all interfaces widened)
+- `features/dashboard/content-library/` -- All 69 content components (moved from components/)
+- `SYNC_HANDOFF_DOCUMENT.md` -- Phase 2 responsive grid plan + all 33 batch fix logs
+- `data/doc-manifest.ts` -- Documentation manifest with `DocAudience` type
+- `lib/responsive-utils.ts` -- Phase 1 responsive helpers
 
 ## RULES / LESSONS LEARNED
 - Always check BOTH .ts and .tsx extensions before creating files
-- Biome autofix converts named imports to default. Use `dangerously_disable_autofix: true` for import edits.
-- v0 script sandbox CANNOT run next build or tsc -- isolated environment without project source access
-- v0 CANNOT change the model -- user must select in UI dropdown. v0 must STOP and request switch.
+- Biome autofix converts named imports to default. Use `dangerously_disable_autofix: true` for import edits
+- v0 script sandbox CANNOT run next build or tsc
+- v0 CANNOT change the model -- user must select in UI dropdown
 - After every refactor: 3-axis review -> fix -> build verify -> fix -> visual verify
-- data/content-library/*.tsx files contain import statements inside template literal strings -- these are NOT real imports
-- `next build` stops at the FIRST TypeScript error -- must fix ALL before pushing
-- Do NOT create files without first verifying both .ts and .tsx variants don't already exist
-- Content component files (articles/, tutorials/, case-studies/, guides/) all follow the same pattern -- fix the molecule interface once rather than fixing 80+ consumers
+- `next build` stops at FIRST TypeScript error -- use `tsc --noEmit` locally for full error list
+- Fix upstream shared types first, consumers second
+- `FeatureGrid` never accepts `title` -- use heading above it
+- `StatsTable` always needs `headers` + `string[][]` rows
+- `TOCItem` universally requires `level` property
+- `DataFlowDiagram` connections must be strings, not objects
+- Content component files all follow same pattern -- fix molecule interface once rather than 80+ consumers
+- `git mv` preserves history -- always prefer over manual copy+delete
+- Barrel `index.ts` files can be orphaned after `git mv` -- check and remove
+
+## SESSION MANAGEMENT PROTOCOL
+- **Op budget:** 15 ops per session. Announce count at start and after each major action.
+- **Model switching:** STOP and ask user to switch model before each task phase.
+- **Handoff discipline:** Update this file BEFORE session ends.
+- **Resource dashboard:** Show on every response: session number, ops used/remaining, active task.
