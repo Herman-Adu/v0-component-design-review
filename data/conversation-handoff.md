@@ -2,7 +2,20 @@
 **Last Session:** S13 (partial fixes, build still broken)
 **Current Session:** S14
 **Date:** 2026-02-20
-**Model:** v0 Max for ALL tasks (user cannot delegate model switching to v0 -- must select manually)
+
+## Model Selection Protocol (MANDATORY)
+v0 CANNOT change the model -- the user MUST select it manually in the v0 UI dropdown.
+Before starting each task, v0 MUST:
+1. State which model is needed for the upcoming task
+2. STOP and wait for user confirmation that the model has been switched
+3. Only proceed after user confirms
+
+**Model assignments:**
+- **v0 Max** -- architecture planning, multi-file refactors, complex debugging, cross-cutting type fixes, review/audit work
+- **v0 (default)** -- standard implementation, single-feature builds, component creation
+- **v0 Mini** -- single-file styling edits, copy changes, doc updates, simple prop fixes
+
+**For Session 14:** Start on v0 Max (audit + batch type fix). Switch to v0 Mini for individual file edits once the plan is clear. Switch back to v0 Max for architecture refactor.
 
 ## Quick Recovery
 Paste into new v0 chat:
@@ -11,8 +24,8 @@ Paste into new v0 chat:
 > Session 14: TypeScript contract fix for clean build, then architecture refactor.
 > FIRST: Read article-components.tsx fully. Audit every component interface.
 > Then grep every consumer file for prop mismatches. Fix ALL in one batch.
-> Run local build to confirm zero errors BEFORE any push.
-> Model: v0 Max.
+> Verify build locally BEFORE any push.
+> Announce model needed for each task and STOP for me to switch.
 
 ---
 
@@ -144,11 +157,20 @@ Next.js 16, React 19, TypeScript strict, TailwindCSS v4, shadcn/ui, Zustand, Zod
 - `lib/email/config/email-config.tsx` -- Email config (NOTE: .tsx extension)
 - `hooks/use-hydration.tsx` -- Hydration hook (NOTE: .tsx extension)
 
+## SESSION MANAGEMENT PROTOCOL
+- **Token budget:** Monitor context window. At ~70% usage, STOP work, summarise progress, update this handoff, and tell user to start a new session.
+- **Op budget:** 15 ops per session. Announce op count at session start and after each major action.
+- **Model switching:** STOP and ask user to switch model before each task phase. Never assume model is correct.
+- **Timeout prevention:** Keep responses concise. Use parallel tool calls. Avoid re-reading files already in context.
+- **Handoff discipline:** Update this file BEFORE session ends, not after. Include: what was done, what failed, what's next, exact file paths.
+
 ## RULES / LESSONS LEARNED
 - Always check BOTH .ts and .tsx extensions before creating files
 - Biome autofix converts named imports to default. Use `dangerously_disable_autofix: true` for import edits.
 - v0 script sandbox CANNOT run next build or tsc -- isolated environment without project source access
-- v0 CANNOT change the model -- user must select in UI dropdown
+- v0 CANNOT change the model -- user must select in UI dropdown. v0 must STOP and request switch.
 - After every refactor: 3-axis review -> fix -> build verify -> fix -> visual verify
 - data/content-library/*.tsx files contain import statements inside template literal strings -- these are NOT real imports
 - `next build` stops at the FIRST TypeScript error -- must fix ALL before pushing
+- Do NOT create files without first verifying both .ts and .tsx variants don't already exist
+- Content component files (articles/, tutorials/, case-studies/, guides/) all follow the same pattern -- fix the molecule interface once rather than fixing 80+ consumers
