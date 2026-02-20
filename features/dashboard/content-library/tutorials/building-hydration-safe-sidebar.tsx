@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   TableOfContents,
@@ -12,31 +12,44 @@ import {
   BeforeAfterComparison,
   ArchitectureDiagram,
   CodeBlock as ArticleCodeBlock,
-} from "@/components/molecules/article-components"
-import { CodeBlock } from "@/components/atoms/code-block"
-import { CodeExplanation } from "@/components/atoms/code-explanation"
+} from "@/components/molecules/article-components";
+import { CodeBlock } from "@/components/atoms/code-block";
+import { CodeExplanation } from "@/components/atoms/code-explanation";
 
 export function BuildingHydrationSafeSidebarContent() {
   return (
     <div className="space-y-8">
       <TableOfContents
         items={[
-          { id: "radix-problem", title: "The Radix ID Problem" },
-          { id: "useeffect-fails", title: "Why useEffect Band-Aids Fail" },
-          { id: "sync-external-store", title: "The useSyncExternalStore Solution" },
-          { id: "skeleton", title: "Building a Static Skeleton" },
-          { id: "guard-pattern", title: "The Guard Pattern" },
-          { id: "reusable-hook", title: "Making It Reusable" },
+          { id: "radix-problem", title: "The Radix ID Problem", level: 2 },
+          {
+            id: "useeffect-fails",
+            title: "Why useEffect Band-Aids Fail",
+            level: 2,
+          },
+          {
+            id: "sync-external-store",
+            title: "The useSyncExternalStore Solution",
+            level: 2,
+          },
+          { id: "skeleton", title: "Building a Static Skeleton", level: 2 },
+          { id: "guard-pattern", title: "The Guard Pattern", level: 2 },
+          { id: "reusable-hook", title: "Making It Reusable", level: 2 },
         ]}
       />
 
-      <SectionHeader number="1" title="The Radix ID Problem" id="radix-problem" />
+      <SectionHeader
+        number="1"
+        title="The Radix ID Problem"
+        id="radix-problem"
+      />
 
       <p className="text-muted-foreground leading-relaxed">
-        Radix UI uses React&apos;s useId() hook to generate unique IDs for ARIA attributes like
-        aria-controls. These IDs connect trigger elements to their content panels for screen readers.
-        The problem: useId() generates IDs based on component position in the React tree, and this
-        position can differ between server and client when conditional rendering is involved.
+        Radix UI uses React&apos;s useId() hook to generate unique IDs for ARIA
+        attributes like aria-controls. These IDs connect trigger elements to
+        their content panels for screen readers. The problem: useId() generates
+        IDs based on component position in the React tree, and this position can
+        differ between server and client when conditional rendering is involved.
       </p>
 
       <CodeBlock
@@ -65,11 +78,16 @@ export function BuildingHydrationSafeSidebarContent() {
       />
 
       <InfoBox type="warning" title="Silent accessibility breakage">
-        When ARIA IDs mismatch, screen readers can no longer connect triggers to their content panels.
-        The sidebar looks fine visually but is broken for assistive technology users.
+        When ARIA IDs mismatch, screen readers can no longer connect triggers to
+        their content panels. The sidebar looks fine visually but is broken for
+        assistive technology users.
       </InfoBox>
 
-      <SectionHeader number="2" title="Why useEffect Band-Aids Fail" id="useeffect-fails" />
+      <SectionHeader
+        number="2"
+        title="Why useEffect Band-Aids Fail"
+        id="useeffect-fails"
+      />
 
       <NumberedList
         items={[
@@ -106,12 +124,17 @@ export function BuildingHydrationSafeSidebarContent() {
         }}
       />
 
-      <SectionHeader number="3" title="The useSyncExternalStore Solution" id="sync-external-store" />
+      <SectionHeader
+        number="3"
+        title="The useSyncExternalStore Solution"
+        id="sync-external-store"
+      />
 
       <p className="text-muted-foreground leading-relaxed">
-        React 18 introduced useSyncExternalStore, a hook designed for values that differ between
-        server and client. Unlike useState + useEffect, it provides a getServerSnapshot parameter
-        that explicitly tells React what to use during SSR -- no double-render, no flash.
+        React 18 introduced useSyncExternalStore, a hook designed for values
+        that differ between server and client. Unlike useState + useEffect, it
+        provides a getServerSnapshot parameter that explicitly tells React what
+        to use during SSR -- no double-render, no flash.
       </p>
 
       <CodeBlock
@@ -149,17 +172,34 @@ export function useHydration(): boolean {
       <CodeExplanation
         summary="useSyncExternalStore parameters"
         terms={[
-          { term: "emptySubscribe", description: "Hydration status never changes after mount, so no subscription is needed. React requires a function so we provide a no-op." },
-          { term: "() => true (2nd arg)", description: "Client snapshot: always returns true because the client is always hydrated" },
-          { term: "() => false (3rd arg)", description: "Server snapshot: always returns false because SSR is never hydrated" },
+          {
+            term: "emptySubscribe",
+            description:
+              "Hydration status never changes after mount, so no subscription is needed. React requires a function so we provide a no-op.",
+          },
+          {
+            term: "() => true (2nd arg)",
+            description:
+              "Client snapshot: always returns true because the client is always hydrated",
+          },
+          {
+            term: "() => false (3rd arg)",
+            description:
+              "Server snapshot: always returns false because SSR is never hydrated",
+          },
         ]}
       />
 
-      <SectionHeader number="4" title="Building a Static Skeleton" id="skeleton" />
+      <SectionHeader
+        number="4"
+        title="Building a Static Skeleton"
+        id="skeleton"
+      />
 
       <InfoBox type="important" title="Skeleton rules">
-        The skeleton must produce identical HTML on server and client. That means: no Radix
-        components, no hooks, no random values, no client-dependent logic. Pure HTML + CSS only.
+        The skeleton must produce identical HTML on server and client. That
+        means: no Radix components, no hooks, no random values, no
+        client-dependent logic. Pure HTML + CSS only.
       </InfoBox>
 
       <CodeBlock
@@ -205,7 +245,8 @@ export function SidebarSkeleton() {
         features={[
           {
             title: "No Client Directive",
-            description: "Works as both server and client component -- identical output either way",
+            description:
+              "Works as both server and client component -- identical output either way",
           },
           {
             title: "Zero Radix",
@@ -217,7 +258,8 @@ export function SidebarSkeleton() {
           },
           {
             title: "Visual Match",
-            description: "Same spacing and structure as the real sidebar for smooth transition",
+            description:
+              "Same spacing and structure as the real sidebar for smooth transition",
           },
         ]}
         columns={2}
@@ -227,9 +269,26 @@ export function SidebarSkeleton() {
 
       <ArchitectureDiagram
         layers={[
-          { label: "Guard Check", items: ["useHydration() returns false during SSR"] },
-          { label: "SSR Output", items: ["SidebarSkeleton renders static HTML", "No Radix components exist", "Zero generated IDs"] },
-          { label: "After Hydration", items: ["useHydration() returns true", "Real sidebar mounts fresh", "Radix IDs generated client-only"] },
+          {
+            label: "Guard Check",
+            items: ["useHydration() returns false during SSR"],
+          },
+          {
+            label: "SSR Output",
+            items: [
+              "SidebarSkeleton renders static HTML",
+              "No Radix components exist",
+              "Zero generated IDs",
+            ],
+          },
+          {
+            label: "After Hydration",
+            items: [
+              "useHydration() returns true",
+              "Real sidebar mounts fresh",
+              "Radix IDs generated client-only",
+            ],
+          },
         ]}
       />
 
@@ -326,12 +385,14 @@ export function HydrationGuard({ children, fallback }: HydrationGuardProps) {
           {
             number: "1",
             title: "Create useHydration hook",
-            description: "One hook using useSyncExternalStore, shared across the entire app",
+            description:
+              "One hook using useSyncExternalStore, shared across the entire app",
           },
           {
             number: "2",
             title: "Build static skeletons",
-            description: "One skeleton per guarded component, matching its visual structure",
+            description:
+              "One skeleton per guarded component, matching its visual structure",
           },
           {
             number: "3",
@@ -342,10 +403,11 @@ export function HydrationGuard({ children, fallback }: HydrationGuardProps) {
       />
 
       <KeyTakeaway>
-        The guard pattern solves hydration mismatches architecturally instead of per-component.
-        One check at the top of a component tree protects every nested Radix primitive, eliminating
-        the need for fragile useEffect workarounds that must be added to each child individually.
+        The guard pattern solves hydration mismatches architecturally instead of
+        per-component. One check at the top of a component tree protects every
+        nested Radix primitive, eliminating the need for fragile useEffect
+        workarounds that must be added to each child individually.
       </KeyTakeaway>
     </div>
-  )
+  );
 }

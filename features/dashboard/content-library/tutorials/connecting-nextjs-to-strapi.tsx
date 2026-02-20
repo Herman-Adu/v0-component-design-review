@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   TableOfContents,
@@ -11,29 +11,38 @@ import {
   FeatureGrid,
   StatsTable,
   CodeBlock as ArticleCodeBlock,
-} from "@/components/molecules/article-components"
-import { CodeBlock } from "@/components/atoms/code-block"
-import { CodeExplanation } from "@/components/atoms/code-explanation"
+} from "@/components/molecules/article-components";
+import { CodeBlock } from "@/components/atoms/code-block";
+import { CodeExplanation } from "@/components/atoms/code-explanation";
 
 export function ConnectingNextjsToStrapiContent() {
   return (
     <div className="space-y-8">
       <TableOfContents
         items={[
-          { id: "overview", title: "Architecture Overview" },
-          { id: "env-setup", title: "Environment Variables" },
-          { id: "api-client", title: "Creating a Type-Safe API Client" },
-          { id: "server-components", title: "Fetching in Server Components" },
-          { id: "error-handling", title: "Error Handling" },
+          { id: "overview", title: "Architecture Overview", level: 2 },
+          { id: "env-setup", title: "Environment Variables", level: 2 },
+          {
+            id: "api-client",
+            title: "Creating a Type-Safe API Client",
+            level: 2,
+          },
+          {
+            id: "server-components",
+            title: "Fetching in Server Components",
+            level: 2,
+          },
+          { id: "error-handling", title: "Error Handling", level: 2 },
         ]}
       />
 
       <SectionHeader number="1" title="Architecture Overview" id="overview" />
 
       <p className="text-muted-foreground leading-relaxed">
-        Connecting Next.js to Strapi follows a clean frontend-backend architecture. Strapi serves
-        as your headless CMS providing a REST API, while Next.js consumes that API using Server
-        Components for optimal performance and SEO.
+        Connecting Next.js to Strapi follows a clean frontend-backend
+        architecture. Strapi serves as your headless CMS providing a REST API,
+        while Next.js consumes that API using Server Components for optimal
+        performance and SEO.
       </p>
 
       <ProcessFlow
@@ -50,19 +59,23 @@ export function ConnectingNextjsToStrapiContent() {
         features={[
           {
             title: "Type Safety",
-            description: "TypeScript interfaces ensure your frontend matches your API schema",
+            description:
+              "TypeScript interfaces ensure your frontend matches your API schema",
           },
           {
             title: "Server-Side Fetching",
-            description: "Data is fetched on the server -- no API keys exposed to the browser",
+            description:
+              "Data is fetched on the server -- no API keys exposed to the browser",
           },
           {
             title: "ISR Caching",
-            description: "Incremental Static Regeneration keeps pages fast with fresh data",
+            description:
+              "Incremental Static Regeneration keeps pages fast with fresh data",
           },
           {
             title: "Error Boundaries",
-            description: "Next.js error.tsx files handle API failures gracefully",
+            description:
+              "Next.js error.tsx files handle API failures gracefully",
           },
         ]}
         columns={2}
@@ -75,17 +88,20 @@ export function ConnectingNextjsToStrapiContent() {
           {
             number: "1",
             title: "Generate API Token in Strapi",
-            description: "Settings > API Tokens > Create new token with 'Full access' type",
+            description:
+              "Settings > API Tokens > Create new token with 'Full access' type",
           },
           {
             number: "2",
             title: "Create .env.local",
-            description: "Add STRAPI_URL and STRAPI_TOKEN to your Next.js project root",
+            description:
+              "Add STRAPI_URL and STRAPI_TOKEN to your Next.js project root",
           },
           {
             number: "3",
             title: "Add to .gitignore",
-            description: "Ensure .env.local is not committed to version control",
+            description:
+              "Ensure .env.local is not committed to version control",
           },
         ]}
       />
@@ -99,11 +115,16 @@ STRAPI_TOKEN=your-api-token-here`}
       />
 
       <InfoBox type="warning" title="Security">
-        Never commit API tokens to git. Server-side environment variables (without NEXT_PUBLIC_ prefix)
-        are only available on the server, keeping your Strapi token safe from the browser.
+        Never commit API tokens to git. Server-side environment variables
+        (without NEXT_PUBLIC_ prefix) are only available on the server, keeping
+        your Strapi token safe from the browser.
       </InfoBox>
 
-      <SectionHeader number="3" title="Creating a Type-Safe API Client" id="api-client" />
+      <SectionHeader
+        number="3"
+        title="Creating a Type-Safe API Client"
+        id="api-client"
+      />
 
       <CodeBlock
         code={`// lib/strapi.ts
@@ -164,23 +185,55 @@ export async function getContactRequest(id: number): Promise<ContactRequest> {
       <CodeExplanation
         summary="API client design explained"
         terms={[
-          { term: "StrapiResponse<T>", description: "Generic interface that models Strapi's standard response shape with typed data and pagination metadata" },
-          { term: "fetchStrapi<T>()", description: "Reusable generic function so every endpoint gets type safety, auth headers, and error handling for free" },
-          { term: "next: { revalidate: 60 }", description: "Tells Next.js to cache this response for 60 seconds, then re-fetch in the background (ISR)" },
+          {
+            term: "StrapiResponse<T>",
+            description:
+              "Generic interface that models Strapi's standard response shape with typed data and pagination metadata",
+          },
+          {
+            term: "fetchStrapi<T>()",
+            description:
+              "Reusable generic function so every endpoint gets type safety, auth headers, and error handling for free",
+          },
+          {
+            term: "next: { revalidate: 60 }",
+            description:
+              "Tells Next.js to cache this response for 60 seconds, then re-fetch in the background (ISR)",
+          },
         ]}
       />
 
       <StatsTable
         headers={["Pattern", "Purpose", "Example"]}
         rows={[
-          ["Generic types", "Reuse fetch logic for any data shape", "fetchStrapi<ContactRequest[]>()"],
-          ["Error throwing", "Let Next.js error boundaries handle failures", "throw new Error(...)"],
-          ["ISR caching", "Balance freshness with performance", "revalidate: 60"],
-          ["Header injection", "Authenticate every request automatically", "Authorization: Bearer ..."],
+          [
+            "Generic types",
+            "Reuse fetch logic for any data shape",
+            "fetchStrapi<ContactRequest[]>()",
+          ],
+          [
+            "Error throwing",
+            "Let Next.js error boundaries handle failures",
+            "throw new Error(...)",
+          ],
+          [
+            "ISR caching",
+            "Balance freshness with performance",
+            "revalidate: 60",
+          ],
+          [
+            "Header injection",
+            "Authenticate every request automatically",
+            "Authorization: Bearer ...",
+          ],
         ]}
       />
 
-      <SectionHeader number="4" title="Fetching in Server Components" id="server-components" />
+      <SectionHeader
+        number="4"
+        title="Fetching in Server Components"
+        id="server-components"
+      />
 
       <CodeBlock
         code={`// app/contacts/page.tsx
@@ -226,8 +279,9 @@ export default async function ContactsPage() {
       />
 
       <InfoBox type="tip" title="No useEffect needed">
-        Server Components can directly <code>await</code> async functions. No <code>useState</code>,
-        no <code>useEffect</code>, no loading spinners. The data is ready before the HTML reaches the browser.
+        Server Components can directly <code>await</code> async functions. No{" "}
+        <code>useState</code>, no <code>useEffect</code>, no loading spinners.
+        The data is ready before the HTML reaches the browser.
       </InfoBox>
 
       <SectionHeader number="5" title="Error Handling" id="error-handling" />
@@ -273,10 +327,11 @@ export default function Error({
       />
 
       <KeyTakeaway>
-        A clean API client with TypeScript generics, server-side fetching in Server Components,
-        and proper error boundaries gives you a production-ready Strapi integration. The pattern
-        scales to any number of content types with minimal code duplication.
+        A clean API client with TypeScript generics, server-side fetching in
+        Server Components, and proper error boundaries gives you a
+        production-ready Strapi integration. The pattern scales to any number of
+        content types with minimal code duplication.
       </KeyTakeaway>
     </div>
-  )
+  );
 }

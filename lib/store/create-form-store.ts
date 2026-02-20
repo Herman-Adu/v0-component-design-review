@@ -1,74 +1,80 @@
 /**
  * Generic Form Store Factory
- * 
+ *
  * Creates typed Zustand stores for multi-step forms with:
  * - Step navigation
  * - Data persistence to localStorage
  * - Submission state management
  * - Type-safe updates
- * 
+ *
  * This reduces duplication across form stores while maintaining
  * full type safety and customization options.
  */
 
-import { create, type StateCreator } from "zustand"
-import { persist, type PersistOptions } from "zustand/middleware"
+import { create, type StateCreator } from "zustand";
+import { persist, type PersistOptions } from "zustand/middleware";
 
-export interface BaseFormState<TData extends Record<string, unknown>> {
+export interface BaseFormState<
+  TData extends Record<string, Record<string, unknown>>,
+> {
   /** Current step index */
-  currentStep: number
+  currentStep: number;
   /** Form data */
-  data: TData
+  data: TData;
   /** Whether form is being submitted */
-  isSubmitting: boolean
+  isSubmitting: boolean;
   /** Whether form has been submitted successfully */
-  isComplete: boolean
+  isComplete: boolean;
   /** Submission error message */
-  submissionError: string | null
+  submissionError: string | null;
   /** Reference ID after successful submission */
-  referenceId: string | null
+  referenceId: string | null;
 }
 
-export interface BaseFormActions<TData extends Record<string, unknown>> {
+export interface BaseFormActions<
+  TData extends Record<string, Record<string, unknown>>,
+> {
   /** Update a specific section of form data */
-  updateData: <K extends keyof TData>(key: K, value: Partial<TData[K]>) => void
+  updateData: <K extends keyof TData>(key: K, value: Partial<TData[K]>) => void;
   /** Navigate to next step */
-  nextStep: () => void
+  nextStep: () => void;
   /** Navigate to previous step */
-  prevStep: () => void
+  prevStep: () => void;
   /** Navigate to specific step */
-  goToStep: (step: number) => void
+  goToStep: (step: number) => void;
   /** Set submission state */
-  setSubmitting: (isSubmitting: boolean) => void
+  setSubmitting: (isSubmitting: boolean) => void;
   /** Set completion state */
-  setComplete: (isComplete: boolean, referenceId?: string) => void
+  setComplete: (isComplete: boolean, referenceId?: string) => void;
   /** Set submission error */
-  setSubmissionError: (error: string | null) => void
+  setSubmissionError: (error: string | null) => void;
   /** Reset form to initial state */
-  resetForm: () => void
+  resetForm: () => void;
   /** Get complete form data */
-  getFormData: () => TData
+  getFormData: () => TData;
 }
 
-export type FormStore<TData extends Record<string, unknown>> = 
-  BaseFormState<TData> & BaseFormActions<TData>
+export type FormStore<TData extends Record<string, Record<string, unknown>>> =
+  BaseFormState<TData> & BaseFormActions<TData>;
 
-export interface CreateFormStoreOptions<TData extends Record<string, unknown>> {
+export interface CreateFormStoreOptions<
+  TData extends Record<string, Record<string, unknown>>,
+> {
   /** Initial form data */
-  initialData: TData
+  initialData: TData;
   /** Minimum step (usually 0 or 1) */
-  minStep: number
+  minStep: number;
   /** Maximum step */
-  maxStep: number
+  maxStep: number;
   /** localStorage key for persistence */
-  storageKey: string
+  storageKey: string;
   /** Fields to persist (defaults to all) */
-  persistFields?: (keyof BaseFormState<TData>)[]
+  persistFields?: (keyof BaseFormState<TData>)[];
 }
 
 /**
  * Creates a typed Zustand store for multi-step forms
- * 
+ *
  * @example
  * ```ts
  * const useMyFormStore = createFormStore({
@@ -79,10 +85,10 @@ export interface CreateFormStoreOptions<TData extends Record<string, unknown>> {
  * })
  * ```
  */
-export function createFormStore<TData extends Record<string, unknown>>(
-  options: CreateFormStoreOptions<TData>
-) {
-  const { initialData, minStep, maxStep, storageKey, persistFields } = options
+export function createFormStore<
+  TData extends Record<string, Record<string, unknown>>,
+>(options: CreateFormStoreOptions<TData>) {
+  const { initialData, minStep, maxStep, storageKey, persistFields } = options;
 
   const initialState: BaseFormState<TData> = {
     currentStep: minStep,
@@ -91,7 +97,7 @@ export function createFormStore<TData extends Record<string, unknown>>(
     isComplete: false,
     submissionError: null,
     referenceId: null,
-  }
+  };
 
   const storeCreator: StateCreator<FormStore<TData>> = (set, get) => ({
     ...initialState,
@@ -132,26 +138,30 @@ export function createFormStore<TData extends Record<string, unknown>>(
     resetForm: () => set(initialState),
 
     getFormData: () => get().data,
-  })
+  });
 
   // Configure persistence
-  const persistOptions: PersistOptions<FormStore<TData>, Partial<FormStore<TData>>> = {
+  const persistOptions: PersistOptions<
+    FormStore<TData>,
+    Partial<FormStore<TData>>
+  > = {
     name: storageKey,
     partialize: (state) => {
       if (persistFields) {
-        const persisted: Partial<FormStore<TData>> = {}
+        const persisted: Partial<FormStore<TData>> = {};
         for (const field of persistFields) {
-          (persisted as Record<string, unknown>)[field as string] = state[field]
+          (persisted as Record<string, unknown>)[field as string] =
+            state[field];
         }
-        return persisted
+        return persisted;
       }
       // Default: persist data and currentStep
       return {
         currentStep: state.currentStep,
         data: state.data,
-      } as Partial<FormStore<TData>>
+      } as Partial<FormStore<TData>>;
     },
-  }
+  };
 
-  return create<FormStore<TData>>()(persist(storeCreator, persistOptions))
+  return create<FormStore<TData>>()(persist(storeCreator, persistOptions));
 }

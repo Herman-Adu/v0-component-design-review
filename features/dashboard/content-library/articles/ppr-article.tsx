@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   SectionHeader,
@@ -8,8 +8,8 @@ import {
   KeyTakeaway,
   SideBySideComparison,
   FeatureGrid,
-} from "@/components/molecules/article-components"
-import { Zap, Eye, TrendingUp, Search } from "lucide-react"
+} from "@/components/molecules/article-components";
+import { Zap, Eye, TrendingUp, Search } from "lucide-react";
 
 export function PPRArticleContent() {
   return (
@@ -17,15 +17,17 @@ export function PPRArticleContent() {
       <SectionHeader number="01" title="What is Partial Pre-Rendering?" />
 
       <InfoBox type="info">
-        PPR is a Next.js rendering strategy that pre-renders a static shell of your page at build time, with dynamic
-        placeholders that are filled in at request time. This gives you instant static loading with streaming dynamic
-        content.
+        PPR is a Next.js rendering strategy that pre-renders a static shell of
+        your page at build time, with dynamic placeholders that are filled in at
+        request time. This gives you instant static loading with streaming
+        dynamic content.
       </InfoBox>
 
       <p className="text-muted-foreground leading-relaxed">
-        PPR represents a paradigm shift in how we think about rendering. Instead of choosing between static OR dynamic
-        for an entire page, PPR lets you have both simultaneously. The static parts load instantly while dynamic parts
-        stream in as they become ready.
+        PPR represents a paradigm shift in how we think about rendering. Instead
+        of choosing between static OR dynamic for an entire page, PPR lets you
+        have both simultaneously. The static parts load instantly while dynamic
+        parts stream in as they become ready.
       </p>
 
       <div className="bg-card border border-border rounded-lg p-6 my-8">
@@ -42,12 +44,12 @@ export function PPRArticleContent() {
             { label: "Footer (Static)", type: "static" },
           ]}
           rightItems={[
-            { label: "Header (Instant)", type: "instant" },
-            { label: "Navigation (Instant)", type: "instant" },
+            { label: "Header (Instant)", type: "static" },
+            { label: "Navigation (Instant)", type: "static" },
             { label: "User Profile (Streamed)", type: "streamed" },
-            { label: "Main Content (Instant)", type: "instant" },
+            { label: "Main Content (Instant)", type: "static" },
             { label: "Recommendations (Streamed)", type: "streamed" },
-            { label: "Footer (Instant)", type: "instant" },
+            { label: "Footer (Instant)", type: "static" },
           ]}
         />
       </div>
@@ -76,11 +78,14 @@ export function PPRArticleContent() {
       <SectionHeader number="03" title="Implementation in Next.js" />
 
       <InfoBox type="warning">
-        PPR is available in Next.js 14+ and became stable in Next.js 15. Enable it in your{" "}
-        <code className="bg-muted px-1 rounded">next.config.js</code> to use this feature.
+        PPR is available in Next.js 14+ and became stable in Next.js 15. Enable
+        it in your <code className="bg-muted px-1 rounded">next.config.js</code>{" "}
+        to use this feature.
       </InfoBox>
 
-      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Enable PPR</h3>
+      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
+        Enable PPR
+      </h3>
 
       <CodeBlock
         title="next.config.js"
@@ -94,7 +99,9 @@ const nextConfig = {
 module.exports = nextConfig`}
       />
 
-      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Create Static Shell with Dynamic Holes</h3>
+      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
+        Create Static Shell with Dynamic Holes
+      </h3>
       <p className="text-muted-foreground mb-4">
         Use Suspense boundaries to mark dynamic content that should stream in:
       </p>
@@ -146,7 +153,9 @@ export default function DashboardPage() {
 }`}
       />
 
-      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">E-commerce Example</h3>
+      <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
+        E-commerce Example
+      </h3>
 
       <CodeBlock
         title="app/products/[id]/page.tsx"
@@ -234,28 +243,40 @@ export default async function ProductPage({
 
       <div className="space-y-4 my-6">
         <div className="bg-card border border-border rounded-lg p-4">
-          <h4 className="font-semibold text-foreground mb-2">1. Design Good Skeletons</h4>
+          <h4 className="font-semibold text-foreground mb-2">
+            1. Design Good Skeletons
+          </h4>
           <p className="text-sm text-muted-foreground">
-            Skeleton loaders should match the final content{"'"}s dimensions to prevent layout shift (CLS). Use CSS
-            animations to indicate loading state.
+            Skeleton loaders should match the final content{"'"}s dimensions to
+            prevent layout shift (CLS). Use CSS animations to indicate loading
+            state.
           </p>
         </div>
         <div className="bg-card border border-border rounded-lg p-4">
-          <h4 className="font-semibold text-foreground mb-2">2. Prioritize Critical Content</h4>
+          <h4 className="font-semibold text-foreground mb-2">
+            2. Prioritize Critical Content
+          </h4>
           <p className="text-sm text-muted-foreground">
-            Make your most important content static. Put personalization and user-specific data in Suspense boundaries.
+            Make your most important content static. Put personalization and
+            user-specific data in Suspense boundaries.
           </p>
         </div>
         <div className="bg-card border border-border rounded-lg p-4">
-          <h4 className="font-semibold text-foreground mb-2">3. Group Related Dynamic Content</h4>
+          <h4 className="font-semibold text-foreground mb-2">
+            3. Group Related Dynamic Content
+          </h4>
           <p className="text-sm text-muted-foreground">
-            Use a single Suspense boundary for related dynamic content to reduce the number of streaming chunks.
+            Use a single Suspense boundary for related dynamic content to reduce
+            the number of streaming chunks.
           </p>
         </div>
         <div className="bg-card border border-border rounded-lg p-4">
-          <h4 className="font-semibold text-foreground mb-2">4. Consider Nested Suspense</h4>
+          <h4 className="font-semibold text-foreground mb-2">
+            4. Consider Nested Suspense
+          </h4>
           <p className="text-sm text-muted-foreground">
-            For complex pages, nest Suspense boundaries to show progressive loading states as data becomes available.
+            For complex pages, nest Suspense boundaries to show progressive
+            loading states as data becomes available.
           </p>
         </div>
       </div>
@@ -263,26 +284,31 @@ export default async function ProductPage({
       <SectionHeader number="06" title="Project Reference" />
 
       <p className="text-muted-foreground leading-relaxed">
-        PPR would be excellent for our electrical services platform in scenarios like:
+        PPR would be excellent for our electrical services platform in scenarios
+        like:
       </p>
 
       <ul className="list-disc list-inside text-muted-foreground space-y-2 my-4">
         <li>
-          <strong className="text-foreground">Quote form</strong> - Static form shell with dynamic pricing estimates
+          <strong className="text-foreground">Quote form</strong> - Static form
+          shell with dynamic pricing estimates
         </li>
         <li>
-          <strong className="text-foreground">Service pages</strong> - Static service info with dynamic availability
+          <strong className="text-foreground">Service pages</strong> - Static
+          service info with dynamic availability
         </li>
         <li>
-          <strong className="text-foreground">Dashboard</strong> - Static layout with personalized service history
+          <strong className="text-foreground">Dashboard</strong> - Static layout
+          with personalized service history
         </li>
       </ul>
 
       <KeyTakeaway>
-        PPR represents the future of web rendering in Next.js. Use it when you have pages with a mix of static content
-        and dynamic, personalized data. The static shell gives instant loads while Suspense boundaries stream in
+        PPR represents the future of web rendering in Next.js. Use it when you
+        have pages with a mix of static content and dynamic, personalized data.
+        The static shell gives instant loads while Suspense boundaries stream in
         user-specific content.
       </KeyTakeaway>
     </div>
-  )
+  );
 }

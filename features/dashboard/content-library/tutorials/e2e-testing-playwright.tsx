@@ -18,15 +18,15 @@ import {
 import { Shield, Bug, Play, Terminal, CheckCircle, Eye, Zap, Settings } from "lucide-react"
 
 const tocItems = [
-  { id: "why-e2e", label: "Why E2E Testing" },
-  { id: "playwright-setup", label: "Playwright Setup" },
-  { id: "first-test", label: "Your First Test" },
-  { id: "selectors", label: "Selectors & Locators" },
-  { id: "testing-patterns", label: "Testing Patterns" },
-  { id: "server-components", label: "Server Components" },
-  { id: "forms-interactions", label: "Forms & Interactions" },
-  { id: "ci-integration", label: "CI Integration" },
-  { id: "debugging", label: "Debugging Tests" },
+  { id: "why-e2e", title: "Why E2E Testing", level: 2 },
+  { id: "playwright-setup", title: "Playwright Setup", level: 2 },
+  { id: "first-test", title: "Your First Test", level: 2 },
+  { id: "selectors", title: "Selectors & Locators", level: 2 },
+  { id: "testing-patterns", title: "Testing Patterns", level: 2 },
+  { id: "server-components", title: "Server Components", level: 2 },
+  { id: "forms-interactions", title: "Forms & Interactions", level: 2 },
+  { id: "ci-integration", title: "CI Integration", level: 2 },
+  { id: "debugging", title: "Debugging Tests", level: 2 },
 ]
 
 export function E2ETestingPlaywrightContent() {
@@ -376,7 +376,7 @@ jobs:
       </div>
 
       {/* Right sidebar TOC */}
-      <aside className="hidden lg:block w-64 flex-shrink-0">
+      <aside className="hidden lg:block w-64 shrink-0">
         <div className="sticky top-8">
           <TableOfContents items={tocItems} />
         </div>

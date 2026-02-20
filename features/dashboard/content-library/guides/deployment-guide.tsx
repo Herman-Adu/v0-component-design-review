@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   TableOfContents,
@@ -10,26 +10,31 @@ import {
   ProcessFlow,
   FeatureGrid,
   ComparisonCards,
-} from "@/components/molecules/article-components"
-import { CodeBlock } from "@/components/atoms/code-block"
+} from "@/components/molecules/article-components";
+import { CodeBlock } from "@/components/atoms/code-block";
 
 const tocItems = [
-  { id: "deployment-options", title: "Deployment Options" },
-  { id: "docker-deployment", title: "Docker Deployment" },
-  { id: "backup-recovery", title: "Backup & Recovery" },
-  { id: "performance-tuning", title: "Performance Tuning" },
-  { id: "monitoring", title: "Monitoring & Alerting" },
-]
+  { id: "deployment-options", title: "Deployment Options", level: 2 },
+  { id: "docker-deployment", title: "Docker Deployment", level: 2 },
+  { id: "backup-recovery", title: "Backup & Recovery", level: 2 },
+  { id: "performance-tuning", title: "Performance Tuning", level: 2 },
+  { id: "monitoring", title: "Monitoring & Alerting", level: 2 },
+];
 
 export function DeploymentGuideContent() {
   return (
     <div className="flex gap-8">
       <div className="flex-1 min-w-0 space-y-8">
         <section>
-          <SectionHeader number="01" title="Deployment Options" id="deployment-options" />
+          <SectionHeader
+            number="01"
+            title="Deployment Options"
+            id="deployment-options"
+          />
           <p className="text-muted-foreground leading-relaxed mt-4">
-            Three deployment paths are available, each with different trade-offs for control,
-            cost, and operational complexity. Choose based on your team size and scaling needs.
+            Three deployment paths are available, each with different trade-offs
+            for control, cost, and operational complexity. Choose based on your
+            team size and scaling needs.
           </p>
         </section>
 
@@ -55,10 +60,15 @@ export function DeploymentGuideContent() {
         />
 
         <section>
-          <SectionHeader number="02" title="Docker Deployment" id="docker-deployment" />
+          <SectionHeader
+            number="02"
+            title="Docker Deployment"
+            id="docker-deployment"
+          />
           <p className="text-muted-foreground leading-relaxed mt-4">
-            Docker provides a reproducible, portable deployment that works identically
-            across development, staging, and production environments.
+            Docker provides a reproducible, portable deployment that works
+            identically across development, staging, and production
+            environments.
           </p>
         </section>
 
@@ -127,27 +137,48 @@ volumes:
         />
 
         <InfoBox type="tip" title="SSL with Certbot">
-          Use Certbot with the Nginx container for automatic SSL certificate provisioning
-          and renewal. Add a certbot service to docker-compose and mount the certificates
-          volume into the nginx container.
+          Use Certbot with the Nginx container for automatic SSL certificate
+          provisioning and renewal. Add a certbot service to docker-compose and
+          mount the certificates volume into the nginx container.
         </InfoBox>
 
         <section>
-          <SectionHeader number="03" title="Backup & Recovery" id="backup-recovery" />
+          <SectionHeader
+            number="03"
+            title="Backup & Recovery"
+            id="backup-recovery"
+          />
           <p className="text-muted-foreground leading-relaxed mt-4">
-            Automated backups are non-negotiable for production. The strategy covers database
-            snapshots, media uploads, and configuration -- with tested restore procedures.
+            Automated backups are non-negotiable for production. The strategy
+            covers database snapshots, media uploads, and configuration -- with
+            tested restore procedures.
           </p>
         </section>
 
         <ProcessFlow
           title="Backup Strategy"
           steps={[
-            { title: "Database Dump", description: "pg_dump with compression, daily at 02:00 UTC" },
-            { title: "Media Sync", description: "rsync uploads directory to off-site storage" },
-            { title: "Config Archive", description: "Environment files and docker-compose versioned in git" },
-            { title: "Retention", description: "7 daily, 4 weekly, 3 monthly backups retained" },
-            { title: "Test Restore", description: "Monthly automated restore test to staging" },
+            {
+              title: "Database Dump",
+              description: "pg_dump with compression, daily at 02:00 UTC",
+            },
+            {
+              title: "Media Sync",
+              description: "rsync uploads directory to off-site storage",
+            },
+            {
+              title: "Config Archive",
+              description:
+                "Environment files and docker-compose versioned in git",
+            },
+            {
+              title: "Retention",
+              description: "7 daily, 4 weekly, 3 monthly backups retained",
+            },
+            {
+              title: "Test Restore",
+              description: "Monthly automated restore test to staging",
+            },
           ]}
         />
 
@@ -181,21 +212,27 @@ echo "Backup complete: $TIMESTAMP"`}
         />
 
         <section>
-          <SectionHeader number="04" title="Performance Tuning" id="performance-tuning" />
+          <SectionHeader
+            number="04"
+            title="Performance Tuning"
+            id="performance-tuning"
+          />
           <p className="text-muted-foreground leading-relaxed mt-4">
-            Production performance requires tuning at multiple levels: database queries,
-            caching strategy, CDN configuration, and application-level optimizations.
+            Production performance requires tuning at multiple levels: database
+            queries, caching strategy, CDN configuration, and application-level
+            optimizations.
           </p>
         </section>
 
         <StatsTable
           title="Performance Targets"
+          headers={["Metric", "Target"]}
           rows={[
-            { label: "TTFB (Time to First Byte)", value: "< 200ms" },
-            { label: "LCP (Largest Contentful Paint)", value: "< 2.5s" },
-            { label: "CLS (Cumulative Layout Shift)", value: "< 0.1" },
-            { label: "API Response Time (p95)", value: "< 500ms" },
-            { label: "Database Query Time (p95)", value: "< 50ms" },
+            ["TTFB (Time to First Byte)", "< 200ms"],
+            ["LCP (Largest Contentful Paint)", "< 2.5s"],
+            ["CLS (Cumulative Layout Shift)", "< 0.1"],
+            ["API Response Time (p95)", "< 500ms"],
+            ["Database Query Time (p95)", "< 50ms"],
           ]}
         />
 
@@ -212,22 +249,53 @@ echo "Backup complete: $TIMESTAMP"`}
         />
 
         <section>
-          <SectionHeader number="05" title="Monitoring & Alerting" id="monitoring" />
+          <SectionHeader
+            number="05"
+            title="Monitoring & Alerting"
+            id="monitoring"
+          />
           <p className="text-muted-foreground leading-relaxed mt-4">
-            Monitoring provides visibility into application health, performance degradation,
-            and security incidents. Alert thresholds trigger notifications before users are affected.
+            Monitoring provides visibility into application health, performance
+            degradation, and security incidents. Alert thresholds trigger
+            notifications before users are affected.
           </p>
+          <h4 className="font-semibold text-foreground mb-4">
+            Monitoring Stack
+          </h4>
         </section>
 
         <FeatureGrid
-          title="Monitoring Stack"
           features={[
-            { title: "Health Checks", description: "/api/health endpoint returning service status, DB connectivity, and uptime" },
-            { title: "APM (Application)", description: "Vercel Analytics or Datadog for request tracing and error tracking" },
-            { title: "Infrastructure", description: "Container metrics (CPU, memory, disk) via Prometheus + Grafana" },
-            { title: "Log Aggregation", description: "Structured JSON logs shipped to centralized logging (ELK/Loki)" },
-            { title: "Uptime Monitoring", description: "External pings every 60s with SMS/Slack alerting on failure" },
-            { title: "Security Alerts", description: "Rate limit breaches, failed auth attempts, unusual traffic patterns" },
+            {
+              title: "Health Checks",
+              description:
+                "/api/health endpoint returning service status, DB connectivity, and uptime",
+            },
+            {
+              title: "APM (Application)",
+              description:
+                "Vercel Analytics or Datadog for request tracing and error tracking",
+            },
+            {
+              title: "Infrastructure",
+              description:
+                "Container metrics (CPU, memory, disk) via Prometheus + Grafana",
+            },
+            {
+              title: "Log Aggregation",
+              description:
+                "Structured JSON logs shipped to centralized logging (ELK/Loki)",
+            },
+            {
+              title: "Uptime Monitoring",
+              description:
+                "External pings every 60s with SMS/Slack alerting on failure",
+            },
+            {
+              title: "Security Alerts",
+              description:
+                "Rate limit breaches, failed auth attempts, unusual traffic patterns",
+            },
           ]}
         />
 
@@ -245,5 +313,5 @@ echo "Backup complete: $TIMESTAMP"`}
 
       <TableOfContents items={tocItems} />
     </div>
-  )
+  );
 }

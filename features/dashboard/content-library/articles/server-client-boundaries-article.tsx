@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   SectionHeader,
@@ -20,7 +20,7 @@ import {
   ArchitectureDiagram,
   FileTree,
   type TOCItem,
-} from "@/components/molecules/article-components"
+} from "@/components/molecules/article-components";
 
 const tocItems: TOCItem[] = [
   { id: "the-boundary", title: "The Server/Client Boundary", level: 2 },
@@ -32,35 +32,41 @@ const tocItems: TOCItem[] = [
   { id: "decision-framework", title: "Server or Client?", level: 2 },
   { id: "architecture", title: "Architectural Implications", level: 2 },
   { id: "key-takeaway", title: "Key Takeaway", level: 2 },
-]
+];
 
 export function ServerClientBoundariesArticleContent() {
   return (
     <div className="flex gap-8">
       <div className="flex-1 min-w-0">
         <InfoBox type="important">
-          The server/client boundary is the most consequential architectural decision in Next.js.
-          Every component is either a Server Component or a Client Component, and the rules for
-          what can cross between them are strict, often invisible, and the source of the most
-          confusing errors in modern React.
+          The server/client boundary is the most consequential architectural
+          decision in Next.js. Every component is either a Server Component or a
+          Client Component, and the rules for what can cross between them are
+          strict, often invisible, and the source of the most confusing errors
+          in modern React.
         </InfoBox>
 
         {/* Section 1 */}
-        <SectionHeader number="01" title="The Server/Client Boundary" id="the-boundary" />
+        <SectionHeader
+          number="01"
+          title="The Server/Client Boundary"
+          id="the-boundary"
+        />
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          In Next.js App Router, all components are Server Components by default. They execute on
-          the server, have access to the file system, databases, and secrets, and send only their
-          rendered HTML to the browser. Client Components are explicitly opted in with the
-          &quot;use client&quot; directive and run in the browser with access to state, effects, and
-          browser APIs.
+          In Next.js App Router, all components are Server Components by
+          default. They execute on the server, have access to the file system,
+          databases, and secrets, and send only their rendered HTML to the
+          browser. Client Components are explicitly opted in with the &quot;use
+          client&quot; directive and run in the browser with access to state,
+          effects, and browser APIs.
         </p>
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          The boundary between them is not just a conceptual divide -- it is a serialisation
-          barrier. Data crossing from server to client must be serialisable to JSON. This single
-          constraint drives most of the architectural patterns and error messages in Next.js
-          applications.
+          The boundary between them is not just a conceptual divide -- it is a
+          serialisation barrier. Data crossing from server to client must be
+          serialisable to JSON. This single constraint drives most of the
+          architectural patterns and error messages in Next.js applications.
         </p>
 
         <ArchitectureDiagram
@@ -68,29 +74,48 @@ export function ServerClientBoundariesArticleContent() {
           layers={[
             {
               name: "Server Environment",
-              items: ["Server Components", "Server Actions", "Route Handlers", "Middleware"],
+              items: [
+                "Server Components",
+                "Server Actions",
+                "Route Handlers",
+                "Middleware",
+              ],
               color: "#3b82f6",
             },
             {
               name: "Serialisation Boundary",
-              items: ["Props (JSON-serialisable only)", "Server Action return values", "RSC Payload"],
+              items: [
+                "Props (JSON-serialisable only)",
+                "Server Action return values",
+                "RSC Payload",
+              ],
               color: "#f59e0b",
             },
             {
               name: "Client Environment",
-              items: ["Client Components", "Event Handlers", "useState/useEffect", "Browser APIs"],
+              items: [
+                "Client Components",
+                "Event Handlers",
+                "useState/useEffect",
+                "Browser APIs",
+              ],
               color: "#22c55e",
             },
           ]}
         />
 
         {/* Section 2 */}
-        <SectionHeader number="02" title="What Can Cross the Boundary" id="what-crosses" />
+        <SectionHeader
+          number="02"
+          title="What Can Cross the Boundary"
+          id="what-crosses"
+        />
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          Only JSON-serialisable values can be passed as props from a Server Component to a Client
-          Component. This is because the server renders the component tree, serialises it into a
-          payload (the RSC payload), and streams it to the browser where React hydrates the Client
+          Only JSON-serialisable values can be passed as props from a Server
+          Component to a Client Component. This is because the server renders
+          the component tree, serialises it into a payload (the RSC payload),
+          and streams it to the browser where React hydrates the Client
           Components.
         </p>
 
@@ -103,33 +128,74 @@ export function ServerClientBoundariesArticleContent() {
             ["Booleans", "true, false", "Always safe"],
             ["null", "null", "Safe, but not undefined"],
             ["Arrays", "[1, 2, 3]", "Must contain serialisable items"],
-            ["Plain Objects", '{ name: "John" }', "Keys must be strings, values serialisable"],
-            ["Dates (as strings)", "date.toISOString()", "Convert to string before passing"],
-            ["JSX Elements", "<Component />", "Server Components can pass JSX as children"],
+            [
+              "Plain Objects",
+              '{ name: "John" }',
+              "Keys must be strings, values serialisable",
+            ],
+            [
+              "Dates (as strings)",
+              "date.toISOString()",
+              "Convert to string before passing",
+            ],
+            [
+              "JSX Elements",
+              "<Component />",
+              "Server Components can pass JSX as children",
+            ],
           ]}
         />
 
         <InfoBox type="tip">
-          JSX elements (React nodes) can cross the boundary as children or props. This is the
-          foundation of the composition pattern -- a Client Component can receive Server Component
-          children without those children becoming Client Components.
+          JSX elements (React nodes) can cross the boundary as children or
+          props. This is the foundation of the composition pattern -- a Client
+          Component can receive Server Component children without those children
+          becoming Client Components.
         </InfoBox>
 
         {/* Section 3 */}
-        <SectionHeader number="03" title="What Cannot Cross the Boundary" id="what-cannot" />
+        <SectionHeader
+          number="03"
+          title="What Cannot Cross the Boundary"
+          id="what-cannot"
+        />
 
         <StatsTable
           title="Non-Serialisable Types (Cannot Cross)"
           headers={["Type", "Example", "Error You Will See"]}
           rows={[
-            ["Functions", "onClick={() => {}}", "Functions cannot be passed directly to Client Components"],
-            ["Class Instances", "new Map(), new Set()", "Only plain objects can be passed"],
+            [
+              "Functions",
+              "onClick={() => {}}",
+              "Functions cannot be passed directly to Client Components",
+            ],
+            [
+              "Class Instances",
+              "new Map(), new Set()",
+              "Only plain objects can be passed",
+            ],
             ["Symbols", "Symbol('id')", "Symbols are not serialisable"],
             ["undefined", "undefined", "Use null instead"],
-            ["Circular References", "obj.self = obj", "JSON.stringify throws on circular references"],
-            ["DOM Nodes", "document.getElementById", "Browser-only, does not exist on server"],
-            ["Event Handlers", "onSubmit={handleSubmit}", "Functions -- must be defined in client"],
-            ["Zustand Stores", "useStore()", "Hooks only work in Client Components"],
+            [
+              "Circular References",
+              "obj.self = obj",
+              "JSON.stringify throws on circular references",
+            ],
+            [
+              "DOM Nodes",
+              "document.getElementById",
+              "Browser-only, does not exist on server",
+            ],
+            [
+              "Event Handlers",
+              "onSubmit={handleSubmit}",
+              "Functions -- must be defined in client",
+            ],
+            [
+              "Zustand Stores",
+              "useStore()",
+              "Hooks only work in Client Components",
+            ],
           ]}
         />
 
@@ -168,29 +234,44 @@ export function Button() {
         />
 
         {/* Section 4 */}
-        <SectionHeader number="04" title="The Serialisation Rule" id="serialisation" />
+        <SectionHeader
+          number="04"
+          title="The Serialisation Rule"
+          id="serialisation"
+        />
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          Think of the boundary as a JSON.stringify/JSON.parse gate. If you cannot run
-          JSON.stringify on the value and get it back with JSON.parse, it cannot cross. This mental
-          model resolves 90% of boundary errors.
+          Think of the boundary as a JSON.stringify/JSON.parse gate. If you
+          cannot run JSON.stringify on the value and get it back with
+          JSON.parse, it cannot cross. This mental model resolves 90% of
+          boundary errors.
         </p>
 
         <DataFlowDiagram
           title="Serialisation Flow"
           nodes={[
-            { label: "Server Component", description: "Renders with full Node.js access" },
-            { label: "JSON.stringify", description: "Props serialised to RSC payload" },
+            {
+              label: "Server Component",
+              description: "Renders with full Node.js access",
+            },
+            {
+              label: "JSON.stringify",
+              description: "Props serialised to RSC payload",
+            },
             { label: "Network", description: "Streamed to browser" },
             { label: "JSON.parse", description: "Props deserialised" },
-            { label: "Client Component", description: "Hydrates with browser APIs" },
+            {
+              label: "Client Component",
+              description: "Hydrates with browser APIs",
+            },
           ]}
         />
 
         <InfoBox type="warning">
-          Date objects are a common trap. They serialise to strings, so the client receives a string
-          not a Date. Always convert dates to ISO strings on the server and parse them on the client
-          with new Date(isoString).
+          Date objects are a common trap. They serialise to strings, so the
+          client receives a string not a Date. Always convert dates to ISO
+          strings on the server and parse them on the client with new
+          Date(isoString).
         </InfoBox>
 
         <BeforeAfterComparison
@@ -216,12 +297,17 @@ export function Button() {
         />
 
         {/* Section 5 */}
-        <SectionHeader number="05" title="Composition Patterns" id="composition-patterns" />
+        <SectionHeader
+          number="05"
+          title="Composition Patterns"
+          id="composition-patterns"
+        />
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          The most powerful pattern for working with the boundary is composition: passing Server
-          Components as children to Client Components. The Client Component does not need to know
-          its children are Server Components -- it just renders them.
+          The most powerful pattern for working with the boundary is
+          composition: passing Server Components as children to Client
+          Components. The Client Component does not need to know its children
+          are Server Components -- it just renders them.
         </p>
 
         <SubSectionHeader title="Pattern 1: Children Composition" />
@@ -345,14 +431,19 @@ export function ContactForm() {
         />
 
         {/* Section 6 */}
-        <SectionHeader number="06" title="Common Mistakes" id="common-mistakes" />
+        <SectionHeader
+          number="06"
+          title="Common Mistakes"
+          id="common-mistakes"
+        />
 
         <FeatureGrid
           columns={2}
           features={[
             {
               title: "Mistake: Making Layout a Client Component",
-              description: "Adding 'use client' to a layout because it needs one interactive element. This forces ALL children to be Client Components, losing server rendering for the entire subtree.",
+              description:
+                "Adding 'use client' to a layout because it needs one interactive element. This forces ALL children to be Client Components, losing server rendering for the entire subtree.",
               items: [
                 "Fix: Extract the interactive part into a small Client Component",
                 "Keep the layout as a Server Component",
@@ -361,7 +452,8 @@ export function ContactForm() {
             },
             {
               title: "Mistake: Importing Server-Only Code in Client",
-              description: "Importing a database utility or API key into a Client Component. The bundler will try to include it in the client bundle, leaking secrets or crashing.",
+              description:
+                "Importing a database utility or API key into a Client Component. The bundler will try to include it in the client bundle, leaking secrets or crashing.",
               items: [
                 "Fix: Use the 'server-only' package to mark modules",
                 "Server-only imports throw at build time if used in client",
@@ -370,7 +462,8 @@ export function ContactForm() {
             },
             {
               title: "Mistake: useState for Data That Does Not Change",
-              description: "Using useState to hold data fetched from an API, when the data is available at render time. This unnecessarily makes the component a Client Component.",
+              description:
+                "Using useState to hold data fetched from an API, when the data is available at render time. This unnecessarily makes the component a Client Component.",
               items: [
                 "Fix: Fetch in a Server Component, pass as props",
                 "Only use useState for truly dynamic client state",
@@ -379,7 +472,8 @@ export function ContactForm() {
             },
             {
               title: "Mistake: Wrapping Everything in Providers",
-              description: "Wrapping the entire app in Context providers in the root layout. React Context requires 'use client', so this makes the root layout a Client Component.",
+              description:
+                "Wrapping the entire app in Context providers in the root layout. React Context requires 'use client', so this makes the root layout a Client Component.",
               items: [
                 "Fix: Create a separate Providers Client Component",
                 "Import it in the Server Component layout",
@@ -390,16 +484,41 @@ export function ContactForm() {
         />
 
         {/* Section 7 */}
-        <SectionHeader number="07" title="Server or Client? Decision Framework" id="decision-framework" />
+        <SectionHeader
+          number="07"
+          title="Server or Client? Decision Framework"
+          id="decision-framework"
+        />
 
         <DecisionTree
           title="Component Placement Decision Tree"
           decisions={[
-            { condition: "Uses useState, useEffect, or event handlers?", result: "Client Component ('use client')", recommended: false },
-            { condition: "Uses browser-only APIs (window, document, localStorage)?", result: "Client Component ('use client')", recommended: false },
-            { condition: "Fetches data or accesses secrets/env variables?", result: "Server Component (default, no directive needed)", recommended: true },
-            { condition: "Purely presentational (renders props/children)?", result: "Server Component (smaller bundle, faster)", recommended: true },
-            { condition: "None of the above apply?", result: "Evaluate case-by-case, default to Server Component", recommended: false },
+            {
+              condition: "Uses useState, useEffect, or event handlers?",
+              result: "Client Component ('use client')",
+              recommended: false,
+            },
+            {
+              condition:
+                "Uses browser-only APIs (window, document, localStorage)?",
+              result: "Client Component ('use client')",
+              recommended: false,
+            },
+            {
+              condition: "Fetches data or accesses secrets/env variables?",
+              result: "Server Component (default, no directive needed)",
+              recommended: true,
+            },
+            {
+              condition: "Purely presentational (renders props/children)?",
+              result: "Server Component (smaller bundle, faster)",
+              recommended: true,
+            },
+            {
+              condition: "None of the above apply?",
+              result: "Evaluate case-by-case, default to Server Component",
+              recommended: false,
+            },
           ]}
         />
 
@@ -407,24 +526,45 @@ export function ContactForm() {
           title="Server vs Client Component Capabilities"
           headers={["Capability", "Server Component", "Client Component"]}
           rows={[
-            ["Fetch data", "Direct DB/API access", "Via API routes or Server Actions"],
-            ["Access secrets", "Yes (env variables)", "No (exposed to browser)"],
+            [
+              "Fetch data",
+              "Direct DB/API access",
+              "Via API routes or Server Actions",
+            ],
+            [
+              "Access secrets",
+              "Yes (env variables)",
+              "No (exposed to browser)",
+            ],
             ["Use hooks", "No", "Yes (useState, useEffect, etc.)"],
             ["Event handlers", "No", "Yes (onClick, onChange, etc.)"],
             ["Browser APIs", "No", "Yes (window, document, etc.)"],
-            ["Bundle size impact", "Zero (not sent to browser)", "Added to JS bundle"],
-            ["Rendering", "Server only", "Server (initial) + Client (hydration)"],
+            [
+              "Bundle size impact",
+              "Zero (not sent to browser)",
+              "Added to JS bundle",
+            ],
+            [
+              "Rendering",
+              "Server only",
+              "Server (initial) + Client (hydration)",
+            ],
             ["Caching", "Can be cached at CDN", "Re-renders on state change"],
           ]}
         />
 
         {/* Section 8 */}
-        <SectionHeader number="08" title="Architectural Implications" id="architecture" />
+        <SectionHeader
+          number="08"
+          title="Architectural Implications"
+          id="architecture"
+        />
 
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          Understanding the boundary changes how you architect entire applications. The goal is to
-          push as much as possible to Server Components (zero bundle cost, direct data access) and
-          use Client Components only for the interactive leaf nodes.
+          Understanding the boundary changes how you architect entire
+          applications. The goal is to push as much as possible to Server
+          Components (zero bundle cost, direct data access) and use Client
+          Components only for the interactive leaf nodes.
         </p>
 
         <FileTree
@@ -437,12 +577,14 @@ export function ContactForm() {
                 {
                   name: "layout.tsx",
                   type: "file",
-                  label: "Server Component -- wraps Providers client component",
+                  description:
+                    "Server Component -- wraps Providers client component",
                 },
                 {
                   name: "page.tsx",
                   type: "file",
-                  label: "Server Component -- fetches data, passes to children",
+                  description:
+                    "Server Component -- fetches data, passes to children",
                 },
                 {
                   name: "dashboard/",
@@ -451,7 +593,8 @@ export function ContactForm() {
                     {
                       name: "page.tsx",
                       type: "file",
-                      label: "Server -- fetches stats, passes to client cards",
+                      description:
+                        "Server -- fetches stats, passes to client cards",
                     },
                   ],
                 },
@@ -464,7 +607,7 @@ export function ContactForm() {
                 {
                   name: "providers.tsx",
                   type: "file",
-                  label: "'use client' -- Theme, Auth, Store providers",
+                  description: "'use client' -- Theme, Auth, Store providers",
                 },
                 {
                   name: "atoms/",
@@ -473,12 +616,12 @@ export function ContactForm() {
                     {
                       name: "button.tsx",
                       type: "file",
-                      label: "'use client' -- needs onClick",
+                      description: "'use client' -- needs onClick",
                     },
                     {
                       name: "badge.tsx",
                       type: "file",
-                      label: "Server -- purely presentational",
+                      description: "Server -- purely presentational",
                     },
                   ],
                 },
@@ -489,12 +632,13 @@ export function ContactForm() {
                     {
                       name: "data-table.tsx",
                       type: "file",
-                      label: "'use client' -- sorting, filtering, pagination state",
+                      description:
+                        "'use client' -- sorting, filtering, pagination state",
                     },
                     {
                       name: "stats-overview.tsx",
                       type: "file",
-                      label: "Server -- renders metrics from props",
+                      description: "Server -- renders metrics from props",
                     },
                   ],
                 },
@@ -508,19 +652,23 @@ export function ContactForm() {
           steps={[
             {
               title: "Start with Everything as Server Components",
-              description: "The default is server. Only add 'use client' when you encounter a specific need (hooks, events, browser APIs). This gives you the smallest possible client bundle.",
+              description:
+                "The default is server. Only add 'use client' when you encounter a specific need (hooks, events, browser APIs). This gives you the smallest possible client bundle.",
             },
             {
               title: "Identify Interactive Leaf Nodes",
-              description: "Find the specific elements that need interactivity: buttons, form inputs, dropdowns, modals. These are your Client Components -- keep them small and focused.",
+              description:
+                "Find the specific elements that need interactivity: buttons, form inputs, dropdowns, modals. These are your Client Components -- keep them small and focused.",
             },
             {
               title: "Extract Client Components Down",
-              description: "Instead of making a whole page a Client Component, extract just the interactive part. A 500-line page with one dropdown should have a 20-line Client Component for the dropdown.",
+              description:
+                "Instead of making a whole page a Client Component, extract just the interactive part. A 500-line page with one dropdown should have a 20-line Client Component for the dropdown.",
             },
             {
               title: "Use Composition to Connect Them",
-              description: "Server Components fetch data and render structure. Client Components handle interaction. Use children/props composition to wire them together without leaking the boundary upward.",
+              description:
+                "Server Components fetch data and render structure. Client Components handle interaction. Use children/props composition to wire them together without leaking the boundary upward.",
             },
           ]}
         />
@@ -529,11 +677,13 @@ export function ContactForm() {
         <SectionHeader number="09" title="Key Takeaway" id="key-takeaway" />
 
         <KeyTakeaway>
-          The server/client boundary is a serialisation barrier, not a suggestion. Design your
-          component tree so that Server Components handle data and structure at the top, and Client
-          Components handle interactivity at the leaves. Use composition (children, JSX props) to
-          connect them. When in doubt, ask: "Can I JSON.stringify this prop?" If not, it cannot
-          cross. Master this one concept and most Next.js App Router confusion disappears.
+          The server/client boundary is a serialisation barrier, not a
+          suggestion. Design your component tree so that Server Components
+          handle data and structure at the top, and Client Components handle
+          interactivity at the leaves. Use composition (children, JSX props) to
+          connect them. When in doubt, ask: "Can I JSON.stringify this prop?" If
+          not, it cannot cross. Master this one concept and most Next.js App
+          Router confusion disappears.
         </KeyTakeaway>
 
         <RelatedArticles
@@ -558,5 +708,5 @@ export function ContactForm() {
         <TableOfContents items={tocItems} />
       </aside>
     </div>
-  )
+  );
 }

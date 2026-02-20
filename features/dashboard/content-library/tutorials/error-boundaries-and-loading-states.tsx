@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   TableOfContents,
@@ -11,72 +11,92 @@ import {
   FeatureGrid,
   ArchitectureDiagram,
   CodeBlock as ArticleCodeBlock,
-} from "@/components/molecules/article-components"
-import { CodeBlock } from "@/components/atoms/code-block"
-import { CodeExplanation } from "@/components/atoms/code-explanation"
+} from "@/components/molecules/article-components";
+import { CodeBlock } from "@/components/atoms/code-block";
+import { CodeExplanation } from "@/components/atoms/code-explanation";
 
 export function ErrorBoundariesAndLoadingStatesContent() {
   return (
     <div className="space-y-8">
       <TableOfContents
         items={[
-          { id: "problem", title: "Understanding the Problem" },
-          { id: "error-tsx", title: "Creating Your First error.tsx" },
-          { id: "loading-tsx", title: "Creating Your First loading.tsx" },
-          { id: "hierarchy", title: "The File Convention Hierarchy" },
-          { id: "recovery", title: "Error Recovery Strategies" },
-          { id: "global-error", title: "Global Error Boundary" },
+          { id: "problem", title: "Understanding the Problem", level: 2 },
+          { id: "error-tsx", title: "Creating Your First error.tsx", level: 2 },
+          {
+            id: "loading-tsx",
+            title: "Creating Your First loading.tsx",
+            level: 2,
+          },
+          { id: "hierarchy", title: "The File Convention Hierarchy", level: 2 },
+          { id: "recovery", title: "Error Recovery Strategies", level: 2 },
+          { id: "global-error", title: "Global Error Boundary", level: 2 },
         ]}
       />
 
-      <SectionHeader number="1" title="Understanding the Problem" id="problem" />
+      <SectionHeader
+        number="1"
+        title="Understanding the Problem"
+        id="problem"
+      />
 
       <p className="text-muted-foreground leading-relaxed">
-        Without error boundaries, a single failing component crashes the entire page -- users see a white
-        screen with no recovery option. Without loading states, route transitions appear frozen. Both
-        problems destroy user trust and make your application feel fragile.
+        Without error boundaries, a single failing component crashes the entire
+        page -- users see a white screen with no recovery option. Without
+        loading states, route transitions appear frozen. Both problems destroy
+        user trust and make your application feel fragile.
       </p>
 
       <FeatureGrid
         features={[
           {
             title: "Without Error Boundaries",
-            description: "Component throws -> entire page goes white -> user must refresh manually",
+            description:
+              "Component throws -> entire page goes white -> user must refresh manually",
           },
           {
             title: "With Error Boundaries",
-            description: "Component throws -> error UI shows -> user can retry or navigate away",
+            description:
+              "Component throws -> error UI shows -> user can retry or navigate away",
           },
           {
             title: "Without Loading States",
-            description: "User clicks link -> nothing happens for 1-3s -> page appears suddenly",
+            description:
+              "User clicks link -> nothing happens for 1-3s -> page appears suddenly",
           },
           {
             title: "With Loading States",
-            description: "User clicks link -> skeleton appears instantly -> content streams in",
+            description:
+              "User clicks link -> skeleton appears instantly -> content streams in",
           },
         ]}
         columns={2}
       />
 
-      <SectionHeader number="2" title="Creating Your First error.tsx" id="error-tsx" />
+      <SectionHeader
+        number="2"
+        title="Creating Your First error.tsx"
+        id="error-tsx"
+      />
 
       <StepFlow
         steps={[
           {
             number: "1",
             title: "Create the file",
-            description: "Add error.tsx as a sibling to page.tsx in your route directory",
+            description:
+              "Add error.tsx as a sibling to page.tsx in your route directory",
           },
           {
             number: "2",
             title: "Add 'use client'",
-            description: "Error boundaries must be client components (errors are caught client-side)",
+            description:
+              "Error boundaries must be client components (errors are caught client-side)",
           },
           {
             number: "3",
             title: "Accept error and reset props",
-            description: "The error object tells you what failed, reset retries the render",
+            description:
+              "The error object tells you what failed, reset retries the render",
           },
         ]}
       />
@@ -128,13 +148,29 @@ export default function DashboardError({ error, reset }: ErrorBoundaryProps) {
       <CodeExplanation
         summary="error.tsx props explained"
         terms={[
-          { term: "error: Error", description: "The JavaScript Error object that was thrown. Contains message and stack trace." },
-          { term: "digest?: string", description: "A unique hash of the error generated by Next.js. Useful for matching client errors to server logs." },
-          { term: "reset: () => void", description: "Calling this re-renders the route segment, which retries the failed operation. Useful for transient errors like network failures." },
+          {
+            term: "error: Error",
+            description:
+              "The JavaScript Error object that was thrown. Contains message and stack trace.",
+          },
+          {
+            term: "digest?: string",
+            description:
+              "A unique hash of the error generated by Next.js. Useful for matching client errors to server logs.",
+          },
+          {
+            term: "reset: () => void",
+            description:
+              "Calling this re-renders the route segment, which retries the failed operation. Useful for transient errors like network failures.",
+          },
         ]}
       />
 
-      <SectionHeader number="3" title="Creating Your First loading.tsx" id="loading-tsx" />
+      <SectionHeader
+        number="3"
+        title="Creating Your First loading.tsx"
+        id="loading-tsx"
+      />
 
       <CodeBlock
         code={`// app/dashboard/loading.tsx
@@ -171,19 +207,48 @@ export default function DashboardLoading() {
       />
 
       <InfoBox type="tip" title="Skeleton vs spinner">
-        Skeleton loading states are preferred over spinners because they preview the page structure.
-        This reduces perceived loading time and prevents layout shift when real content arrives.
-        Match the skeleton layout to your actual page grid and spacing.
+        Skeleton loading states are preferred over spinners because they preview
+        the page structure. This reduces perceived loading time and prevents
+        layout shift when real content arrives. Match the skeleton layout to
+        your actual page grid and spacing.
       </InfoBox>
 
-      <SectionHeader number="4" title="The File Convention Hierarchy" id="hierarchy" />
+      <SectionHeader
+        number="4"
+        title="The File Convention Hierarchy"
+        id="hierarchy"
+      />
 
       <ArchitectureDiagram
         layers={[
-          { label: "layout.tsx", items: ["Wraps everything", "Its errors need a PARENT error.tsx or global-error.tsx"] },
-          { label: "loading.tsx", items: ["Suspense boundary", "Shows during data fetching and route transitions"] },
-          { label: "error.tsx", items: ["Error boundary", "Catches errors from page.tsx and its children"] },
-          { label: "page.tsx", items: ["The actual page content", "Renders inside both loading and error boundaries"] },
+          {
+            label: "layout.tsx",
+            items: [
+              "Wraps everything",
+              "Its errors need a PARENT error.tsx or global-error.tsx",
+            ],
+          },
+          {
+            label: "loading.tsx",
+            items: [
+              "Suspense boundary",
+              "Shows during data fetching and route transitions",
+            ],
+          },
+          {
+            label: "error.tsx",
+            items: [
+              "Error boundary",
+              "Catches errors from page.tsx and its children",
+            ],
+          },
+          {
+            label: "page.tsx",
+            items: [
+              "The actual page content",
+              "Renders inside both loading and error boundaries",
+            ],
+          },
         ]}
       />
 
@@ -208,7 +273,11 @@ export default function DashboardLoading() {
         title="Runtime Flow"
       />
 
-      <SectionHeader number="5" title="Error Recovery Strategies" id="recovery" />
+      <SectionHeader
+        number="5"
+        title="Error Recovery Strategies"
+        id="recovery"
+      />
 
       <CodeBlock
         code={`// app/dashboard/error.tsx -- with retry limits
@@ -275,18 +344,35 @@ export default function DashboardError({
       <CodeExplanation
         summary="Recovery pattern explained"
         terms={[
-          { term: "retryCount limit", description: "Prevents infinite retry loops. After maxRetries, offer navigation to a safe page." },
-          { term: "console.error logging", description: "In production, replace with your monitoring service (Sentry, LogRocket, etc.)" },
-          { term: "error.digest", description: "Use this ID in support tickets to match client errors with server-side logs" },
+          {
+            term: "retryCount limit",
+            description:
+              "Prevents infinite retry loops. After maxRetries, offer navigation to a safe page.",
+          },
+          {
+            term: "console.error logging",
+            description:
+              "In production, replace with your monitoring service (Sentry, LogRocket, etc.)",
+          },
+          {
+            term: "error.digest",
+            description:
+              "Use this ID in support tickets to match client errors with server-side logs",
+          },
         ]}
       />
 
-      <SectionHeader number="6" title="Global Error Boundary" id="global-error" />
+      <SectionHeader
+        number="6"
+        title="Global Error Boundary"
+        id="global-error"
+      />
 
       <InfoBox type="warning" title="global-error.tsx is special">
-        Unlike regular error.tsx files, global-error.tsx replaces the ENTIRE HTML document including
-        the html and body tags. It must render these elements itself. This is your last line of defence
-        when the root layout fails.
+        Unlike regular error.tsx files, global-error.tsx replaces the ENTIRE
+        HTML document including the html and body tags. It must render these
+        elements itself. This is your last line of defence when the root layout
+        fails.
       </InfoBox>
 
       <CodeBlock
@@ -336,7 +422,8 @@ export default function GlobalError({
           {
             number: "1",
             title: "Add app/error.tsx",
-            description: "Root-level fallback for all routes below the root layout",
+            description:
+              "Root-level fallback for all routes below the root layout",
           },
           {
             number: "2",
@@ -346,22 +433,25 @@ export default function GlobalError({
           {
             number: "3",
             title: "Add section-level error.tsx",
-            description: "Specific handling for major sections like dashboard, admin",
+            description:
+              "Specific handling for major sections like dashboard, admin",
           },
           {
             number: "4",
             title: "Add loading.tsx at navigation boundaries",
-            description: "Any route with data fetching or slow imports benefits from a skeleton",
+            description:
+              "Any route with data fetching or slow imports benefits from a skeleton",
           },
         ]}
       />
 
       <KeyTakeaway>
-        Error boundaries and loading states are not optional polish -- they are core infrastructure.
-        Place error.tsx at root and section levels for catch-all protection. Place loading.tsx
-        at routes with data fetching. The file convention makes this easy: just create the file
-        and Next.js handles the wiring automatically.
+        Error boundaries and loading states are not optional polish -- they are
+        core infrastructure. Place error.tsx at root and section levels for
+        catch-all protection. Place loading.tsx at routes with data fetching.
+        The file convention makes this easy: just create the file and Next.js
+        handles the wiring automatically.
       </KeyTakeaway>
     </div>
-  )
+  );
 }

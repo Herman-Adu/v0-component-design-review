@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   TableOfContents,
@@ -10,29 +10,38 @@ import {
   ProcessFlow,
   FeatureGrid,
   CodeBlock as ArticleCodeBlock,
-} from "@/components/molecules/article-components"
-import { CodeBlock } from "@/components/atoms/code-block"
-import { CodeExplanation } from "@/components/atoms/code-explanation"
+} from "@/components/molecules/article-components";
+import { CodeBlock } from "@/components/atoms/code-block";
+import { CodeExplanation } from "@/components/atoms/code-explanation";
 
 export function UnitTestingVitestContent() {
   return (
     <div className="space-y-8">
       <TableOfContents
         items={[
-          { id: "why-test", title: "Why Write Tests?" },
-          { id: "setup", title: "Setting Up Vitest" },
-          { id: "first-test", title: "Your First Unit Test" },
-          { id: "testing-components", title: "Testing React Components" },
-          { id: "running-tests", title: "Running and Debugging Tests" },
+          { id: "why-test", title: "Why Write Tests?", level: 2 },
+          { id: "setup", title: "Setting Up Vitest", level: 2 },
+          { id: "first-test", title: "Your First Unit Test", level: 2 },
+          {
+            id: "testing-components",
+            title: "Testing React Components",
+            level: 2,
+          },
+          {
+            id: "running-tests",
+            title: "Running and Debugging Tests",
+            level: 2,
+          },
         ]}
       />
 
       <SectionHeader number="1" title="Why Write Tests?" id="why-test" />
 
       <p className="text-muted-foreground leading-relaxed">
-        Tests catch bugs before your users do. They give you confidence to refactor code, add new
-        features, and ship updates without worrying about breaking existing functionality. Unit tests
-        verify individual functions and components work correctly in isolation.
+        Tests catch bugs before your users do. They give you confidence to
+        refactor code, add new features, and ship updates without worrying about
+        breaking existing functionality. Unit tests verify individual functions
+        and components work correctly in isolation.
       </p>
 
       <FeatureGrid
@@ -43,15 +52,18 @@ export function UnitTestingVitestContent() {
           },
           {
             title: "Refactor Safely",
-            description: "Change code confidently knowing tests verify behavior",
+            description:
+              "Change code confidently knowing tests verify behavior",
           },
           {
             title: "Document Behavior",
-            description: "Tests serve as living documentation of how code should work",
+            description:
+              "Tests serve as living documentation of how code should work",
           },
           {
             title: "Faster Development",
-            description: "Quick feedback loops vs manually testing in the browser",
+            description:
+              "Quick feedback loops vs manually testing in the browser",
           },
         ]}
         columns={2}
@@ -107,9 +119,21 @@ export default defineConfig({
       <CodeExplanation
         summary="Vitest configuration explained"
         terms={[
-          { term: "environment: 'jsdom'", description: "Simulates a browser environment so you can test DOM manipulation" },
-          { term: "globals: true", description: "Makes describe, it, expect available without importing them" },
-          { term: "setupFiles", description: "Runs this file before every test to set up common utilities" },
+          {
+            term: "environment: 'jsdom'",
+            description:
+              "Simulates a browser environment so you can test DOM manipulation",
+          },
+          {
+            term: "globals: true",
+            description:
+              "Makes describe, it, expect available without importing them",
+          },
+          {
+            term: "setupFiles",
+            description:
+              "Runs this file before every test to set up common utilities",
+          },
         ]}
       />
 
@@ -121,8 +145,9 @@ import '@testing-library/jest-dom'`}
       />
 
       <InfoBox type="info" title="What does jest-dom add?">
-        It adds useful matchers like <code>toBeInTheDocument()</code>, <code>toHaveTextContent()</code>,
-        and <code>toBeVisible()</code> that make assertions about DOM elements more readable.
+        It adds useful matchers like <code>toBeInTheDocument()</code>,{" "}
+        <code>toHaveTextContent()</code>, and <code>toBeVisible()</code> that
+        make assertions about DOM elements more readable.
       </InfoBox>
 
       <SectionHeader number="3" title="Your First Unit Test" id="first-test" />
@@ -155,9 +180,20 @@ describe('formatPrice', () => {
       <CodeExplanation
         summary="Test structure explained"
         terms={[
-          { term: "describe", description: "Groups related tests together under a label" },
-          { term: "it", description: "Defines a single test case -- should read like a sentence: 'it formats cents to dollar string'" },
-          { term: "expect().toBe()", description: "Asserts that the actual value equals the expected value" },
+          {
+            term: "describe",
+            description: "Groups related tests together under a label",
+          },
+          {
+            term: "it",
+            description:
+              "Defines a single test case -- should read like a sentence: 'it formats cents to dollar string'",
+          },
+          {
+            term: "expect().toBe()",
+            description:
+              "Asserts that the actual value equals the expected value",
+          },
         ]}
       />
 
@@ -171,7 +207,11 @@ describe('formatPrice', () => {
         title="Test-First Workflow"
       />
 
-      <SectionHeader number="4" title="Testing React Components" id="testing-components" />
+      <SectionHeader
+        number="4"
+        title="Testing React Components"
+        id="testing-components"
+      />
 
       <CodeBlock
         code={`// components/button.test.tsx
@@ -214,19 +254,40 @@ describe('Button', () => {
       <CodeExplanation
         summary="Component testing patterns explained"
         terms={[
-          { term: "render()", description: "Renders the component into a virtual DOM for testing" },
-          { term: "screen.getByRole()", description: "Finds elements by their accessibility role -- the recommended approach" },
-          { term: "vi.fn()", description: "Creates a mock function that tracks how it was called" },
-          { term: "userEvent.click()", description: "Simulates a real user click, including focus and event bubbling" },
+          {
+            term: "render()",
+            description: "Renders the component into a virtual DOM for testing",
+          },
+          {
+            term: "screen.getByRole()",
+            description:
+              "Finds elements by their accessibility role -- the recommended approach",
+          },
+          {
+            term: "vi.fn()",
+            description:
+              "Creates a mock function that tracks how it was called",
+          },
+          {
+            term: "userEvent.click()",
+            description:
+              "Simulates a real user click, including focus and event bubbling",
+          },
         ]}
       />
 
       <InfoBox type="tip" title="Testing best practice">
-        Always query by accessibility role (<code>getByRole</code>) or label (<code>getByLabelText</code>) first.
-        This ensures your components are accessible AND testable. Avoid querying by test IDs unless there is no better option.
+        Always query by accessibility role (<code>getByRole</code>) or label (
+        <code>getByLabelText</code>) first. This ensures your components are
+        accessible AND testable. Avoid querying by test IDs unless there is no
+        better option.
       </InfoBox>
 
-      <SectionHeader number="5" title="Running and Debugging Tests" id="running-tests" />
+      <SectionHeader
+        number="5"
+        title="Running and Debugging Tests"
+        id="running-tests"
+      />
 
       <ArticleCodeBlock
         code={`# Run tests in watch mode (reruns on file changes):
@@ -255,10 +316,11 @@ npx vitest run --reporter=verbose`}
       />
 
       <KeyTakeaway>
-        Good tests verify behavior, not implementation. Test what the user sees and does,
-        not the internal details of how your component works. If you refactor the internals
-        but the behavior stays the same, your tests should still pass.
+        Good tests verify behavior, not implementation. Test what the user sees
+        and does, not the internal details of how your component works. If you
+        refactor the internals but the behavior stays the same, your tests
+        should still pass.
       </KeyTakeaway>
     </div>
-  )
+  );
 }
