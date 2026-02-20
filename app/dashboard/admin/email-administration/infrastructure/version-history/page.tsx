@@ -116,7 +116,7 @@ export default function TemplateVersionsPage() {
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        <div className="responsive-grid-icon-2-4">
           <Card>
             <CardContent className="p-5">
               <p className="text-sm text-muted-foreground">Total Versions</p>

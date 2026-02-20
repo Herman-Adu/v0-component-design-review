@@ -151,7 +151,7 @@ export default function EmailSecurityPage() {
       {audit && (
         <>
           {/* Score Overview */}
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="responsive-grid-4">
             <Card className={`${audit.overallStatus === "pass" ? "border-green-500/30" : audit.overallStatus === "warn" ? "border-amber-500/30" : "border-red-500/30"}`}>
               <CardContent className="p-6 flex items-center gap-4">
                 <div className={`flex items-center justify-center w-14 h-14 rounded-full ${STATUS_CONFIG[audit.overallStatus].bgColor}`}>
@@ -342,7 +342,7 @@ export default function EmailSecurityPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="responsive-grid-2">
                 <div className="space-y-3">
                   <h4 className="text-sm font-semibold text-foreground">Request Pipeline (per form submission)</h4>
                   <div className="space-y-1">

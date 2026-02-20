@@ -163,7 +163,7 @@ export default function SendConfigurationPage() {
       </div>
 
       {/* Overall Health Summary */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="responsive-grid-3">
         {/* Resend Connection */}
         <Card className={`border-${report?.resend.connected ? "green" : "red"}-500/30`}>
           <CardContent className="p-5">
@@ -531,7 +531,7 @@ export default function SendConfigurationPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="responsive-grid-4">
             {[
               { step: "1", label: "Form Submission", detail: "User submits a service, contact, or quotation form", icon: Building2 },
               { step: "2", label: "Server Action", detail: "Validates data, generates request ID, triggers email service", icon: Server },

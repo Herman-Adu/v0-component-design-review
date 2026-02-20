@@ -173,7 +173,7 @@ export default function DeliveryLogsPage() {
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="responsive-grid-5">
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-accent/10">
@@ -234,7 +234,7 @@ export default function DeliveryLogsPage() {
 
       {/* Category breakdown */}
       {stats && stats.total > 0 && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="responsive-grid-3">
           {(["service", "contact", "quotation"] as const).map((cat) => (
             <Card key={cat}>
               <CardContent className="p-4 flex items-center justify-between">
@@ -417,7 +417,7 @@ export default function DeliveryLogsPage() {
                     {/* Expanded details */}
                     {isExpanded && (
                       <div className="mt-3 ml-12 p-4 bg-muted/30 rounded-lg border border-border/50 space-y-2 text-xs">
-                        <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        <div className="responsive-grid-2">
                           <div>
                             <span className="text-muted-foreground">From:</span>
                             <span className="ml-2 font-mono text-foreground">{maskEmail(entry.from)}</span>
