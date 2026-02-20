@@ -353,7 +353,8 @@
     }
   }
 
-  /* 4-COLUMN GRID: Mobile (1) → Tablet (2) → Desktop (2) → Ultra-wide (4) */
+  /* 4-COLUMN GRID: Mobile (1) → Tablet (2,2 balanced) → Desktop (4) */
+  /* Even column count: NO spanning, keep balanced rows on tablet */
   .responsive-grid-4 {
     display: grid;
     width: 100%;
@@ -370,19 +371,19 @@
 
   @media (min-width: 1024px) {
     .responsive-grid-4 {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
     }
   }
 
   @media (min-width: 1280px) {
     .responsive-grid-4 {
-      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
     }
   }
 
-  /* 5-COLUMN GRID: Mobile (1) → Tablet (2 + 1 spanning 2) → Desktop (2 + 1 spanning 2) → Ultra-wide (3-2 split) */
+  /* 5-COLUMN GRID: Mobile (1) → Tablet (2,1,2 featured) → Desktop (5) */
+  /* Odd column count: 3rd card spans full-width on tablet */
   .responsive-grid-5 {
     display: grid;
     width: 100%;
@@ -396,32 +397,72 @@
       gap: 1.5rem;
     }
 
-    .responsive-grid-5 > :nth-child(5) {
+    .responsive-grid-5 > :nth-child(3) {
       grid-column: span 2;
     }
   }
 
   @media (min-width: 1024px) {
     .responsive-grid-5 {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 1.5rem;
     }
 
-    .responsive-grid-5 > :nth-child(5) {
-      grid-column: span 2;
+    .responsive-grid-5 > :nth-child(3) {
+      grid-column: span 1;
     }
   }
 
   @media (min-width: 1280px) {
     .responsive-grid-5 {
-      grid-template-columns: repeat(5, 1fr);
       gap: 2rem;
     }
+  }
 
-    .responsive-grid-5 > :nth-child(5) {
-      grid-column: auto;
+  /* 6-COLUMN GRID: Mobile (1) → Tablet (2,1,2,1 double featured) → Desktop (3, creates 2 rows) */
+  /* Treated as 2 sets of 3: 3rd and 6th cards span full-width on tablet */
+  .responsive-grid-6 {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .responsive-grid-6 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .responsive-grid-6 > :nth-child(3),
+    .responsive-grid-6 > :nth-child(6) {
+      grid-column: span 2;
     }
   }
+
+  @media (min-width: 1024px) {
+    .responsive-grid-6 {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .responsive-grid-6 > :nth-child(3),
+    .responsive-grid-6 > :nth-child(6) {
+      grid-column: span 1;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .responsive-grid-6 {
+      gap: 2rem;
+    }
+  }
+
+  /* NOTE: 7+ column grids should be redesigned at component level */
+  /* If you have more than 6 items, consider: */
+  /* - Breaking into multiple sections with headers */
+  /* - Using a different layout pattern (list, table, carousel) */
+  /* - Grouping related items into cards with sub-grids */
 
   /* Responsive Card - Flex container that stretches to match row height */
   .responsive-card {
