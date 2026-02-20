@@ -297,14 +297,13 @@
     }
 
     .responsive-grid-3 > :nth-child(3) {
-      grid-column: auto;
+      grid-column: span 1;
     }
   }
 
-  /* Ultra-wide (xl: 1280px): auto-fit up to 4 columns */
+  /* Ultra-wide (xl: 1280px): increased gap */
   @media (min-width: 1280px) {
     .responsive-grid-3 {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
   }
