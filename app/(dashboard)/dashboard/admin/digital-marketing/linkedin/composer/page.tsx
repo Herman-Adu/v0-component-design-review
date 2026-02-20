@@ -344,7 +344,7 @@ export default function LinkedInComposerPage() {
       {/* Templates */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Post Templates</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {templates.map((tmpl) => (
             <Card key={tmpl.title} className="border-border/50">
               <CardHeader className="pb-2">

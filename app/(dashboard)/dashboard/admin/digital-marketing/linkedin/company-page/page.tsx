@@ -184,7 +184,7 @@ export default function LinkedInCompanyPagePage() {
         <p className="text-sm text-muted-foreground mb-4">
           Encourage key team members to link their personal profiles to the company page. Each role contributes differently to your LinkedIn presence.
         </p>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {teamShowcase.map((member) => (
             <Card key={member.role} className="border-border/50">
               <CardContent className="p-5">
