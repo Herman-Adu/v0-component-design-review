@@ -322,8 +322,8 @@ export function BeforeAfterComparison({
   afterItems,
   improvements,
 }: {
-  before?: { title?: string; items?: string[]; code?: string }
-  after?: { title?: string; items?: string[]; code?: string }
+  before?: { title?: string; label?: string; items?: string[]; code?: string }
+  after?: { title?: string; label?: string; items?: string[]; code?: string }
   beforeTitle?: string
   beforeCode?: string
   afterTitle?: string
@@ -378,8 +378,8 @@ export function BeforeAfterComparison({
   // Original items-based pattern - support both nested before.items and flat beforeItems/afterItems props
   const resolvedBeforeItems = beforeItems || (Array.isArray(before?.items) ? before.items : [])
   const resolvedAfterItems = afterItems || (Array.isArray(after?.items) ? after.items : [])
-  const beforeData = { title: beforeTitle || before?.title || "Before", items: resolvedBeforeItems }
-  const afterData = { title: afterTitle || after?.title || "After", items: resolvedAfterItems }
+  const beforeData = { title: beforeTitle || before?.title || before?.label || "Before", items: resolvedBeforeItems }
+  const afterData = { title: afterTitle || after?.title || after?.label || "After", items: resolvedAfterItems }
 
   // If no items to show (e.g., only code was provided but code path didn't match), render nothing
   if (resolvedBeforeItems.length === 0 && resolvedAfterItems.length === 0) {
