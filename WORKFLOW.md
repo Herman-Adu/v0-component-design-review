@@ -31,6 +31,7 @@ This document defines the development workflow for this project, ensuring clean 
 v0 automatically commits and pushes changes to this branch.
 
 **Best Practices:**
+
 - Keep changes focused on one feature/task
 - Test in v0 preview as you go
 - Use v0 Pro for architectural work, Mini for simple edits
@@ -47,6 +48,7 @@ v0 automatically commits and pushes changes to this branch.
 4. Add clear description of changes
 
 **Why Draft?**
+
 - Vercel won't build (saves time/money)
 - Signals "not ready for review"
 - Allows local validation first
@@ -78,6 +80,7 @@ npm run dev
 ```
 
 **Test Checklist:**
+
 - [ ] All pages load without errors
 - [ ] No console errors in browser
 - [ ] Navigation works correctly
@@ -112,6 +115,7 @@ git push origin v0/your-branch
 ```
 
 **Commit Message Format:**
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `refactor:` - Code restructure (no functionality change)
@@ -130,6 +134,7 @@ git push origin v0/your-branch
 3. This triggers Vercel build for PR preview
 
 **Vercel Builds:**
+
 - Vercel creates preview URL: `your-pr-name.vercel.app`
 - Test the preview thoroughly
 - Check Lighthouse scores, mobile experience
@@ -146,6 +151,7 @@ git push origin v0/your-branch
 4. Delete the `v0/` branch (cleanup)
 
 **If Issues Found:**
+
 - Make fixes locally
 - Commit and push
 - Vercel rebuilds preview automatically
@@ -192,6 +198,7 @@ git push origin feat/descriptive-name
 ```
 
 **Why?**
+
 - Isolates large changes from other work
 - Keeps v0 branch for smaller iterations
 - Easier to review and rollback if needed
@@ -203,16 +210,19 @@ git push origin feat/descriptive-name
 **Scripts Location:** `/scripts/`
 
 **Before Running:**
+
 1. Read the script comments
 2. Check if there's a rollback script
 3. Commit current state (safety checkpoint)
 
 **Running:**
+
 ```bash
 node scripts/your-script.js
 ```
 
 **After Running:**
+
 1. Test thoroughly
 2. Check git diff to see what changed
 3. Commit or rollback
@@ -224,14 +234,17 @@ node scripts/your-script.js
 **Build Control:** `vercel.json` + `scripts/vercel-ignore-build.js`
 
 **Builds are SKIPPED for:**
+
 - `v0/*` branches (work in progress)
 - Draft PRs (validation in progress)
 
 **Builds run for:**
+
 - `main` branch (production)
 - Ready PRs (validated changes)
 
 **Why This Matters:**
+
 - Saves Vercel build minutes
 - Prevents broken code from being built
 - Forces local validation before deployment
@@ -265,6 +278,7 @@ git push origin --delete branch-name
 ### Issue: "Import path not found" after folder restructure
 
 **Solution:**
+
 ```bash
 # Check if path is correct relative to new structure
 # Update import to use @/ alias if needed
@@ -274,6 +288,7 @@ import { Component } from '@/components/...'
 ### Issue: Vercel builds when it shouldn't
 
 **Solution:**
+
 - Check `scripts/vercel-ignore-build.js` logic
 - Verify PR is marked as Draft
 - Check branch name follows `v0/*` pattern
@@ -281,6 +296,7 @@ import { Component } from '@/components/...'
 ### Issue: v0 can't pull changes after merge
 
 **Solution:**
+
 1. In v0: Settings → disconnect GitHub
 2. Reconnect GitHub
 3. Select correct repository and branch
@@ -289,6 +305,7 @@ import { Component } from '@/components/...'
 ### Issue: Merge conflicts
 
 **Solution:**
+
 ```bash
 # Update your branch with latest main
 git checkout your-branch
@@ -344,6 +361,7 @@ components/
 ```
 
 **Client Components:**
+
 - Live in atoms/ or molecules/
 - Keep small and focused
 - Use `'use client'` directive
@@ -362,6 +380,7 @@ components/
 ## Workflow Evolution
 
 This workflow will evolve as the project grows. Update this document when:
+
 - New patterns are established
 - Pain points are discovered
 - Team size changes
