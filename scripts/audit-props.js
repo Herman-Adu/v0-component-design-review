@@ -1,8 +1,8 @@
 // Audit script: Checks every consumer of article-components.tsx for prop mismatches
 // against the known interfaces.
 
-import { readFileSync, readdirSync, statSync } from 'fs';
-import { join, relative } from 'path';
+const { readFileSync, readdirSync, statSync } = require('fs');
+const { join, relative } = require('path');
 
 const ROOT = '/vercel/share/v0-project';
 
