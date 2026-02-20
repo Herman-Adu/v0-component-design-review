@@ -489,14 +489,14 @@ export default function DocSystemOverviewPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="responsive-grid-3">
-            <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
+              <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">How It Works</p>
               <p className="text-xs text-muted-foreground">
                 The manifest imports real data arrays and computes counts via .length.
                 All doc pages import STATS instead of hardcoding numbers.
               </p>
-            </div>
-            <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card p-4 space-y-2">
               <p className="text-sm font-medium text-foreground">After Any Change</p>
               <ul className="text-xs text-muted-foreground space-y-1">
                 <li>1. Add/remove content in data arrays</li>
@@ -504,16 +504,16 @@ export default function DocSystemOverviewPage() {
                 <li>3. All pages reflect new numbers</li>
                 <li>4. Run Count Validation to verify</li>
               </ul>
-            </div>
-            <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
+              </div>
+              <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
               <p className="text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">v0 Custom Rules:</span>{" "}
                 Rules in .v0/rules.md instruct the AI to always import from the manifest, never hardcode
                 stats, and run validation after feature changes.
               </p>
+              </div>
             </div>
-          </div>
-        </CardContent>
+          </CardContent>
       </Card>
 
       {/* Changelog */}
