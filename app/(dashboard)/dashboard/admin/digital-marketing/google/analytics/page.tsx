@@ -203,6 +203,7 @@ export default function GoogleAnalyticsPage() {
           Custom Report Templates
         </h2>
         <div className="responsive-grid-2">
+          {reportTemplates.map((report) => (
             <Card key={report.name} className="border-border/50">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">

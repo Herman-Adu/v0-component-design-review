@@ -120,6 +120,7 @@ export default function GoogleAdsCampaignsPage() {
           Campaign Types
         </h2>
         <div className="responsive-grid-3">
+          {campaignTypes.map((camp) => {
             const Icon = camp.icon
             return (
               <Card key={camp.type} className="border-border/50">
@@ -193,6 +194,7 @@ export default function GoogleAdsCampaignsPage() {
           Negative Keyword Lists
         </h2>
         <div className="responsive-grid-3">
+          {negativeKeywords.map((group) => (
             <Card key={group.category} className="border-border/50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm">{group.category}</CardTitle>
