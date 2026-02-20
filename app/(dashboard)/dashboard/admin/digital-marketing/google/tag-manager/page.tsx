@@ -197,6 +197,7 @@ export default function GoogleTagManagerPage() {
           Conversion Tracking Setup
         </h2>
         <div className="responsive-grid-2">
+          {conversionSetup.map((conv) => (
             <Card key={conv.conversion} className="border-border/50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm">{conv.conversion}</CardTitle>
