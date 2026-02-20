@@ -577,7 +577,7 @@ export const serverContactFormSchema = z.object({
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="responsive-grid-3">
                   <div className="p-3 bg-background rounded-lg border border-border text-center">
                     <p className="text-2xl font-bold text-foreground">0</p>
                     <p className="text-xs text-muted-foreground">Suppression directives</p>
@@ -862,7 +862,7 @@ const nextConfig = {
       <section className="space-y-6">
         <DocSectionHeader id="security-checklist">Production Security Checklist</DocSectionHeader>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">Pre-Deployment</CardTitle>

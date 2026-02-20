@@ -72,7 +72,7 @@ export default function InfrastructureGettingStartedPage() {
 
       {/* Prerequisites */}
       <DocSectionHeader id="prerequisites">Prerequisites</DocSectionHeader>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {[
             { icon: Server, title: "Node.js 20+", desc: "Runtime. Check with node -v" },
             { icon: Database, title: "PostgreSQL 14+", desc: "Production database. Recommended." },
@@ -372,7 +372,7 @@ LOG_LEVEL=info`}
 
       {/* Next Steps */}
       <DocSectionHeader id="next-steps">Next Steps</DocSectionHeader>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {[
             { title: "API & GraphQL", href: "/dashboard/documentation/infrastructure-and-ops/api-and-graphql", desc: "REST and GraphQL patterns" },
             { title: "Testing Strategy", href: "/dashboard/documentation/infrastructure-and-ops/testing-strategy", desc: "Unit, integration, e2e tests" },

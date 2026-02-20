@@ -244,7 +244,7 @@ export default function FrontendOverviewPage() {
       </div>
 
       {/* Stats Grid */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="responsive-grid-4">
         {stats.map((stat) => {
           const Icon = stat.icon
           return (
@@ -275,7 +275,7 @@ export default function FrontendOverviewPage() {
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="responsive-grid-3">
           {audienceCards.map((card) => {
             const Icon = card.icon
             return (

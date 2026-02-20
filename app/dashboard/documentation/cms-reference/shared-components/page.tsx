@@ -137,7 +137,7 @@ export default function SharedComponentsPage() {
             Components for Articles, Tutorials, and Case Studies. These map to the TypeScript
             interfaces in <code className="text-xs px-1.5 py-0.5 rounded bg-muted text-foreground font-mono">/data/content-library/</code>.
           </p>
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-5">
+          <div className="responsive-grid-5">
             {contentComponents.map((c) => <ComponentCard key={c.name} component={c} />)}
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function SharedComponentsPage() {
             Components for Service Requests, Contact Inquiries, and Quotations. Documented in
             detail on the <Link href="/dashboard/documentation/cms-reference/form-collections" className="text-accent underline underline-offset-2">Form Collections</Link> page.
           </p>
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <div className="responsive-grid-4">
             {formComponents.map((c) => <ComponentCard key={c.name} component={c} />)}
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function SharedComponentsPage() {
       {/* Creation Order */}
       <DocSectionHeader id="creation-order">Creation Order</DocSectionHeader>
       <p className="text-muted-foreground leading-relaxed">Follow this exact order. Each step depends on the previous steps being completed.</p>
-      <div className="grid gap-3 md:grid-cols-4">
+      <div className="responsive-grid-4">
         {[
           { step: 1, title: "Leaf Components", items: ["Result Metric", "Tutorial Step", "Category Tag", "Reading Info"], color: "bg-green-500/10 text-green-500 border-green-500/20" },
           { step: 2, title: "Media & Identity", items: ["Featured Image", "Author Profile", "SEO Metadata"], color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },

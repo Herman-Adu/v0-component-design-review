@@ -61,7 +61,7 @@ export default function GettingStartedPage() {
       {/* Prerequisites */}
       <section className="space-y-6">
         <h2 className="text-3xl font-bold text-foreground border-b border-border pb-2">Prerequisites</h2>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {[
             { icon: Terminal, title: "Node.js 18+", desc: "Required for running Strapi. Check with node -v" },
             { icon: Database, title: "PostgreSQL", desc: "Recommended database. SQLite works for development." },
@@ -335,7 +335,7 @@ export default async function RequestsPage() {
       {/* Next Steps */}
       <section className="space-y-4">
         <h2 className="text-3xl font-bold text-foreground border-b border-border pb-2">Next Steps</h2>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {[
     { title: "Form Collections", href: "/dashboard/documentation/cms-reference/form-collections", desc: "Service Requests, Contact, Quotations" },
     { title: "Content Collections", href: "/dashboard/documentation/cms-reference/content-collections", desc: "Articles, Tutorials, Case Studies" },

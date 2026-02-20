@@ -28,7 +28,7 @@ export function CodeReviewClientPage() {
           and addressed:
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="responsive-grid-2 mb-6">
           <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4">
             <h3 className="font-semibold text-red-500 mb-2">Critical Issues Found</h3>
             <ul className="text-sm text-red-400 space-y-1">

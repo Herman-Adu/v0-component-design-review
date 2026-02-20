@@ -46,7 +46,7 @@ export default function ServerVsClientPage() {
       {/* Decision Matrix */}
       <section className="space-y-6">
         <DocSectionHeader id="decision-matrix">Decision Matrix</DocSectionHeader>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div className="responsive-grid-2 mb-6">
           <div className="border border-green-500/30 bg-green-500/5 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-green-400 mb-3">Use Server Components For:</h3>
             <ul className="space-y-2 text-sm">
