@@ -8,7 +8,7 @@ export function CodeReviewClientPage() {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({})
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="space-y-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground mb-2">Code Review & Refactoring Guide</h1>
         <p className="text-xl text-muted-foreground">Comprehensive analysis and production-ready improvements</p>

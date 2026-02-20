@@ -66,8 +66,7 @@ const qaTools = [
 
 export default function DocQAPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto max-w-6xl px-4 py-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
@@ -160,7 +159,6 @@ export default function DocQAPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
     </div>
   )
 }

@@ -86,7 +86,7 @@ export default function ABSubjectLinesPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-6xl">
+    <div className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <Button variant="ghost" size="sm" asChild>

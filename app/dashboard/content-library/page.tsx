@@ -24,7 +24,7 @@ export default function ContentOverviewPage() {
   const tutorialCategories = new Set(tutorials.map(t => t.category)).size
 
   return (
-    <div className="container mx-auto px-6 py-12 max-w-5xl">
+    <div className="space-y-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground mb-4">Learning Hub</h1>
         <p className="text-lg text-muted-foreground text-balance">

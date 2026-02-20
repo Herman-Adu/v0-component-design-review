@@ -13,6 +13,14 @@ import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/s
  * SidebarInset) requires client-side state. The `{children}` passed in are
  * Server Components that stream through untouched.
  *
+ * Content Layout:
+ * - The inner content wrapper provides unified fluid layout for ALL sidebar pages.
+ *   Uses CSS variables --content-max-width, --content-padding-x, --content-padding-y
+ *   that scale responsively across breakpoints (defined in globals.css).
+ * - This eliminates the need for per-page or per-section container wrappers.
+ * - Documentation pages may add doc-specific containers (e.g. doc-container for
+ *   container queries) but the outer padding/max-width comes from here.
+ *
  * Hydration safety:
  * - {children} is wrapped in an explicit <Suspense> boundary. Next.js inserts
  *   an implicit Suspense around Server Component children passed through a
@@ -36,9 +44,14 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <span className="text-sm font-medium text-muted-foreground md:hidden">Documentation</span>
         </header>
         <div className="flex-1 bg-background">
-          <Suspense>
-            {children}
-          </Suspense>
+          <div
+            className="mx-auto w-full px-dynamic py-dynamic transition-layout"
+            style={{ maxWidth: 'var(--content-max-width)' }}
+          >
+            <Suspense>
+              {children}
+            </Suspense>
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
