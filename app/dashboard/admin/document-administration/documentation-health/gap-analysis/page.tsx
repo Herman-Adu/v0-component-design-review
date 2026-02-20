@@ -747,7 +747,7 @@ export default function GapAnalysisPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="responsive-grid-3">
             {coverageMetrics.map((metric) => {
               const pct = metric.total > 0 ? Math.round((metric.documented / metric.total) * 100) : 0
               const Icon = metric.icon
@@ -777,7 +777,7 @@ export default function GapAnalysisPage() {
       </Card>
 
       {/* Content Stats Quick View */}
-      <div className="grid gap-4 sm:grid-cols-4">
+      <div className="responsive-grid-4">
         <Card className="border-purple-500/20">
           <CardContent className="pt-4 pb-4 text-center">
             <FileText className="h-5 w-5 text-purple-400 mx-auto mb-1" />
@@ -837,7 +837,7 @@ export default function GapAnalysisPage() {
         </CardHeader>
         {hasRun && (
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+            <div className="responsive-grid-7">
               <div className="rounded-lg border border-border p-3 text-center">
                 <p className="text-2xl font-bold text-foreground">{gaps.length}</p>
                 <p className="text-xs text-muted-foreground">Total Gaps</p>
@@ -889,7 +889,7 @@ export default function GapAnalysisPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="responsive-grid-4">
                 {audienceCoverage.map((aud) => (
                   <div key={aud.audience} className="rounded-lg border border-border p-4 space-y-2">
                     <div className="flex items-center justify-between">
@@ -927,7 +927,7 @@ export default function GapAnalysisPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="responsive-grid-3">
                   <div className="rounded-lg border border-border p-3 text-center">
                     <p className="text-2xl font-bold text-foreground">{REVIEW_LOG.length}</p>
                     <p className="text-xs text-muted-foreground">Reviews Scanned</p>
@@ -1220,7 +1220,7 @@ export default function GapAnalysisPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="responsive-grid-2">
               <div className="space-y-2">
                 <p className="text-sm font-medium text-foreground">Quick Wins (small effort, high impact)</p>
                 <ul className="text-xs text-muted-foreground space-y-1">
