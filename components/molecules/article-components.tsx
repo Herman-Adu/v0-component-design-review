@@ -304,6 +304,8 @@ export function BeforeAfterComparison({
   beforeCode,
   afterTitle,
   afterCode,
+  beforeItems,
+  afterItems,
   improvements,
 }: {
   before?: { title?: string; items?: string[]; code?: string }
@@ -312,6 +314,8 @@ export function BeforeAfterComparison({
   beforeCode?: string
   afterTitle?: string
   afterCode?: string
+  beforeItems?: string[]
+  afterItems?: string[]
   improvements?: { metric: string; before: string; after: string }[]
 }) {
   // Support code comparison pattern - check both top-level props and nested before/after.code
@@ -357,14 +361,14 @@ export function BeforeAfterComparison({
     )
   }
 
-  // Original items-based pattern - ensure items array always exists
-  const beforeItems = Array.isArray(before?.items) ? before.items : []
-  const afterItems = Array.isArray(after?.items) ? after.items : []
-  const beforeData = { title: before?.title || "Before", items: beforeItems }
-  const afterData = { title: after?.title || "After", items: afterItems }
+  // Original items-based pattern - support both nested before.items and flat beforeItems/afterItems props
+  const resolvedBeforeItems = beforeItems || (Array.isArray(before?.items) ? before.items : [])
+  const resolvedAfterItems = afterItems || (Array.isArray(after?.items) ? after.items : [])
+  const beforeData = { title: beforeTitle || before?.title || "Before", items: resolvedBeforeItems }
+  const afterData = { title: afterTitle || after?.title || "After", items: resolvedAfterItems }
 
   // If no items to show (e.g., only code was provided but code path didn't match), render nothing
-  if (beforeItems.length === 0 && afterItems.length === 0) {
+  if (resolvedBeforeItems.length === 0 && resolvedAfterItems.length === 0) {
     return null
   }
 
@@ -501,16 +505,22 @@ export function ArchitectureDiagram({
   layers,
   title,
 }: {
-  layers: { name: string; items: string[]; color: string }[]
+  layers: { name?: string; label?: string; items: string[]; color?: string }[]
   title?: string
 }) {
   const guardedLayers = guardArrayProp(layers, "ArchitectureDiagram", "layers")
   if (!guardedLayers) return <PropGuardDiagnostic componentName="ArchitectureDiagram" propName="layers" received={layers === undefined ? "undefined" : "null"} />
+  // Normalise: accept "label" as alias for "name", default color to accent
+  const normalizedLayers = guardedLayers.map(layer => ({
+    ...layer,
+    name: layer.name || layer.label || "Layer",
+    color: layer.color || "#6366f1",
+  }))
   return (
     <div className="bg-card border border-border rounded-lg p-6 my-6">
       {title && <h4 className="font-semibold text-foreground mb-6 text-center">{title}</h4>}
       <div className="space-y-3">
-        {guardedLayers.map((layer, index) => (
+        {normalizedLayers.map((layer, index) => (
           <div key={layer.name}>
             <div
               className="rounded-lg p-4 text-center"
@@ -530,7 +540,7 @@ export function ArchitectureDiagram({
                 ))}
               </div>
             </div>
-            {index < guardedLayers.length - 1 && (
+            {index < normalizedLayers.length - 1 && (
               <div className="flex justify-center py-2">
                 <ArrowDown className="h-4 w-4 text-muted-foreground" />
               </div>

@@ -1,7 +1,8 @@
 // Audit script: Checks every consumer of article-components.tsx for prop mismatches
 // against the known interfaces.
 
-const { readFileSync, readdirSync, statSync } = require('fs');
+const { readFileSync, existsSync } = require('fs');
+const { execSync } = require('child_process');
 const { join, relative } = require('path');
 
 const ROOT = '/vercel/share/v0-project';
@@ -59,47 +60,76 @@ const SIDE_BY_SIDE_LEFT_ITEM_PROPS = ['label', 'type'];
 const SIDE_BY_SIDE_RIGHT_ITEM_PROPS = ['label', 'type'];
 const NUMBERED_LIST_ITEM_PROPS = ['title', 'description'];
 
-function findTsxFiles(dir) {
-  const results = [];
-  const entries = readdirSync(dir);
-  for (const entry of entries) {
-    const fullPath = join(dir, entry);
-    const stat = statSync(fullPath);
-    if (stat.isDirectory()) {
-      results.push(...findTsxFiles(fullPath));
-    } else if (entry.endsWith('.tsx')) {
-      results.push(fullPath);
-    }
-  }
-  return results;
-}
-
-// Get all consumer files
-const consumerDirs = [
-  join(ROOT, 'components/articles'),
-  join(ROOT, 'components/tutorials'),
-  join(ROOT, 'components/case-studies'),
-  join(ROOT, 'components/guides'),
+// Hardcoded list of known consumer files from grep output
+// (readdirSync and execSync don't work in this sandbox environment)
+const KNOWN_CONSUMERS = [
+  'components/tutorials/zustand-form-store.tsx',
+  'components/tutorials/your-first-strapi-collection.tsx',
+  'components/tutorials/your-first-nextjs-app.tsx',
+  'components/tutorials/unit-testing-vitest.tsx',
+  'components/tutorials/understanding-react-hydration.tsx',
+  'components/tutorials/server-side-validation.tsx',
+  'components/tutorials/rate-limiting-implementation.tsx',
+  'components/tutorials/multi-step-forms-server-actions.tsx',
+  'components/tutorials/error-boundaries-and-loading-states.tsx',
+  'components/tutorials/email-templates-react-email.tsx',
+  'components/tutorials/e2e-testing-playwright.tsx',
+  'components/tutorials/deploying-nextjs-vercel.tsx',
+  'components/tutorials/connecting-nextjs-to-strapi.tsx',
+  'components/tutorials/building-hydration-safe-sidebar.tsx',
+  'components/tutorials/building-atomic-component.tsx',
+  'components/articles/zustand-article.tsx',
+  'components/articles/zod-validation-article.tsx',
+  'components/articles/three-axis-review-article.tsx',
+  'components/articles/testing-article.tsx',
+  'components/articles/tech-stack-article.tsx',
+  'components/articles/ssr-article.tsx',
+  'components/articles/ssg-article.tsx',
+  'components/articles/service-request-lifecycle-article.tsx',
+  'components/articles/server-client-boundaries-article.tsx',
+  'components/articles/server-actions-article.tsx',
+  'components/articles/security-article.tsx',
+  'components/articles/roi-article.tsx',
+  'components/articles/refactoring-article.tsx',
+  'components/articles/ppr-article.tsx',
+  'components/articles/planning-article.tsx',
+  'components/articles/performance-budgets-article.tsx',
+  'components/articles/multi-step-form-article.tsx',
+  'components/articles/managing-content-strapi-article.tsx',
+  'components/articles/isr-article.tsx',
+  'components/articles/hydration-mismatches-article.tsx',
+  'components/articles/hydration-deep-dive-article.tsx',
+  'components/articles/guard-pattern-article.tsx',
+  'components/articles/email-article.tsx',
+  'components/articles/duplicate-providers-article.tsx',
+  'components/articles/documentation-article.tsx',
+  'components/articles/cicd-article.tsx',
+  'components/articles/atomic-design-article.tsx',
+  'components/articles/ai-session-management-article.tsx',
+  'components/articles/accessibility-article.tsx',
+  'components/case-studies/tarball-build-failure.tsx',
+  'components/case-studies/state-management.tsx',
+  'components/case-studies/sidebar-refactor.tsx',
+  'components/case-studies/security-layer.tsx',
+  'components/case-studies/rendering-strategy.tsx',
+  'components/case-studies/rate-limiting.tsx',
+  'components/case-studies/multi-step-form.tsx',
+  'components/case-studies/multi-site.tsx',
+  'components/case-studies/hydration-guard.tsx',
+  'components/case-studies/form-validation.tsx',
+  'components/case-studies/enterprise-cms.tsx',
+  'components/case-studies/email-consolidation.tsx',
+  'components/case-studies/documentation-evolution.tsx',
+  'components/case-studies/dev-productivity.tsx',
+  'components/case-studies/cost-reduction.tsx',
+  'components/case-studies/client-to-server.tsx',
+  'components/guides/testing-strategy.tsx',
+  'components/guides/security-architecture.tsx',
+  'components/guides/deployment-guide.tsx',
+  'data/code-review-log.tsx',
 ];
 
-const consumerFiles = [];
-for (const dir of consumerDirs) {
-  try {
-    consumerFiles.push(...findTsxFiles(dir));
-  } catch (e) {
-    // directory may not exist
-  }
-}
-
-// Also check app pages that import article-components
-const appDir = join(ROOT, 'app');
-const allAppFiles = findTsxFiles(appDir);
-for (const f of allAppFiles) {
-  const content = readFileSync(f, 'utf-8');
-  if (content.includes('article-components')) {
-    consumerFiles.push(f);
-  }
-}
+const consumerFiles = KNOWN_CONSUMERS.map(f => join(ROOT, f));
 
 console.log(`Found ${consumerFiles.length} consumer files to audit\n`);
 
