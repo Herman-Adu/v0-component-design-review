@@ -100,7 +100,7 @@ export default function FacebookPageManagementPage() {
       {/* Review Templates */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Review Response Templates</h2>
-        <div className="grid gap-4 md:grid-cols-1">
+        <div className="responsive-grid-1">
           {reviewTemplates.map((tmpl) => (
             <Card key={tmpl.type} className="border-border/50">
               <CardHeader className="pb-2">

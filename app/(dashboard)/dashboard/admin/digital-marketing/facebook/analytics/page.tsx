@@ -83,7 +83,7 @@ export default function FacebookAnalyticsPage() {
       {/* Key Metrics */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Key Metrics</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="responsive-grid-6">
           {keyMetrics.map((m) => {
             const Icon = m.icon
             return (
@@ -141,7 +141,7 @@ export default function FacebookAnalyticsPage() {
       {/* Reporting Schedule */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Reporting Cadence</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {reportingSchedule.map((r) => (
             <Card key={r.frequency} className="border-border/50">
               <CardHeader className="pb-2">

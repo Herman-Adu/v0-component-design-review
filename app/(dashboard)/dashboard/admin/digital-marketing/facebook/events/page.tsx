@@ -97,7 +97,7 @@ export default function FacebookEventsPage() {
       {/* Event Types */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Event Types for Electrical Services</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {eventTypes.map((ev) => (
             <Card key={ev.type} className="border-border/50">
               <CardHeader className="pb-2">
@@ -154,7 +154,7 @@ export default function FacebookEventsPage() {
       {/* Promotion Templates */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Promotion Templates</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {promotionTemplates.map((tmpl) => (
             <Card key={tmpl.title} className="border-border/50">
               <CardHeader className="pb-2">

@@ -122,7 +122,7 @@ export default function FacebookOverviewPage() {
       </Card>
 
       {/* Strategy Flow */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="responsive-grid-3">
         {strategy.map((phase) => (
           <Card key={phase.title} className="border-border/50">
             <CardContent className="p-5">
@@ -142,7 +142,7 @@ export default function FacebookOverviewPage() {
       </div>
 
       {/* Quick Access */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+      <div className="responsive-grid-2">
         {tools.map((tool) => {
           const Icon = tool.icon
           return (
@@ -169,7 +169,7 @@ export default function FacebookOverviewPage() {
       {/* Detail Cards */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Pages</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {tools.map((tool) => {
             const Icon = tool.icon
             return (
