@@ -312,6 +312,7 @@ export function ComparisonCards({
 // ============================================
 
 export function BeforeAfterComparison({
+  title,
   before,
   after,
   beforeTitle,
@@ -322,6 +323,7 @@ export function BeforeAfterComparison({
   afterItems,
   improvements,
 }: {
+  title?: string
   before?: { title?: string; label?: string; items?: string[]; code?: string }
   after?: { title?: string; label?: string; items?: string[]; code?: string }
   beforeTitle?: string
@@ -341,6 +343,7 @@ export function BeforeAfterComparison({
   if (resolvedBeforeCode || resolvedAfterCode) {
     return (
       <div className="my-6 space-y-4">
+        {title && <h4 className="font-semibold text-foreground">{title}</h4>}
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-red-500/20 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
@@ -387,7 +390,9 @@ export function BeforeAfterComparison({
   }
 
   return (
-    <div className="grid md:grid-cols-2 gap-4 my-6">
+    <div className="my-6 space-y-4">
+      {title && <h4 className="font-semibold text-foreground">{title}</h4>}
+      <div className="grid md:grid-cols-2 gap-4">
       <div className="bg-card border border-red-500/20 rounded-lg p-5">
         <div className="flex items-center gap-2 mb-4">
           <XCircle className="h-5 w-5 text-red-500" />
@@ -415,6 +420,7 @@ export function BeforeAfterComparison({
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </div>
   )
