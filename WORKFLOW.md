@@ -209,15 +209,38 @@ git push origin feat/descriptive-name
 
 **Scripts Location:** `/scripts/`
 
+**CRITICAL: Check Branch Before Running Scripts**
+
+```bash
+# ALWAYS verify which branch you're on
+git branch --show-current
+
+# Expected output examples:
+# - main                          (production branch - be careful!)
+# - v0/herman-adu-db002bd9       (v0 working branch - OK)
+# - feat/route-group-architecture (feature branch - OK)
+# - responsive-grid-system        (feature branch - OK)
+
+# If you're on the wrong branch, switch first:
+git checkout correct-branch-name
+git pull origin correct-branch-name
+```
+
 **Before Running:**
 
-1. Read the script comments
-2. Check if there's a rollback script
-3. Commit current state (safety checkpoint)
+1. **Verify branch** - Use `git branch --show-current`
+2. Read the script comments
+3. Check if there's a rollback script
+4. Commit current state (safety checkpoint)
+5. **Double-check branch again** (scripts can restructure entire folders)
 
 **Running:**
 
 ```bash
+# Verify branch one more time
+git branch --show-current
+
+# Run script
 node scripts/your-script.js
 ```
 
@@ -225,7 +248,8 @@ node scripts/your-script.js
 
 1. Test thoroughly
 2. Check git diff to see what changed
-3. Commit or rollback
+3. Verify expected files were moved/changed
+4. Commit or rollback
 
 ---
 

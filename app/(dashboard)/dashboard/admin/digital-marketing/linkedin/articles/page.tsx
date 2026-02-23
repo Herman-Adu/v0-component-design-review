@@ -130,7 +130,7 @@ export default function LinkedInArticlesPage() {
       {/* Article Types */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Article Types</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {articleTypes.map((type) => (
             <Card key={type.title} className="border-border/50">
               <CardContent className="p-5">
@@ -190,7 +190,7 @@ export default function LinkedInArticlesPage() {
         <p className="text-sm text-muted-foreground mb-4">
           You already have content in your Learning Hub and social media tools. Here is how to repurpose it for LinkedIn articles.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {repurposeGuide.map((item) => (
             <Card key={item.source} className="border-border/50">
               <CardContent className="p-5">

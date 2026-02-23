@@ -196,7 +196,7 @@ export default function GoogleTagManagerPage() {
           <DollarSign className="h-5 w-5 text-blue-500" />
           Conversion Tracking Setup
         </h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {conversionSetup.map((conv) => (
             <Card key={conv.conversion} className="border-border/50">
               <CardHeader className="pb-2">

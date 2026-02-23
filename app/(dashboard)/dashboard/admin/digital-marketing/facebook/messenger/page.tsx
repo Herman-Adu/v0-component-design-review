@@ -112,7 +112,7 @@ export default function FacebookMessengerPage() {
       {/* Auto Replies */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Auto-Reply Configuration</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {autoReplies.map((ar) => (
             <Card key={ar.trigger} className="border-border/50">
               <CardHeader className="pb-2">
@@ -142,7 +142,7 @@ export default function FacebookMessengerPage() {
         {quickReplies.map((cat) => (
           <div key={cat.category} className="mb-6">
             <h3 className="text-sm font-semibold text-foreground mb-3">{cat.category}</h3>
-            <div className="grid gap-4 md:grid-cols-2">
+        <div className="responsive-grid-2">
               {cat.replies.map((reply) => (
                 <Card key={reply.label} className="border-border/50">
                   <CardHeader className="pb-2">

@@ -123,7 +123,7 @@ export default function LinkedInOverviewPage() {
       </Card>
 
       {/* Strategy Flow */}
-      <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
         {strategy.map((phase) => (
           <Card key={phase.title} className="border-border/50">
             <CardContent className="p-5">

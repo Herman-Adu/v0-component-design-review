@@ -200,7 +200,7 @@ export default function LinkedInAnalyticsPage() {
       {/* Reporting Cadence */}
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-4">Reporting Cadence</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {reportingCadence.map((report) => (
             <Card key={report.frequency} className="border-border/50">
               <CardHeader className="pb-2">

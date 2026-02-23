@@ -120,7 +120,7 @@ export default function GoogleBusinessProfilePage() {
           <CheckCircle2 className="h-5 w-5 text-blue-500" />
           Profile Completeness Checklist
         </h2>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="responsive-grid-2">
           {profileChecklist.map((check, i) => (
             <Card key={i} className="border-border/50">
               <CardContent className="flex items-start gap-3 p-4">
@@ -170,7 +170,7 @@ export default function GoogleBusinessProfilePage() {
           <Star className="h-5 w-5 text-blue-500" />
           Review Response Templates
         </h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="responsive-grid-3">
           {reviewTemplates.map((tmpl) => (
             <Card key={tmpl.type} className="border-border/50">
               <CardHeader className="pb-2">
