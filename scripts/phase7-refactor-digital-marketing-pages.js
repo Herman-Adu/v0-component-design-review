@@ -12,13 +12,13 @@ const path = require("path");
 const marketingDir = path.join(
   __dirname,
   "..",
-  "app/(dashboard)/dashboard/admin/digital-marketing"
+  "app/(dashboard)/dashboard/admin/digital-marketing",
 );
 
 const refactorConfigs = [
   {
     pagePath: "page.tsx",
-    dataFile: "overview",
+    dataFile: "platforms",
     replacements: [
       { varName: "tools", jsonFile: "google-tools.json" },
       { varName: "ecosystem", jsonFile: "google-ecosystem.json" },
@@ -26,7 +26,7 @@ const refactorConfigs = [
   },
   {
     pagePath: "getting-started/page.tsx",
-    dataFile: "getting-started",
+    dataFile: "digital-marketing/getting-started",
     replacements: [
       { varName: "journeys", jsonFile: "journeys.json" },
       { varName: "quickChecklist", jsonFile: "quick-checklist.json" },
@@ -34,17 +34,20 @@ const refactorConfigs = [
   },
   {
     pagePath: "content-strategy/page.tsx",
-    dataFile: "content-strategy",
+    dataFile: "digital-marketing/content-strategy",
     replacements: [
       { varName: "contentCalendar", jsonFile: "content-calendar.json" },
-      { varName: "distributionChannels", jsonFile: "distribution-channels.json" },
+      {
+        varName: "distributionChannels",
+        jsonFile: "distribution-channels.json",
+      },
       { varName: "contentMetrics", jsonFile: "content-metrics.json" },
       { varName: "editorialGuidelines", jsonFile: "editorial-guidelines.json" },
     ],
   },
   {
     pagePath: "google/page.tsx",
-    dataFile: "platforms/google",
+    dataFile: "platforms",
     replacements: [
       { varName: "tools", jsonFile: "google-tools.json" },
       { varName: "ecosystem", jsonFile: "google-ecosystem.json" },
@@ -70,42 +73,57 @@ function refactorPage(config) {
   let content = fs.readFileSync(fullPath, "utf-8");
   const originalContent = content;
 
-  // Add imports at top of file
-  const importLines = config.replacements.map(
-    (r) =>
-      `import ${r.varName}Data from "@/data/strapi-mock/${config.dataFile}/${r.jsonFile}";`
+  const activeReplacements = config.replacements.filter((r) =>
+    new RegExp(`const\\s+${r.varName}\\s*=`, "m").test(content),
   );
 
-  // Find insertion point (after existing imports, before first const)
-  const importRegex = /^import .*;$/m;
-  const lastImportMatch = content.match(new RegExp(`(^import .*;$)(?!.*^import)`, "m"));
+  // Add imports at top of file (after "use client" and existing imports)
+  const importLines = activeReplacements.map(
+    (r) =>
+      `import ${r.varName}Data from "@/data/strapi-mock/${config.dataFile}/${r.jsonFile}";`,
+  );
+
+  const useClientMatch = content.match(/^['"]use client['"];?/m);
+  const importLineRegex = /^import .*$/gm;
+  let lastImportMatch = null;
+  let match;
+
+  while ((match = importLineRegex.exec(content)) !== null) {
+    lastImportMatch = match;
+  }
+
   let insertionPoint = 0;
 
   if (lastImportMatch) {
-    insertionPoint = content.indexOf(lastImportMatch[0]) + lastImportMatch[0].length;
+    insertionPoint = lastImportMatch.index + lastImportMatch[0].length;
+  } else if (useClientMatch) {
+    insertionPoint = useClientMatch.index + useClientMatch[0].length;
   }
 
   // Insert new imports
   importLines.forEach((line) => {
     if (!content.includes(line)) {
-      content = content.slice(0, insertionPoint) + "\n" + line + content.slice(insertionPoint);
+      content =
+        content.slice(0, insertionPoint) +
+        "\n" +
+        line +
+        "\n" +
+        content.slice(insertionPoint);
       stats.importsAdded++;
+      insertionPoint += line.length + 2;
     }
   });
 
   // Replace const declarations with JSON imports
-  config.replacements.forEach((r) => {
-    const varRegex = new RegExp(
-      `const\\s+${r.varName}\\s*=\\s*\\[`,
-      "g"
-    );
+  activeReplacements.forEach((r) => {
+    const varRegex = new RegExp(`const\\s+${r.varName}\\s*=\\s*\\[`, "g");
 
     if (varRegex.test(content)) {
       // Replace const declaration with: const varName = dataFileData.key || [];
       const replacement = `const ${r.varName} = ${r.varName}Data.${r.varName} || []`;
       const pattern = new RegExp(
         `const\\s+${r.varName}\\s*=\\s*\\[[\\s\\S]*?\\](?=\\s*\\n\\s*(?:const|export|function|//))`,
-        "g"
+        "g",
       );
 
       if (pattern.test(content)) {
@@ -141,7 +159,7 @@ ${stats.errors.length ? `### Errors\n${stats.errors.map((e) => `- ${e}`).join("\
 
   fs.writeFileSync(
     path.join(__dirname, "..", "data", "phase7-refactor-report.md"),
-    report
+    report,
   );
 
   console.log("\n" + report);

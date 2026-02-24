@@ -5,42 +5,96 @@
       "title": "Launch Electrical Services Presence",
       "description": "Build foundational digital marketing for electrical services",
       "duration": "4-6 weeks",
-      "steps": [
-        "Set up Google Business Profile with complete NAP",
-        "Create Facebook Business page with service areas",
-        "Optimize website for local SEO keywords",
-        "Install Google Analytics 4 and GTM"
-      ],
       "owner": "Business Owner / Marketing Lead",
-      "status": "available"
+      "status": "available",
+      "icon": "Rocket",
+      "color": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+      "steps": [
+        {
+          "title": "Google Business Profile",
+          "desc": "Complete NAP, hours, and service areas",
+          "href": "/dashboard/admin/digital-marketing/google/business-profile"
+        },
+        {
+          "title": "Facebook Business Presence",
+          "desc": "Set up the company page and service areas",
+          "href": "/dashboard/admin/digital-marketing/facebook"
+        },
+        {
+          "title": "Analytics & Reporting",
+          "desc": "Configure GA4 and conversion tracking",
+          "href": "/dashboard/admin/digital-marketing/google/analytics"
+        },
+        {
+          "title": "Content Strategy",
+          "desc": "Plan the editorial calendar and distribution",
+          "href": "/dashboard/admin/digital-marketing/content-strategy"
+        }
+      ]
     },
     {
       "id": 2,
       "title": "Drive Local Search Traffic",
       "description": "Dominate local search results for electrical services",
       "duration": "8-12 weeks",
-      "steps": [
-        "Audit and optimize on-page SEO elements",
-        "Build local backlink strategy",
-        "Implement structured data markup (LocalBusiness schema)",
-        "Set up Google Ads Local Services Ads campaign"
-      ],
       "owner": "Developer / Marketing Lead",
-      "status": "available"
+      "status": "available",
+      "icon": "Search",
+      "color": "bg-blue-500/15 text-blue-400 border-blue-500/30",
+      "steps": [
+        {
+          "title": "SEO & Site Optimization",
+          "desc": "Audit on-page SEO and structured data",
+          "href": "/dashboard/admin/digital-marketing/google/seo"
+        },
+        {
+          "title": "Tag Manager Setup",
+          "desc": "Track key events and conversions",
+          "href": "/dashboard/admin/digital-marketing/google/tag-manager"
+        },
+        {
+          "title": "Ads & Campaigns",
+          "desc": "Launch local services and search ads",
+          "href": "/dashboard/admin/digital-marketing/google/ads-campaigns"
+        },
+        {
+          "title": "Performance Analytics",
+          "desc": "Monitor conversions and ROI",
+          "href": "/dashboard/admin/digital-marketing/google/analytics"
+        }
+      ]
     },
     {
       "id": 3,
       "title": "Build Social Proof & Community",
       "description": "Generate reviews and community engagement across platforms",
       "duration": "6-10 weeks",
-      "steps": [
-        "Set up review request workflows (email, SMS, QR codes)",
-        "Create content calendar and editorial guidelines",
-        "Launch LinkedIn thought leadership strategy",
-        "Implement Facebook review management and response system"
-      ],
       "owner": "Content Creator / Marketing Lead",
-      "status": "available"
+      "status": "available",
+      "icon": "Users",
+      "color": "bg-violet-500/15 text-violet-400 border-violet-500/30",
+      "steps": [
+        {
+          "title": "Content Composer",
+          "desc": "Publish Google Business updates",
+          "href": "/dashboard/admin/digital-marketing/google/composer"
+        },
+        {
+          "title": "LinkedIn Presence",
+          "desc": "Plan professional posts and articles",
+          "href": "/dashboard/admin/digital-marketing/linkedin"
+        },
+        {
+          "title": "Facebook Engagement",
+          "desc": "Manage community and reviews",
+          "href": "/dashboard/admin/digital-marketing/facebook"
+        },
+        {
+          "title": "Content Strategy",
+          "desc": "Coordinate themes across platforms",
+          "href": "/dashboard/admin/digital-marketing/content-strategy"
+        }
+      ]
     }
   ]
 }

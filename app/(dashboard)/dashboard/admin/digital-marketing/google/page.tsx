@@ -1,7 +1,9 @@
-import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import ecosystemData from "@/data/strapi-mock/platforms/google-ecosystem.json";
+import toolsData from "@/data/strapi-mock/platforms/google-tools.json";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Search,
   ArrowRight,
@@ -13,84 +15,22 @@ import {
   Megaphone,
   CheckCircle2,
   Users,
-} from "lucide-react"
+} from "lucide-react";
 
-const G = "/dashboard/admin/digital-marketing/google"
+const G = "/dashboard/admin/digital-marketing/google";
 
-const tools = [
-  {
-    href: `${G}/business-profile`,
-    icon: Building2,
-    title: "Business Profile & FAQs",
-    description:
-      "Google Business Profile setup, NAP consistency, FAQ management, review response templates, and local SEO signals.",
-    role: "Business Owner / Marketing Lead",
-    status: "Active",
-  },
-  {
-    href: `${G}/seo`,
-    icon: Search,
-    title: "SEO & Site Optimization",
-    description:
-      "On-page SEO audit checklists, structured data markup, XML sitemap, Core Web Vitals, and keyword strategy for electrical services.",
-    role: "Developer / Marketing Lead",
-    status: "Active",
-  },
-  {
-    href: `${G}/tag-manager`,
-    icon: Tag,
-    title: "Tag Manager",
-    description:
-      "GTM container setup, event tracking tags, conversion tracking for Google Ads and GA4, custom events, and trigger management.",
-    role: "Developer / Technical Admin",
-    status: "Active",
-  },
-  {
-    href: `${G}/ads-campaigns`,
-    icon: DollarSign,
-    title: "Ads & Campaigns",
-    description:
-      "Campaign structure for search, display, and local services ads. Budget allocation, bidding strategy, ad copy templates, and negative keywords.",
-    role: "Business Owner / Marketing Lead",
-    status: "Active",
-  },
-  {
-    href: `${G}/analytics`,
-    icon: LineChart,
-    title: "Analytics & Reporting",
-    description:
-      "GA4 setup, key metrics dashboard, goal configuration, custom report templates, and attribution model guidance.",
-    role: "All Roles",
-    status: "Active",
-  },
-  {
-    href: `${G}/composer`,
-    icon: PenSquare,
-    title: "Content Composer",
-    description:
-      "Compose Google Business posts with character limits, post type selection, image sizing, CTA buttons, and live preview.",
-    role: "Content Creator / Marketing Lead",
-    status: "Active",
-  },
-]
+const tools = toolsData.tools || [];
 
-const ecosystem = [
-  {
-    title: "Attract",
-    items: ["SEO & Site Optimization", "Google Ads & Campaigns"],
-    description: "Drive qualified traffic to your site",
-  },
-  {
-    title: "Convert",
-    items: ["Business Profile & FAQs", "Content Composer"],
-    description: "Turn visitors into leads and customers",
-  },
-  {
-    title: "Measure",
-    items: ["Tag Manager", "Analytics & Reporting"],
-    description: "Track performance and optimise spend",
-  },
-]
+const ecosystem = ecosystemData.ecosystem || [];
+
+const iconMap = {
+  Search,
+  Building2,
+  Tag,
+  DollarSign,
+  LineChart,
+  PenSquare,
+};
 
 export default function GoogleOverviewPage() {
   return (
@@ -172,13 +112,13 @@ export default function GoogleOverviewPage() {
       {/* Quick Access */}
       <div className="responsive-grid-3">
         {tools.map((tool) => {
-          const Icon = tool.icon
+          const Icon = iconMap[tool.icon as keyof typeof iconMap];
           return (
             <Card key={tool.href} className="border-blue-500/30">
               <CardContent className="p-4 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-500/10 shrink-0">
-                    <Icon className="h-4 w-4 text-blue-500" />
+                    {Icon ? <Icon className="h-4 w-4 text-blue-500" /> : null}
                   </div>
                   <div className="min-w-0">
                     <p className="font-semibold text-foreground text-sm truncate">
@@ -201,7 +141,7 @@ export default function GoogleOverviewPage() {
                 </Button>
               </CardContent>
             </Card>
-          )
+          );
         })}
       </div>
 
@@ -210,14 +150,16 @@ export default function GoogleOverviewPage() {
         <h2 className="text-xl font-semibold text-foreground mb-4">Pages</h2>
         <div className="responsive-grid-2">
           {tools.map((tool) => {
-            const Icon = tool.icon
+            const Icon = iconMap[tool.icon as keyof typeof iconMap];
             return (
               <Card key={tool.href} className="border-border/50">
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="flex items-center justify-center w-9 h-9 rounded-md bg-muted">
-                        <Icon className="h-4 w-4 text-foreground" />
+                        {Icon ? (
+                          <Icon className="h-4 w-4 text-foreground" />
+                        ) : null}
                       </div>
                       <div>
                         <p className="font-semibold text-foreground text-sm">
@@ -248,7 +190,7 @@ export default function GoogleOverviewPage() {
                   </Button>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
@@ -283,5 +225,5 @@ export default function GoogleOverviewPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

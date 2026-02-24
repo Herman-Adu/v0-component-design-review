@@ -1,7 +1,9 @@
-import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import quickChecklistData from "@/data/strapi-mock/digital-marketing/getting-started/quick-checklist.json";
+import journeysData from "@/data/strapi-mock/digital-marketing/getting-started/journeys.json";
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Megaphone,
   Rocket,
@@ -15,90 +17,21 @@ import {
   Shield,
   Briefcase,
   Palette,
-} from "lucide-react"
+} from "lucide-react";
 
-const DM = "/dashboard/admin/digital-marketing"
+const DM = "/dashboard/admin/digital-marketing";
+
+const iconMap = {
+  Rocket,
+  Search,
+  Users,
+  Share2,
+};
 
 export default function DigitalMarketingGettingStartedPage() {
-  const journeys = [
-    {
-      title: "Business Owner / Marketing Lead",
-      description:
-        "Set up your online presence, manage brand consistency, and launch campaigns",
-      icon: Briefcase,
-      color: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-      steps: [
-        {
-          title: "Digital Marketing Overview",
-          href: DM,
-          desc: "Understand the section layout and available tools",
-        },
-        {
-          title: "Content Strategy",
-          href: `${DM}/content-strategy`,
-          desc: "Review editorial calendar and distribution channels",
-        },
-        {
-          title: "Google Business Profile",
-          href: `${DM}/google/business-profile`,
-          desc: "Set up and optimise your Google Business listing",
-        },
-        {
-          title: "Google Ads & Campaigns",
-          href: `${DM}/google/ads-campaigns`,
-          desc: "Launch targeted advertising for electrical services",
-        },
-      ],
-    },
-    {
-      title: "Content Creator / Social Media Manager",
-      description:
-        "Create professional content, manage social presence, and track engagement",
-      icon: Palette,
-      color: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-      steps: [
-        {
-          title: "Content Strategy",
-          href: `${DM}/content-strategy`,
-          desc: "Understand the content calendar and editorial guidelines",
-        },
-        {
-          title: "Google Content Composer",
-          href: `${DM}/google/composer`,
-          desc: "Create formatted Google Business posts with preview",
-        },
-        {
-          title: "SEO & Site Optimization",
-          href: `${DM}/google/seo`,
-          desc: "Optimise content for search visibility",
-        },
-      ],
-    },
-    {
-      title: "Developer / Technical Admin",
-      description:
-        "Configure tracking, analytics, and technical marketing infrastructure",
-      icon: Shield,
-      color: "bg-red-500/15 text-red-400 border-red-500/30",
-      steps: [
-        {
-          title: "Tag Manager",
-          href: `${DM}/google/tag-manager`,
-          desc: "Set up GTM container, events, and conversion tracking",
-        },
-        {
-          title: "Analytics & Reporting",
-          href: `${DM}/google/analytics`,
-          desc: "Configure GA4, goals, and custom reporting",
-        },
-        {
-          title: "SEO & Site Optimization",
-          href: `${DM}/google/seo`,
-          desc: "Implement structured data and technical SEO",
-        },
-      ],
-    },
-  ]
+  const journeys = journeysData.journeys || [];
+
+  const quickChecklist = quickChecklistData.quickChecklist || [];
 
   const platformOverview = [
     {
@@ -129,16 +62,7 @@ export default function DigitalMarketingGettingStartedPage() {
       tools: 0,
       href: `${DM}/facebook`,
     },
-  ]
-
-  const quickChecklist = [
-    "Review the Digital Marketing Overview for section structure",
-    "Choose your role-based journey below and follow the recommended order",
-    "Start with Google Business Profile -- it is the foundation of local presence",
-    "Set up Tag Manager before launching any ad campaigns",
-    "Configure Analytics to track conversions from day one",
-    "Use the Content Composer for all Google Business posts",
-  ]
+  ];
 
   return (
     <div className="space-y-8">
@@ -179,9 +103,10 @@ export default function DigitalMarketingGettingStartedPage() {
             </p>
             <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
               Digital Marketing is organised by platform (Google, LinkedIn,
-              Twitter/X, Facebook) with each platform having its own set of tools.
-              Find your role below and follow the recommended page order. Google is
-              fully built out; other platforms will be added progressively.
+              Twitter/X, Facebook) with each platform having its own set of
+              tools. Find your role below and follow the recommended page order.
+              Google is fully built out; other platforms will be added
+              progressively.
             </p>
           </div>
         </CardContent>
@@ -190,7 +115,7 @@ export default function DigitalMarketingGettingStartedPage() {
       {/* Platform Status */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {platformOverview.map((platform) => {
-          const Icon = platform.icon
+          const Icon = platform.icon;
           return (
             <Link
               key={platform.name}
@@ -200,9 +125,7 @@ export default function DigitalMarketingGettingStartedPage() {
               <div className="flex items-center justify-between mb-2">
                 <Icon className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
                 <Badge
-                  variant={
-                    platform.status === "Active" ? "default" : "outline"
-                  }
+                  variant={platform.status === "Active" ? "default" : "outline"}
                   className={
                     platform.status === "Active"
                       ? "bg-green-500/20 text-green-400 border-0 text-[10px]"
@@ -221,7 +144,7 @@ export default function DigitalMarketingGettingStartedPage() {
                   : "In development"}
               </p>
             </Link>
-          )
+          );
         })}
       </div>
 
@@ -234,7 +157,10 @@ export default function DigitalMarketingGettingStartedPage() {
                 <div
                   className={`flex items-center justify-center w-10 h-10 rounded-lg border ${journey.color}`}
                 >
-                  <journey.icon className="h-5 w-5" />
+                  {(() => {
+                    const Icon = iconMap[journey.icon as keyof typeof iconMap];
+                    return Icon ? <Icon className="h-5 w-5" /> : null;
+                  })()}
                 </div>
                 <div>
                   <CardTitle className="text-lg">{journey.title}</CardTitle>
@@ -324,5 +250,5 @@ export default function DigitalMarketingGettingStartedPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

@@ -1,7 +1,5 @@
-"use client"
-
-import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import {
   Megaphone,
   Search,
@@ -17,9 +15,9 @@ import {
   LineChart,
   PenSquare,
   Lock,
-} from "lucide-react"
+} from "lucide-react";
 
-const DM = "/dashboard/admin/digital-marketing"
+const DM = "/dashboard/admin/digital-marketing";
 
 const platformCards = [
   {
@@ -81,22 +79,24 @@ const platformCards = [
     iconColor: "text-indigo-500",
     pages: [],
   },
-]
+];
 
 const quickLinks = [
   {
     href: `${DM}/getting-started`,
     icon: Rocket,
     title: "Getting Started",
-    description: "Role-based onboarding guide for the Digital Marketing section",
+    description:
+      "Role-based onboarding guide for the Digital Marketing section",
   },
   {
     href: `${DM}/content-strategy`,
     icon: TrendingUp,
     title: "Content Strategy",
-    description: "Editorial calendar, distribution channels, and content pipeline",
+    description:
+      "Editorial calendar, distribution channels, and content pipeline",
   },
-]
+];
 
 export default function DigitalMarketingOverviewPage() {
   return (
@@ -107,12 +107,15 @@ export default function DigitalMarketingOverviewPage() {
           <div className="p-2 rounded-lg bg-accent/10">
             <Megaphone className="h-6 w-6 text-accent" />
           </div>
-          <h1 className="text-4xl font-bold text-foreground">Digital Marketing</h1>
+          <h1 className="text-4xl font-bold text-foreground">
+            Digital Marketing
+          </h1>
         </div>
         <p className="text-lg text-muted-foreground text-balance max-w-3xl">
-          Centralized platform marketing for your electrical services business. Manage
-          your presence on Google, LinkedIn, Twitter/X, and Facebook with professional
-          tools for content creation, SEO, advertising, and analytics.
+          Centralized platform marketing for your electrical services business.
+          Manage your presence on Google, LinkedIn, Twitter/X, and Facebook with
+          professional tools for content creation, SEO, advertising, and
+          analytics.
         </p>
         <div className="flex flex-wrap gap-2 mt-4">
           <Badge variant="outline">4 Platforms</Badge>
@@ -132,9 +135,10 @@ export default function DigitalMarketingOverviewPage() {
               Authentication Required
             </h3>
             <p className="text-sm text-muted-foreground">
-              In production, Digital Marketing tools require authentication. Role-based
-              access control will restrict platform management based on user permissions.
-              Currently in development mode for demonstration.
+              In production, Digital Marketing tools require authentication.
+              Role-based access control will restrict platform management based
+              on user permissions. Currently in development mode for
+              demonstration.
             </p>
           </div>
         </div>
@@ -175,7 +179,7 @@ export default function DigitalMarketingOverviewPage() {
       {/* Quick Links */}
       <div className="grid gap-4 md:grid-cols-2">
         {quickLinks.map((link) => {
-          const Icon = link.icon
+          const Icon = link.icon;
           return (
             <Link
               key={link.href}
@@ -195,7 +199,7 @@ export default function DigitalMarketingOverviewPage() {
               </div>
               <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors shrink-0" />
             </Link>
-          )
+          );
         })}
       </div>
 
@@ -206,7 +210,7 @@ export default function DigitalMarketingOverviewPage() {
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
           {platformCards.map((platform) => {
-            const Icon = platform.icon
+            const Icon = platform.icon;
             return (
               <Link
                 key={platform.href}
@@ -243,7 +247,7 @@ export default function DigitalMarketingOverviewPage() {
                 {platform.pages.length > 0 && (
                   <div className="space-y-1.5 pt-3 border-t border-border/50">
                     {platform.pages.map((page) => {
-                      const PageIcon = page.icon
+                      const PageIcon = page.icon;
                       return (
                         <div
                           key={page.label}
@@ -252,15 +256,15 @@ export default function DigitalMarketingOverviewPage() {
                           <PageIcon className="h-3 w-3 shrink-0" />
                           <span>{page.label}</span>
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 )}
               </Link>
-            )
+            );
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }
