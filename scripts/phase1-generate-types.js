@@ -202,6 +202,110 @@ export interface SetupStep {
 }
 `,
 
+    'analytics.types.ts': `/**
+ * Strapi Collection Types: Analytics Page Data
+ * Used by: LinkedIn/Google/Facebook/Twitter analytics sub-pages
+ * Source pattern: app/(dashboard)/dashboard/admin/digital-marketing/linkedin/analytics/page.tsx
+ */
+
+export interface MetricDefinition {
+  id: string
+  title: string
+  description: string
+  target: string
+  icon: string
+  category: string // "Awareness", "Reach", "Engagement", "Conversion", "Targeting"
+  platform: string
+  order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ReportingCadence {
+  id: string
+  frequency: 'Daily' | 'Weekly' | 'Monthly' | 'Quarterly' | 'Annually'
+  metrics: string[]
+  action: string
+  platform: string
+  order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ContentComparison {
+  id: string
+  content_type: string // "Text-only posts", "Image posts", "Video posts", etc.
+  reach: 'Low' | 'Medium' | 'High' | 'Very High'
+  engagement: 'Low' | 'Medium' | 'High' | 'Very High'
+  effort: 'Low' | 'Medium' | 'High'
+  notes: string
+  platform: string
+  order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ChecklistItem {
+  id: string
+  text: string
+  category: string
+  page: string
+  platform: string
+  order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface TipBlock {
+  id: string
+  title: string
+  description: string
+  type: 'info' | 'warning' | 'success' | 'tip'
+  page: string
+  platform: string
+  order: number
+  created_at: string
+  updated_at: string
+}
+`,
+
+    'email-admin.types.ts': `/**
+ * Strapi Collection Type: Email Administration
+ * Used by: Email admin configuration, infrastructure, and request management pages
+ */
+
+export interface EmailConfigItem {
+  id: string
+  title: string
+  description: string
+  category: 'configuration' | 'infrastructure' | 'request-management'
+  href: string
+  icon: string
+  status: 'Active' | 'Beta' | 'Coming Soon'
+  order: number
+  created_at: string
+  updated_at: string
+}
+`,
+
+    'navigation.types.ts': `/**
+ * Strapi Collection Type: Navigation
+ * Used by: Back-navigation cards, breadcrumbs, sidebar items
+ */
+
+export interface BackNavigation {
+  id: string
+  label: string
+  description: string
+  href: string
+  icon: string
+  accent_color_class?: string
+  parent_page: string
+  created_at: string
+  updated_at: string
+}
+`,
+
     'documentation.types.ts': `/**
  * Strapi Collection Type: Documentation
  * Used by: Documentation pages
@@ -258,13 +362,69 @@ export interface DocLink {
   },
 
   components: {
+    'atom.types.ts': `/**
+ * Component Prop Types: Atoms
+ * Smallest reusable UI building blocks
+ * Source patterns: components/atoms/*.tsx
+ */
+
+import type { LucideIcon } from 'lucide-react'
+
+export interface StatusBadgeProps {
+  status: 'Active' | 'Beta' | 'Coming Soon' | 'Deprecated'
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+}
+
+export interface CategoryBadgeProps {
+  label: string
+  colorClass?: string
+  variant?: 'default' | 'outline' | 'accent'
+  className?: string
+}
+
+export interface IconContainerProps {
+  icon: LucideIcon
+  colorClass?: string
+  size?: 'sm' | 'md' | 'lg'
+  withBorder?: boolean
+  className?: string
+}
+
+export interface SectionHeadingProps {
+  title: string
+  description?: string
+  level?: 'h1' | 'h2' | 'h3'
+  className?: string
+}
+
+export interface SpecRowProps {
+  spec: string
+  value: string
+  className?: string
+}
+
+export interface ChecklistRowProps {
+  text: string
+  checked?: boolean
+  accentColorClass?: string
+  className?: string
+}
+
+export interface MetricValueProps {
+  label: string
+  value: string
+  className?: string
+}
+`,
+
     'molecule.types.ts': `/**
  * Component Prop Types: Molecules
  * Single-purpose molecular components composed of atoms
  */
 
-import { LucideIcon } from 'lucide-react'
-import { Tool, StrategyPhase, Metric, SetupStep, ContentTemplate } from '@/types/strapi/marketing-platform.types'
+import type { LucideIcon } from 'lucide-react'
+import type { Tool, StrategyPhase, Metric, SetupStep, ContentTemplate } from '@/types/strapi/marketing-platform.types'
 
 export interface ToolCardProps {
   tool: Tool
@@ -300,6 +460,45 @@ export interface PlatformSpecCardProps {
   platform: string
   specs: Array<{ spec: string; value: string }>
   variant?: 'default' | 'compact'
+}
+
+export interface WhyPlatformCardProps {
+  title: string
+  description: string
+  icon: LucideIcon
+  accentColorClass: string
+  className?: string
+}
+
+export interface BackNavigationCardProps {
+  label: string
+  description: string
+  href: string
+  icon: LucideIcon
+  accentColorClass?: string
+  className?: string
+}
+
+export interface PlatformHeaderProps {
+  name: string
+  tagline: string
+  icon: LucideIcon
+  accentColorClass: string
+  focusLabel: string
+  toolCount: number
+  badges?: Array<{ label: string; variant?: string; colorClass?: string }>
+  className?: string
+}
+
+export interface ReportingCadenceCardProps {
+  cadence: import('@/types/strapi/analytics.types').ReportingCadence
+  accentColorClass?: string
+  className?: string
+}
+
+export interface ContentComparisonTableProps {
+  rows: import('@/types/strapi/analytics.types').ContentComparison[]
+  className?: string
 }
 `,
 
@@ -343,6 +542,21 @@ export interface ContentComposerProps {
   hashtags?: HashtagGroup[]
   platform: string
 }
+
+export interface MetricsGridProps {
+  metrics: import('@/types/strapi/analytics.types').MetricDefinition[]
+  accentColorClass?: string
+  columns?: 2 | 3
+  className?: string
+}
+
+export interface ChecklistCardProps {
+  title: string
+  items: import('@/types/strapi/analytics.types').ChecklistItem[]
+  accentColorClass?: string
+  icon?: import('lucide-react').LucideIcon
+  className?: string
+}
 `,
 
     'template.types.ts': `/**
@@ -368,10 +582,13 @@ export interface AnalyticsPageTemplateProps {
   title: string
   description?: string
   platform: string
+  accentColorClass: string
   setup?: SetupStep[]
-  metrics: Metric[]
-  goals?: Goal[]
-  reports?: Report[]
+  metrics: import('@/types/strapi/analytics.types').MetricDefinition[]
+  reportingCadence?: import('@/types/strapi/analytics.types').ReportingCadence[]
+  contentComparison?: import('@/types/strapi/analytics.types').ContentComparison[]
+  checklist?: import('@/types/strapi/analytics.types').ChecklistItem[]
+  tips?: import('@/types/strapi/analytics.types').TipBlock[]
 }
 
 export interface ComposerPageTemplateProps {
@@ -433,6 +650,24 @@ ${Object.keys(TYPE_DEFINITIONS.strapi).map(file => `- \`/types/strapi/${file}\``
 ### Component Prop Types (${Object.keys(TYPE_DEFINITIONS.components).length} files)
 
 ${Object.keys(TYPE_DEFINITIONS.components).map(file => `- \`/types/components/${file}\``).join('\n')}
+
+## Type Categories
+
+### Strapi Types
+- **marketing-platform.types.ts** - Platform overviews, tools, strategy phases, specs
+- **metric.types.ts** - Generic metrics, goals, reports  
+- **analytics.types.ts** - MetricDefinition, ReportingCadence, ContentComparison, ChecklistItem, TipBlock
+- **template.types.ts** - Content templates, hashtag groups, format types
+- **setup-step.types.ts** - Setup/configuration wizard steps
+- **email-admin.types.ts** - Email administration config items
+- **navigation.types.ts** - Back-navigation cards
+- **documentation.types.ts** - Doc sections, badges, meta, journeys
+
+### Component Types  
+- **atom.types.ts** - StatusBadge, CategoryBadge, IconContainer, SectionHeading, SpecRow, ChecklistRow, MetricValue
+- **molecule.types.ts** - ToolCard, StrategyPhaseCard, MetricCard, PlatformHeader, WhyPlatformCard, BackNavigationCard, etc.
+- **organism.types.ts** - ToolGrid, StrategyFlow, MetricsDashboard, MetricsGrid, ChecklistCard, etc.
+- **template.types.ts** - MarketingPlatformTemplate, AnalyticsPageTemplate, ComposerPageTemplate, DocumentationPageTemplate
 
 ## Next Steps
 
