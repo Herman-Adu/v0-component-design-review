@@ -1,0 +1,18 @@
+{
+  "features": [
+    {
+      "title": "Email Dashboard",
+      "description": "Full job tracking for all form submissions. Data table with tab filtering by type (All, Contact, Quotation, Service), status pipeline, correspondence threads, activity timeline, inline branded replies, team assignment, and bulk operations.",
+      "icon": "Briefcase",
+      "href": "/dashboard/admin/email-administration/request-management/email-dashboard",
+      "role": "Business Administrator"
+    },
+    {
+      "title": "Testing & Ops Guide",
+      "description": "Step-by-step operational procedures for testing the request pipeline end-to-end. Covers dev mode, email delivery verification, and troubleshooting common issues.",
+      "icon": "ClipboardCheck",
+      "href": "/dashboard/admin/email-administration/request-management/testing-and-ops-guide",
+      "role": "Business Administrator"
+    }
+  ]
+}

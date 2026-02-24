@@ -1,0 +1,34 @@
+{
+  "systemChecks": [
+    {
+      "icon": "Server",
+      "title": "Resend API",
+      "description": "Email delivery provider. Health status, domain verification, and API key validation monitored in Send Configuration."
+    },
+    {
+      "icon": "Key",
+      "title": "Environment Variables",
+      "description": "RESEND_API_KEY, EMAIL_FROM, and other secrets. Masked display with set/unset status in Send Configuration."
+    },
+    {
+      "icon": "AlertTriangle",
+      "title": "Error Tracking",
+      "description": "Every failed delivery is logged with error type, message, and stack trace. Filterable in Delivery Logs."
+    },
+    {
+      "icon": "GitBranch",
+      "title": "Config Versioning",
+      "description": "All brand config, urgency settings, and SLA changes are versioned with diffs. Rollback available in Version History."
+    },
+    {
+      "icon": "Shield",
+      "title": "Security Layers",
+      "description": "Rate limiting, CSRF tokens, honeypot fields, input sanitization, and Zod validation -- all auditable via Security Audit."
+    },
+    {
+      "icon": "Activity",
+      "title": "Delivery Pipeline",
+      "description": "Form submission -> server action -> email service -> Resend API -> delivery log. Every step is observable."
+    }
+  ]
+}

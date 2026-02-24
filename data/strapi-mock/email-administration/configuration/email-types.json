@@ -1,0 +1,25 @@
+{
+  "emailTypes": [
+    {
+      "type": "Service Request",
+      "templates": ["Customer Confirmation", "Business Notification"],
+      "trigger": "Multi-step form submission",
+      "icon": "Send",
+      "urgency": true
+    },
+    {
+      "type": "Contact Inquiry",
+      "templates": ["Customer Confirmation", "Business Notification"],
+      "trigger": "Contact form submission",
+      "icon": "Users",
+      "urgency": false
+    },
+    {
+      "type": "Quotation Request",
+      "templates": ["Customer Confirmation", "Business Notification"],
+      "trigger": "Quotation form submission",
+      "icon": "FileText",
+      "urgency": false
+    }
+  ]
+}

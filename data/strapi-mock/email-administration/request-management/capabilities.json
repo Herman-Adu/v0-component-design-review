@@ -1,0 +1,34 @@
+{
+  "capabilities": [
+    {
+      "icon": "MessageSquare",
+      "title": "Branded Correspondence",
+      "description": "Send professional branded reply emails directly from the dashboard with configurable sections, presets, and live preview."
+    },
+    {
+      "icon": "Users",
+      "title": "Team Assignment",
+      "description": "Assign requests to team members, track who is handling what, and see unassigned requests at a glance."
+    },
+    {
+      "icon": "BarChart3",
+      "title": "Status Pipeline",
+      "description": "Track requests through their lifecycle: New, Acknowledged, In Progress, Quoted, Completed, and Closed."
+    },
+    {
+      "icon": "Clock",
+      "title": "Priority Management",
+      "description": "Flag urgent and high-priority requests with SLA tracking. Filter and sort by priority across the dashboard."
+    },
+    {
+      "icon": "CheckCircle2",
+      "title": "Bulk Operations",
+      "description": "Select multiple requests and update status, assign team members, or archive in batch."
+    },
+    {
+      "icon": "AlertTriangle",
+      "title": "Dev Mode Testing",
+      "description": "Redirect all outbound emails to a test address for safe testing with real data. Toggle on/off with a single switch."
+    }
+  ]
+}

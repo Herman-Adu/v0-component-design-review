@@ -1,0 +1,34 @@
+{
+  "highlights": [
+    {
+      "icon": "MessageSquare",
+      "title": "Branded Correspondence",
+      "description": "Send professional reply emails with configurable sections, presets, and live preview."
+    },
+    {
+      "icon": "Shield",
+      "title": "7-Layer Security",
+      "description": "Rate limiting, CSRF, honeypot, XSS sanitization, Zod validation, API key masking, and env security."
+    },
+    {
+      "icon": "Clock",
+      "title": "SLA Tracking",
+      "description": "Priority-based response times with urgency-specific styling and team routing."
+    },
+    {
+      "icon": "Server",
+      "title": "Resend Integration",
+      "description": "Production-ready email delivery via Resend API with full delivery pipeline observability."
+    },
+    {
+      "icon": "Users",
+      "title": "Role-Based Access",
+      "description": "Sections organized by role: Office Staff, Business Admins, Project Leads, and DevOps."
+    },
+    {
+      "icon": "Palette",
+      "title": "Config-Driven Templates",
+      "description": "All brand colors, company details, and SLA settings driven from a single config file, Strapi-ready."
+    }
+  ]
+}

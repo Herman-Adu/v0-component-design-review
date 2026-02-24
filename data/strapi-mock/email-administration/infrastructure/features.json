@@ -1,0 +1,32 @@
+{
+  "features": [
+    {
+      "title": "Send Configuration",
+      "description": "Monitor Resend API health, manage environment variables, from-address routing per form type, attachment configuration, and send test emails to verify delivery pipeline.",
+      "icon": "Send",
+      "href": "/dashboard/admin/email-administration/infrastructure/send-configuration",
+      "role": "Web Administrator / DevOps"
+    },
+    {
+      "title": "Delivery Logs",
+      "description": "Real-time delivery log with status tracking for every outbound email. Filter by category, recipient type, and delivery status. Full metadata, timestamps, and error details for debugging.",
+      "icon": "Activity",
+      "href": "/dashboard/admin/email-administration/infrastructure/delivery-logs",
+      "role": "Web Administrator / DevOps"
+    },
+    {
+      "title": "Version History",
+      "description": "Track every configuration change with timestamps and diffs. View a timeline of who changed what, compare before/after values, and roll back to any previous version.",
+      "icon": "History",
+      "href": "/dashboard/admin/email-administration/infrastructure/version-history",
+      "role": "DevOps / CTO"
+    },
+    {
+      "title": "Security Audit",
+      "description": "Comprehensive 21-check security audit across all form actions and email services. Covers rate limiting, CSRF, honeypot bot detection, XSS sanitization, Zod validation, API key masking, and environment security.",
+      "icon": "ShieldCheck",
+      "href": "/dashboard/admin/email-administration/infrastructure/security-audit",
+      "role": "DevOps / CTO"
+    }
+  ]
+}

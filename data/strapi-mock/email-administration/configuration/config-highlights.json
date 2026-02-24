@@ -1,0 +1,24 @@
+{
+  "configHighlights": [
+    {
+      "title": "Centralised Brand Config",
+      "description": "All company details, colors, and SLAs in one file -- no more editing 6 templates for a phone number change.",
+      "icon": "Building2"
+    },
+    {
+      "title": "3-Level Urgency Styling",
+      "description": "Routine (dark), Urgent (amber headers + 2hr SLA), Emergency (red + 30min SLA) across both customer and business templates.",
+      "icon": "AlertTriangle"
+    },
+    {
+      "title": "Dark Mode Templates",
+      "description": "Per-template dark mode color schemes with live preview. Auto-injects @media (prefers-color-scheme: dark) CSS for supported email clients.",
+      "icon": "Moon"
+    },
+    {
+      "title": "Attachment Configuration",
+      "description": "Per-template attachment types with MIME validation, file size limits, and auto-generation flags for PDF quotes and agreements.",
+      "icon": "Paperclip"
+    }
+  ]
+}
