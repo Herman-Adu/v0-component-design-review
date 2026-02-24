@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Documentation Health",
+    "description": "Strategic oversight of documentation coverage, content planning, and gap analysis. Track what exists, identify what is missing, and plan future content using the Gap Discovery Engine.",
+    "icon": "HeartPulse",
+    "href": "/dashboard/admin/document-administration/documentation-health",
+    "role": "Project Lead / CTO",
+    "pages": 2,
+    "color": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+  },
+  {
+    "title": "Quality Engineering",
+    "description": "Automated validation tools for route verification, count accuracy, TOC integrity, pattern compliance, and bulk fix actions. Ensures documentation stays consistent and correct at scale.",
+    "icon": "FlaskConical",
+    "href": "/dashboard/admin/document-administration/quality-engineering",
+    "role": "Web Administrator / DevOps / QA",
+    "pages": 6,
+    "color": "bg-violet-500/15 text-violet-400 border-violet-500/30"
+  }
+]
