@@ -4,7 +4,7 @@
  * Phase 3 - Generate Template Components
  * Creates 5 template/layout components that compose organisms
  * Templates are page-level wrappers that manage layout and data flow
- * 
+ *
  * Files to generate:
  * 1. components/templates/template-marketing-platform.tsx
  * 2. components/templates/template-analytics.tsx
@@ -13,17 +13,17 @@
  * 5. components/templates/template-email-admin.tsx
  */
 
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs");
+const path = require("path");
 
-const OUTPUT_DIR = path.join(process.cwd(), 'components', 'templates')
+const OUTPUT_DIR = path.join(process.cwd(), "components", "templates");
 
 if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true })
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
 const templates = {
-  'template-marketing-platform.tsx': `"use client"
+  "template-marketing-platform.tsx": `"use client"
 
 import type React from "react"
 import type { Tool, StrategyPhase } from "@/types/strapi/marketing-platform.types"
@@ -88,7 +88,7 @@ export function TemplateMarketingPlatform({
 }
 `,
 
-  'template-analytics.tsx': `"use client"
+  "template-analytics.tsx": `"use client"
 
 import type React from "react"
 import type { MetricDefinition, ReportingCadence, ContentComparison } from "@/types/strapi/analytics.types"
@@ -143,7 +143,7 @@ export function TemplateAnalytics({
 }
 `,
 
-  'template-composer.tsx': `"use client"
+  "template-composer.tsx": `"use client"
 
 import type React from "react"
 import type { ContentTemplate } from "@/types/strapi/marketing-platform.types"
@@ -203,7 +203,7 @@ export function TemplateComposer({
 }
 `,
 
-  'template-documentation.tsx': `"use client"
+  "template-documentation.tsx": `"use client"
 
 import type React from "react"
 import type { DocumentationSection } from "@/types/strapi/documentation.types"
@@ -249,7 +249,7 @@ export function TemplateDocumentation({
                 {sections.map((section) => (
                   <a
                     key={section.id}
-                    href={`#${section.id}`}
+                    href={\`#\${section.id}\`}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {section.title}
@@ -273,7 +273,7 @@ export function TemplateDocumentation({
 }
 `,
 
-  'template-email-admin.tsx': `"use client"
+  "template-email-admin.tsx": `"use client"
 
 import type React from "react"
 import type { EmailConfigItem } from "@/types/strapi/email-admin.types"
@@ -330,14 +330,14 @@ export function TemplateEmailAdmin({
   )
 }
 `,
-}
+};
 
 // Write templates
 Object.entries(templates).forEach(([filename, content]) => {
-  const filepath = path.join(OUTPUT_DIR, filename)
-  fs.writeFileSync(filepath, content, 'utf-8')
-  console.log(`✓ Created ${filename}`)
-})
+  const filepath = path.join(OUTPUT_DIR, filename);
+  fs.writeFileSync(filepath, content, "utf-8");
+  console.log(`✓ Created ${filename}`);
+});
 
 // Generate summary
 const summary = `
@@ -360,13 +360,13 @@ All templates:
 - Follow Tailwind best practices (no arbitrary values, use spacing scale)
 
 Next: Run phase3-generate-barrel-exports.js to consolidate component exports.
-`
+`;
 
 fs.writeFileSync(
-  path.join(process.cwd(), 'data', 'phase3-templates-generated.md'),
+  path.join(process.cwd(), "data", "phase3-templates-generated.md"),
   summary,
-  'utf-8'
-)
+  "utf-8",
+);
 
-console.log(summary)
-console.log('Phase 3 Part 1 complete: Templates generated.')
+console.log(summary);
+console.log("Phase 3 Part 1 complete: Templates generated.");
