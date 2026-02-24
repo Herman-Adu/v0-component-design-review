@@ -5,30 +5,47 @@
 
 ---
 
-## Session 21 Update - Phase 3 Complete
+## Session 21 Final - Phase 4 Complete + Learnings Documented
 
-**Completed Tasks:** Phase 3 (Templates + Barrel Exports)
-- 5 templates generated (Analytics, Composer, Documentation, Email Admin, Marketing Platform)
-- 51 components catalogued with barrel exports
-- Build validates successfully (160 static pages)
-- TypeScript compilation: 0 errors
+**Completed Tasks:** Phase 4 (Platform Data Extraction & Refactoring)
+- 6 JSON mock data files generated (LinkedIn, Facebook, Twitter: tools + strategy)
+- 3 platform pages refactored with icon mapping system
+- 4 build issues found and documented with root causes
+- Build validates successfully (160 static pages, 0 errors)
+- Comprehensive learning document created: PHASE4_GENERATION_NOTES.md (813 lines)
 
-**Model Usage:** Mini (Tier 1 - script generation and fixes)
-**Tokens This Session:** ~18,000 / 200,000 (9% used)
-**Health:** 91% (excellent headroom for Phase 4)
+**Model Usage:** Mini (Tier 1 - script generation, data extraction, refactoring)
+**Tokens This Session:** ~22,000 / 200,000 (11% used)
+**Health:** 89% (excellent headroom for Phase 5)
 
-**Efficiency:** 100% correct tier usage this session
+**Efficiency:** 100% correct tier usage + deliberate learning capture
 
 ---
 
-## Cumulative Session Stats (Sessions 20-21)
+## Cumulative Project Stats (Sessions 20-21)
 
-| Phase | Model | Tokens | Status |
-|-------|-------|--------|--------|
-| Phase 1: Types + Audit | Mini | ~12k | ✅ Complete |
-| Phase 2: Atoms/Molecules | Mini | ~15k | ✅ Complete (formatting fixed) |
-| Phase 3: Templates/Barrels | Mini | ~18k | ✅ Complete (escaping fixed) |
-| **Total** | Mini | ~45k | ✅ All correct tier |
+| Phase | Model | Tokens | Status | Learning Doc |
+|-------|-------|--------|--------|--------------|
+| Phase 1: Types + Audit | Mini | ~12k | ✅ Complete | PHASE1_GENERATION_NOTES.md |
+| Phase 2: Atoms/Molecules | Mini | ~15k | ✅ Complete | PHASE2_GENERATION_NOTES.md |
+| Phase 3: Templates/Barrels | Mini | ~18k | ✅ Complete | PHASE3_GENERATION_NOTES.md |
+| Phase 4: Data Extraction | Mini | ~22k | ✅ Complete | PHASE4_GENERATION_NOTES.md |
+| **Total** | Mini | ~67k | ✅ All Tier 1 | 4 comprehensive docs |
+
+---
+
+## Phase 4 Issues Analysis
+
+| Issue | Severity | Category | Root Cause | Fix Type | Lesson |
+|-------|----------|----------|-----------|----------|--------|
+| Windows line endings (`\r\n`) breaking regex | HIGH | Scripting | Pattern mismatch | Add `\r?` to regex | Cross-platform awareness |
+| `await import()` at module scope | CRITICAL | TypeScript | Config constraints | Use static `import` | Type system knowledge |
+| Components in JSON (non-serializable) | HIGH | Architecture | Type mismatch | String + icon map | JSON limitations |
+| Malformed JSX from regex replacement | HIGH | Code generation | Multi-line strings | Manual closure fixes | Regex complexity |
+
+**Recommendation:** Document all 4 issues in `.v0/phase4-patterns.md` for future reference.
+
+---
 
 
 

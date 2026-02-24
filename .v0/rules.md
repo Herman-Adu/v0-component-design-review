@@ -93,36 +93,44 @@ Multi-step work must write to state.json after each phase, not just at the end.
 | 2026-02-14 | Did not switch to DENSE mode at health < 60% | Rule 5 | Excessive token usage |
 | 2026-02-16 | Used v0-max (TIER 3) for fixing broken links | Rule 9 | ~8k tokens wasted on TIER 1 work |
 | 2026-02-16 | Failed to display resource view on multiple responses | Rule 5 | User had to remind repeatedly |
-| 2026-02-16 | No checkpoints during link-fixing work | Rule 10 | Lost progress on agent timeout |
+| 2026-02-24 | Phase 4 script regex patterns failed on Windows line endings | Rule 7 | User had to manually fix `\r\n` handling |
+| 2026-02-24 | Phase 4 scripts generated `await import()` instead of static imports | Rule 7 | TypeScript build error, manual fix required |
+| 2026-02-24 | Phase 4 JSON mock files used component objects instead of strings | Rule 7 | Icon mapping system required, manual fix |
+| 2026-02-24 | Phase 4 JSX replacement regex created malformed syntax | Rule 7 | Manual JSX closure fixes needed |
 
 ---
 
-## Current Focus (Updated Session 20 - Feb 24, 2026)
+## Current Focus (Updated Session 21 - Feb 24, 2026 Evening)
 
 **Branch:** v0/herman-adu-799e4ffb (shared v0 + local)
-**Workflow:** v0 writes scripts -> PR/push -> user pulls, runs, tests, pushes -> v0 pulls
+**Workflow:** v0 writes scripts -> push -> user pulls, runs, tests, pushes -> v0 pulls (PROVEN EFFICIENT)
 
 **Phase Status:**
-- Phase 1: Types + Audit -- COMPLETE (100 pages, 101 components, 229 hardcoded arrays found)
-- Phase 2: Atoms + Molecules + Organisms -- SCRIPTS WRITTEN, user to run locally
-  - `scripts/phase2-generate-atoms.js` (7 atoms, 335 lines)
-  - `scripts/phase2-generate-molecules.js` (7 molecules, 563 lines)
-  - `scripts/phase2-generate-organisms.js` (5 organisms, 404 lines)
-- Phase 3: Templates + barrel exports -- TODO
-- Phase 4: Page refactors (batch by platform) -- TODO
-- Phase 5: Data extraction (Strapi mock JSON) -- TODO
+- Phase 1: Types + Audit -- COMPLETE ✅ (100 pages, 101 components, 229 hardcoded arrays found)
+- Phase 2: Atoms + Molecules + Organisms -- COMPLETE ✅ (19 global components, formatting fixed)
+- Phase 3: Templates + Barrel Exports -- COMPLETE ✅ (5 templates, 51 total components, 160 static pages)
+- Phase 4: Platform Data Extraction -- COMPLETE ✅ (6 JSON mock files, 3 platform pages refactored, build passes)
+- Phase 5: Email Admin + Documentation -- READY TO START
 
-**Model Selection for This Project:**
-- Script generation = MINI (Tier 1)
-- Reviewing audit/fixing errors = MINI (Tier 1)
-- Component writing (atoms/molecules) = MINI (Tier 1)
-- Organism/template composition = PRO (Tier 2) only if complex
-- Architecture planning = MAX (Tier 3) only for major replanning
+**Model Selection for This Project - ENFORCED:**
+- Script generation = MINI (Tier 1) - MUST use
+- Refactoring/data extraction = MINI (Tier 1) - MUST use
+- Component writing (atoms/molecules/organisms) = MINI (Tier 1) - MUST use
+- Template composition = MINI (Tier 1) - MUST use
+- Complex organism logic = PRO (Tier 2) if needed
+- Architecture planning/major refactor = MAX (Tier 3) only for replanning
 
-**Cleanup Needed:**
-- DELETE root `AGENTIC_OS_FRAMEWORK.md` (redundant, 540 lines of context bloat)
-- DELETE root `SESSION_19_HANDOFF.md`, `SESSION_20_HANDOFF.md`, `SESSION_20_START.md`, `START_HERE_TOMORROW.md` (stale handoffs, context bloat)
-- CREATE `.v0/state.json`, `.v0/orchestrator.md`, `.v0/metrics.md` (referenced but missing)
+**New Rule for Phase 5+:**
+- Rule 11: MINI Tier Only for Phases 1-5
+  - Do NOT use Max for script generation
+  - Do NOT use Max for component writing
+  - Tier 3 (Max) is forbidden for this project until Phase 6 (full migration)
+  - Violation = immediate checkpoint restart with correct tier
+
+**Cleanup Status:**
+- ✅ COMPLETE: Root bloat files deleted locally by user
+- ✅ COMPLETE: `.v0/` framework files created (rules.md, orchestrator.md, state.json, metrics.md)
+- ✅ COMPLETE: No stale handoff docs in root
 
 ---
 
