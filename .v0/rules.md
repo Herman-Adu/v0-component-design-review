@@ -97,12 +97,32 @@ Multi-step work must write to state.json after each phase, not just at the end.
 
 ---
 
-## Current Focus
+## Current Focus (Updated Session 20 - Feb 24, 2026)
 
-**Active Work:** Framework v1.1 enforcement improvements
-**Completed:** Contact, Quotation, Service-Request migrations (all validated)
-**Next:** Dashboard sidebar refactoring (plan approved)
-**Blocked:** Strapi integration (waiting for component system completion)
+**Branch:** v0/herman-adu-799e4ffb (shared v0 + local)
+**Workflow:** v0 writes scripts -> PR/push -> user pulls, runs, tests, pushes -> v0 pulls
+
+**Phase Status:**
+- Phase 1: Types + Audit -- COMPLETE (100 pages, 101 components, 229 hardcoded arrays found)
+- Phase 2: Atoms + Molecules + Organisms -- SCRIPTS WRITTEN, user to run locally
+  - `scripts/phase2-generate-atoms.js` (7 atoms, 335 lines)
+  - `scripts/phase2-generate-molecules.js` (7 molecules, 563 lines)
+  - `scripts/phase2-generate-organisms.js` (5 organisms, 404 lines)
+- Phase 3: Templates + barrel exports -- TODO
+- Phase 4: Page refactors (batch by platform) -- TODO
+- Phase 5: Data extraction (Strapi mock JSON) -- TODO
+
+**Model Selection for This Project:**
+- Script generation = MINI (Tier 1)
+- Reviewing audit/fixing errors = MINI (Tier 1)
+- Component writing (atoms/molecules) = MINI (Tier 1)
+- Organism/template composition = PRO (Tier 2) only if complex
+- Architecture planning = MAX (Tier 3) only for major replanning
+
+**Cleanup Needed:**
+- DELETE root `AGENTIC_OS_FRAMEWORK.md` (redundant, 540 lines of context bloat)
+- DELETE root `SESSION_19_HANDOFF.md`, `SESSION_20_HANDOFF.md`, `SESSION_20_START.md`, `START_HERE_TOMORROW.md` (stale handoffs, context bloat)
+- CREATE `.v0/state.json`, `.v0/orchestrator.md`, `.v0/metrics.md` (referenced but missing)
 
 ---
 
