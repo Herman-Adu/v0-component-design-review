@@ -188,6 +188,94 @@ Proceed? (yes/no)
 
 ---
 
+## Phase Execution Workflow (Collaborative Cycle)
+
+### Phase N Lifecycle
+
+**v0's Turn: Create Phase Framework**
+1. Deep analysis of codebase
+2. Review user's `PHASEn-1_GENERATION_NOTES.md` (learnings from previous phase)
+3. Generate `/data/PHASEn_EXECUTION_GUIDE.md` (what user does locally)
+4. Generate `/data/PHASEn_SCRIPTS/` (ready-to-run scripts)
+5. Update `.v0/rules.md` (phase-specific constraints)
+6. Update `.v0/state.json` (current phase + op budget)
+7. Update `.v0/PHASE_STATE.md` (current implementation state)
+8. Push to GitHub
+
+**User's Turn: Local Implementation**
+1. `git checkout v0/herman-adu-phaseN` (pull latest)
+2. Review `/data/PHASEn_EXECUTION_GUIDE.md`
+3. Run `/data/PHASEn_SCRIPTS/` (ready-to-run scripts)
+4. Validate: `npm run build && npm run dev`
+5. Create `PHASEn_GENERATION_NOTES.md` in root (document learnings)
+6. Commit & push: `git commit -m "feat: Phase N complete"`
+
+**Feedback Loop: Framework Evolution**
+1. User pushes `PHASEn_GENERATION_NOTES.md` (learnings from local implementation)
+2. v0 pulls + deep reviews
+3. v0 updates `.v0/rules.md` with learnings
+4. v0 updates `.v0/PHASE_STATE.md` with progress
+5. v0 prepares `/data/PHASEn+1_EXECUTION_GUIDE.md`
+6. Next chat: auto-load `.v0/state.json` + `.v0/rules.md` + `.v0/PHASE_STATE.md` + refined framework
+
+### File Location Strategy (Bulletproof Architecture)
+
+| Location | File | Owner | Purpose | Auto-Load? |
+|----------|------|-------|---------|-----------|
+| Root | `PHASEn_GENERATION_NOTES.md` | User | Learnings after local implementation | NO |
+| `/data/` | `PHASEn_EXECUTION_GUIDE.md` | v0 | What user does locally this phase | NO |
+| `/data/` | `PHASEn_SCRIPTS/` | v0 | Ready-to-run scripts | NO |
+| `/data/` | `PHASEn_CONTEXT.md` | v0 | Context from previous phase | NO |
+| `.v0/` | `orchestrator.md` | v0 | THIS FILE - operational framework | YES |
+| `.v0/` | `rules.md` | v0 | Constraints + learnings evolved per phase | YES |
+| `.v0/` | `state.json` | v0 | Checkpoint (phase, task, budget, status) | YES |
+| `.v0/` | `metrics.md` | v0 | Cost tracking | YES |
+| `.v0/` | `PHASE_STATE.md` | v0 | Current implementation state (auto-updated) | YES |
+
+**Principle:** Root contains only user-generated learnings. Framework lives in `.v0/` (auto-loaded). Phase guidance lives in `/data/` (pulled with phase).
+
+### Git Workflow (Safety First)
+
+**Before ANY Operation:**
+```bash
+git branch --show-current           # Where am I?
+git status                          # Anything uncommitted?
+```
+
+**User Running Phase Scripts:**
+```bash
+1. git checkout v0/herman-adu-phaseN
+2. Read /data/PHASEn_EXECUTION_GUIDE.md
+3. Run /data/PHASEn_SCRIPTS/phaseN-*.js (or .ts)
+4. npm run build                     # STOP if fails
+5. npm run dev                       # Test locally
+6. Create PHASEn_GENERATION_NOTES.md in root
+7. git add .
+8. git commit -m "feat: Phase N implementation complete"
+9. git push origin v0/herman-adu-phaseN
+```
+
+**v0 Pulling Learnings:**
+```bash
+git fetch origin
+git checkout v0/herman-adu-phaseN
+Read PHASEn_GENERATION_NOTES.md
+Update .v0/rules.md with improvements
+Update .v0/PHASE_STATE.md with progress
+Create /data/PHASEn+1_EXECUTION_GUIDE.md
+```
+
+### Emergency Protocol
+
+**If Something Fails:**
+1. **STOP immediately** (GATE 1 - never proceed without user confirmation)
+2. **Document error** in chat (what failed, where, when)
+3. **v0 analyzes + provides fix** (update state.json)
+4. **User re-runs** with fixes applied
+5. **Continue** from checkpoint
+
+---
+
 ## Handoff Template (Health < 20%)
 ```
 HYDRATE_V1:
@@ -199,4 +287,4 @@ Confirm hydration and await command.
 
 ---
 
-*Orchestrator v1.1 | Last Updated: 2026-02-16*
+*Orchestrator v1.2 | Last Updated: 2026-02-24 | Enhanced with Phase Execution Workflow*
