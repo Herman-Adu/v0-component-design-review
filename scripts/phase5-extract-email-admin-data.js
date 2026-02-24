@@ -48,7 +48,7 @@ const EMAIL_ADMIN_PAGES = [
   {
     name: "Infrastructure Overview",
     file: "app/(dashboard)/dashboard/admin/email-administration/infrastructure/page.tsx",
-    arrays: ["features", "components", "securityChecks"],
+    arrays: ["features", "systemChecks"],
     outputDir: "email-administration/infrastructure",
   },
 ];
@@ -89,7 +89,11 @@ async function extractEmailAdminData() {
       const content = fs.readFileSync(filePath, "utf-8");
 
       // Create output directory
-      const outDir = path.join(projectRoot, "data/strapi-mock", pageConfig.outputDir);
+      const outDir = path.join(
+        projectRoot,
+        "data/strapi-mock",
+        pageConfig.outputDir,
+      );
       if (!fs.existsSync(outDir)) {
         fs.mkdirSync(outDir, { recursive: true });
         console.log(`  ✓ Created directory: ${pageConfig.outputDir}`);
@@ -106,7 +110,7 @@ async function extractEmailAdminData() {
       for (const arrayName of pageConfig.arrays) {
         const regex = new RegExp(
           `const\\s+${arrayName}\\s*=\\s*\\[(.*?)\\](?=\\s*(?:const|return|export|$))`,
-          "s"
+          "s",
         );
         const match = content.match(regex);
 
@@ -175,7 +179,7 @@ function generateReport(report) {
 **Arrays:**
 ${Object.entries(detail.arrays)
   .map(([name, info]) => `- \`${name}\`: ${info.status} - ${info.note || ""}`)
-  .join("\n")}`
+  .join("\n")}`,
     )
     .join("\n\n");
 

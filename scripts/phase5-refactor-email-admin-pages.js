@@ -35,7 +35,8 @@ const EMAIL_ADMIN_PAGES = [
     file: "app/(dashboard)/dashboard/admin/email-administration/page.tsx",
     imports: {
       sections: "data/strapi-mock/email-administration/overview/sections.json",
-      highlights: "data/strapi-mock/email-administration/overview/highlights.json",
+      highlights:
+        "data/strapi-mock/email-administration/overview/highlights.json",
     },
     iconFields: {
       sections: "icon",
@@ -46,7 +47,8 @@ const EMAIL_ADMIN_PAGES = [
     name: "Request Management Overview",
     file: "app/(dashboard)/dashboard/admin/email-administration/request-management/page.tsx",
     imports: {
-      features: "data/strapi-mock/email-administration/request-management/features.json",
+      features:
+        "data/strapi-mock/email-administration/request-management/features.json",
       capabilities:
         "data/strapi-mock/email-administration/request-management/capabilities.json",
     },
@@ -59,8 +61,10 @@ const EMAIL_ADMIN_PAGES = [
     name: "Configuration Overview",
     file: "app/(dashboard)/dashboard/admin/email-administration/configuration/page.tsx",
     imports: {
-      features: "data/strapi-mock/email-administration/configuration/features.json",
-      emailTypes: "data/strapi-mock/email-administration/configuration/email-types.json",
+      features:
+        "data/strapi-mock/email-administration/configuration/features.json",
+      emailTypes:
+        "data/strapi-mock/email-administration/configuration/email-types.json",
       configHighlights:
         "data/strapi-mock/email-administration/configuration/config-highlights.json",
     },
@@ -74,16 +78,14 @@ const EMAIL_ADMIN_PAGES = [
     name: "Infrastructure Overview",
     file: "app/(dashboard)/dashboard/admin/email-administration/infrastructure/page.tsx",
     imports: {
-      features: "data/strapi-mock/email-administration/infrastructure/features.json",
-      components:
-        "data/strapi-mock/email-administration/infrastructure/components.json",
-      securityChecks:
-        "data/strapi-mock/email-administration/infrastructure/security-checks.json",
+      features:
+        "data/strapi-mock/email-administration/infrastructure/features.json",
+      systemChecks:
+        "data/strapi-mock/email-administration/infrastructure/system-checks.json",
     },
     iconFields: {
       features: "icon",
-      components: "icon",
-      securityChecks: "icon",
+      systemChecks: "icon",
     },
   },
 ];
@@ -138,25 +140,39 @@ async function refactorEmailAdminPages() {
         .join("\n");
 
       // Insert imports after existing React imports (before const declarations)
-      const lucideImportMatch = content.match(/import\s+{[\s\S]*?}\s+from\s+["']lucide-react["']/);
+      const lucideImportMatch = content.match(
+        /import\s+{[\s\S]*?}\s+from\s+["']lucide-react["']/,
+      );
       if (lucideImportMatch) {
         const insertPos = lucideImportMatch.index + lucideImportMatch[0].length;
-        content = content.slice(0, insertPos) + "\n" + importLines + "\n" + content.slice(insertPos);
+        content =
+          content.slice(0, insertPos) +
+          "\n" +
+          importLines +
+          "\n" +
+          content.slice(insertPos);
         pageDetail.importsAdded = Object.keys(pageConfig.imports).length;
-        pageDetail.changes.push(`Added ${pageDetail.importsAdded} JSON imports`);
+        pageDetail.changes.push(
+          `Added ${pageDetail.importsAdded} JSON imports`,
+        );
         console.log(`  ✓ Added ${pageDetail.importsAdded} JSON imports`);
       }
 
       // Step 2: Replace array declarations with imported data
       console.log(`  ℹ Replacing hardcoded arrays...`);
-      for (const [arrayName, importPath] of Object.entries(pageConfig.imports)) {
+      for (const [arrayName, importPath] of Object.entries(
+        pageConfig.imports,
+      )) {
         const varName = arrayName.charAt(0).toUpperCase() + arrayName.slice(1);
-        const regex = new RegExp(`const\\s+${arrayName}\\s*=\\s*\\[.*?\\](?=\\s*(?:const|return|$))`, "s");
+        const regex = new RegExp(
+          `const\\s+${arrayName}\\s*=\\s*\\[.*?\\](?=\\s*(?:const|return|$))`,
+          "s",
+        );
 
         if (content.includes(`const ${arrayName} =`)) {
           content = content.replace(
             regex,
-            `const ${arrayName} = ${arrayName}Data.${arrayName} || []`
+            `const ${arrayName} = ${arrayName}Data.${arrayName} || []`,
           );
           pageDetail.changes.push(`Replaced array: ${arrayName}`);
           console.log(`  ✓ Replaced array: ${arrayName}`);
@@ -184,7 +200,9 @@ async function refactorEmailAdminPages() {
   console.log("\n" + "=".repeat(60));
   console.log("[Phase 5] Refactoring Summary");
   console.log("=".repeat(60));
-  console.log(`Pages refactored: ${report.pagesRefactored}/${report.totalPages}`);
+  console.log(
+    `Pages refactored: ${report.pagesRefactored}/${report.totalPages}`,
+  );
   console.log(`JSON imports added: ${report.importsAdded}`);
   console.log(`Icon mappings prepared: ${report.iconMappingsAdded}`);
 
@@ -214,7 +232,7 @@ function generateReport(report) {
 - Imports added: ${detail.importsAdded}
 
 **Changes:**
-${detail.changes.map((c) => `- ${c}`).join("\n")}`
+${detail.changes.map((c) => `- ${c}`).join("\n")}`,
     )
     .join("\n\n");
 
