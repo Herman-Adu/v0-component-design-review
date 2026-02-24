@@ -85,8 +85,7 @@ export function TemplateMarketingPlatform({
       </div>
     </div>
   )
-}
-`,
+}`,
 
   "template-analytics.tsx": `"use client"
 
@@ -140,8 +139,7 @@ export function TemplateAnalytics({
       </div>
     </div>
   )
-}
-`,
+}`,
 
   "template-composer.tsx": `"use client"
 
@@ -200,8 +198,7 @@ export function TemplateComposer({
       </div>
     </div>
   )
-}
-`,
+}`,
 
   "template-documentation.tsx": `"use client"
 
@@ -270,8 +267,7 @@ export function TemplateDocumentation({
       </div>
     </div>
   )
-}
-`,
+}`,
 
   "template-email-admin.tsx": `"use client"
 
