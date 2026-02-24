@@ -9,8 +9,8 @@
 
 ## PART 1: PRE-EXECUTION CHECKLIST
 
-### Before You Start
-```bash
+### Before You Start (Windows PowerShell)
+```powershell
 # Verify you're on correct branch
 git branch --show-current
 # Should output: v0/herman-adu-phaseN
@@ -20,39 +20,41 @@ git status
 # Should be clean (nothing to commit)
 
 # Verify all 29 JSON files exist
-ls -la data/strapi-mock/*/
-# Should list all JSON structure files
+Get-ChildItem -Path "data/strapi-mock" -Recurse -Filter "*.json" | Measure-Object
+# Should show Count: 29
 
 # Check 10 extracted pages exist
-ls -la app/(dashboard)/dashboard/admin/*/
-# Should list 10 pages with page.tsx files
+Get-ChildItem -Path "app/(dashboard)/dashboard/admin" -Recurse -Filter "page.tsx" | Measure-Object
+# Should show Count: 10+
 ```
 
-### Verify Environment
-```bash
+### Verify Environment (Windows PowerShell)
+```powershell
 # Node version
 node --version
 # Should be v18+
 
-# npm/pnpm available
+# npm available
 npm --version
-# or: pnpm --version
 
-# Project dependencies installed
-npm ls 2>/dev/null | head -5
-# Should show dependencies without errors
+# pnpm available (if using pnpm)
+pnpm --version
+
+# Project dependencies installed (check node_modules)
+Test-Path "node_modules" -PathType Container
+# Should output: True
 ```
 
 ---
 
 ## PART 2: PHASE 8A - ANALYSIS & TYPE GENERATION
 
-### Step 1: Analyze JSON Structures
+### Step 1: Analyze JSON Structures (Windows PowerShell)
 **What this does:** Scans all 29 JSON files, identifies unique patterns, groups similar structures
 
-```bash
+```powershell
 # Navigate to scripts folder
-cd /data/PHASE8_SCRIPTS
+cd .\data\PHASE8_SCRIPTS
 
 # Run analysis script
 node phase8-analyze-json-structures.js
@@ -64,11 +66,14 @@ node phase8-analyze-json-structures.js
 # ✓ Analysis complete - 15 unique structure types found
 ```
 
-**Review the output:**
-```bash
+**Review the output (Windows PowerShell):**
+```powershell
 # View analysis results
+$content = Get-Content structure-mapping.json | ConvertFrom-Json
+$content.summary
+
+# Or use jq if installed (choco install jq)
 cat structure-mapping.json | jq .summary
-# Shows: which structures repeat, which are unique, relationship map
 ```
 
 **What to look for:**
@@ -78,17 +83,17 @@ cat structure-mapping.json | jq .summary
 - ✓ Relationship map shows inheritance/nesting patterns
 
 **If issues:**
-- Missing JSON files? → Check `/data/strapi-mock/` exists
+- Missing JSON files? → Check `.\data\strapi-mock\` exists
 - Syntax errors in JSON? → Files may need fixing first
 - Stop and document in PHASE8_GENERATION_NOTES.md
 
 ---
 
-### Step 2: Generate TypeScript Interfaces
+### Step 2: Generate TypeScript Interfaces (Windows PowerShell)
 **What this does:** Creates `/types/strapi-mock.ts` with all TypeScript interfaces
 
-```bash
-# Still in /data/PHASE8_SCRIPTS
+```powershell
+# Still in .\data\PHASE8_SCRIPTS
 
 # Run type generation script
 node phase8-generate-types.js
@@ -101,19 +106,18 @@ node phase8-generate-types.js
 # ✓ Exports: 15 interfaces organized by domain
 ```
 
-**Verify the output:**
-```bash
+**Verify the output (Windows PowerShell):**
+```powershell
 # Check types file was created
-ls -lh ../../types/strapi-mock.ts
-# Should show: ~15-25 KB file
+Get-Item "..\..\types\strapi-mock.ts" | Select-Object Length, LastWriteTime
 
 # View first few interfaces
-head -50 ../../types/strapi-mock.ts
-# Should show: proper TypeScript syntax, no errors
+Get-Content "..\..\types\strapi-mock.ts" -TotalCount 50
 
-# Check file compiles
-cd ../.. && npx tsc --noEmit types/strapi-mock.ts
-# Should output: no errors
+# Check file compiles (from project root first)
+cd ..\..
+npx tsc --noEmit types/strapi-mock.ts
+# Should output: no errors (silence = success)
 ```
 
 **What to look for:**
@@ -124,7 +128,7 @@ cd ../.. && npx tsc --noEmit types/strapi-mock.ts
 - ✓ JSDoc comments present (documentation)
 
 **If issues:**
-- Type syntax errors? → Check generated file manually
+- Type syntax errors? → Check generated file manually in VS Code
 - Missing interfaces? → Verify analysis step found all structures
 - Nested types not resolving? → May need manual refinement
 
@@ -132,12 +136,12 @@ cd ../.. && npx tsc --noEmit types/strapi-mock.ts
 
 ## PART 3: PHASE 8B - PAGE INTEGRATION
 
-### Step 3: Validate Page Types
+### Step 3: Validate Page Types (Windows PowerShell)
 **What this does:** Checks all 10 pages against types, identifies needed imports
 
-```bash
-# Navigate back to PHASE8_SCRIPTS
-cd /data/PHASE8_SCRIPTS
+```powershell
+# Navigate back to PHASE8_SCRIPTS (if not already there)
+cd .\data\PHASE8_SCRIPTS
 
 # Run validation script
 node phase8-validate-page-types.js
@@ -152,15 +156,17 @@ node phase8-validate-page-types.js
 # ✓ Details: see phase8-validation-report.json
 ```
 
-**Review the validation report:**
-```bash
+**Review the validation report (Windows PowerShell):**
+```powershell
 # View detailed issues
-cat phase8-validation-report.json | jq .pages
-# Shows: which pages need what types
+$report = Get-Content phase8-validation-report.json | ConvertFrom-Json
+$report.pages
 
 # View errors/warnings
-cat phase8-validation-report.json | jq .issues
-# Shows: specific problems to fix
+$report.issues
+
+# Or use jq if available
+cat phase8-validation-report.json | jq .pages
 ```
 
 **What to look for:**
@@ -176,34 +182,37 @@ cat phase8-validation-report.json | jq .issues
 
 ---
 
-### Step 4: Update Page Imports (MANUAL STEP)
+### Step 4: Update Page Imports (MANUAL STEP - Windows PowerShell)
 **What you do:** Add TypeScript type imports to 10 pages
 
-```bash
+```powershell
 # Go to project root
-cd ../..
+cd ..\..
 
-# Open each page file (use your editor)
+# Open each page file in VS Code
 # Pattern: app/(dashboard)/dashboard/admin/[domain]/[section]/page.tsx
 
-# For each page, ADD at top of file:
-import type { YourTypeName } from '@/types/strapi-mock';
+# Using PowerShell to list pages
+Get-ChildItem -Path "app\(dashboard)\dashboard\admin" -Recurse -Filter "page.tsx" | Select-Object FullName
+
+# For each page, ADD at top of file in VS Code:
+# import type { YourTypeName } from '@/types/strapi-mock';
 
 # Example for content-strategy page:
-import type { ContentCalendar, DistributionChannels } from '@/types/strapi-mock';
+# import type { ContentCalendar, DistributionChannels } from '@/types/strapi-mock';
 
 # Then update data imports:
-import contentCalendarData from '@/data/strapi-mock/digital-marketing/content-strategy/content-calendar.json';
-import type { ContentCalendar } from '@/types/strapi-mock';
+# import contentCalendarData from '@/data/strapi-mock/digital-marketing/content-strategy/content-calendar.json';
+# import type { ContentCalendar } from '@/types/strapi-mock';
 
 # Add type annotation to component:
-export default function PageName() {
-  const data: ContentCalendar = contentCalendarData;
-  // ... rest of component
-}
+# export default function PageName() {
+#   const data: ContentCalendar = contentCalendarData;
+#   // ... rest of component
+# }
 ```
 
-**Step-by-step for each page:**
+**Step-by-step for each page (in VS Code):**
 1. Open page file in editor
 2. Add type import at top
 3. Add type annotation to JSON data variable
@@ -211,18 +220,15 @@ export default function PageName() {
 5. Test IDE autocomplete: type `data.` → should see typed properties
 6. Save file
 
-**Pages to update (10 total):**
-```
-1. app/(dashboard)/dashboard/admin/digital-marketing/content-strategy/page.tsx
-2. app/(dashboard)/dashboard/admin/digital-marketing/getting-started/page.tsx
-3. app/(dashboard)/dashboard/admin/platforms/facebook/page.tsx
-4. app/(dashboard)/dashboard/admin/email-administration/*/page.tsx (multiple)
-5. app/(dashboard)/dashboard/admin/document-administration/*/page.tsx (multiple)
-... (check validation report for exact list)
+**Pages to update (10 total - from validation report):**
+```powershell
+# See list from validation report generated in Step 3
+# Navigate and open in VS Code with:
+code app\(dashboard)\dashboard\admin\[path-to-page]\page.tsx
 ```
 
-**Test as you go:**
-```bash
+**Test as you go (Windows PowerShell):**
+```powershell
 # After each page, check syntax
 npm run build --dry-run
 # Should show no errors for that file
@@ -232,10 +238,10 @@ npm run build --dry-run
 
 ## PART 4: PHASE 8C - VALIDATION & VERIFICATION
 
-### Step 5: Full TypeScript Compilation
+### Step 5: Full TypeScript Compilation (Windows PowerShell)
 **What this does:** Checks entire project for type errors
 
-```bash
+```powershell
 # Run TypeScript compiler
 npx tsc --noEmit
 
@@ -247,8 +253,8 @@ npx tsc --noEmit
 # Argument of type 'unknown' is not assignable to parameter of type 'string'.
 ```
 
-**Fix any errors:**
-```bash
+**Fix any errors (Windows PowerShell):**
+```powershell
 # Read error message carefully
 # Usually: missing type annotation, type mismatch, missing import
 
@@ -258,23 +264,26 @@ npx tsc --noEmit
 # 3. Add ? for optional: data?.property
 # 4. Use as keyword: data as ContentCalendar
 
+# Open file in VS Code and fix (use error line number as guide)
+code [filename]:[line]
+
 # Re-run compiler
 npx tsc --noEmit
 # Repeat until zero errors
 ```
 
 **Success:**
-```bash
+```powershell
 # No output = all types valid
 # Once clean, move to next step
 ```
 
 ---
 
-### Step 6: Build Project
+### Step 6: Build Project (Windows PowerShell)
 **What this does:** Full build validation (includes TypeScript + Next.js)
 
-```bash
+```powershell
 # Clean build
 npm run build
 
@@ -285,8 +294,8 @@ npm run build
 # ✓ Build complete: .next/
 ```
 
-**If build fails:**
-```bash
+**If build fails (Windows PowerShell):**
+```powershell
 # Read error message carefully
 # Usually: TypeScript error, missing file, or routing issue
 
@@ -300,18 +309,19 @@ npm run build
 ```
 
 **Success:**
-```bash
-# Build folder created: ls -la .next/
-# Ready to deploy
+```powershell
+# Build folder created
+Test-Path ".\.next" -PathType Container
+# Should output: True
 ```
 
 ---
 
-### Step 7: Verify Dev Server Works
+### Step 7: Verify Dev Server Works (Windows PowerShell)
 **What this does:** Test that pages render correctly with new types
 
-```bash
-# Start dev server
+```powershell
+# Start dev server (opens new terminal or background process)
 npm run dev
 
 # Expected output:
@@ -320,24 +330,24 @@ npm run dev
 
 # Keep running (don't close)
 
-# In another terminal, test a page:
-curl http://localhost:3000/dashboard/admin/digital-marketing/content-strategy
-
-# Expected: HTML response (page rendered)
+# In another PowerShell terminal, test a page:
+$page = Invoke-WebRequest http://localhost:3000/dashboard/admin/digital-marketing/content-strategy
+$page.StatusCode
+# Should output: 200
 
 # In browser:
 # 1. Open http://localhost:3000
 # 2. Navigate to dashboard → admin section
 # 3. Click into a typed page
-# 4. Check: page loads, no console errors
+# 4. Check: page loads, no console errors (press F12 to open DevTools)
 # 5. Check: IDE autocomplete works on data properties
 
 # Stop dev server
-# Press Ctrl+C in terminal
+# Press Ctrl+C in terminal where npm run dev is running
 ```
 
 **Success:**
-```bash
+```powershell
 # Pages load without errors
 # Dev server runs without warnings
 # Ready for final documentation
@@ -463,12 +473,12 @@ curl http://localhost:3000/dashboard/admin/digital-marketing/content-strategy
 
 ---
 
-## PART 6: COMMIT & PUSH
+## PART 6: COMMIT & PUSH (Windows PowerShell)
 
 ### Step 9: Commit to Git
 **What you do:** Save your work to GitHub
 
-```bash
+```powershell
 # Check status
 git status
 
@@ -498,8 +508,8 @@ git log --oneline -n 1
 # Should show your commit message
 ```
 
-### Step 10: Push to GitHub
-```bash
+### Step 10: Push to GitHub (Windows PowerShell)
+```powershell
 # Push to branch
 git push origin v0/herman-adu-phaseN
 
@@ -517,35 +527,43 @@ git branch -vv
 
 ---
 
-## TROUBLESHOOTING GUIDE
+## TROUBLESHOOTING GUIDE (Windows PowerShell)
 
 ### Problem: "JSON file not found"
-**Solution:**
-```bash
+**Solution (Windows PowerShell):**
+```powershell
 # Verify all 29 JSONs exist
-find data/strapi-mock -name "*.json" | wc -l
+(Get-ChildItem -Path "data/strapi-mock" -Recurse -Filter "*.json").Count
 # Should output: 29
 
-# If missing: copy from previous phase data
+# If missing: check structure
+Get-ChildItem -Path "data/strapi-mock" -Recurse | Where-Object {$_.Extension -eq ".json"}
+
+# If missing files: copy from previous phase data
 ```
 
 ### Problem: "Type errors after generation"
-**Solution:**
-```bash
+**Solution (Windows PowerShell):**
+```powershell
 # Check generated types syntax
 npx tsc --noEmit types/strapi-mock.ts
+# Shows specific errors
 
 # Common fixes:
-# 1. Check for circular references
-# 2. Verify optional fields use ?
-# 3. Check nested array types
+# 1. Check for circular references (in editor)
+# 2. Verify optional fields use ? (in editor)
+# 3. Check nested array types (in editor)
+
+# Open file to fix
+code types/strapi-mock.ts
 ```
 
 ### Problem: "Pages not importing correctly"
-**Solution:**
-```bash
-# Verify import path
-cat app/(dashboard)/dashboard/admin/[section]/page.tsx | grep "from '@/"
+**Solution (Windows PowerShell):**
+```powershell
+# Verify import paths in pages
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | 
+  ForEach-Object { Select-String "from '@/" $_.FullName }
 
 # Fix pattern:
 # ❌ from '@/data/strapi-mock/...' (without type)
@@ -553,23 +571,27 @@ cat app/(dashboard)/dashboard/admin/[section]/page.tsx | grep "from '@/"
 ```
 
 ### Problem: "IDE autocomplete not working"
-**Solution:**
-```bash
-# Restart TypeScript server in editor
-# VS Code: Cmd+Shift+P → "TypeScript: Restart TS Server"
+**Solution (Windows PowerShell):**
+```powershell
+# Restart TypeScript server in VS Code:
+# 1. Press Ctrl+Shift+P
+# 2. Type "TypeScript: Restart TS Server"
+# 3. Press Enter
 
 # Check tsconfig.json includes types
-cat tsconfig.json | grep '"typeRoots"' 
+$tsconfig = Get-Content tsconfig.json | ConvertFrom-Json
+$tsconfig.compilerOptions.typeRoots
 
-# Verify types/strapi-mock.ts exports
-grep "^export " types/strapi-mock.ts
+# Verify types file exports
+Select-String "^export " types/strapi-mock.ts | Select-Object -First 10
 ```
 
 ### Problem: "Build fails"
-**Solution:**
-```bash
+**Solution (Windows PowerShell):**
+```powershell
 # Clean install
-rm -rf node_modules .next
+Remove-Item -Path "node_modules" -Recurse -Force
+Remove-Item -Path ".next" -Recurse -Force
 npm install
 
 # Full rebuild
@@ -581,37 +603,39 @@ npm run build
 
 ---
 
-## SUCCESS CHECKLIST (Before Committing)
+## SUCCESS CHECKLIST (Before Committing - Windows PowerShell)
 
 **Run this final checklist before git commit:**
 
-```bash
+```powershell
 # 1. Types file exists and is valid
-ls -lh types/strapi-mock.ts
+Test-Path "types/strapi-mock.ts"
+# Should output: True
+
 npx tsc --noEmit types/strapi-mock.ts
+# Should output: nothing (success)
 
 # 2. All pages compile
 npx tsc --noEmit
+# Should output: nothing (success)
 
 # 3. Full build succeeds
 npm run build
+# Should output: "Compiled successfully" at end
 
-# 4. Dev server works
-npm run dev &
-sleep 3
-curl -s http://localhost:3000/dashboard | grep -q "html" && echo "✓ Dev server working"
-kill %1
+# 4. Documentation complete
+(Get-Item "PHASE8_GENERATION_NOTES.md").Length / 1KB
+# Should be 50+ KB (comprehensive notes)
 
-# 5. Documentation complete
-wc -l PHASE8_GENERATION_NOTES.md
-# Should be 50+ lines (comprehensive notes)
-
-# 6. All changes staged
+# 5. All changes staged
 git status
-# Should show only expected files
+# Should show only expected files (types/strapi-mock.ts, page updates, PHASE8_GENERATION_NOTES.md)
 
-# 7. Ready to push
-echo "✓ Phase 8 complete and ready for handoff!"
+# 6. Count of updated items
+Write-Host "✓ Types file created: $(Test-Path 'types/strapi-mock.ts')"
+Write-Host "✓ TypeScript clean: $(if (npx tsc --noEmit 2>$null) {'NO - ERRORS'} else {'YES'})"
+Write-Host "✓ Build passed: Check output above"
+Write-Host "✓ Phase 8 complete and ready for handoff!"
 ```
 
 ---
