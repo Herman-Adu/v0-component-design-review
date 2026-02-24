@@ -1,0 +1,28 @@
+{
+  "contentMetrics": [
+    {
+      "label": "Articles Published",
+      "value": "24",
+      "change": "+6 this month",
+      "trend": "up"
+    },
+    {
+      "label": "Case Studies",
+      "value": "8",
+      "change": "+2 this month",
+      "trend": "up"
+    },
+    {
+      "label": "Tutorials",
+      "value": "12",
+      "change": "+3 this month",
+      "trend": "up"
+    },
+    {
+      "label": "Social Posts",
+      "value": "48",
+      "change": "+12 this month",
+      "trend": "up"
+    }
+  ]
+}

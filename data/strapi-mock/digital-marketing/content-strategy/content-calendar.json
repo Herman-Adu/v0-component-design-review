@@ -1,0 +1,44 @@
+{
+  "contentCalendar": [
+    {
+      "week": "Week 1-2",
+      "theme": "Foundation",
+      "topics": [
+        "Next.js App Router basics",
+        "TypeScript strict mode",
+        "Atomic design principles"
+      ],
+      "status": "published"
+    },
+    {
+      "week": "Week 3-4",
+      "theme": "Architecture",
+      "topics": [
+        "Server vs Client Components",
+        "Hydration patterns",
+        "Component composition"
+      ],
+      "status": "published"
+    },
+    {
+      "week": "Week 5-6",
+      "theme": "Integration",
+      "topics": [
+        "Strapi CMS setup",
+        "API design patterns",
+        "Form validation with Zod"
+      ],
+      "status": "in-progress"
+    },
+    {
+      "week": "Week 7-8",
+      "theme": "Production",
+      "topics": [
+        "Security architecture",
+        "Performance optimisation",
+        "Deployment pipelines"
+      ],
+      "status": "planned"
+    }
+  ]
+}

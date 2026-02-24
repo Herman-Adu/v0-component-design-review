@@ -1,0 +1,32 @@
+{
+  "distributionChannels": [
+    {
+      "name": "LinkedIn",
+      "audience": "CTOs, Tech Leads",
+      "frequency": "2x/week",
+      "content": "Case studies, architecture decisions",
+      "icon": "Users"
+    },
+    {
+      "name": "Twitter/X",
+      "audience": "Developers",
+      "frequency": "3x/week",
+      "content": "Tips, code snippets, thread breakdowns",
+      "icon": "Globe"
+    },
+    {
+      "name": "Blog/SEO",
+      "audience": "Search traffic",
+      "frequency": "1x/week",
+      "content": "Long-form tutorials, deep dives",
+      "icon": "FileText"
+    },
+    {
+      "name": "Newsletter",
+      "audience": "Subscribers",
+      "frequency": "1x/month",
+      "content": "Monthly roundup, exclusive insights",
+      "icon": "BookOpen"
+    }
+  ]
+}

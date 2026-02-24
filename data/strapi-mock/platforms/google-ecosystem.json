@@ -1,0 +1,19 @@
+{
+  "ecosystem": [
+    {
+      "title": "Attract",
+      "items": ["SEO & Site Optimization", "Google Ads & Campaigns"],
+      "description": "Drive qualified traffic to your site"
+    },
+    {
+      "title": "Convert",
+      "items": ["Business Profile & FAQs", "Content Composer"],
+      "description": "Turn visitors into leads and customers"
+    },
+    {
+      "title": "Measure",
+      "items": ["Tag Manager", "Analytics & Reporting"],
+      "description": "Track performance and optimise spend"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "journeys": [
+    {
+      "id": 1,
+      "title": "Launch Electrical Services Presence",
+      "description": "Build foundational digital marketing for electrical services",
+      "duration": "4-6 weeks",
+      "steps": [
+        "Set up Google Business Profile with complete NAP",
+        "Create Facebook Business page with service areas",
+        "Optimize website for local SEO keywords",
+        "Install Google Analytics 4 and GTM"
+      ],
+      "owner": "Business Owner / Marketing Lead",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "title": "Drive Local Search Traffic",
+      "description": "Dominate local search results for electrical services",
+      "duration": "8-12 weeks",
+      "steps": [
+        "Audit and optimize on-page SEO elements",
+        "Build local backlink strategy",
+        "Implement structured data markup (LocalBusiness schema)",
+        "Set up Google Ads Local Services Ads campaign"
+      ],
+      "owner": "Developer / Marketing Lead",
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "title": "Build Social Proof & Community",
+      "description": "Generate reviews and community engagement across platforms",
+      "duration": "6-10 weeks",
+      "steps": [
+        "Set up review request workflows (email, SMS, QR codes)",
+        "Create content calendar and editorial guidelines",
+        "Launch LinkedIn thought leadership strategy",
+        "Implement Facebook review management and response system"
+      ],
+      "owner": "Content Creator / Marketing Lead",
+      "status": "available"
+    }
+  ]
+}

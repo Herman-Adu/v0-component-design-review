@@ -1,0 +1,20 @@
+{
+  "editorialGuidelines": [
+    {
+      "title": "Audience First",
+      "description": "Every piece must target a specific role: CTO, Developer, or DevOps. No generic content."
+    },
+    {
+      "title": "Code Examples Required",
+      "description": "All technical articles must include runnable code examples with TypeScript types."
+    },
+    {
+      "title": "Real-World Context",
+      "description": "Link concepts to the actual codebase. Reference specific files, patterns, and decisions."
+    },
+    {
+      "title": "Progressive Depth",
+      "description": "Start accessible (beginner), build to advanced. Tag difficulty level on every piece."
+    }
+  ]
+}
