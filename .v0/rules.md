@@ -120,12 +120,20 @@ Multi-step work must write to state.json after each phase, not just at the end.
 - Complex organism logic = PRO (Tier 2) if needed
 - Architecture planning/major refactor = MAX (Tier 3) only for replanning
 
-**New Rule for Phase 5+:**
-- Rule 11: MINI Tier Only for Phases 1-5
-  - Do NOT use Max for script generation
-  - Do NOT use Max for component writing
-  - Tier 3 (Max) is forbidden for this project until Phase 6 (full migration)
-  - Violation = immediate checkpoint restart with correct tier
+### Rule 11: MINI Tier Only for Phases 1-5
+- Do NOT use Max for script generation
+- Do NOT use Max for component writing
+- Tier 3 (Max) is forbidden for this project until Phase 6 (full migration)
+- Violation = immediate checkpoint restart with correct tier
+
+### Rule 12: HEALTH-FIRST DECISION MAKING (SESSION INITIALIZATION PROTOCOL v2.0)
+- Every session starts with `.v0/metrics.md` health check FIRST
+- Health ≥ 50%: FULL mode - proceed with task normally
+- Health 20-50%: DENSE mode - reduce context to 30k tokens max
+- Health < 20%: RECOVERY mode - defer non-critical work or split across sessions
+- Model selection is DYNAMIC based on [health status + task type] - see orchestrator.md STEP 4
+- Session announcement (STEP 6 of v2.0) MUST show health + model selection reason
+- Violation: proceeding without health check = framework failure
 
 **Cleanup Status:**
 - ✅ COMPLETE: Root bloat files deleted locally by user
@@ -152,4 +160,4 @@ Multi-step work must write to state.json after each phase, not just at the end.
 
 ---
 
-*Rules v1.1 | Last Updated: 2026-02-16*
+*Rules v1.2 | Last Updated: 2026-02-24 | Added Rule 12 (Health-First Decision Making) | Protocol v2.0 integrated*

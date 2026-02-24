@@ -5,30 +5,126 @@
 
 ---
 
-## Session Startup Protocol
+## SESSION INITIALIZATION PROTOCOL v2.0 (KING-LEVEL ORCHESTRATION)
 
-### 1. Read Essential Files (Every Session Start)
+**Purpose:** Health-first framework loading with dynamic resource allocation. Executes BEFORE any work begins.
+
+### Step 1: HEALTH CHECK (Non-Negotiable - First)
+Read: `.v0/metrics.md`
+- ✓ Token budget remaining? (out of 200k)
+- ✓ Health status? (FULL/DENSE/RECOVERY)
+- ✓ Violation count? (triggers Rule 12)
+
+**Decision Logic:**
 ```
-PRIORITY 1: Read immediately
-- .v0/state.json (checkpoint: current task, phase, blockers)
-- .v0/rules.md (constraints and violation history)
-- .v0/metrics.md (health score, token budget, model usage)
+IF Health ≥ 50%:        → FULL mode (proceed normally)
+IF Health 20-50%:       → DENSE mode (30k context limit)
+IF Health < 20%:        → RECOVERY mode (defer non-critical work or split across sessions)
 ```
 
-### 2. Display Resource View (EVERY Response -- Non-Negotiable)
+### Step 2: FRAMEWORK LOAD (Auto-Load in Order)
+Read (establish context foundation):
+1. `.v0/state.json` → "Where are we?" (phase, task, budget)
+2. `.v0/rules.md` → "What are the constraints?" (hard rules + learnings)
+3. `.v0/orchestrator.md` → "How do we operate?" (THIS FILE - framework)
+4. `.v0/PHASE_STATE.md` → "What's implemented?" (current state)
+5. `.v0/metrics.md` → "What's the cost?" (already read in Step 1)
+
+### Step 3: CONTEXT ANALYSIS (Third)
+User's request:
+- What are they asking? (feature, debug, review, etc.)
+- What GATE applies? (1-7 from this file)
+- Is this within op budget? (from state.json)
+
+### Step 4: DYNAMIC MODEL SELECTION (Fourth - CTO-Level Decision)
+Select model based on TASK TYPE + CURRENT HEALTH:
+
+| Task Type | Health ≥ 50% | Health 20-50% | Health < 20% |
+|-----------|--------------|---------------|-------------|
+| Architecture/Multi-file review | v0 Max (TIER 3) | v0 Max (TIER 3) | v0 Mini (TIER 1) |
+| Single-file edit, styling, copy | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
+| Complex debugging, refactor | v0 Max (TIER 3) | v0 Mini (TIER 1) | DEFER or split |
+| Research, exploration | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
+| Script generation | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
+
+**Principle:** Health below 50%? Downgrade to TIER 1 (Mini). Health below 20%? Defer complex work.
+
+### Step 5: GATE VALIDATION (Fifth - Non-Negotiable)
+Before proceeding, verify:
+- ✓ **GATE 1:** User explicitly approved this work?
+- ✓ **GATE 7:** Task within scope + op budget?
+- ✓ **Context Budget:** Sufficient tokens for this session?
+
+**If any fail:** Ask for clarification or defer work to next session.
+
+### Step 6: SESSION ANNOUNCEMENT (Sixth - Transparency)
+Display on EVERY first response:
 ```
-RESOURCE VIEW
-Health: [score]% | Used: ~[n]k / 200k | Model: [name] (TIER [n]) | Mode: [FULL/DENSE]
-Task: [from state.json active_work.current_task]
+**SESSION INITIALIZED**
+Branch: [from GitHub context]
+Phase: [from state.json]
+Active Task: [from state.json]
+Op Budget: 15 (or remaining)
+Health: [from metrics.md] - FULL/DENSE/RECOVERY
+Model Selected: [v0 Max/Mini - with reason]
+Context Loaded: [5 files from .v0/]
 ```
 
-### 3. Classify Task and Select Model (BEFORE any work)
-See GATE 7 below.
+Example:
+```
+**SESSION INITIALIZED**
+Branch: v0/herman-adu-phaseN
+Phase: 8 - TypeScript Types Layer
+Active Task: 8A - Create strapi-mock types
+Op Budget: 15
+Health: 78% - FULL mode
+Model Selected: v0 Mini (TIER 1) - Type definitions + page updates (GATE 7 rule)
+Context Loaded: state.json, rules.md, orchestrator.md, PHASE_STATE.md, metrics.md
+```
 
-### 4. Await User Command
-- Do not assume next task
-- Read active_work.current_task from state.json
-- Ask for clarification if needed
+### Step 7: PROCEED WITH WORK
+- Reference PHASE_STATE.md for context during execution
+- Follow gates (stop after features, validate before declaring complete, etc.)
+- Update state.json at CHECKPOINT (op budget 7.5/15)
+- Display resource view on EVERY response
+- Document violations/learnings in real-time
+
+### Step 8: SESSION CHECKPOINT (Mid-Session - Ops 7.5/15)
+- Review work completed
+- Update metrics.md with token usage
+- Assess if continuing or deferring remaining work
+- Decide: next phase prep vs defer to next session
+
+### Step 9: SESSION CLOSE
+- Final state.json update (what's done, what's next)
+- Finalize metrics.md (health score, total tokens used)
+- Prepare `.v0/PHASE_STATE.md` for next session
+
+---
+
+## LEGACY: Session Startup Protocol (Replaced by v2.0 Above)
+
+This section documents the protocol it supersedes. See v2.0 above for current protocol.
+
+### OLD: 1. Read Essential Files (Every Session Start)
+```
+DEPRECATED - Use Step 2 of SESSION INITIALIZATION PROTOCOL v2.0 instead
+```
+
+### OLD: 2. Display Resource View (EVERY Response)
+```
+DEPRECATED - Resource view now part of SESSION ANNOUNCEMENT (Step 6 of v2.0)
+```
+
+### OLD: 3. Classify Task and Select Model
+```
+DEPRECATED - Replaced by DYNAMIC MODEL SELECTION (Step 4 of v2.0)
+```
+
+### OLD: 4. Await User Command
+```
+DEPRECATED - Gate validation (Step 5) now ensures this
+```
 
 ---
 
@@ -287,4 +383,4 @@ Confirm hydration and await command.
 
 ---
 
-*Orchestrator v1.2 | Last Updated: 2026-02-24 | Enhanced with Phase Execution Workflow*
+*Orchestrator v2.0 | Last Updated: 2026-02-24 | SESSION INITIALIZATION PROTOCOL v2.0 (King-Level Orchestration)*
