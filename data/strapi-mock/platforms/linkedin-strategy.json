@@ -1,0 +1,19 @@
+{
+  "strategy": [
+    {
+      "title": "Build Credibility",
+      "items": ["Profile Optimization", "Content Strategy"],
+      "description": "Build credibility with a polished profile and thought leadership"
+    },
+    {
+      "title": "Grow Network",
+      "items": ["Connection Growth", "Content Strategy"],
+      "description": "Expand your professional network with targeted outreach and engagement"
+    },
+    {
+      "title": "Generate Leads",
+      "items": ["Lead Generation", "Analytics Dashboard"],
+      "description": "Convert connections into qualified business leads"
+    }
+  ]
+}

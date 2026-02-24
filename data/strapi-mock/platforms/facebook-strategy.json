@@ -1,0 +1,19 @@
+{
+  "strategy": [
+    {
+      "title": "Build Community",
+      "items": ["Page Management", "Post Composer"],
+      "description": "Professional page with consistent, engaging local content"
+    },
+    {
+      "title": "Drive Action",
+      "items": ["Events & Promotions", "Messenger Templates"],
+      "description": "Convert interest into bookings through events and instant replies"
+    },
+    {
+      "title": "Measure & Grow",
+      "items": ["Analytics Dashboard"],
+      "description": "Track what resonates and optimise your community strategy"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "tools": [
+    {
+      "href": "/dashboard/admin/digital-marketing/linkedin/profile-optimization",
+      "icon": "Building2",
+      "title": "Profile Optimization",
+      "description": "Professional headline templates, summary writing guide, skills showcase, and recommendations strategy.",
+      "role": "Business Owner / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/linkedin/content-strategy",
+      "icon": "PenSquare",
+      "title": "Content Strategy",
+      "description": "Post templates, industry insights, thought leadership tips, and engagement best practices.",
+      "role": "Content Creator / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/linkedin/connection-growth",
+      "icon": "Megaphone",
+      "title": "Connection Growth",
+      "description": "Targeting strategies, outreach templates, connection request guides, and relationship management.",
+      "role": "Business Development",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/linkedin/lead-generation",
+      "icon": "FileText",
+      "title": "Lead Generation",
+      "description": "InMail templates, sponsored content guidelines, lead magnet strategies, and conversion tips.",
+      "role": "Sales / Business Development",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/linkedin/analytics",
+      "icon": "LineChart",
+      "title": "Analytics Dashboard",
+      "description": "Profile views, engagement metrics, follower trends, and performance analytics.",
+      "role": "All Roles",
+      "status": "Active"
+    }
+  ]
+}

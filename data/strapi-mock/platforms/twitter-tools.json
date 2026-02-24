@@ -1,0 +1,44 @@
+{
+  "tools": [
+    {
+      "href": "/dashboard/admin/digital-marketing/twitter/profile-setup",
+      "icon": "Building2",
+      "title": "Profile Setup",
+      "description": "Professional bio templates, header design guidelines, link optimization, and verification strategies.",
+      "role": "Business Owner / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/twitter/tweet-composer",
+      "icon": "PenSquare",
+      "title": "Tweet Composer",
+      "description": "Character-optimized templates, hashtag strategies, emoji usage, and thread formatting.",
+      "role": "Content Creator / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/twitter/community-engagement",
+      "icon": "Megaphone",
+      "title": "Community Engagement",
+      "description": "Reply templates, retweet strategies, mentions management, and conversation starters.",
+      "role": "Community Manager / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/twitter/trending-insights",
+      "icon": "FileText",
+      "title": "Trending Insights",
+      "description": "Trend monitoring, viral potential assessment, timing optimization, and audience insights.",
+      "role": "Marketing Lead / Content Creator",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/twitter/analytics",
+      "icon": "LineChart",
+      "title": "Analytics Dashboard",
+      "description": "Tweet performance, follower growth, engagement rates, and audience demographics.",
+      "role": "All Roles",
+      "status": "Active"
+    }
+  ]
+}

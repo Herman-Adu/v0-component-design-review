@@ -1,0 +1,44 @@
+{
+  "tools": [
+    {
+      "href": "/dashboard/admin/digital-marketing/facebook/page-management",
+      "icon": "Building2",
+      "title": "Page Management",
+      "description": "Set up and maintain your Facebook Business page with consistent branding, service listings, reviews management, and contact info.",
+      "role": "Business Owner / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/facebook/composer",
+      "icon": "PenSquare",
+      "title": "Post Composer",
+      "description": "Compose Facebook posts with image sizing, link preview optimisation, audience targeting tips, and copy-to-clipboard.",
+      "role": "Content Creator / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/facebook/events",
+      "icon": "Megaphone",
+      "title": "Events & Promotions",
+      "description": "Create and promote events: open days, seasonal offers, community workshops. Event templates with RSVP best practices.",
+      "role": "Business Owner / Marketing Lead",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/facebook/messenger",
+      "icon": "FileText",
+      "title": "Messenger Templates",
+      "description": "Auto-reply templates for common enquiries, business hours messages, quick-reply buttons, and conversation flows.",
+      "role": "Office Staff / Business Owner",
+      "status": "Active"
+    },
+    {
+      "href": "/dashboard/admin/digital-marketing/facebook/analytics",
+      "icon": "LineChart",
+      "title": "Analytics Dashboard",
+      "description": "Track page likes, post reach, engagement rate, Messenger response times, and review sentiment.",
+      "role": "All Roles",
+      "status": "Active"
+    }
+  ]
+}

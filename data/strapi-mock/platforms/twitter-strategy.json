@@ -1,0 +1,19 @@
+{
+  "strategy": [
+    {
+      "title": "Establish Presence",
+      "items": ["Profile Setup", "Tweet Composer"],
+      "description": "Consistent, professional tweets with targeted hashtags"
+    },
+    {
+      "title": "Build Community",
+      "items": ["Community Engagement", "Trending Insights"],
+      "description": "Foster relationships and participate in relevant conversations"
+    },
+    {
+      "title": "Amplify Reach",
+      "items": ["Trending Insights", "Analytics Dashboard"],
+      "description": "Maximize visibility and engagement through data-driven strategies"
+    }
+  ]
+}
