@@ -54,7 +54,7 @@ Test-Path "node_modules" -PathType Container
 
 ```powershell
 # Navigate to scripts folder
-cd .\data\PHASE8_SCRIPTS
+cd .\scripts
 
 # Run analysis script
 node phase8-analyze-json-structures.js
@@ -68,12 +68,12 @@ node phase8-analyze-json-structures.js
 
 **Review the output (Windows PowerShell):**
 ```powershell
-# View analysis results
-$content = Get-Content structure-mapping.json | ConvertFrom-Json
+# From scripts folder, view analysis results
+$content = Get-Content ..\structure-mapping.json | ConvertFrom-Json
 $content.summary
 
 # Or use jq if installed (choco install jq)
-cat structure-mapping.json | jq .summary
+cat ..\structure-mapping.json | jq .summary
 ```
 
 **What to look for:**
@@ -93,7 +93,7 @@ cat structure-mapping.json | jq .summary
 **What this does:** Creates `/types/strapi-mock.ts` with all TypeScript interfaces
 
 ```powershell
-# Still in .\data\PHASE8_SCRIPTS
+# Still in .\scripts
 
 # Run type generation script
 node phase8-generate-types.js
@@ -108,14 +108,16 @@ node phase8-generate-types.js
 
 **Verify the output (Windows PowerShell):**
 ```powershell
+# Navigate to project root first
+cd ..
+
 # Check types file was created
-Get-Item "..\..\types\strapi-mock.ts" | Select-Object Length, LastWriteTime
+Get-Item "types\strapi-mock.ts" | Select-Object Length, LastWriteTime
 
 # View first few interfaces
-Get-Content "..\..\types\strapi-mock.ts" -TotalCount 50
+Get-Content "types\strapi-mock.ts" -TotalCount 50
 
-# Check file compiles (from project root first)
-cd ..\..
+# Check file compiles
 npx tsc --noEmit types/strapi-mock.ts
 # Should output: no errors (silence = success)
 ```
@@ -140,8 +142,8 @@ npx tsc --noEmit types/strapi-mock.ts
 **What this does:** Checks all 10 pages against types, identifies needed imports
 
 ```powershell
-# Navigate back to PHASE8_SCRIPTS (if not already there)
-cd .\data\PHASE8_SCRIPTS
+# Navigate back to scripts
+cd .\scripts
 
 # Run validation script
 node phase8-validate-page-types.js
@@ -158,15 +160,15 @@ node phase8-validate-page-types.js
 
 **Review the validation report (Windows PowerShell):**
 ```powershell
-# View detailed issues
-$report = Get-Content phase8-validation-report.json | ConvertFrom-Json
+# View detailed issues (from scripts folder)
+$report = Get-Content ..\phase8-validation-report.json | ConvertFrom-Json
 $report.pages
 
 # View errors/warnings
 $report.issues
 
 # Or use jq if available
-cat phase8-validation-report.json | jq .pages
+cat ..\phase8-validation-report.json | jq .pages
 ```
 
 **What to look for:**
@@ -186,8 +188,8 @@ cat phase8-validation-report.json | jq .pages
 **What you do:** Add TypeScript type imports to 10 pages
 
 ```powershell
-# Go to project root
-cd ..\..
+# Navigate to project root
+cd ..
 
 # Open each page file in VS Code
 # Pattern: app/(dashboard)/dashboard/admin/[domain]/[section]/page.tsx
