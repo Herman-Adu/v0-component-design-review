@@ -1,11 +1,11 @@
 /**
  * PHASE 1 SCRIPT 1: Generate TypeScript Interfaces
- * 
+ *
  * Purpose: Extract data patterns from existing pages and generate TypeScript interfaces
  * that mirror Strapi collection structure (mock data contracts)
- * 
+ *
  * Usage: node scripts/phase1-generate-types.js [--dry-run] [--verbose]
- * 
+ *
  * Outputs:
  *   - /types/strapi/marketing-platform.types.ts
  *   - /types/strapi/tool.types.ts
@@ -19,31 +19,31 @@
  *   - /data/phase1-types-report.md
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Configuration
-const DRY_RUN = process.argv.includes('--dry-run');
-const VERBOSE = process.argv.includes('--verbose');
-const ROOT_DIR = path.join(__dirname, '..');
-const TYPES_DIR = path.join(ROOT_DIR, 'types');
-const STRAPI_TYPES_DIR = path.join(TYPES_DIR, 'strapi');
-const COMPONENT_TYPES_DIR = path.join(TYPES_DIR, 'components');
-const DATA_DIR = path.join(ROOT_DIR, 'data');
+const DRY_RUN = process.argv.includes("--dry-run");
+const VERBOSE = process.argv.includes("--verbose");
+const ROOT_DIR = path.join(__dirname, "..");
+const TYPES_DIR = path.join(ROOT_DIR, "types");
+const STRAPI_TYPES_DIR = path.join(TYPES_DIR, "strapi");
+const COMPONENT_TYPES_DIR = path.join(TYPES_DIR, "components");
+const DATA_DIR = path.join(ROOT_DIR, "data");
 
 // Sample pages to analyze for patterns
 const SAMPLE_PAGES = [
-  'app/(dashboard)/dashboard/admin/digital-marketing/linkedin/page.tsx',
-  'app/(dashboard)/dashboard/admin/digital-marketing/google/analytics/page.tsx',
-  'app/(dashboard)/dashboard/admin/digital-marketing/linkedin/composer/page.tsx',
-  'app/(dashboard)/dashboard/documentation/app-reference/getting-started/page.tsx',
-  'app/(dashboard)/dashboard/admin/email-administration/page.tsx'
+  "app/(dashboard)/dashboard/admin/digital-marketing/linkedin/page.tsx",
+  "app/(dashboard)/dashboard/admin/digital-marketing/google/analytics/page.tsx",
+  "app/(dashboard)/dashboard/admin/digital-marketing/linkedin/composer/page.tsx",
+  "app/(dashboard)/dashboard/documentation/app-reference/getting-started/page.tsx",
+  "app/(dashboard)/dashboard/admin/email-administration/page.tsx",
 ];
 
 // Type definitions based on architectural analysis
 const TYPE_DEFINITIONS = {
   strapi: {
-    'marketing-platform.types.ts': `/**
+    "marketing-platform.types.ts": `/**
  * Strapi Collection Type: Marketing Platform
  * Used by: All marketing platform overview pages (LinkedIn, Google, Facebook, Twitter)
  */
@@ -103,7 +103,7 @@ export interface PlatformSpec {
 }
 `,
 
-    'metric.types.ts': `/**
+    "metric.types.ts": `/**
  * Strapi Collection Type: Metric
  * Used by: Analytics pages, dashboards
  */
@@ -145,7 +145,7 @@ export interface Report {
 }
 `,
 
-    'template.types.ts': `/**
+    "template.types.ts": `/**
  * Strapi Collection Type: Content Template
  * Used by: Composer pages
  */
@@ -183,7 +183,7 @@ export interface FormatType {
 }
 `,
 
-    'setup-step.types.ts': `/**
+    "setup-step.types.ts": `/**
  * Strapi Collection Type: Setup Step
  * Used by: Configuration/setup pages
  */
@@ -202,7 +202,7 @@ export interface SetupStep {
 }
 `,
 
-    'analytics.types.ts': `/**
+    "analytics.types.ts": `/**
  * Strapi Collection Types: Analytics Page Data
  * Used by: LinkedIn/Google/Facebook/Twitter analytics sub-pages
  * Source pattern: app/(dashboard)/dashboard/admin/digital-marketing/linkedin/analytics/page.tsx
@@ -269,7 +269,7 @@ export interface TipBlock {
 }
 `,
 
-    'email-admin.types.ts': `/**
+    "email-admin.types.ts": `/**
  * Strapi Collection Type: Email Administration
  * Used by: Email admin configuration, infrastructure, and request management pages
  */
@@ -288,7 +288,7 @@ export interface EmailConfigItem {
 }
 `,
 
-    'navigation.types.ts': `/**
+    "navigation.types.ts": `/**
  * Strapi Collection Type: Navigation
  * Used by: Back-navigation cards, breadcrumbs, sidebar items
  */
@@ -306,7 +306,7 @@ export interface BackNavigation {
 }
 `,
 
-    'documentation.types.ts': `/**
+    "documentation.types.ts": `/**
  * Strapi Collection Type: Documentation
  * Used by: Documentation pages
  */
@@ -358,11 +358,11 @@ export interface DocLink {
   created_at: string
   updated_at: string
 }
-`
+`,
   },
 
   components: {
-    'atom.types.ts': `/**
+    "atom.types.ts": `/**
  * Component Prop Types: Atoms
  * Smallest reusable UI building blocks
  * Source patterns: components/atoms/*.tsx
@@ -418,13 +418,16 @@ export interface MetricValueProps {
 }
 `,
 
-    'molecule.types.ts': `/**
+    "molecule.types.ts": `/**
  * Component Prop Types: Molecules
  * Single-purpose molecular components composed of atoms
  */
 
 import type { LucideIcon } from 'lucide-react'
-import type { Tool, StrategyPhase, Metric, SetupStep, ContentTemplate } from '@/types/strapi/marketing-platform.types'
+import type { Tool, StrategyPhase } from '@/types/strapi/marketing-platform.types'
+import type { Metric } from '@/types/strapi/metric.types'
+import type { SetupStep } from '@/types/strapi/setup-step.types'
+import type { ContentTemplate } from '@/types/strapi/template.types'
 
 export interface ToolCardProps {
   tool: Tool
@@ -502,12 +505,15 @@ export interface ContentComparisonTableProps {
 }
 `,
 
-    'organism.types.ts': `/**
+    "organism.types.ts": `/**
  * Component Prop Types: Organisms
  * Complex components composed of multiple molecules
  */
 
-import { Tool, StrategyPhase, Metric, SetupStep, ContentTemplate, HashtagGroup, FormatType } from '@/types/strapi/marketing-platform.types'
+import { Tool, StrategyPhase } from '@/types/strapi/marketing-platform.types'
+import { Metric } from '@/types/strapi/metric.types'
+import { SetupStep } from '@/types/strapi/setup-step.types'
+import { ContentTemplate, HashtagGroup, FormatType } from '@/types/strapi/template.types'
 
 export interface ToolGridProps {
   tools: Tool[]
@@ -559,12 +565,16 @@ export interface ChecklistCardProps {
 }
 `,
 
-    'template.types.ts': `/**
+    "template.types.ts": `/**
  * Component Prop Types: Page Templates
  * Full page layouts that compose organisms
  */
 
-import { Tool, StrategyPhase, PlatformSpec, Metric, SetupStep, ContentTemplate, HashtagGroup, FormatType, Goal, Report, DocSection, DocBadge, DocMeta } from '@/types/strapi/marketing-platform.types'
+import { Tool, StrategyPhase, PlatformSpec } from '@/types/strapi/marketing-platform.types'
+import { Metric, Goal, Report } from '@/types/strapi/metric.types'
+import { SetupStep } from '@/types/strapi/setup-step.types'
+import { ContentTemplate, HashtagGroup, FormatType } from '@/types/strapi/template.types'
+import { DocSection, DocBadge, DocMeta } from '@/types/strapi/documentation.types'
 import { LucideIcon } from 'lucide-react'
 
 export interface MarketingPlatformTemplateProps {
@@ -606,8 +616,8 @@ export interface DocumentationPageTemplateProps {
   meta?: DocMeta[]
   children?: React.ReactNode
 }
-`
-  }
+`,
+  },
 };
 
 // Utility functions
@@ -624,12 +634,14 @@ function ensureDir(dirPath) {
 
 function writeTypeFile(relativePath, content) {
   const fullPath = path.join(TYPES_DIR, relativePath);
-  
+
   if (DRY_RUN) {
-    console.log(`[DRY RUN] Would write: ${relativePath} (${content.length} chars)`);
+    console.log(
+      `[DRY RUN] Would write: ${relativePath} (${content.length} chars)`,
+    );
     return;
   }
-  
+
   fs.writeFileSync(fullPath, content);
   console.log(`✓ Created: ${relativePath}`);
 }
@@ -645,11 +657,15 @@ Total type files created: ${Object.keys(TYPE_DEFINITIONS.strapi).length + Object
 
 ### Strapi Collection Types (${Object.keys(TYPE_DEFINITIONS.strapi).length} files)
 
-${Object.keys(TYPE_DEFINITIONS.strapi).map(file => `- \`/types/strapi/${file}\``).join('\n')}
+${Object.keys(TYPE_DEFINITIONS.strapi)
+  .map((file) => `- \`/types/strapi/${file}\``)
+  .join("\n")}
 
 ### Component Prop Types (${Object.keys(TYPE_DEFINITIONS.components).length} files)
 
-${Object.keys(TYPE_DEFINITIONS.components).map(file => `- \`/types/components/${file}\``).join('\n')}
+${Object.keys(TYPE_DEFINITIONS.components)
+  .map((file) => `- \`/types/components/${file}\``)
+  .join("\n")}
 
 ## Type Categories
 
@@ -684,13 +700,13 @@ ${Object.keys(TYPE_DEFINITIONS.components).map(file => `- \`/types/components/${
 - TypeScript strict mode compatible
 `;
 
-  const reportPath = path.join(DATA_DIR, 'phase1-types-report.md');
-  
+  const reportPath = path.join(DATA_DIR, "phase1-types-report.md");
+
   if (DRY_RUN) {
     console.log(`[DRY RUN] Would write report: ${reportPath}`);
     return;
   }
-  
+
   ensureDir(DATA_DIR);
   fs.writeFileSync(reportPath, report);
   console.log(`✓ Generated report: /data/phase1-types-report.md`);
@@ -698,41 +714,41 @@ ${Object.keys(TYPE_DEFINITIONS.components).map(file => `- \`/types/components/${
 
 // Main execution
 function main() {
-  console.log('═══════════════════════════════════════════════════════');
-  console.log('  PHASE 1 SCRIPT 1: Generate TypeScript Interfaces');
-  console.log('═══════════════════════════════════════════════════════\n');
-  
+  console.log("═══════════════════════════════════════════════════════");
+  console.log("  PHASE 1 SCRIPT 1: Generate TypeScript Interfaces");
+  console.log("═══════════════════════════════════════════════════════\n");
+
   if (DRY_RUN) {
-    console.log('⚠️  DRY RUN MODE - No files will be written\n');
+    console.log("⚠️  DRY RUN MODE - No files will be written\n");
   }
-  
+
   // Create directory structure
-  console.log('📁 Creating directory structure...');
+  console.log("📁 Creating directory structure...");
   ensureDir(STRAPI_TYPES_DIR);
   ensureDir(COMPONENT_TYPES_DIR);
-  
+
   // Write Strapi types
-  console.log('\n📝 Generating Strapi collection types...');
+  console.log("\n📝 Generating Strapi collection types...");
   Object.entries(TYPE_DEFINITIONS.strapi).forEach(([filename, content]) => {
     writeTypeFile(`strapi/${filename}`, content);
   });
-  
+
   // Write component types
-  console.log('\n📝 Generating component prop types...');
+  console.log("\n📝 Generating component prop types...");
   Object.entries(TYPE_DEFINITIONS.components).forEach(([filename, content]) => {
     writeTypeFile(`components/${filename}`, content);
   });
-  
+
   // Generate report
-  console.log('\n📊 Generating report...');
+  console.log("\n📊 Generating report...");
   generateReport();
-  
-  console.log('\n═══════════════════════════════════════════════════════');
-  console.log('✅ Phase 1 Script 1 Complete');
-  console.log('═══════════════════════════════════════════════════════\n');
-  
+
+  console.log("\n═══════════════════════════════════════════════════════");
+  console.log("✅ Phase 1 Script 1 Complete");
+  console.log("═══════════════════════════════════════════════════════\n");
+
   if (!DRY_RUN) {
-    console.log('Next: Run `node scripts/phase1-audit-components.js`');
+    console.log("Next: Run `node scripts/phase1-audit-components.js`");
   }
 }
 
@@ -740,7 +756,7 @@ function main() {
 try {
   main();
 } catch (error) {
-  console.error('❌ Error:', error.message);
+  console.error("❌ Error:", error.message);
   if (VERBOSE) {
     console.error(error);
   }

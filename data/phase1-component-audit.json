@@ -1,0 +1,5768 @@
+{
+  "generatedAt": "2026-02-24T11:08:11.896Z",
+  "pages": [
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\gap-analysis\\page.tsx",
+      "exportedName": "GapAnalysisPage",
+      "isClient": true,
+      "lineCount": 1273,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "gaps",
+          "itemCount": 0,
+          "line": 106
+        },
+        {
+          "name": "allContent",
+          "itemCount": 0,
+          "line": 109
+        },
+        {
+          "name": "allArticleCategories",
+          "itemCount": 0,
+          "line": 156
+        },
+        {
+          "name": "tutorialRelevantCats",
+          "itemCount": 0,
+          "line": 193
+        },
+        {
+          "name": "csRelevantCats",
+          "itemCount": 0,
+          "line": 216
+        },
+        {
+          "name": "routeTopics",
+          "itemCount": 0,
+          "line": 272
+        },
+        {
+          "name": "componentAreas",
+          "itemCount": 0,
+          "line": 309
+        },
+        {
+          "name": "allArticleCats",
+          "itemCount": 0,
+          "line": 491
+        },
+        {
+          "name": "allTutCats",
+          "itemCount": 0,
+          "line": 493
+        },
+        {
+          "name": "allContent",
+          "itemCount": 0,
+          "line": 635
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "metrics-grid",
+        "tip-callout",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 14,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials",
+        "@/data/content-library/guides",
+        "@/data/doc-manifest",
+        "@/data/content-gap-registry",
+        "@/data/code-review-log"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\security-architecture\\page.tsx",
+      "exportedName": "SecurityPage",
+      "isClient": true,
+      "lineCount": 988,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 29
+        },
+        {
+          "name": "securityHeaders",
+          "itemCount": 0,
+          "line": 827
+        }
+      ],
+      "uiPatterns": [
+        "why-platform-card",
+        "checklist",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 17,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/features/contact/schemas/contact-schemas",
+        "@/lib/email/services/contact-email-service",
+        "@/lib/sanitize/input-sanitizer",
+        "@/lib/security/rate-limiter",
+        "@/lib/security/csrf"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\template-and-brand\\page.tsx",
+      "exportedName": "EmailTemplateManagementPage",
+      "isClient": true,
+      "lineCount": 965,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "templatesList",
+          "itemCount": 0,
+          "line": 287
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 13,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/tabs",
+        "@/components/ui/popover",
+        "@/lib/email/config/email-config",
+        "@/components/admin/dark-mode-tab"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\component-system\\page.tsx",
+      "exportedName": "ComponentSystemPage",
+      "isClient": true,
+      "lineCount": 843,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "atoms",
+          "itemCount": 0,
+          "line": 28
+        },
+        {
+          "name": "molecules",
+          "itemCount": 0,
+          "line": 41
+        },
+        {
+          "name": "organisms",
+          "itemCount": 0,
+          "line": 58
+        },
+        {
+          "name": "contactSteps",
+          "itemCount": 0,
+          "line": 71
+        },
+        {
+          "name": "sharedSteps",
+          "itemCount": 0,
+          "line": 79
+        },
+        {
+          "name": "animations",
+          "itemCount": 0,
+          "line": 85
+        },
+        {
+          "name": "articleSubComponents",
+          "itemCount": 0,
+          "line": 95
+        },
+        {
+          "name": "hooks",
+          "itemCount": 0,
+          "line": 121
+        },
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 185
+        },
+        {
+          "name": "tocItems",
+          "itemCount": 0,
+          "line": 493
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "responsive-grid-3"
+      ],
+      "importCount": 11,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/data/doc-manifest",
+        "@/components/molecules/article-components"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\code-review-log\\client-page.tsx",
+      "exportedName": "CodeReviewClientPage",
+      "isClient": true,
+      "lineCount": 820,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "errors",
+          "itemCount": 0,
+          "line": 127
+        }
+      ],
+      "uiPatterns": [
+        "checklist",
+        "responsive-grid-2"
+      ],
+      "importCount": 12,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/lib/validation/regex",
+        "./error-fallback",
+        "./users-schema"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\api-and-graphql\\page.tsx",
+      "exportedName": "APIDocumentationPage",
+      "isClient": true,
+      "lineCount": 773,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "endpoints",
+          "itemCount": 0,
+          "line": 13
+        },
+        {
+          "name": "sections",
+          "itemCount": 0,
+          "line": 35
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2"
+      ],
+      "importCount": 11,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/components/molecules/doc-page",
+        "@/types/strapi",
+        "@/types/strapi"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\page.tsx",
+      "exportedName": "DocSystemOverviewPage",
+      "isClient": true,
+      "lineCount": 748,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "healthChecks",
+          "itemCount": 0,
+          "line": 67
+        },
+        {
+          "name": "documentationSections",
+          "itemCount": 0,
+          "line": 115
+        },
+        {
+          "name": "codebaseCoverage",
+          "itemCount": 0,
+          "line": 267
+        },
+        {
+          "name": "changelog",
+          "itemCount": 0,
+          "line": 334
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "strategy-flow",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/data/doc-manifest",
+        "@/data/content-library/guides",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\relationships\\page.tsx",
+      "exportedName": "RelationshipsPage",
+      "isClient": true,
+      "lineCount": 697,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "entityRelationships",
+          "itemCount": 0,
+          "line": 32
+        },
+        {
+          "name": "dataFlowStages",
+          "itemCount": 0,
+          "line": 52
+        },
+        {
+          "name": "frontendToBackend",
+          "itemCount": 0,
+          "line": 59
+        },
+        {
+          "name": "atomicMapping",
+          "itemCount": 0,
+          "line": 68
+        },
+        {
+          "name": "componentReuse",
+          "itemCount": 0,
+          "line": 76
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/data/doc-manifest"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\testing-and-ops-guide\\page.tsx",
+      "exportedName": "TestingGuidePage",
+      "isClient": true,
+      "lineCount": 673,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SEED_JOBS",
+          "itemCount": 0,
+          "line": 41
+        },
+        {
+          "name": "TEST_SECTIONS",
+          "itemCount": 0,
+          "line": 76
+        },
+        {
+          "name": "STATUS_PIPELINE",
+          "itemCount": 0,
+          "line": 275
+        },
+        {
+          "name": "PRIORITY_SLA",
+          "itemCount": 0,
+          "line": 285
+        }
+      ],
+      "uiPatterns": [
+        "back-navigation",
+        "checklist",
+        "responsive-grid-3"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/tabs",
+        "@/components/ui/scroll-area"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\server-actions-and-api\\page.tsx",
+      "exportedName": "APIIntegrationPage",
+      "isClient": true,
+      "lineCount": 656,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 12
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-3"
+      ],
+      "importCount": 26,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/features/contact/schemas/contact-schemas",
+        "@/lib/email/services/contact-email-service",
+        "@/lib/sanitize/input-sanitizer",
+        "@/lib/security/rate-limiter",
+        "@/lib/security/csrf",
+        "@/lib/validation/quotation-schemas",
+        "@/lib/sanitize/input-sanitizer",
+        "@/lib/email/services/quotation-email-service",
+        "@/lib/security/rate-limiter",
+        "@/lib/security/csrf",
+        "@/lib/validation/server-schemas",
+        "@/lib/sanitize/input-sanitizer",
+        "@/lib/email/services/email-service",
+        "@/emails/customer-contact-confirmation",
+        "@/emails/business-contact-notification"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\pattern-compliance\\page.tsx",
+      "exportedName": "PatternCompliancePage",
+      "isClient": true,
+      "lineCount": 613,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 50
+        },
+        {
+          "name": "requiredArticleFields",
+          "itemCount": 0,
+          "line": 53
+        },
+        {
+          "name": "requiredCsFields",
+          "itemCount": 0,
+          "line": 73
+        },
+        {
+          "name": "requiredTutFields",
+          "itemCount": 0,
+          "line": 93
+        },
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 145
+        },
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 208
+        },
+        {
+          "name": "validArticleCategories",
+          "itemCount": 0,
+          "line": 211
+        },
+        {
+          "name": "validLevels",
+          "itemCount": 0,
+          "line": 226
+        },
+        {
+          "name": "validCsCategories",
+          "itemCount": 0,
+          "line": 241
+        },
+        {
+          "name": "validTutCategories",
+          "itemCount": 0,
+          "line": 256
+        },
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 275
+        },
+        {
+          "name": "allIds",
+          "itemCount": 0,
+          "line": 278
+        },
+        {
+          "name": "allSlugs",
+          "itemCount": 0,
+          "line": 311
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\email-system\\page.tsx",
+      "exportedName": "EmailNotificationsPage",
+      "isClient": true,
+      "lineCount": 597,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 12
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-3"
+      ],
+      "importCount": 17,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/tabs"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\cms-operations\\page.tsx",
+      "exportedName": "OperationsPage",
+      "isClient": true,
+      "lineCount": 589,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 11
+        }
+      ],
+      "uiPatterns": [
+        "strategy-flow",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/tabs",
+        "@/components/molecules/doc-page"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\send-configuration\\page.tsx",
+      "exportedName": "SendConfigurationPage",
+      "isClient": true,
+      "lineCount": 586,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/lib/actions/email-admin",
+        "@/components/admin/attachment-config-section"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\content-collections\\page.tsx",
+      "exportedName": "ContentCollectionsPage",
+      "isClient": true,
+      "lineCount": 583,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 15
+        },
+        {
+          "name": "contentOverview",
+          "itemCount": 0,
+          "line": 24
+        },
+        {
+          "name": "articleFields",
+          "itemCount": 0,
+          "line": 54
+        },
+        {
+          "name": "tutorialFields",
+          "itemCount": 0,
+          "line": 68
+        },
+        {
+          "name": "caseStudyFields",
+          "itemCount": 0,
+          "line": 83
+        },
+        {
+          "name": "dependencyOrder",
+          "itemCount": 0,
+          "line": 101
+        },
+        {
+          "name": "relatedDocs",
+          "itemCount": 0,
+          "line": 111
+        }
+      ],
+      "uiPatterns": [
+        "metrics-grid",
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\fix-actions\\page.tsx",
+      "exportedName": "FixActionsPage",
+      "isClient": true,
+      "lineCount": 578,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "fixes",
+          "itemCount": 0,
+          "line": 43
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "tool-grid",
+        "responsive-grid-2"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\form-collections\\page.tsx",
+      "exportedName": "BackendArchitecturePage",
+      "isClient": true,
+      "lineCount": 570,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 14
+        },
+        {
+          "name": "collectionCards",
+          "itemCount": 0,
+          "line": 23
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs",
+        "@/data/doc-manifest"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\hydration-and-guards\\page.tsx",
+      "exportedName": "HydrationGuardsPage",
+      "isClient": true,
+      "lineCount": 549,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 23
+        },
+        {
+          "name": "failedApproaches",
+          "itemCount": 0,
+          "line": 33
+        },
+        {
+          "name": "beforeItems",
+          "itemCount": 0,
+          "line": 51
+        },
+        {
+          "name": "afterItems",
+          "itemCount": 0,
+          "line": 59
+        },
+        {
+          "name": "guardDecisionTable",
+          "itemCount": 0,
+          "line": 67
+        }
+      ],
+      "uiPatterns": [
+        "why-platform-card",
+        "responsive-grid-3"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\count-validation\\page.tsx",
+      "exportedName": "CountValidationPage",
+      "isClient": true,
+      "lineCount": 521,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 49
+        },
+        {
+          "name": "articleCategories",
+          "itemCount": 0,
+          "line": 141
+        },
+        {
+          "name": "csCategories",
+          "itemCount": 0,
+          "line": 158
+        },
+        {
+          "name": "categories",
+          "itemCount": 0,
+          "line": 373
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials",
+        "@/data/doc-manifest"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\delivery-logs\\page.tsx",
+      "exportedName": "DeliveryLogsPage",
+      "isClient": true,
+      "lineCount": 515,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/email/services/delivery-log"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\app-overview\\page.tsx",
+      "exportedName": "FrontendOverviewPage",
+      "isClient": true,
+      "lineCount": 515,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "stats",
+          "itemCount": 0,
+          "line": 39
+        },
+        {
+          "name": "audienceCards",
+          "itemCount": 0,
+          "line": 46
+        },
+        {
+          "name": "sectionCards",
+          "itemCount": 0,
+          "line": 94
+        },
+        {
+          "name": "architectureLayers",
+          "itemCount": 0,
+          "line": 178
+        },
+        {
+          "name": "progressItems",
+          "itemCount": 0,
+          "line": 205
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "checklist",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/lib/utils",
+        "@/data/doc-manifest",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\why-strapi\\page.tsx",
+      "exportedName": "CTOOverviewPage",
+      "isClient": true,
+      "lineCount": 454,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "benefits",
+          "itemCount": 0,
+          "line": 23
+        },
+        {
+          "name": "comparisonData",
+          "itemCount": 0,
+          "line": 58
+        },
+        {
+          "name": "securityFeatures",
+          "itemCount": 0,
+          "line": 103
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/atoms/callout",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\route-verification\\page.tsx",
+      "exportedName": "RouteVerificationPage",
+      "isClient": true,
+      "lineCount": 453,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "knownStaticRoutes",
+          "itemCount": 0,
+          "line": 47
+        },
+        {
+          "name": "sidebarNavHrefs",
+          "itemCount": 0,
+          "line": 98
+        },
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 144
+        },
+        {
+          "name": "categories",
+          "itemCount": 0,
+          "line": 319
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "responsive-grid-2"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\performance-and-caching\\page.tsx",
+      "exportedName": "PerformancePage",
+      "isClient": true,
+      "lineCount": 448,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 8
+        }
+      ],
+      "uiPatterns": [],
+      "importCount": 16,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/molecules/doc-page",
+        "@/components/providers/theme-provider",
+        "@/components/providers/query-provider"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-scheduling\\page.tsx",
+      "exportedName": "EmailSchedulingPage",
+      "isClient": true,
+      "lineCount": 443,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "responsive-grid-2"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/switch",
+        "@/lib/email/services/email-scheduler"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\shared-components\\page.tsx",
+      "exportedName": "SharedComponentsPage",
+      "isClient": true,
+      "lineCount": 440,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 18
+        },
+        {
+          "name": "formComponents",
+          "itemCount": 0,
+          "line": 26
+        },
+        {
+          "name": "contentComponents",
+          "itemCount": 0,
+          "line": 37
+        }
+      ],
+      "uiPatterns": [
+        "metrics-grid",
+        "responsive-grid-2"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\toc-integrity\\page.tsx",
+      "exportedName": "TOCIntegrityPage",
+      "isClient": true,
+      "lineCount": 418,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tocComponentRegistry",
+          "itemCount": 0,
+          "line": 47
+        },
+        {
+          "name": "results",
+          "itemCount": 0,
+          "line": 95
+        },
+        {
+          "name": "tocRules",
+          "itemCount": 0,
+          "line": 147
+        },
+        {
+          "name": "categories",
+          "itemCount": 0,
+          "line": 260
+        },
+        {
+          "name": "tableOfContents",
+          "itemCount": 0,
+          "line": 299
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\security-audit\\page.tsx",
+      "exportedName": "EmailSecurityPage",
+      "isClient": true,
+      "lineCount": 412,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header",
+        "reporting-cadence",
+        "responsive-grid-2"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/lib/actions/security-audit"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\composer\\page.tsx",
+      "exportedName": "LinkedInComposerPage",
+      "isClient": true,
+      "lineCount": 400,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "formatTypes",
+          "itemCount": 0,
+          "line": 27
+        },
+        {
+          "name": "hashtagSuggestions",
+          "itemCount": 0,
+          "line": 34
+        },
+        {
+          "name": "templates",
+          "itemCount": 0,
+          "line": 41
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/textarea",
+        "@/components/ui/label"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\recipient-groups\\page.tsx",
+      "exportedName": "RecipientGroupsPage",
+      "isClient": true,
+      "lineCount": 399,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 11,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/select",
+        "@/components/ui/checkbox",
+        "@/lib/email/services/recipient-groups"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\page.tsx",
+      "exportedName": "GettingStartedPage",
+      "isClient": false,
+      "lineCount": 399,
+      "classification": {
+        "group": "other",
+        "section": "other",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "checklist"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/data/doc-manifest"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\getting-started\\page.tsx",
+      "exportedName": "InfrastructureGettingStartedPage",
+      "isClient": true,
+      "lineCount": 393,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "steps",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 28
+        }
+      ],
+      "uiPatterns": [
+        "strategy-flow",
+        "responsive-grid-3"
+      ],
+      "importCount": 12,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\single-types\\page.tsx",
+      "exportedName": "SingleTypesPage",
+      "isClient": true,
+      "lineCount": 384,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 12
+        },
+        {
+          "name": "singleTypes",
+          "itemCount": 0,
+          "line": 19
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2"
+      ],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/tabs"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\page.tsx",
+      "exportedName": "ContentOverviewPage",
+      "isClient": false,
+      "lineCount": 382,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 5,
+      "internalImports": [
+        "@/data/content-library/articles",
+        "@/data/content-library/tutorials",
+        "@/data/content-library/case-studies"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\composer\\page.tsx",
+      "exportedName": "GoogleComposerPage",
+      "isClient": true,
+      "lineCount": 364,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "postTypes",
+          "itemCount": 0,
+          "line": 29
+        },
+        {
+          "name": "ctaOptions",
+          "itemCount": 0,
+          "line": 35
+        },
+        {
+          "name": "imageGuidelines",
+          "itemCount": 0,
+          "line": 44
+        },
+        {
+          "name": "templates",
+          "itemCount": 0,
+          "line": 52
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "platform-specs",
+        "back-navigation",
+        "tip-callout"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/textarea",
+        "@/components/ui/label"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\email-dashboard\\page.tsx",
+      "exportedName": "EmailJobsPage",
+      "isClient": true,
+      "lineCount": 363,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 12,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/lib/email/services/job-management",
+        "@/lib/email/services/continuation-email-service",
+        "@/components/admin/jobs/jobs-data-table",
+        "@/components/admin/jobs/job-detail-sheet"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\getting-started\\page.tsx",
+      "exportedName": "GettingStartedPage",
+      "isClient": true,
+      "lineCount": 356,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "steps",
+          "itemCount": 0,
+          "line": 18
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-3"
+      ],
+      "importCount": 11,
+      "internalImports": [
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler",
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/lib/strapi"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\version-history\\page.tsx",
+      "exportedName": "TemplateVersionsPage",
+      "isClient": true,
+      "lineCount": 343,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header"
+      ],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/select",
+        "@/lib/email/services/template-versions"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\server-vs-client\\page.tsx",
+      "exportedName": "ServerVsClientPage",
+      "isClient": true,
+      "lineCount": 333,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 8
+        }
+      ],
+      "uiPatterns": [
+        "checklist",
+        "responsive-grid-2"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/callout",
+        "@/components/atoms/code-block",
+        "./server-component"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\ab-subject-lines\\page.tsx",
+      "exportedName": "ABSubjectLinesPage",
+      "isClient": true,
+      "lineCount": 332,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [
+        "platform-header"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/slider",
+        "@/lib/email/services/ab-subjects"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\getting-started\\page.tsx",
+      "exportedName": "DigitalMarketingGettingStartedPage",
+      "isClient": false,
+      "lineCount": 329,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "journeys",
+          "itemCount": 0,
+          "line": 23
+        },
+        {
+          "name": "platformOverview",
+          "itemCount": 0,
+          "line": 103
+        },
+        {
+          "name": "quickChecklist",
+          "itemCount": 0,
+          "line": 134
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\page.tsx",
+      "exportedName": "EmailConfigurationPage",
+      "isClient": false,
+      "lineCount": 326,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 28
+        },
+        {
+          "name": "emailTypes",
+          "itemCount": 0,
+          "line": 71
+        },
+        {
+          "name": "configHighlights",
+          "itemCount": 0,
+          "line": 95
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\composer\\page.tsx",
+      "exportedName": "TweetComposerPage",
+      "isClient": true,
+      "lineCount": 317,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tweetTypes",
+          "itemCount": 0,
+          "line": 27
+        },
+        {
+          "name": "templates",
+          "itemCount": 0,
+          "line": 34
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "responsive-grid-3"
+      ],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/textarea",
+        "@/components/ui/label"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\connection-strategy\\page.tsx",
+      "exportedName": "LinkedInConnectionStrategyPage",
+      "isClient": false,
+      "lineCount": 316,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "targetProfiles",
+          "itemCount": 0,
+          "line": 21
+        },
+        {
+          "name": "connectionTemplates",
+          "itemCount": 0,
+          "line": 54
+        },
+        {
+          "name": "engagementRules",
+          "itemCount": 0,
+          "line": 113
+        },
+        {
+          "name": "weeklyPlan",
+          "itemCount": 0,
+          "line": 143
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "content-comparison-table",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\page.tsx",
+      "exportedName": "AdminOverviewPage",
+      "isClient": true,
+      "lineCount": 309,
+      "classification": {
+        "group": "other",
+        "section": "other",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "docSystemTools",
+          "itemCount": 0,
+          "line": 32
+        },
+        {
+          "name": "contentTools",
+          "itemCount": 0,
+          "line": 107
+        },
+        {
+          "name": "upcomingFeatures",
+          "itemCount": 0,
+          "line": 137
+        }
+      ],
+      "uiPatterns": [
+        "tool-grid"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/data/content-library/articles",
+        "@/data/content-library/case-studies",
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\testing-strategy\\page.tsx",
+      "exportedName": "TestingPage",
+      "isClient": true,
+      "lineCount": 306,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 10
+        },
+        {
+          "name": "steps",
+          "itemCount": 0,
+          "line": 116
+        }
+      ],
+      "uiPatterns": [],
+      "importCount": 21,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/molecules/doc-page",
+        "@/components/atoms/spoiler",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/form-input",
+        "@/components/molecules/step-indicator",
+        "@/components/organisms/multi-step-form-container",
+        "@/lib/store/use-form-store"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\analytics\\page.tsx",
+      "exportedName": "GoogleAnalyticsPage",
+      "isClient": false,
+      "lineCount": 292,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "setupSteps",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "keyMetrics",
+          "itemCount": 0,
+          "line": 31
+        },
+        {
+          "name": "conversionGoals",
+          "itemCount": 0,
+          "line": 40
+        },
+        {
+          "name": "reportTemplates",
+          "itemCount": 0,
+          "line": 67
+        },
+        {
+          "name": "attributionModels",
+          "itemCount": 0,
+          "line": 98
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "metrics-grid",
+        "tip-callout",
+        "responsive-grid-2"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\page.tsx",
+      "exportedName": "GoogleOverviewPage",
+      "isClient": false,
+      "lineCount": 288,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tools",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "ecosystem",
+          "itemCount": 0,
+          "line": 77
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "tool-grid",
+        "back-navigation",
+        "checklist",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\tag-manager\\page.tsx",
+      "exportedName": "GoogleTagManagerPage",
+      "isClient": false,
+      "lineCount": 282,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "setupSteps",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "standardEvents",
+          "itemCount": 0,
+          "line": 31
+        },
+        {
+          "name": "conversionSetup",
+          "itemCount": 0,
+          "line": 76
+        },
+        {
+          "name": "triggerRules",
+          "itemCount": 0,
+          "line": 98
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "responsive-grid-2"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\analytics\\page.tsx",
+      "exportedName": "LinkedInAnalyticsPage",
+      "isClient": false,
+      "lineCount": 281,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "keyMetrics",
+          "itemCount": 0,
+          "line": 21
+        },
+        {
+          "name": "reportingCadence",
+          "itemCount": 0,
+          "line": 66
+        },
+        {
+          "name": "contentComparison",
+          "itemCount": 0,
+          "line": 84
+        },
+        {
+          "name": "dashboardChecklist",
+          "itemCount": 0,
+          "line": 93
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "back-navigation",
+        "metrics-grid",
+        "reporting-cadence",
+        "content-comparison-table",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\articles\\page.tsx",
+      "exportedName": "LinkedInArticlesPage",
+      "isClient": false,
+      "lineCount": 281,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "articleTypes",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "repurposeGuide",
+          "itemCount": 0,
+          "line": 62
+        },
+        {
+          "name": "seoTips",
+          "itemCount": 0,
+          "line": 81
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "platform-specs",
+        "back-navigation",
+        "tip-callout",
+        "responsive-grid-2"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\troubleshooting\\page.tsx",
+      "exportedName": "TroubleshootingPage",
+      "isClient": true,
+      "lineCount": 278,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "sections",
+          "itemCount": 0,
+          "line": 9
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout",
+        "@/components/atoms/spoiler"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\articles\\[category]\\[slug]\\page.tsx",
+      "exportedName": null,
+      "isClient": false,
+      "lineCount": 276,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "elements",
+          "itemCount": 0,
+          "line": 78
+        }
+      ],
+      "uiPatterns": [],
+      "importCount": 31,
+      "internalImports": [
+        "@/data/content-library/articles",
+        "@/features/dashboard/content-library/articles/ssg-article",
+        "@/features/dashboard/content-library/articles/ssr-article",
+        "@/features/dashboard/content-library/articles/isr-article",
+        "@/features/dashboard/content-library/articles/ppr-article",
+        "@/features/dashboard/content-library/articles/atomic-design-article",
+        "@/features/dashboard/content-library/articles/planning-article",
+        "@/features/dashboard/content-library/articles/zod-validation-article",
+        "@/features/dashboard/content-library/articles/multi-step-form-article",
+        "@/features/dashboard/content-library/articles/zustand-article",
+        "@/features/dashboard/content-library/articles/security-article",
+        "@/features/dashboard/content-library/articles/server-actions-article",
+        "@/features/dashboard/content-library/articles/email-article",
+        "@/features/dashboard/content-library/articles/refactoring-article",
+        "@/features/dashboard/content-library/articles/documentation-article",
+        "@/features/dashboard/content-library/articles/accessibility-article",
+        "@/features/dashboard/content-library/articles/roi-article",
+        "@/features/dashboard/content-library/articles/tech-stack-article",
+        "@/features/dashboard/content-library/articles/testing-article",
+        "@/features/dashboard/content-library/articles/cicd-article",
+        "@/features/dashboard/content-library/articles/hydration-deep-dive-article",
+        "@/features/dashboard/content-library/articles/guard-pattern-article",
+        "@/features/dashboard/content-library/articles/performance-budgets-article",
+        "@/features/dashboard/content-library/articles/server-client-boundaries-article",
+        "@/features/dashboard/content-library/articles/duplicate-providers-article",
+        "@/features/dashboard/content-library/articles/hydration-mismatches-article",
+        "@/features/dashboard/content-library/articles/ai-session-management-article"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\deployment\\page.tsx",
+      "exportedName": "DeploymentPage",
+      "isClient": true,
+      "lineCount": 275,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "SECTIONS",
+          "itemCount": 0,
+          "line": 10
+        }
+      ],
+      "uiPatterns": [
+        "checklist",
+        "responsive-grid-2"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/molecules/doc-page",
+        "@/components/atoms/spoiler",
+        "@/components/atoms/code-block",
+        "@/components/atoms/callout"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\threads\\page.tsx",
+      "exportedName": "ThreadBuilderPage",
+      "isClient": true,
+      "lineCount": 273,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "threadTemplates",
+          "itemCount": 0,
+          "line": 24
+        },
+        {
+          "name": "updated",
+          "itemCount": 0,
+          "line": 54
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "back-navigation"
+      ],
+      "importCount": 7,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/textarea"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\composer\\page.tsx",
+      "exportedName": "FacebookComposerPage",
+      "isClient": true,
+      "lineCount": 270,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "postTypes",
+          "itemCount": 0,
+          "line": 28
+        },
+        {
+          "name": "templates",
+          "itemCount": 0,
+          "line": 35
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "responsive-grid-3"
+      ],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/textarea",
+        "@/components/ui/label"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\ads-campaigns\\page.tsx",
+      "exportedName": "GoogleAdsCampaignsPage",
+      "isClient": false,
+      "lineCount": 269,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "campaignTypes",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "adGroupStructure",
+          "itemCount": 0,
+          "line": 49
+        },
+        {
+          "name": "negativeKeywords",
+          "itemCount": 0,
+          "line": 76
+        },
+        {
+          "name": "landingPageChecklist",
+          "itemCount": 0,
+          "line": 84
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\company-page\\page.tsx",
+      "exportedName": "LinkedInCompanyPagePage",
+      "isClient": false,
+      "lineCount": 268,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "profileChecklist",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "brandingGuidelines",
+          "itemCount": 0,
+          "line": 49
+        },
+        {
+          "name": "teamShowcase",
+          "itemCount": 0,
+          "line": 72
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "back-navigation",
+        "checklist",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\page.tsx",
+      "exportedName": "DigitalMarketingOverviewPage",
+      "isClient": true,
+      "lineCount": 267,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "platformCards",
+          "itemCount": 0,
+          "line": 24
+        },
+        {
+          "name": "quickLinks",
+          "itemCount": 0,
+          "line": 86
+        }
+      ],
+      "uiPatterns": [
+        "platform-header"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/ui/badge"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-preview\\page.tsx",
+      "exportedName": "EmailPreviewPage",
+      "isClient": true,
+      "lineCount": 259,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "TEMPLATE_GROUPS",
+          "itemCount": 0,
+          "line": 11
+        },
+        {
+          "name": "URGENCY_LEVELS",
+          "itemCount": 0,
+          "line": 47
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-3"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/lib/actions/render-email",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\tutorials\\page.tsx",
+      "exportedName": "TutorialsPage",
+      "isClient": true,
+      "lineCount": 259,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/data/content-library/tutorials"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\seo\\page.tsx",
+      "exportedName": "GoogleSEOPage",
+      "isClient": false,
+      "lineCount": 256,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "onPageChecklist",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "structuredDataSchemas",
+          "itemCount": 0,
+          "line": 33
+        },
+        {
+          "name": "coreWebVitals",
+          "itemCount": 0,
+          "line": 66
+        },
+        {
+          "name": "keywordStrategy",
+          "itemCount": 0,
+          "line": 72
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "back-navigation",
+        "metrics-grid",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\business-profile\\page.tsx",
+      "exportedName": "GoogleBusinessProfilePage",
+      "isClient": false,
+      "lineCount": 253,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "profileChecklist",
+          "itemCount": 0,
+          "line": 24
+        },
+        {
+          "name": "faqPairs",
+          "itemCount": 0,
+          "line": 39
+        },
+        {
+          "name": "reviewTemplates",
+          "itemCount": 0,
+          "line": 67
+        },
+        {
+          "name": "localSeoSignals",
+          "itemCount": 0,
+          "line": 85
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "reporting-cadence",
+        "checklist",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\page.tsx",
+      "exportedName": "LinkedInOverviewPage",
+      "isClient": false,
+      "lineCount": 251,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tools",
+          "itemCount": 0,
+          "line": 19
+        },
+        {
+          "name": "strategy",
+          "itemCount": 0,
+          "line": 67
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "strategy-flow",
+        "tool-grid",
+        "platform-specs",
+        "back-navigation",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\page.tsx",
+      "exportedName": "TwitterOverviewPage",
+      "isClient": false,
+      "lineCount": 247,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tools",
+          "itemCount": 0,
+          "line": 19
+        },
+        {
+          "name": "strategy",
+          "itemCount": 0,
+          "line": 67
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "strategy-flow",
+        "tool-grid",
+        "platform-specs",
+        "back-navigation",
+        "reporting-cadence",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page.tsx",
+      "exportedName": "FacebookOverviewPage",
+      "isClient": false,
+      "lineCount": 246,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "tools",
+          "itemCount": 0,
+          "line": 18
+        },
+        {
+          "name": "strategy",
+          "itemCount": 0,
+          "line": 66
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "why-platform-card",
+        "strategy-flow",
+        "tool-grid",
+        "platform-specs",
+        "back-navigation",
+        "reporting-cadence",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\articles\\page.tsx",
+      "exportedName": "ArticlesPage",
+      "isClient": true,
+      "lineCount": 246,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/data/content-library/articles"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\tutorials\\[category]\\[slug]\\page.tsx",
+      "exportedName": null,
+      "isClient": false,
+      "lineCount": 246,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 19,
+      "internalImports": [
+        "@/data/content-library/tutorials",
+        "@/components/atoms/spoiler",
+        "@/components/atoms/code-block",
+        "@/features/dashboard/content-library/tutorials/deploying-nextjs-vercel",
+        "@/features/dashboard/content-library/tutorials/multi-step-forms-server-actions",
+        "@/features/dashboard/content-library/tutorials/email-templates-react-email",
+        "@/features/dashboard/content-library/tutorials/e2e-testing-playwright",
+        "@/features/dashboard/content-library/tutorials/building-atomic-component",
+        "@/features/dashboard/content-library/tutorials/server-side-validation",
+        "@/features/dashboard/content-library/tutorials/zustand-form-store",
+        "@/features/dashboard/content-library/tutorials/rate-limiting-implementation",
+        "@/features/dashboard/content-library/tutorials/your-first-nextjs-app",
+        "@/features/dashboard/content-library/tutorials/your-first-strapi-collection",
+        "@/features/dashboard/content-library/tutorials/unit-testing-vitest",
+        "@/features/dashboard/content-library/tutorials/connecting-nextjs-to-strapi",
+        "@/features/dashboard/content-library/tutorials/error-boundaries-and-loading-states"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\engagement\\page.tsx",
+      "exportedName": "EngagementPlaybookPage",
+      "isClient": false,
+      "lineCount": 244,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "dailyRoutine",
+          "itemCount": 0,
+          "line": 19
+        },
+        {
+          "name": "replyTemplates",
+          "itemCount": 0,
+          "line": 25
+        },
+        {
+          "name": "engagementTactics",
+          "itemCount": 0,
+          "line": 53
+        },
+        {
+          "name": "accountsToFollow",
+          "itemCount": 0,
+          "line": 76
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\case-studies\\[category]\\[slug]\\page.tsx",
+      "exportedName": null,
+      "isClient": false,
+      "lineCount": 238,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 20,
+      "internalImports": [
+        "@/data/content-library/case-studies",
+        "@/features/dashboard/content-library/case-studies/client-to-server",
+        "@/features/dashboard/content-library/case-studies/form-validation",
+        "@/features/dashboard/content-library/case-studies/state-management",
+        "@/features/dashboard/content-library/case-studies/security-layer",
+        "@/features/dashboard/content-library/case-studies/email-consolidation",
+        "@/features/dashboard/content-library/case-studies/enterprise-cms",
+        "@/features/dashboard/content-library/case-studies/cost-reduction",
+        "@/features/dashboard/content-library/case-studies/multi-site",
+        "@/features/dashboard/content-library/case-studies/dev-productivity",
+        "@/features/dashboard/content-library/case-studies/documentation-evolution",
+        "@/features/dashboard/content-library/case-studies/hydration-guard",
+        "@/features/dashboard/content-library/case-studies/rate-limiting",
+        "@/features/dashboard/content-library/case-studies/sidebar-refactor",
+        "@/features/dashboard/content-library/case-studies/tarball-build-failure",
+        "@/features/dashboard/content-library/case-studies/rendering-strategy",
+        "@/features/dashboard/content-library/case-studies/multi-step-form"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\services\\page.tsx",
+      "exportedName": "ServicesPage",
+      "isClient": false,
+      "lineCount": 231,
+      "classification": {
+        "group": "public",
+        "section": "services",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "services",
+          "itemCount": 0,
+          "line": 13
+        },
+        {
+          "name": "specializations",
+          "itemCount": 0,
+          "line": 40
+        },
+        {
+          "name": "certifications",
+          "itemCount": 0,
+          "line": 49
+        }
+      ],
+      "uiPatterns": [],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/molecules/navbar",
+        "@/features/service-request",
+        "@/components/animations/electric-current"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\page.tsx",
+      "exportedName": "EmailInfrastructureOverviewPage",
+      "isClient": false,
+      "lineCount": 228,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 21
+        },
+        {
+          "name": "systemChecks",
+          "itemCount": 0,
+          "line": 56
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\page.tsx",
+      "exportedName": "DocumentAdministrationOverviewPage",
+      "isClient": false,
+      "lineCount": 226,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "sections",
+          "itemCount": 0,
+          "line": 23
+        },
+        {
+          "name": "highlights",
+          "itemCount": 0,
+          "line": 46
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\hashtag-strategy\\page.tsx",
+      "exportedName": "HashtagStrategyPage",
+      "isClient": false,
+      "lineCount": 223,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "hashtagCategories",
+          "itemCount": 0,
+          "line": 17
+        },
+        {
+          "name": "rules",
+          "itemCount": 0,
+          "line": 75
+        },
+        {
+          "name": "combos",
+          "itemCount": 0,
+          "line": 84
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "back-navigation",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\analytics\\page.tsx",
+      "exportedName": "FacebookAnalyticsPage",
+      "isClient": false,
+      "lineCount": 222,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "keyMetrics",
+          "itemCount": 0,
+          "line": 24
+        },
+        {
+          "name": "contentPerformance",
+          "itemCount": 0,
+          "line": 33
+        },
+        {
+          "name": "reportingSchedule",
+          "itemCount": 0,
+          "line": 42
+        },
+        {
+          "name": "setupChecklist",
+          "itemCount": 0,
+          "line": 48
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "metrics-grid",
+        "reporting-cadence",
+        "content-comparison-table",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\analytics\\page.tsx",
+      "exportedName": "TwitterAnalyticsPage",
+      "isClient": false,
+      "lineCount": 219,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "keyMetrics",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "contentPerformance",
+          "itemCount": 0,
+          "line": 31
+        },
+        {
+          "name": "reportingSchedule",
+          "itemCount": 0,
+          "line": 40
+        },
+        {
+          "name": "setupChecklist",
+          "itemCount": 0,
+          "line": 46
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "metrics-grid",
+        "reporting-cadence",
+        "content-comparison-table",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\messenger\\page.tsx",
+      "exportedName": "FacebookMessengerPage",
+      "isClient": false,
+      "lineCount": 217,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "autoReplies",
+          "itemCount": 0,
+          "line": 19
+        },
+        {
+          "name": "quickReplies",
+          "itemCount": 0,
+          "line": 34
+        },
+        {
+          "name": "messengerBestPractices",
+          "itemCount": 0,
+          "line": 65
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "tip-callout",
+        "responsive-grid-2"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\getting-started\\page.tsx",
+      "exportedName": "AppRefGettingStartedPage",
+      "isClient": true,
+      "lineCount": 213,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "journeys",
+          "itemCount": 0,
+          "line": 20
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "strategy-flow",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\events\\page.tsx",
+      "exportedName": "FacebookEventsPage",
+      "isClient": false,
+      "lineCount": 207,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "eventTypes",
+          "itemCount": 0,
+          "line": 21
+        },
+        {
+          "name": "eventChecklist",
+          "itemCount": 0,
+          "line": 48
+        },
+        {
+          "name": "promotionTemplates",
+          "itemCount": 0,
+          "line": 57
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist",
+        "tip-callout",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\page.tsx",
+      "exportedName": "EmailAdministrationOverviewPage",
+      "isClient": false,
+      "lineCount": 201,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "sections",
+          "itemCount": 0,
+          "line": 22
+        },
+        {
+          "name": "highlights",
+          "itemCount": 0,
+          "line": 55
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\overview\\page.tsx",
+      "exportedName": "StrategicOverviewPage",
+      "isClient": true,
+      "lineCount": 194,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "sections",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "audiences",
+          "itemCount": 0,
+          "line": 53
+        }
+      ],
+      "uiPatterns": [
+        "strategy-flow",
+        "responsive-grid-3"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\overview\\page.tsx",
+      "exportedName": "CmsReferencePage",
+      "isClient": false,
+      "lineCount": 190,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 20
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\getting-started\\page.tsx",
+      "exportedName": "EmailAdministrationGettingStartedPage",
+      "isClient": false,
+      "lineCount": 189,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "journeys",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "quickChecklist",
+          "itemCount": 0,
+          "line": 58
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\getting-started\\page.tsx",
+      "exportedName": "StrategicGettingStartedPage",
+      "isClient": true,
+      "lineCount": 189,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "sectionStarts",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "quickLinks",
+          "itemCount": 0,
+          "line": 65
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/molecules/doc-page",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\content-strategy\\page.tsx",
+      "exportedName": "ContentStrategyPage",
+      "isClient": true,
+      "lineCount": 188,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "contentCalendar",
+          "itemCount": 0,
+          "line": 20
+        },
+        {
+          "name": "distributionChannels",
+          "itemCount": 0,
+          "line": 27
+        },
+        {
+          "name": "contentMetrics",
+          "itemCount": 0,
+          "line": 34
+        },
+        {
+          "name": "editorialGuidelines",
+          "itemCount": 0,
+          "line": 41
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "metrics-grid",
+        "reporting-cadence",
+        "responsive-grid-2"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\overview\\page.tsx",
+      "exportedName": "AppReferencePage",
+      "isClient": false,
+      "lineCount": 188,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 8
+        }
+      ],
+      "uiPatterns": [
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\page.tsx",
+      "exportedName": "RequestManagementOverviewPage",
+      "isClient": false,
+      "lineCount": 187,
+      "classification": {
+        "group": "admin",
+        "section": "email-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 19
+        },
+        {
+          "name": "capabilities",
+          "itemCount": 0,
+          "line": 38
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page-management\\page.tsx",
+      "exportedName": "FacebookPageManagementPage",
+      "isClient": false,
+      "lineCount": 181,
+      "classification": {
+        "group": "admin",
+        "section": "digital-marketing",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "setupChecklist",
+          "itemCount": 0,
+          "line": 21
+        },
+        {
+          "name": "reviewTemplates",
+          "itemCount": 0,
+          "line": 28
+        },
+        {
+          "name": "optimisationTips",
+          "itemCount": 0,
+          "line": 46
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist",
+        "tip-callout"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\getting-started\\page.tsx",
+      "exportedName": "DocumentAdministrationGettingStartedPage",
+      "isClient": false,
+      "lineCount": 181,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "journeys",
+          "itemCount": 0,
+          "line": 23
+        },
+        {
+          "name": "quickChecklist",
+          "itemCount": 0,
+          "line": 50
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "back-navigation",
+        "checklist"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\overview\\page.tsx",
+      "exportedName": "InfrastructureOpsPage",
+      "isClient": false,
+      "lineCount": 180,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "features",
+          "itemCount": 0,
+          "line": 19
+        }
+      ],
+      "uiPatterns": [
+        "strategy-flow",
+        "responsive-grid-2",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\guides\\[category]\\[slug]\\page.tsx",
+      "exportedName": null,
+      "isClient": false,
+      "lineCount": 170,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 7,
+      "internalImports": [
+        "@/data/content-library/guides",
+        "@/features/dashboard/content-library/guides/security-architecture",
+        "@/features/dashboard/content-library/guides/deployment-guide",
+        "@/features/dashboard/content-library/guides/testing-strategy"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\page.tsx",
+      "exportedName": "DocQAPage",
+      "isClient": false,
+      "lineCount": 165,
+      "classification": {
+        "group": "admin",
+        "section": "document-administration",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "qaTools",
+          "itemCount": 0,
+          "line": 24
+        }
+      ],
+      "uiPatterns": [
+        "platform-header",
+        "tool-grid",
+        "responsive-grid-3"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(marketing)\\page.tsx",
+      "exportedName": "HomePage",
+      "isClient": false,
+      "lineCount": 153,
+      "classification": {
+        "group": "marketing",
+        "section": "landing",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/components/molecules/navbar",
+        "@/components/animations/electric-current"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\contact\\page.tsx",
+      "exportedName": "ContactPage",
+      "isClient": false,
+      "lineCount": 152,
+      "classification": {
+        "group": "public",
+        "section": "contact",
+        "platform": null
+      },
+      "hardcodedArrays": [
+        {
+          "name": "trustIndicators",
+          "itemCount": 0,
+          "line": 21
+        }
+      ],
+      "uiPatterns": [],
+      "importCount": 6,
+      "internalImports": [
+        "@/features/contact",
+        "@/components/molecules/office-hours-card",
+        "@/components/molecules/location-map-card",
+        "@/components/molecules/quick-contact-card",
+        "@/components/molecules/navbar"
+      ],
+      "hasHardcodedData": true,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\case-studies\\page.tsx",
+      "exportedName": "CaseStudiesPage",
+      "isClient": true,
+      "lineCount": 128,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/data/content-library/case-studies"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\social\\page.tsx",
+      "exportedName": "SocialMediaPage",
+      "isClient": true,
+      "lineCount": 125,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 3,
+      "internalImports": [
+        "./data"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\content-library\\guides\\page.tsx",
+      "exportedName": "GuidesPage",
+      "isClient": true,
+      "lineCount": 105,
+      "classification": {
+        "group": "dashboard",
+        "section": "content-library",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/data/content-library/guides"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\quotation\\page.tsx",
+      "exportedName": "QuotationPage",
+      "isClient": false,
+      "lineCount": 94,
+      "classification": {
+        "group": "public",
+        "section": "quotation",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/molecules/navbar",
+        "@/features/quotation"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(auth)\\login\\page.tsx",
+      "exportedName": "LoginPage",
+      "isClient": false,
+      "lineCount": 24,
+      "classification": {
+        "group": "auth",
+        "section": "auth",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/components/ui/card"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    },
+    {
+      "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\code-review-log\\page.tsx",
+      "exportedName": "CodeReviewPage",
+      "isClient": false,
+      "lineCount": 12,
+      "classification": {
+        "group": "dashboard",
+        "section": "documentation",
+        "platform": null
+      },
+      "hardcodedArrays": [],
+      "uiPatterns": [],
+      "importCount": 1,
+      "internalImports": [
+        "./client-page"
+      ],
+      "hasHardcodedData": false,
+      "dataItemCount": 0
+    }
+  ],
+  "components": [
+    {
+      "path": "components\\admin\\attachment-config-section.tsx",
+      "exportedName": "AttachmentConfigSection",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 668,
+      "interfaces": [],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/lib/email/services/email-attachments"
+      ]
+    },
+    {
+      "path": "components\\admin\\dark-mode-tab.tsx",
+      "exportedName": "DarkModeTab",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 480,
+      "interfaces": [],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/lib/email/services/dark-mode-templates"
+      ]
+    },
+    {
+      "path": "components\\admin\\jobs\\job-detail-sheet.tsx",
+      "exportedName": "JobDetailSheet",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 523,
+      "interfaces": [
+        "JobDetailSheetProps"
+      ],
+      "importCount": 12,
+      "internalImports": [
+        "@/components/ui/sheet",
+        "@/components/ui/badge",
+        "@/components/ui/button",
+        "@/components/ui/tabs",
+        "@/components/ui/textarea",
+        "@/components/ui/scroll-area",
+        "@/components/ui/select",
+        "@/lib/email/services/job-management.types",
+        "@/lib/email/services/job-management",
+        "@/components/admin/jobs/reply-composer"
+      ]
+    },
+    {
+      "path": "components\\admin\\jobs\\jobs-data-table.tsx",
+      "exportedName": "JobsDataTable",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 700,
+      "interfaces": [
+        "ColumnFactoryProps",
+        "JobsDataTableProps"
+      ],
+      "importCount": 10,
+      "internalImports": [
+        "@/components/ui/table",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/components/ui/checkbox",
+        "@/components/ui/dropdown-menu",
+        "@/components/ui/select"
+      ]
+    },
+    {
+      "path": "components\\admin\\jobs\\reply-composer.tsx",
+      "exportedName": "ReplyComposer",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 515,
+      "interfaces": [
+        "ReplyComposerProps"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/textarea",
+        "@/components/ui/badge",
+        "@/components/ui/scroll-area",
+        "@/components/ui/select",
+        "@/lib/email/templates/continuation-email-html"
+      ]
+    },
+    {
+      "path": "components\\animations\\electric-border.tsx",
+      "exportedName": "ElectricBorder",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 118,
+      "interfaces": [
+        "ElectricBorderProps"
+      ],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\electric-current.tsx",
+      "exportedName": "ElectricCurrent",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 66,
+      "interfaces": [
+        "ElectricCurrentProps"
+      ],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\light-bulb.tsx",
+      "exportedName": "LightBulb",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 141,
+      "interfaces": [
+        "LightBulbProps"
+      ],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\lightning-arc.tsx",
+      "exportedName": "LightningArc",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 95,
+      "interfaces": [
+        "LightningArcProps"
+      ],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\power-surge.tsx",
+      "exportedName": "PowerSurge",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 82,
+      "interfaces": [
+        "PowerSurgeProps"
+      ],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\pulse-circle.tsx",
+      "exportedName": "PulseCircle",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 49,
+      "interfaces": [
+        "PulseCircleProps"
+      ],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\animations\\spark-effect.tsx",
+      "exportedName": "SparkEffect",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 54,
+      "interfaces": [
+        "SparkEffectProps"
+      ],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\atoms\\callout.tsx",
+      "exportedName": "Callout",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 43,
+      "interfaces": [
+        "CalloutProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\code-block.tsx",
+      "exportedName": "CodeBlock",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 52,
+      "interfaces": [
+        "CodeBlockProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\code-explanation.tsx",
+      "exportedName": "CodeExplanation",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 100,
+      "interfaces": [
+        "CodeTerm",
+        "CodeExplanationProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\date-picker.tsx",
+      "exportedName": "DatePicker",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 119,
+      "interfaces": [
+        "DatePickerProps"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button",
+        "@/components/ui/calendar",
+        "@/components/ui/popover"
+      ]
+    },
+    {
+      "path": "components\\atoms\\form-checkbox.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 41,
+      "interfaces": [
+        "FormCheckboxProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\form-input.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 69,
+      "interfaces": [
+        "FormInputProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\form-select.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 61,
+      "interfaces": [
+        "FormSelectProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\form-textarea.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 54,
+      "interfaces": [
+        "FormTextareaProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\radio-group.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 72,
+      "interfaces": [
+        "RadioOption",
+        "RadioGroupProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\atoms\\spoiler.tsx",
+      "exportedName": "Spoiler",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 57,
+      "interfaces": [
+        "SpoilerProps"
+      ],
+      "importCount": 3,
+      "internalImports": []
+    },
+    {
+      "path": "components\\atoms\\theme-toggle.tsx",
+      "exportedName": "ThemeToggle",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 52,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/components/providers/theme-provider",
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\error-boundary.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 67,
+      "interfaces": [
+        "Props",
+        "State"
+      ],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\molecules\\article-components.tsx",
+      "exportedName": "TableOfContents",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 1516,
+      "interfaces": [
+        "TOCItem",
+        "FileTreeItem"
+      ],
+      "importCount": 5,
+      "internalImports": [
+        "@/lib/utils/prop-guard"
+      ]
+    },
+    {
+      "path": "components\\molecules\\content-card.tsx",
+      "exportedName": "ContentCard",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 71,
+      "interfaces": [
+        "ContentCardProps"
+      ],
+      "importCount": 3,
+      "internalImports": []
+    },
+    {
+      "path": "components\\molecules\\dashboard-shell.tsx",
+      "exportedName": "DashboardShell",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 60,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/molecules/docs-sidebar",
+        "@/components/ui/sidebar"
+      ]
+    },
+    {
+      "path": "components\\molecules\\doc-page-layout.tsx",
+      "exportedName": "DocPageLayout",
+      "atomicLevel": "layout",
+      "isClient": false,
+      "lineCount": 79,
+      "interfaces": [
+        "DocPageBadge",
+        "DocPageLayoutProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/components/ui/badge"
+      ]
+    },
+    {
+      "path": "components\\molecules\\doc-page.tsx",
+      "exportedName": "DocPage",
+      "atomicLevel": "page",
+      "isClient": true,
+      "lineCount": 241,
+      "interfaces": [
+        "DocSection",
+        "DocBadge",
+        "DocPageProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/ui/badge"
+      ]
+    },
+    {
+      "path": "components\\molecules\\docs-sidebar.tsx",
+      "exportedName": "DocsSidebar",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 201,
+      "interfaces": [],
+      "importCount": 8,
+      "internalImports": [
+        "@/components/ui/sidebar",
+        "@/components/ui/collapsible",
+        "@/hooks/use-hydration",
+        "@/components/molecules/sidebar-skeleton",
+        "@/data/nav-data"
+      ]
+    },
+    {
+      "path": "components\\molecules\\form-navigation.tsx",
+      "exportedName": "FormNavigation",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 141,
+      "interfaces": [
+        "FormNavigationProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/ui/button",
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\molecules\\form-progress-indicator.tsx",
+      "exportedName": "FormProgressIndicator",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 108,
+      "interfaces": [
+        "FormProgressIndicatorProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\molecules\\form-step-container.tsx",
+      "exportedName": "FormStepContainer",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 115,
+      "interfaces": [
+        "FormStepContainerProps"
+      ],
+      "importCount": 3,
+      "internalImports": [
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\molecules\\location-map-card.tsx",
+      "exportedName": "LocationMapCard",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 125,
+      "interfaces": [
+        "LocationMapCardProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\molecules\\navbar.tsx",
+      "exportedName": "Navbar",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 215,
+      "interfaces": [],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/atoms/theme-toggle"
+      ]
+    },
+    {
+      "path": "components\\molecules\\office-hours-card.tsx",
+      "exportedName": "OfficeHoursCard",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 153,
+      "interfaces": [
+        "DayHours"
+      ],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\molecules\\quick-contact-card.tsx",
+      "exportedName": "QuickContactCard",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 118,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\molecules\\sidebar-skeleton.tsx",
+      "exportedName": "SidebarSkeleton",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 92,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\molecules\\step-indicator.tsx",
+      "exportedName": "StepIndicator",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 300,
+      "interfaces": [
+        "Step",
+        "StepIndicatorProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\organisms\\multi-step-form-wrapper.tsx",
+      "exportedName": "MultiStepFormWrapper",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 68,
+      "interfaces": [
+        "MultiStepFormWrapperProps"
+      ],
+      "importCount": 2,
+      "internalImports": [
+        "@/components/molecules/form-progress-indicator"
+      ]
+    },
+    {
+      "path": "components\\organisms\\shared-steps\\address-info-step.tsx",
+      "exportedName": "AddressInfoStep",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 131,
+      "interfaces": [
+        "AddressInfoStepProps"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/atoms/form-input",
+        "@/components/molecules/form-step-container"
+      ]
+    },
+    {
+      "path": "components\\organisms\\shared-steps\\contact-info-step.tsx",
+      "exportedName": "ContactInfoStep",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 114,
+      "interfaces": [
+        "ContactInfoStepProps"
+      ],
+      "importCount": 6,
+      "internalImports": [
+        "@/components/atoms/form-input",
+        "@/components/molecules/form-step-container"
+      ]
+    },
+    {
+      "path": "components\\organisms\\shared-steps\\schedule-step.tsx",
+      "exportedName": "ScheduleStep",
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 165,
+      "interfaces": [
+        "ScheduleStepProps"
+      ],
+      "importCount": 9,
+      "internalImports": [
+        "@/components/atoms/date-picker",
+        "@/components/atoms/form-checkbox",
+        "@/components/atoms/radio-group",
+        "@/components/molecules/form-step-container"
+      ]
+    },
+    {
+      "path": "components\\providers\\theme-provider.tsx",
+      "exportedName": "ThemeProvider",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 68,
+      "interfaces": [
+        "ThemeContextType"
+      ],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\theme-provider.tsx",
+      "exportedName": "ThemeProvider",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 12,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": []
+    },
+    {
+      "path": "components\\ui\\accordion.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 67,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\alert-dialog.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 158,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\ui\\alert.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 67,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\aspect-ratio.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 12,
+      "interfaces": [],
+      "importCount": 0,
+      "internalImports": []
+    },
+    {
+      "path": "components\\ui\\avatar.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 54,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\badge.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 47,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\breadcrumb.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 110,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\button-group.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 84,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/separator"
+      ]
+    },
+    {
+      "path": "components\\ui\\button.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 61,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\calendar.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 215,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\ui\\card.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 93,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\carousel.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 242,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\ui\\chart.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 354,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\checkbox.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 33,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\collapsible.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 34,
+      "interfaces": [],
+      "importCount": 0,
+      "internalImports": []
+    },
+    {
+      "path": "components\\ui\\command.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 185,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/dialog"
+      ]
+    },
+    {
+      "path": "components\\ui\\context-menu.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 253,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\dialog.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 144,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\drawer.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 136,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\dropdown-menu.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 258,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\empty.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 105,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\field.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 245,
+      "interfaces": [],
+      "importCount": 5,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/label",
+        "@/components/ui/separator"
+      ]
+    },
+    {
+      "path": "components\\ui\\form.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 168,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/label"
+      ]
+    },
+    {
+      "path": "components\\ui\\hover-card.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 45,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\input-group.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 170,
+      "interfaces": [],
+      "importCount": 5,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ]
+    },
+    {
+      "path": "components\\ui\\input-otp.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 78,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\input.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 22,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\item.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 194,
+      "interfaces": [],
+      "importCount": 4,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/separator"
+      ]
+    },
+    {
+      "path": "components\\ui\\kbd.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 29,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\label.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 25,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\menubar.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 277,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\navigation-menu.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 167,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\pagination.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 128,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/button"
+      ]
+    },
+    {
+      "path": "components\\ui\\popover.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 49,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\progress.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 32,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\radio-group.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 46,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\resizable.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 57,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\scroll-area.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 59,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\select.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 186,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\separator.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 29,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\sheet.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 140,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\sidebar.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 726,
+      "interfaces": [],
+      "importCount": 11,
+      "internalImports": [
+        "@/hooks/use-mobile",
+        "@/lib/utils",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/separator",
+        "@/components/ui/sheet",
+        "@/components/ui/skeleton",
+        "@/components/ui/tooltip"
+      ]
+    },
+    {
+      "path": "components\\ui\\skeleton.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 14,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\slider.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 64,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\sonner.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 26,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": []
+    },
+    {
+      "path": "components\\ui\\spinner.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 17,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\switch.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 32,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\table.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 117,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\tabs.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 67,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\textarea.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 19,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\toast.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 130,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\toaster.tsx",
+      "exportedName": "Toaster",
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 36,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/hooks/use-toast",
+        "@/components/ui/toast"
+      ]
+    },
+    {
+      "path": "components\\ui\\toggle-group.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 74,
+      "interfaces": [],
+      "importCount": 3,
+      "internalImports": [
+        "@/lib/utils",
+        "@/components/ui/toggle"
+      ]
+    },
+    {
+      "path": "components\\ui\\toggle.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 48,
+      "interfaces": [],
+      "importCount": 2,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\tooltip.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": true,
+      "lineCount": 62,
+      "interfaces": [],
+      "importCount": 1,
+      "internalImports": [
+        "@/lib/utils"
+      ]
+    },
+    {
+      "path": "components\\ui\\use-mobile.tsx",
+      "exportedName": null,
+      "atomicLevel": "other",
+      "isClient": false,
+      "lineCount": 8,
+      "interfaces": [],
+      "importCount": 0,
+      "internalImports": []
+    }
+  ],
+  "features": [
+    {
+      "path": "features\\contact\\api\\templates\\contact-business-html.tsx",
+      "lineCount": 265
+    },
+    {
+      "path": "features\\contact\\api\\templates\\contact-customer-html.tsx",
+      "lineCount": 144
+    },
+    {
+      "path": "features\\contact\\components\\molecules\\contact-success-message.tsx",
+      "lineCount": 126
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-form-container.tsx",
+      "lineCount": 120
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-steps\\contact-info-step.tsx",
+      "lineCount": 122
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-steps\\contact-review-step.tsx",
+      "lineCount": 279
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-steps\\inquiry-type-step.tsx",
+      "lineCount": 204
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-steps\\message-details-step.tsx",
+      "lineCount": 178
+    },
+    {
+      "path": "features\\contact\\components\\organisms\\contact-steps\\reference-linking-step.tsx",
+      "lineCount": 219
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\accessibility-article.tsx",
+      "lineCount": 396
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\ai-session-management-article.tsx",
+      "lineCount": 418
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\atomic-design-article.tsx",
+      "lineCount": 324
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\cicd-article.tsx",
+      "lineCount": 404
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\documentation-article.tsx",
+      "lineCount": 369
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\duplicate-providers-article.tsx",
+      "lineCount": 461
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\email-article.tsx",
+      "lineCount": 474
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\guard-pattern-article.tsx",
+      "lineCount": 305
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\hydration-deep-dive-article.tsx",
+      "lineCount": 312
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\hydration-mismatches-article.tsx",
+      "lineCount": 577
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\isr-article.tsx",
+      "lineCount": 231
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\managing-content-strapi-article.tsx",
+      "lineCount": 614
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\multi-step-form-article.tsx",
+      "lineCount": 396
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\performance-budgets-article.tsx",
+      "lineCount": 570
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\planning-article.tsx",
+      "lineCount": 320
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\ppr-article.tsx",
+      "lineCount": 315
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\refactoring-article.tsx",
+      "lineCount": 358
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\roi-article.tsx",
+      "lineCount": 249
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\security-article.tsx",
+      "lineCount": 398
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\server-actions-article.tsx",
+      "lineCount": 371
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\server-client-boundaries-article.tsx",
+      "lineCount": 713
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\service-request-lifecycle-article.tsx",
+      "lineCount": 636
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\ssg-article.tsx",
+      "lineCount": 189
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\ssr-article.tsx",
+      "lineCount": 212
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\tech-stack-article.tsx",
+      "lineCount": 283
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\testing-article.tsx",
+      "lineCount": 403
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\three-axis-review-article.tsx",
+      "lineCount": 357
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\zod-validation-article.tsx",
+      "lineCount": 342
+    },
+    {
+      "path": "features\\dashboard\\content-library\\articles\\zustand-article.tsx",
+      "lineCount": 461
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\client-to-server.tsx",
+      "lineCount": 246
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\cost-reduction.tsx",
+      "lineCount": 260
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\dev-productivity.tsx",
+      "lineCount": 287
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\documentation-evolution.tsx",
+      "lineCount": 356
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\email-consolidation.tsx",
+      "lineCount": 314
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\enterprise-cms.tsx",
+      "lineCount": 244
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\form-validation.tsx",
+      "lineCount": 271
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\hydration-guard.tsx",
+      "lineCount": 325
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\multi-site.tsx",
+      "lineCount": 296
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\multi-step-form.tsx",
+      "lineCount": 278
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\rate-limiting.tsx",
+      "lineCount": 388
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\rendering-strategy.tsx",
+      "lineCount": 255
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\security-layer.tsx",
+      "lineCount": 274
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\sidebar-refactor.tsx",
+      "lineCount": 352
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\state-management.tsx",
+      "lineCount": 328
+    },
+    {
+      "path": "features\\dashboard\\content-library\\case-studies\\tarball-build-failure.tsx",
+      "lineCount": 289
+    },
+    {
+      "path": "features\\dashboard\\content-library\\guides\\deployment-guide.tsx",
+      "lineCount": 318
+    },
+    {
+      "path": "features\\dashboard\\content-library\\guides\\security-architecture.tsx",
+      "lineCount": 408
+    },
+    {
+      "path": "features\\dashboard\\content-library\\guides\\testing-strategy.tsx",
+      "lineCount": 395
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\building-atomic-component.tsx",
+      "lineCount": 259
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\building-hydration-safe-sidebar.tsx",
+      "lineCount": 414
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\connecting-nextjs-to-strapi.tsx",
+      "lineCount": 338
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\deploying-nextjs-vercel.tsx",
+      "lineCount": 511
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\e2e-testing-playwright.tsx",
+      "lineCount": 387
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\email-templates-react-email.tsx",
+      "lineCount": 510
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\error-boundaries-and-loading-states.tsx",
+      "lineCount": 458
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\multi-step-forms-server-actions.tsx",
+      "lineCount": 555
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\rate-limiting-implementation.tsx",
+      "lineCount": 387
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\server-side-validation.tsx",
+      "lineCount": 281
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\understanding-react-hydration.tsx",
+      "lineCount": 395
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\unit-testing-vitest.tsx",
+      "lineCount": 327
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\your-first-nextjs-app.tsx",
+      "lineCount": 380
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\your-first-strapi-collection.tsx",
+      "lineCount": 331
+    },
+    {
+      "path": "features\\dashboard\\content-library\\tutorials\\zustand-form-store.tsx",
+      "lineCount": 298
+    },
+    {
+      "path": "features\\quotation\\api\\templates\\quotation-business-html.tsx",
+      "lineCount": 315
+    },
+    {
+      "path": "features\\quotation\\api\\templates\\quotation-customer-html.tsx",
+      "lineCount": 143
+    },
+    {
+      "path": "features\\quotation\\components\\molecules\\quotation-success-message.tsx",
+      "lineCount": 118
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-form-container.tsx",
+      "lineCount": 217
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-steps\\additional-requirements-step.tsx",
+      "lineCount": 222
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-steps\\budget-timeline-step.tsx",
+      "lineCount": 175
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-steps\\project-scope-step.tsx",
+      "lineCount": 207
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-steps\\project-type-step.tsx",
+      "lineCount": 211
+    },
+    {
+      "path": "features\\quotation\\components\\organisms\\quotation-steps\\quotation-review-step.tsx",
+      "lineCount": 288
+    },
+    {
+      "path": "features\\service-request\\api\\templates\\business-notification-html.tsx",
+      "lineCount": 289
+    },
+    {
+      "path": "features\\service-request\\api\\templates\\business-notification.tsx",
+      "lineCount": 393
+    },
+    {
+      "path": "features\\service-request\\api\\templates\\customer-confirmation-html.tsx",
+      "lineCount": 194
+    },
+    {
+      "path": "features\\service-request\\api\\templates\\customer-confirmation.tsx",
+      "lineCount": 272
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\multi-step-form-container.tsx",
+      "lineCount": 115
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\personal-info-step.tsx",
+      "lineCount": 154
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\property-info-step.tsx",
+      "lineCount": 162
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\review-step-display.tsx",
+      "lineCount": 179
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\review-step.tsx",
+      "lineCount": 190
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\schedule-step.tsx",
+      "lineCount": 201
+    },
+    {
+      "path": "features\\service-request\\components\\organisms\\service-details-step.tsx",
+      "lineCount": 186
+    },
+    {
+      "path": "features\\contact\\api\\contact-email-service.ts",
+      "lineCount": 154
+    },
+    {
+      "path": "features\\contact\\api\\contact-request.ts",
+      "lineCount": 134
+    },
+    {
+      "path": "features\\contact\\hooks\\use-contact-store.ts",
+      "lineCount": 141
+    },
+    {
+      "path": "features\\contact\\index.ts",
+      "lineCount": 40
+    },
+    {
+      "path": "features\\contact\\schemas\\contact-schemas.ts",
+      "lineCount": 162
+    },
+    {
+      "path": "features\\quotation\\api\\quotation-email-service.ts",
+      "lineCount": 229
+    },
+    {
+      "path": "features\\quotation\\api\\quotation-request.ts",
+      "lineCount": 144
+    },
+    {
+      "path": "features\\quotation\\hooks\\use-quotation-store.ts",
+      "lineCount": 154
+    },
+    {
+      "path": "features\\quotation\\index.ts",
+      "lineCount": 38
+    },
+    {
+      "path": "features\\quotation\\schemas\\quotation-schemas.ts",
+      "lineCount": 219
+    },
+    {
+      "path": "features\\service-request\\api\\email-service.ts",
+      "lineCount": 274
+    },
+    {
+      "path": "features\\service-request\\api\\service-request.ts",
+      "lineCount": 135
+    },
+    {
+      "path": "features\\service-request\\hooks\\use-form-store.ts",
+      "lineCount": 221
+    },
+    {
+      "path": "features\\service-request\\index.ts",
+      "lineCount": 37
+    },
+    {
+      "path": "features\\service-request\\schemas\\schemas.ts",
+      "lineCount": 99
+    },
+    {
+      "path": "features\\service-request\\schemas\\server-schemas.ts",
+      "lineCount": 137
+    }
+  ],
+  "patternFrequency": {
+    "platform-header": 57,
+    "metrics-grid": 9,
+    "reporting-cadence": 8,
+    "responsive-grid-2": 42,
+    "back-navigation": 29,
+    "content-comparison-table": 4,
+    "checklist": 20,
+    "tip-callout": 16,
+    "responsive-grid-3": 52,
+    "why-platform-card": 13,
+    "strategy-flow": 15,
+    "tool-grid": 7,
+    "platform-specs": 5
+  },
+  "summary": {
+    "totalPages": 100,
+    "totalComponents": 101,
+    "totalFeatureFiles": 108,
+    "pagesWithHardcodedData": 78,
+    "totalHardcodedArrays": 229,
+    "totalDataItems": 0,
+    "clientComponents": 63,
+    "serverComponents": 38,
+    "componentsByLevel": {
+      "other": 99,
+      "layout": 1,
+      "page": 1
+    },
+    "pagesBySection": {
+      "auth/auth": 1,
+      "admin/digital-marketing": 28,
+      "admin/document-administration": 10,
+      "admin/email-administration": 16,
+      "other/other": 2,
+      "dashboard/content-library": 10,
+      "dashboard/documentation": 29,
+      "marketing/landing": 1,
+      "public/contact": 1,
+      "public/quotation": 1,
+      "public/services": 1
+    },
+    "platformPages": {},
+    "patternFrequency": {
+      "platform-header": 57,
+      "metrics-grid": 9,
+      "reporting-cadence": 8,
+      "responsive-grid-2": 42,
+      "back-navigation": 29,
+      "content-comparison-table": 4,
+      "checklist": 20,
+      "tip-callout": 16,
+      "responsive-grid-3": 52,
+      "why-platform-card": 13,
+      "strategy-flow": 15,
+      "tool-grid": 7,
+      "platform-specs": 5
+    },
+    "averagePageLineCount": 356,
+    "largestPages": [
+      {
+        "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\gap-analysis\\page.tsx",
+        "lines": 1273,
+        "arrays": 10
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\security-architecture\\page.tsx",
+        "lines": 988,
+        "arrays": 2
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\template-and-brand\\page.tsx",
+        "lines": 965,
+        "arrays": 1
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\component-system\\page.tsx",
+        "lines": 843,
+        "arrays": 10
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\strategic-overview\\code-review-log\\client-page.tsx",
+        "lines": 820,
+        "arrays": 1
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\infrastructure-and-ops\\api-and-graphql\\page.tsx",
+        "lines": 773,
+        "arrays": 2
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\page.tsx",
+        "lines": 748,
+        "arrays": 4
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\cms-reference\\relationships\\page.tsx",
+        "lines": 697,
+        "arrays": 6
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\testing-and-ops-guide\\page.tsx",
+        "lines": 673,
+        "arrays": 4
+      },
+      {
+        "path": "app\\(dashboard)\\dashboard\\documentation\\app-reference\\server-actions-and-api\\page.tsx",
+        "lines": 656,
+        "arrays": 1
+      }
+    ]
+  }
+}
