@@ -158,6 +158,19 @@ Multi-step work must write to state.json after each phase, not just at the end.
 
 **Platinum Standard:** This framework is being developed as a reference implementation for Agentic OS. Every failure is a learning opportunity. Every rule must earn its place through enforcement, not aspiration.
 
+### Rule 13: MODEL-METRICS ALIGNMENT (Guard Rails - Non-Negotiable)
+- Model selection (from orchestrator.md MODEL MATRIX decision tree) DRIVES metrics allocation
+- When model changes during session: metrics.md MUST be updated IMMEDIATELY
+- Token budget is PER-MODEL, not universal:
+  - v0 Mini = 50k tokens (25k in DENSE)
+  - v0 Pro = 100k tokens (50k in DENSE)
+  - v0 Max = 150k tokens (75k in DENSE)
+  - v0 Max Fast = 100k tokens (50k in DENSE)
+- Health mode REDUCES budget by 50%: DENSE mode budget = model's budget × 0.5
+- Health < 20% + v0 Max/Pro/Max Fast = DEFER work or downgrade to v0 Mini (15k budget)
+- Violation: Using model without updating metrics.md = STOP immediately, re-validate GATE 1
+- Every model change logs: "[MODEL] [OLD_BUDGET] → [NEW_BUDGET] | Reason: [reason]"
+
 ---
 
-*Rules v1.2 | Last Updated: 2026-02-24 | Added Rule 12 (Health-First Decision Making) | Protocol v2.0 integrated*
+*Rules v1.3 | Last Updated: 2026-02-24 | Added Rule 13 (MODEL-METRICS ALIGNMENT) | Guard Rails integrated*

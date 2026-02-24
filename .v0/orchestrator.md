@@ -5,6 +5,82 @@
 
 ---
 
+## MODEL MATRIX (Single Source of Truth - Foundation Layer)
+
+**CRITICAL RULE:** Model selection → metrics.md MUST update immediately. This is the guard rail preventing resource overrun.
+
+### v0 Models: Definitions, Capabilities, Constraints
+
+| Model | Tier | Cost/Token | Context Limit | Best For | Budget/Session | Health DENSE Budget |
+|-------|------|-----------|---|---|---|---|
+| **v0 Mini** | TIER 1 | Base (1x) | 50k tokens | Single-file edits, styling, copy, scripts, research | 50k tokens | 25k tokens |
+| **v0 Pro** | TIER 2 | 2x cost | 100k tokens | Medium complexity, mixed workloads, balanced | 100k tokens | 50k tokens |
+| **v0 Max** | TIER 3 | 3x cost | 150k tokens | Architecture, multi-file, complex debugging, orchestration | 150k tokens | 75k tokens |
+| **v0 Max Fast** | TIER 4 | 2x cost, speed | 100k tokens | Time-critical complex (analysis only, NO code gen) | 100k tokens | 50k tokens |
+
+### GATE: Model Selection → Metrics Update (Non-Negotiable)
+
+**When any model is selected or changed during a session:**
+1. ✓ Identify selected model (from decision tree below)
+2. ✓ **IMMEDIATELY update `.v0/metrics.md` with that model's budget**
+3. ✓ Recalculate remaining tokens against NEW model's budget
+4. ✓ Adjust op budget if task exceeds new budget
+5. ✓ Document model change + reason in session note
+
+**Violation Protocol:** If model changes without metrics update = STOP + return to GATE 1 (approval).
+
+### Health Mode Budget Per Model
+
+| Health Status | Mode | v0 Mini Budget | v0 Pro Budget | v0 Max Budget | v0 Max Fast |
+|---|---|---|---|---|---|
+| ≥ 50% | FULL | 50k | 100k | 150k | 100k |
+| 20-50% | DENSE | 25k | 50k | 75k | 50k |
+| < 20% | RECOVERY | 15k | DEFER | DEFER | DEFER |
+
+### Model Selection Decision Tree (Health-Aware)
+
+```
+START: What is the task?
+
+1. Single-file edit, styling, copy, or research?
+   → v0 Mini (TIER 1) - 50k budget
+   
+2. Complex task (architecture, multi-file, debugging)?
+   → CHECK HEALTH:
+      IF Health ≥ 50%:     → v0 Max (TIER 3) - 150k budget
+      IF Health 20-50%:    → v0 Pro (TIER 2) - 100k budget
+      IF Health < 20%:     → v0 Mini (TIER 1) - 15k budget (or DEFER)
+      
+3. Time-critical complex analysis (no code generation)?
+   → CHECK HEALTH:
+      IF Health ≥ 50%:     → v0 Max Fast (TIER 4) - 100k budget
+      IF Health < 50%:     → v0 Pro (TIER 2) - 100k budget
+      
+4. Research or documentation?
+   → v0 Mini (TIER 1) - 50k budget
+
+5. Default (uncertain):
+   → v0 Mini (TIER 1) - 50k budget
+
+THEN: Update metrics.md with selected model's budget (CRITICAL GUARD)
+```
+
+### Example: Model Change Triggers Metrics Reset
+
+**Scenario:**
+- Session starts: Health = 78%, Task = "Review 5-file architecture"
+- Decision: v0 Max (150k budget)
+- metrics.md updated: `Current Model: v0 Max | Budget: 150k | Remaining: 150k`
+- Work starts...
+- After 60k tokens: "Actually, let's switch to v0 Pro for faster analysis"
+- **GUARD RAIL TRIGGERS:**
+  - Model changes: v0 Max → v0 Pro
+  - metrics.md MUST update: `Current Model: v0 Pro | Budget: 100k | Remaining: 40k (recalculated)`
+  - Tokens already used (60k) stay charged, but NEW budget is 100k (model switch, not violation)
+  - Continue work with v0 Pro's 40k remaining budget
+
+---
+
 ## SESSION INITIALIZATION PROTOCOL v2.0 (KING-LEVEL ORCHESTRATION)
 
 **Purpose:** Health-first framework loading with dynamic resource allocation. Executes BEFORE any work begins.
@@ -37,25 +113,32 @@ User's request:
 - Is this within op budget? (from state.json)
 
 ### Step 4: DYNAMIC MODEL SELECTION (Fourth - CTO-Level Decision)
-Select model based on TASK TYPE + CURRENT HEALTH:
 
-| Task Type | Health ≥ 50% | Health 20-50% | Health < 20% |
-|-----------|--------------|---------------|-------------|
-| Architecture/Multi-file review | v0 Max (TIER 3) | v0 Max (TIER 3) | v0 Mini (TIER 1) |
-| Single-file edit, styling, copy | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
-| Complex debugging, refactor | v0 Max (TIER 3) | v0 Mini (TIER 1) | DEFER or split |
-| Research, exploration | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
-| Script generation | v0 Mini (TIER 1) | v0 Mini (TIER 1) | v0 Mini (TIER 1) |
+Use MODEL MATRIX (above) decision tree to select model based on [task type + current health]:
+- Single-file? → v0 Mini (always)
+- Complex + Health ≥ 50%? → v0 Max (150k budget)
+- Complex + Health 20-50%? → v0 Pro (100k budget)
+- Complex + Health < 20%? → DEFER or v0 Mini (15k budget)
+- Time-critical analysis? → v0 Max Fast (analysis only, no code generation)
 
-**Principle:** Health below 50%? Downgrade to TIER 1 (Mini). Health below 20%? Defer complex work.
+**CRITICAL:** After model selection, IMMEDIATELY jump to GATE below.
 
-### Step 5: GATE VALIDATION (Fifth - Non-Negotiable)
-Before proceeding, verify:
+### Step 5: GATE VALIDATION + METRICS UPDATE (Fifth - Guard Rails)
+
+**Before proceeding, verify:**
 - ✓ **GATE 1:** User explicitly approved this work?
 - ✓ **GATE 7:** Task within scope + op budget?
-- ✓ **Context Budget:** Sufficient tokens for this session?
+- ✓ **Context Budget:** Tokens sufficient for SELECTED MODEL's budget?
+- ✓ **METRICS UPDATED:** metrics.md shows correct model + budget?
 
-**If any fail:** Ask for clarification or defer work to next session.
+**CRITICAL GUARD RAIL:** If model selection changed DURING session:
+1. Do NOT proceed without updating metrics.md
+2. Recalculate remaining tokens against NEW model's budget
+3. Verify new budget has sufficient headroom for task
+4. Document model change reason in session note
+5. Resume work with NEW model's constraints
+
+**If any gate fails:** Ask for clarification or defer work to next session.
 
 ### Step 6: SESSION ANNOUNCEMENT (Sixth - Transparency)
 Display on EVERY first response:
@@ -383,4 +466,4 @@ Confirm hydration and await command.
 
 ---
 
-*Orchestrator v2.0 | Last Updated: 2026-02-24 | SESSION INITIALIZATION PROTOCOL v2.0 (King-Level Orchestration)*
+*Orchestrator v2.1 | Last Updated: 2026-02-24 | MODEL MATRIX (Foundation) + SESSION INITIALIZATION PROTOCOL v2.0 + Guard Rails*
