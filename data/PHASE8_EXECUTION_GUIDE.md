@@ -20,16 +20,12 @@ git status
 # Should be clean (nothing to commit)
 
 # Verify all 29 JSON files exist
-$jsonCount = (Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json").Count
-Write-Host "Total JSON files: $jsonCount (should be 29)"
-# Better PowerShell alternative: handles paths with parentheses
-Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json" | Measure-Object | Select-Object -ExpandProperty Count
+(Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json" -ErrorAction Stop).Count
+# Should output: 29
 
-# Check 10+ extracted pages exist  
-$pageCount = (Get-ChildItem -Path "app" -Recurse -Filter "page.tsx").Count
-Write-Host "Total page.tsx files: $pageCount (should be 10+)"
-# Better: Get-ChildItem handles all paths correctly
-Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | Measure-Object | Select-Object -ExpandProperty Count
+# Check 10+ extracted pages exist
+(Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" -ErrorAction Stop).Count
+# Should output: 10+
 ```
 
 ### Verify Environment (Windows PowerShell)
