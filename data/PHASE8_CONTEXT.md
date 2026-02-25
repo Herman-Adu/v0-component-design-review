@@ -193,25 +193,25 @@ interface Document {
 
 ## TOOLS & UTILITIES (What Phase 8 Provides)
 
-### 4 Scripts (in `/data/PHASE8_SCRIPTS/`)
+### 4 Scripts (in `/scripts/`)
 
 1. **phase8-analyze-json-structures.js**
-   - Scans all 29 JSONs
+   - Scans all 29 JSONs in `/data/strapi-mock/`
    - Identifies unique patterns
    - Groups by similarity
-   - Output: structure-mapping.json
+   - Output: structure-mapping.json (in project root)
 
 2. **phase8-generate-types.js**
-   - Reads structure mapping
+   - Reads structure-mapping.json
    - Creates TypeScript interfaces
    - Organizes by domain
    - Output: /types/strapi-mock.ts
 
 3. **phase8-validate-page-types.js**
-   - Checks 10 pages
+   - Checks 10 pages in `/app/(dashboard)/dashboard/admin/`
    - Verifies type imports
    - Identifies issues
-   - Output: validation report
+   - Output: phase8-validation-report.json (in project root)
 
 4. **phase8-build-and-verify.sh**
    - Full TypeScript compilation

@@ -20,12 +20,16 @@ git status
 # Should be clean (nothing to commit)
 
 # Verify all 29 JSON files exist
-Get-ChildItem -Path "data/strapi-mock" -Recurse -Filter "*.json" | Measure-Object
-# Should show Count: 29
+$jsonCount = (Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json").Count
+Write-Host "Total JSON files: $jsonCount (should be 29)"
+# Better PowerShell alternative: handles paths with parentheses
+Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json" | Measure-Object | Select-Object -ExpandProperty Count
 
-# Check 10 extracted pages exist
-Get-ChildItem -Path "app/(dashboard)/dashboard/admin" -Recurse -Filter "page.tsx" | Measure-Object
-# Should show Count: 10+
+# Check 10+ extracted pages exist  
+$pageCount = (Get-ChildItem -Path "app" -Recurse -Filter "page.tsx").Count
+Write-Host "Total page.tsx files: $pageCount (should be 10+)"
+# Better: Get-ChildItem handles all paths correctly
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | Measure-Object | Select-Object -ExpandProperty Count
 ```
 
 ### Verify Environment (Windows PowerShell)
@@ -192,10 +196,15 @@ cat ..\phase8-validation-report.json | jq .pages
 cd ..
 
 # Open each page file in VS Code
-# Pattern: app/(dashboard)/dashboard/admin/[domain]/[section]/page.tsx
+# Patterns: Multiple admin page paths exist in app/(dashboard)/dashboard/admin/
 
-# Using PowerShell to list pages
-Get-ChildItem -Path "app\(dashboard)\dashboard\admin" -Recurse -Filter "page.tsx" | Select-Object FullName
+# Using PowerShell to list all admin pages with correct path handling
+Get-ChildItem -Path "app\(dashboard)\dashboard\admin" -Recurse -Filter "page.tsx" | ForEach-Object {
+  $_.FullName
+}
+
+# Or simpler - find all admin pages:
+Get-ChildItem -Path "app" -Recurse -Path "*dashboard*" -Filter "page.tsx" | Where-Object {$_.FullName -match "admin"}
 
 # For each page, ADD at top of file in VS Code:
 # import type { YourTypeName } from '@/types/strapi-mock';
@@ -484,8 +493,8 @@ $page.StatusCode
 # Check status
 git status
 
-# Expected:
-# Modified: 10 pages (app/(dashboard)/...)
+**Expected:**
+# Modified: 10 pages (app/(dashboard)/dashboard/admin/...)
 # New file: types/strapi-mock.ts
 # New file: PHASE8_GENERATION_NOTES.md
 
@@ -535,13 +544,17 @@ git branch -vv
 **Solution (Windows PowerShell):**
 ```powershell
 # Verify all 29 JSONs exist
-(Get-ChildItem -Path "data/strapi-mock" -Recurse -Filter "*.json").Count
-# Should output: 29
+$jsonFiles = Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json"
+Write-Host "Found $($jsonFiles.Count) JSON files (should be 29)"
 
 # If missing: check structure
-Get-ChildItem -Path "data/strapi-mock" -Recurse | Where-Object {$_.Extension -eq ".json"}
+Get-ChildItem -Path "data\strapi-mock" -Recurse | Where-Object {$_.Extension -eq ".json"} | Select-Object FullName
 
-# If missing files: copy from previous phase data
+# List them by folder
+Get-ChildItem -Path "data\strapi-mock" -Recurse -Directory | ForEach-Object {
+  $count = (Get-ChildItem -Path $_.FullName -Filter "*.json" -File).Count
+  Write-Host "$($_.Name): $count files"
+}
 ```
 
 ### Problem: "Type errors after generation"
@@ -563,13 +576,25 @@ code types/strapi-mock.ts
 ### Problem: "Pages not importing correctly"
 **Solution (Windows PowerShell):**
 ```powershell
-# Verify import paths in pages
+# Verify import paths in pages - search all pages for imports
 Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | 
-  ForEach-Object { Select-String "from '@/" $_.FullName }
+  ForEach-Object { 
+    Select-String "from '@/" $_.FullName -ErrorAction SilentlyContinue | 
+    Select-Object Path, Line
+  }
 
 # Fix pattern:
 # ❌ from '@/data/strapi-mock/...' (without type)
 # ✅ from '@/types/strapi-mock' (import type)
+
+# Find pages that still have wrong imports
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | 
+  ForEach-Object { 
+    $content = Get-Content $_.FullName
+    if ($content -match "from '@/data/strapi-mock") {
+      Write-Host "NEEDS FIX: $($_.FullName)"
+    }
+  }
 ```
 
 ### Problem: "IDE autocomplete not working"
@@ -683,13 +708,11 @@ Write-Host "✓ Phase 8 complete and ready for handoff!"
 1. Check TROUBLESHOOTING GUIDE above
 2. Document error in PHASE8_GENERATION_NOTES.md
 3. Run full diagnostics:
-   ```bash
-   echo "=== Environment ===" && node --version && npm --version
-   echo "=== Files ===" && find data/strapi-mock -name "*.json" | wc -l
-   echo "=== Types ===" && wc -l types/strapi-mock.ts
-   echo "=== Pages ===" && find app -name "page.tsx" | wc -l
-   echo "=== TypeScript ===" && npx tsc --noEmit 2>&1 | head -5
-   ```
+```powershell
+echo "=== Files ===" && (Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json").Count
+echo "=== Types ===" && (Get-Content "types\strapi-mock.ts" | Measure-Object -Line).Lines
+echo "=== Pages ===" && (Get-ChildItem -Path "app" -Recurse -Filter "page.tsx").Count
+echo "=== TypeScript ===" && npx tsc --noEmit 2>&1 | Select-Object -First 5
 4. Share output in your generation notes
 
 ---
