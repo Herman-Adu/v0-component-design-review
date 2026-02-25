@@ -69,8 +69,7 @@ node phase8-analyze-json-structures.js
 **Review the output (Windows PowerShell):**
 ```powershell
 # From scripts folder, view analysis results
-$content = Get-Content ..\structure-mapping.json | ConvertFrom-Json
-$content.summary
+(Get-Content ..\structure-mapping.json | ConvertFrom-Json).summary
 
 # Or use jq if installed (choco install jq)
 cat ..\structure-mapping.json | jq .summary
@@ -112,14 +111,15 @@ node phase8-generate-types.js
 cd ..
 
 # Check types file was created
-Get-Item "types\strapi-mock.ts" | Select-Object Length, LastWriteTime
+(Get-Item "types\strapi-mock.ts").Length
+# Should show: 10000+ (bytes, represents 10-30 KB file)
 
 # View first few interfaces
 Get-Content "types\strapi-mock.ts" -TotalCount 50
 
 # Check file compiles
 npx tsc --noEmit types/strapi-mock.ts
-# Should output: no errors (silence = success)
+# Should output: nothing (silence = success)
 ```
 
 **What to look for:**
@@ -161,11 +161,10 @@ node phase8-validate-page-types.js
 **Review the validation report (Windows PowerShell):**
 ```powershell
 # View detailed issues (from scripts folder)
-$report = Get-Content ..\phase8-validation-report.json | ConvertFrom-Json
-$report.pages
+(Get-Content ..\phase8-validation-report.json | ConvertFrom-Json).pages
 
 # View errors/warnings
-$report.issues
+(Get-Content ..\phase8-validation-report.json | ConvertFrom-Json).issues
 
 # Or use jq if available
 cat ..\phase8-validation-report.json | jq .pages
@@ -191,32 +190,11 @@ cat ..\phase8-validation-report.json | jq .pages
 # Navigate to project root
 cd ..
 
-# Open each page file in VS Code
-# Patterns: Multiple admin page paths exist in app/(dashboard)/dashboard/admin/
+# List all admin pages
+(Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | Where-Object {$_.FullName -match "admin"}).FullName
 
-# Using PowerShell to list all admin pages with correct path handling
-Get-ChildItem -Path "app\(dashboard)\dashboard\admin" -Recurse -Filter "page.tsx" | ForEach-Object {
-  $_.FullName
-}
-
-# Or simpler - find all admin pages:
-Get-ChildItem -Path "app" -Recurse -Path "*dashboard*" -Filter "page.tsx" | Where-Object {$_.FullName -match "admin"}
-
-# For each page, ADD at top of file in VS Code:
-# import type { YourTypeName } from '@/types/strapi-mock';
-
-# Example for content-strategy page:
-# import type { ContentCalendar, DistributionChannels } from '@/types/strapi-mock';
-
-# Then update data imports:
-# import contentCalendarData from '@/data/strapi-mock/digital-marketing/content-strategy/content-calendar.json';
-# import type { ContentCalendar } from '@/types/strapi-mock';
-
-# Add type annotation to component:
-# export default function PageName() {
-#   const data: ContentCalendar = contentCalendarData;
-#   // ... rest of component
-# }
+# Or for specific path:
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | Where-Object {$_.FullName -match "dashboard"} | Select-Object FullName
 ```
 
 **Step-by-step for each page (in VS Code):**
@@ -540,16 +518,15 @@ git branch -vv
 **Solution (Windows PowerShell):**
 ```powershell
 # Verify all 29 JSONs exist
-$jsonFiles = Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json"
-Write-Host "Found $($jsonFiles.Count) JSON files (should be 29)"
+(Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json" -ErrorAction Stop).Count
 
 # If missing: check structure
 Get-ChildItem -Path "data\strapi-mock" -Recurse | Where-Object {$_.Extension -eq ".json"} | Select-Object FullName
 
-# List them by folder
-Get-ChildItem -Path "data\strapi-mock" -Recurse -Directory | ForEach-Object {
-  $count = (Get-ChildItem -Path $_.FullName -Filter "*.json" -File).Count
-  Write-Host "$($_.Name): $count files"
+# List them by folder with counts
+Get-ChildItem -Path "data\strapi-mock" -Directory -Recurse | ForEach-Object {
+  $count = (Get-ChildItem -Path $_.FullName -Filter "*.json" -File -ErrorAction Stop).Count
+  if ($count -gt 0) { Write-Host "$($_.Name): $count files" }
 }
 ```
 
@@ -572,25 +549,18 @@ code types/strapi-mock.ts
 ### Problem: "Pages not importing correctly"
 **Solution (Windows PowerShell):**
 ```powershell
-# Verify import paths in pages - search all pages for imports
-Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | 
-  ForEach-Object { 
-    Select-String "from '@/" $_.FullName -ErrorAction SilentlyContinue | 
-    Select-Object Path, Line
-  }
+# Find all pages with imports
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | ForEach-Object {
+  Select-String "from '@/" $_.FullName -ErrorAction SilentlyContinue
+}
 
-# Fix pattern:
-# ❌ from '@/data/strapi-mock/...' (without type)
-# ✅ from '@/types/strapi-mock' (import type)
-
-# Find pages that still have wrong imports
-Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | 
-  ForEach-Object { 
-    $content = Get-Content $_.FullName
-    if ($content -match "from '@/data/strapi-mock") {
-      Write-Host "NEEDS FIX: $($_.FullName)"
-    }
+# Find pages with wrong imports (pointing to data instead of types)
+Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" | ForEach-Object {
+  $content = Get-Content $_.FullName -ErrorAction SilentlyContinue
+  if ($content -match "from '@/data/strapi-mock") {
+    Write-Host "NEEDS FIX: $($_.FullName)"
   }
+}
 ```
 
 ### Problem: "IDE autocomplete not working"
@@ -602,10 +572,9 @@ Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" |
 # 3. Press Enter
 
 # Check tsconfig.json includes types
-$tsconfig = Get-Content tsconfig.json | ConvertFrom-Json
-$tsconfig.compilerOptions.typeRoots
+(Get-Content tsconfig.json | ConvertFrom-Json).compilerOptions.typeRoots
 
-# Verify types file exports
+# Verify types file has exports
 Select-String "^export " types/strapi-mock.ts | Select-Object -First 10
 ```
 
@@ -644,20 +613,17 @@ npx tsc --noEmit
 
 # 3. Full build succeeds
 npm run build
-# Should output: "Compiled successfully" at end
+# Should contain: "Compiled successfully"
 
 # 4. Documentation complete
-(Get-Item "PHASE8_GENERATION_NOTES.md").Length / 1KB
-# Should be 50+ KB (comprehensive notes)
+(Get-Item "PHASE8_GENERATION_NOTES.md").Length
+# Should be 50000+ (bytes, ~50KB+)
 
-# 5. All changes staged
+# 5. All changes ready
 git status
-# Should show only expected files (types/strapi-mock.ts, page updates, PHASE8_GENERATION_NOTES.md)
+# Should show: types/strapi-mock.ts, page updates, PHASE8_GENERATION_NOTES.md
 
-# 6. Count of updated items
-Write-Host "✓ Types file created: $(Test-Path 'types/strapi-mock.ts')"
-Write-Host "✓ TypeScript clean: $(if (npx tsc --noEmit 2>$null) {'NO - ERRORS'} else {'YES'})"
-Write-Host "✓ Build passed: Check output above"
+# 6. Summary check
 Write-Host "✓ Phase 8 complete and ready for handoff!"
 ```
 
@@ -705,10 +671,11 @@ Write-Host "✓ Phase 8 complete and ready for handoff!"
 2. Document error in PHASE8_GENERATION_NOTES.md
 3. Run full diagnostics:
 ```powershell
-echo "=== Files ===" && (Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json").Count
-echo "=== Types ===" && (Get-Content "types\strapi-mock.ts" | Measure-Object -Line).Lines
-echo "=== Pages ===" && (Get-ChildItem -Path "app" -Recurse -Filter "page.tsx").Count
-echo "=== TypeScript ===" && npx tsc --noEmit 2>&1 | Select-Object -First 5
+Write-Host "=== JSON Files ===" && (Get-ChildItem -Path "data\strapi-mock" -Recurse -Filter "*.json" -ErrorAction Stop).Count
+Write-Host "=== Types File ===" && (Get-Item "types\strapi-mock.ts" -ErrorAction SilentlyContinue).Length
+Write-Host "=== Page Files ===" && (Get-ChildItem -Path "app" -Recurse -Filter "page.tsx" -ErrorAction Stop).Count
+Write-Host "=== TypeScript Check ===" && (npx tsc --noEmit 2>&1 | Select-Object -First 5)
+```
 4. Share output in your generation notes
 
 ---
