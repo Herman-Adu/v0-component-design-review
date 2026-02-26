@@ -113,8 +113,7 @@ const caseStudyContentRegistry: Record<string, CaseStudyContentDocument> = {
     rateLimitingBypass as CaseStudyContentDocument,
   "cost-reduction-architecture":
     costReductionArchitecture as CaseStudyContentDocument,
-  "strapi-multi-site-architecture":
-    strapiMultiSite as CaseStudyContentDocument,
+  "strapi-multi-site-architecture": strapiMultiSite as CaseStudyContentDocument,
   "developer-productivity-gains":
     developerProductivity as CaseStudyContentDocument,
 };

@@ -7,12 +7,22 @@
     "category": "cms",
     "readTime": "14 min",
     "publishedAt": "2026-02-05",
-    "tags": ["strapi", "multi-site", "architecture", "enterprise", "localization"]
+    "tags": [
+      "strapi",
+      "multi-site",
+      "architecture",
+      "enterprise",
+      "localization"
+    ]
   },
   "layout": "content-with-toc",
   "toc": [
     { "id": "problem", "title": "The Duplication Problem", "level": 2 },
-    { "id": "old-architecture", "title": "12 Separate CMS Installations", "level": 2 },
+    {
+      "id": "old-architecture",
+      "title": "12 Separate CMS Installations",
+      "level": 2
+    },
     { "id": "solution", "title": "Multi-Tenancy Solution", "level": 2 },
     { "id": "implementation", "title": "Implementation Details", "level": 2 },
     { "id": "results", "title": "The Results", "level": 2 },
@@ -22,7 +32,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "01", "title": "The Duplication Problem", "id": "problem" }
+      "props": {
+        "number": "01",
+        "title": "The Duplication Problem",
+        "id": "problem"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -34,7 +48,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "02", "title": "12 Separate CMS Installations", "id": "old-architecture" }
+      "props": {
+        "number": "02",
+        "title": "12 Separate CMS Installations",
+        "id": "old-architecture"
+      }
     },
     {
       "type": "organism.verticalFlow",
@@ -102,7 +120,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "03", "title": "Multi-Tenancy Solution", "id": "solution" }
+      "props": {
+        "number": "03",
+        "title": "Multi-Tenancy Solution",
+        "id": "solution"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -141,7 +163,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "04", "title": "Implementation Details", "id": "implementation" }
+      "props": {
+        "number": "04",
+        "title": "Implementation Details",
+        "id": "implementation"
+      }
     },
     {
       "type": "atom.paragraph",

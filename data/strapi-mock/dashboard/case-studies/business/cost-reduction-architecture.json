@@ -12,7 +12,11 @@
   "layout": "content-with-toc",
   "toc": [
     { "id": "problem", "title": "The Cost Problem", "level": 2 },
-    { "id": "old-infrastructure", "title": "Traditional Infrastructure", "level": 2 },
+    {
+      "id": "old-infrastructure",
+      "title": "Traditional Infrastructure",
+      "level": 2
+    },
     { "id": "solution", "title": "The Modern Solution", "level": 2 },
     { "id": "implementation", "title": "Migration Approach", "level": 2 },
     { "id": "results", "title": "The Results", "level": 2 },
@@ -34,7 +38,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "02", "title": "Traditional Infrastructure", "id": "old-infrastructure" }
+      "props": {
+        "number": "02",
+        "title": "Traditional Infrastructure",
+        "id": "old-infrastructure"
+      }
     },
     {
       "type": "organism.statsTable",
@@ -83,7 +91,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "03", "title": "The Modern Solution", "id": "solution" }
+      "props": {
+        "number": "03",
+        "title": "The Modern Solution",
+        "id": "solution"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -121,7 +133,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "04", "title": "Migration Approach", "id": "implementation" }
+      "props": {
+        "number": "04",
+        "title": "Migration Approach",
+        "id": "implementation"
+      }
     },
     {
       "type": "organism.processFlow",

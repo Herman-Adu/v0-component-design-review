@@ -22,7 +22,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "01", "title": "The Inconsistency Problem", "id": "problem" }
+      "props": {
+        "number": "01",
+        "title": "The Inconsistency Problem",
+        "id": "problem"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -34,7 +38,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "02", "title": "Project Mix Chaos", "id": "old-approach" }
+      "props": {
+        "number": "02",
+        "title": "Project Mix Chaos",
+        "id": "old-approach"
+      }
     },
     {
       "type": "organism.statsTable",
@@ -103,7 +111,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "03", "title": "Stack Standardization", "id": "solution" }
+      "props": {
+        "number": "03",
+        "title": "Stack Standardization",
+        "id": "solution"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -141,7 +153,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "04", "title": "Migration Strategy", "id": "implementation" }
+      "props": {
+        "number": "04",
+        "title": "Migration Strategy",
+        "id": "implementation"
+      }
     },
     {
       "type": "organism.processFlow",
