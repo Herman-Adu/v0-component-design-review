@@ -1440,4 +1440,92 @@ export interface ArticleContentDocument {
 
 ---
 
-**Status:** ✅ Batch A Complete | ✅ Batch B Complete | 🔄 **Batch C Planned** | → Ready for Implementation
+## Case Studies Batch 2 Session (2026-02-26)
+
+### Work Completed
+
+**JSON Files Created (4 new case studies):**
+
+- ✅ `security-layer-implementation.json` (security, intermediate, 11 min read, 242 lines)
+- ✅ `email-system-consolidation.json` (architecture, intermediate)
+- ✅ `multi-step-form-prototype-to-production.json` (forms, intermediate)
+- ✅ `choosing-rendering-strategy-per-page.json` (rendering, intermediate)
+
+**Registry Updated:**
+
+- ✅ `lib/strapi/case-study-content.ts` - Added 4 new imports
+- ✅ All 7 case studies now in registry (3 Batch 1 + 4 Batch 2)
+
+**Build Cache Recovery:**
+
+- Issue: "Unexpected token '<'" error after adding imports
+- Root Cause: Build cache corruption (.next/ stale artifacts)
+- Resolution: Clean rebuild (removed .next/, node_modules/, pnpm-lock.yaml)
+- Outcome: ✅ Clean build, all 7 case studies prerendering successfully
+
+**Validation Results:**
+
+- ✅ TypeScript: 0 errors (pnpm exec tsc --noEmit)
+- ✅ Build: Exit Code 0 (pnpm run build)
+- ✅ All 147 pages prerendered successfully
+- ✅ 7 case study routes live and validated
+
+**Git Commit:**
+
+- Commit: 490bd84 "feat(case-studies): Complete Batch 1 + Begin Batch 2 setup"
+- Files changed: 176 files, 35,992 insertions, 14,970 deletions
+- Status: Clean working tree, ready to push
+
+### Current Inventory
+
+**Case Studies Completed: 7/16**
+
+| #   | Slug                                    | Category     | Level        | Status  |
+| --- | --------------------------------------- | ------------ | ------------ | ------- |
+| 1   | client-to-server-components             | performance  | intermediate | ✅ Live |
+| 2   | form-validation-refactor                | security     | intermediate | ✅ Live |
+| 3   | state-management-evolution              | architecture | advanced     | ✅ Live |
+| 4   | security-layer-implementation           | security     | intermediate | ✅ Live |
+| 5   | email-system-consolidation              | architecture | intermediate | ✅ Live |
+| 6   | multi-step-form-prototype-to-production | forms        | intermediate | ✅ Live |
+| 7   | choosing-rendering-strategy-per-page    | rendering    | intermediate | ✅ Live |
+
+**Remaining: 9 case studies needed to reach 16 total**
+
+### Learnings & Best Practices
+
+**What Worked:**
+
+1. ✅ **JSON-first approach** - Create valid JSON file before adding import
+2. ✅ **Batch validation** - Run build after each case study added
+3. ✅ **Repository pattern reuse** - No new infrastructure needed for Batch 2
+4. ✅ **Clean build as recovery** - Nuclear option works 100% for cache issues
+5. ✅ **Commit working code only** - Never commit broken builds
+
+**What Caused Issues:**
+
+1. ❌ **Cache corruption** - Adding imports before full validation
+2. ❌ **Stale artifacts** - .next/ cache not invalidating properly
+3. ❌ **Version mismatches** - TypeScript server cache vs actual node_modules
+
+**Prevention Strategy:**
+
+1. Create JSON file → Validate JSON → Add import → Build → Commit
+2. Never batch more than 3-4 case studies without validation
+3. If "Unexpected token" error → Clean build immediately
+4. Always restart TypeScript server after dependency changes
+
+### Next Steps
+
+**Case Studies Batch 3 (9 remaining):**
+
+- Sub-batch 3A: 3 case studies (1 hour)
+- Sub-batch 3B: 3 case studies (1 hour)
+- Sub-batch 3C: 3 case studies (1 hour)
+- Final validation & documentation (30 min)
+
+**Total time to complete all 16 case studies: ~3.5 hours**
+
+---
+
+**Status:** ✅ Batch A Complete | ✅ Batch B Complete | ✅ **Batch C (Articles) Complete** | 🔄 **Case Studies 7/16** | → Ready for Batch 3
