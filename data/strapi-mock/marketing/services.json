@@ -1,0 +1,125 @@
+{
+  "hero": {
+    "badge": {
+      "icon": "Zap",
+      "text": "Professional Electrical Services"
+    },
+    "title": "Expert Electrical Solutions for Every Need",
+    "description": "From residential repairs to large-scale industrial installations, our certified electricians deliver safe, reliable, and efficient electrical services.",
+    "primaryCta": {
+      "label": "Request Service",
+      "href": "#request-service",
+      "icon": "Zap"
+    },
+    "secondaryCta": {
+      "label": "Get a Quote",
+      "href": "/quotation",
+      "icon": "ArrowRight"
+    }
+  },
+  "services": [
+    {
+      "icon": "Home",
+      "title": "Residential",
+      "description": "Complete home electrical solutions including rewiring, panel upgrades, lighting, and smart home installations.",
+      "features": [
+        "Full house rewiring",
+        "Panel upgrades",
+        "Lighting design",
+        "EV charger installation"
+      ]
+    },
+    {
+      "icon": "Building2",
+      "title": "Commercial",
+      "description": "Comprehensive electrical services for offices, retail spaces, and commercial buildings.",
+      "features": [
+        "Office fit-outs",
+        "Energy audits",
+        "Lighting retrofits",
+        "Data cabling"
+      ]
+    },
+    {
+      "icon": "Factory",
+      "title": "Industrial",
+      "description": "Heavy-duty electrical work for manufacturing facilities, warehouses, and industrial sites.",
+      "features": [
+        "3-phase power",
+        "Motor controls",
+        "PLC systems",
+        "Preventive maintenance"
+      ]
+    },
+    {
+      "icon": "AlertTriangle",
+      "title": "Emergency",
+      "description": "24/7 emergency electrical services for urgent repairs and safety concerns.",
+      "features": [
+        "Power outages",
+        "Electrical faults",
+        "Safety hazards",
+        "Same-day response"
+      ]
+    }
+  ],
+  "servicesSection": {
+    "title": "Our Services",
+    "description": "We provide a comprehensive range of electrical services tailored to meet your specific requirements."
+  },
+  "specializations": [
+    { "icon": "Lightbulb", "label": "LED Lighting" },
+    { "icon": "Cable", "label": "Rewiring" },
+    { "icon": "Gauge", "label": "Panel Upgrades" },
+    { "icon": "Zap", "label": "EV Chargers" },
+    { "icon": "Wrench", "label": "Repairs" },
+    { "icon": "ShieldCheck", "label": "Safety Inspections" }
+  ],
+  "certifications": [
+    {
+      "title": "NICEIC Approved",
+      "description": "Fully certified and regularly assessed contractor"
+    },
+    {
+      "title": "Part P Certified",
+      "description": "Compliant with Building Regulations"
+    },
+    {
+      "title": "18th Edition",
+      "description": "BS 7671 Wiring Regulations qualified"
+    },
+    {
+      "title": "Fully Insured",
+      "description": "Comprehensive public liability coverage"
+    }
+  ],
+  "whyChooseUs": {
+    "title": "Why Choose Us",
+    "description": "We are committed to delivering exceptional electrical services with safety, quality, and customer satisfaction at the forefront."
+  },
+  "trustIndicators": [
+    {
+      "value": "24/7",
+      "label": "Emergency Service Available",
+      "icon": "Clock"
+    },
+    {
+      "value": "100%",
+      "label": "Satisfaction Guaranteed",
+      "icon": "ShieldCheck"
+    },
+    { "value": "15+", "label": "Years of Experience", "icon": "Award" }
+  ],
+  "requestForm": {
+    "title": "Electrical Service Request",
+    "description": "Complete the form below to schedule your electrical service"
+  },
+  "finalCta": {
+    "title": "Need a Detailed Quote?",
+    "description": "For larger projects or custom requirements, request a comprehensive quotation from our team.",
+    "primaryCta": {
+      "label": "Request Quotation",
+      "href": "/quotation"
+    }
+  }
+}

@@ -1,189 +1,151 @@
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Database,
-  Rocket,
-  FileText,
-  BookOpen,
-  FileCode,
-  LayoutGrid,
-  Share2,
-  ArrowRight,
-  Users,
-  Layers,
-  Code,
-} from "lucide-react"
+import Link from "next/link";
+import * as Icons from "lucide-react";
+import cmsRefData from "@/data/strapi-mock/dashboard/cms-reference-overview.json";
+import type {
+  CmsReferenceOverviewContent,
+  DashboardIconName,
+} from "@/types/dashboard";
+
+const cmsRefContent = cmsRefData as CmsReferenceOverviewContent;
+
+const iconMap: Record<
+  DashboardIconName,
+  React.ComponentType<{ className?: string }>
+> = {
+  Code: Icons.Code,
+  Database: Icons.Database,
+  Rocket: Icons.Rocket,
+  Layers: Icons.Layers,
+  Shield: Icons.Shield,
+  ShieldCheck: Icons.ShieldCheck,
+  BookOpen: Icons.BookOpen,
+  LayoutGrid: Icons.LayoutGrid,
+  Zap: Icons.Zap,
+  TestTube: Icons.TestTube,
+  ArrowRight: Icons.ArrowRight,
+  Lock: Icons.Lock,
+  HeartPulse: Icons.HeartPulse,
+  Activity: Icons.Activity,
+  SearchCheck: Icons.SearchCheck,
+  Link2: Icons.Link2,
+  ClipboardCheck: Icons.ClipboardCheck,
+  FileCheck: Icons.FileCheck,
+  Wrench: Icons.Wrench,
+  Compass: Icons.Compass,
+  FlaskConical: Icons.FlaskConical,
+  Target: Icons.Target,
+  Megaphone: Icons.Megaphone,
+  MailCheck: Icons.MailCheck,
+  Share2: Icons.Share2,
+  Users: Icons.Users,
+  BarChart3: Icons.BarChart3,
+  Settings: Icons.Settings,
+  Search: Icons.Search,
+  Globe: Icons.Globe,
+  TrendingUp: Icons.TrendingUp,
+  Building2: Icons.Building2,
+  Tag: Icons.Tag,
+  DollarSign: Icons.DollarSign,
+  LineChart: Icons.LineChart,
+  PenSquare: Icons.PenSquare,
+  Briefcase: Icons.Briefcase,
+  Palette: Icons.Palette,
+  HardDrive: Icons.HardDrive,
+  MessageSquare: Icons.MessageSquare,
+  Server: Icons.Server,
+  Clock: Icons.Clock,
+  Mail: Icons.Mail,
+  AlertCircle: Icons.AlertCircle,
+  GraduationCap: Icons.GraduationCap,
+  FileText: Icons.FileText,
+  CheckCircle2: Icons.CheckCircle2,
+  Heart: Icons.Heart,
+  Sparkles: Icons.Sparkles,
+  LinkedinIcon: Icons.Linkedin,
+  TwitterIcon: Icons.Twitter,
+  FacebookIcon: Icons.Facebook,
+  InstagramIcon: Icons.Instagram,
+  Route: Icons.Route,
+  Cloud: Icons.Cloud,
+  Lightbulb: Icons.Lightbulb,
+  Gauge: Icons.Gauge,
+  Link: Icons.Link,
+  CheckCircle: Icons.CheckCircle,
+};
+
+const getIcon = (iconName: DashboardIconName) =>
+  iconMap[iconName] || Icons.Code;
+
+const getColorClass = (color: string) => {
+  const colors: Record<string, string> = {
+    blue: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+    emerald: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    red: "bg-red-500/15 text-red-400 border-red-500/30",
+    purple: "bg-purple-500/15 text-purple-400 border-purple-500/30",
+    amber: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+  };
+  return colors[color] || "bg-accent/15 text-accent border-accent/30";
+};
 
 export default function CmsReferencePage() {
-  const features = [
-    {
-      title: "Getting Started",
-      description:
-        "Step-by-step Strapi installation with PostgreSQL, creating your first content types, and connecting to the Next.js frontend. Full developer onboarding guide.",
-      icon: Rocket,
-      href: "/dashboard/documentation/cms-reference/getting-started",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-emerald-500/10 text-emerald-400",
-    },
-    {
-      title: "Form Collections",
-      description:
-        "Strapi schema definitions for Service Requests, Contact Forms, and Quotation submissions. Copy-paste schemas with full field mappings to TypeScript interfaces.",
-      icon: FileText,
-      href: "/dashboard/documentation/cms-reference/form-collections",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-emerald-500/10 text-emerald-400",
-    },
-    {
-      title: "Content Collections",
-      description:
-        "Schemas for Articles, Tutorials, and Case Studies with rich text fields, media relations, category taxonomies, and SEO metadata. Full TypeScript interface mappings.",
-      icon: BookOpen,
-      href: "/dashboard/documentation/cms-reference/content-collections",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-blue-500/10 text-blue-400",
-    },
-    {
-      title: "Single Types",
-      description:
-        "Site-wide settings, SEO configuration, company information, and global content stored as Strapi Single Types. Schema definitions with default values.",
-      icon: FileCode,
-      href: "/dashboard/documentation/cms-reference/single-types",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-amber-500/10 text-amber-400",
-    },
-    {
-      title: "Shared Components",
-      description:
-        "Reusable Strapi components: Contact Info, UK Address, SEO Metadata, Social Links, and more. Compose these into any collection type or single type.",
-      icon: LayoutGrid,
-      href: "/dashboard/documentation/cms-reference/shared-components",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-purple-500/10 text-purple-400",
-    },
-    {
-      title: "Relationships",
-      description:
-        "Entity relationship diagrams, component composition patterns, and foreign key mappings across all content types. Architecture-level view of the data model.",
-      icon: Share2,
-      href: "/dashboard/documentation/cms-reference/relationships",
-      role: "Architect",
-      roleColor: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-      iconColor: "bg-cyan-500/10 text-cyan-400",
-    },
-  ]
+  const { header, sections, badges } = cmsRefContent;
+  const HeaderIcon = getIcon(header.icon);
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-            <Database className="h-5 w-5 text-primary" />
+            <HeaderIcon className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground text-balance">CMS Reference</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground text-balance">
+              {header.title}
+            </h1>
             <p className="text-muted-foreground text-pretty">
-              Strapi CMS schema definitions, content models, and data architecture for developers.
+              {header.description}
             </p>
           </div>
         </div>
         <div className="flex gap-2 mt-2">
-          <Badge className="text-xs bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20">Developer</Badge>
-          <Badge className="text-xs bg-blue-500/15 text-blue-400 border-blue-500/30 hover:bg-blue-500/20">Architect</Badge>
+          {badges.map((badge) => (
+            <div
+              key={badge}
+              className="text-xs px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+            >
+              {badge}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Quick stats */}
-      <div className="responsive-grid-3">
-        <Card className="border-emerald-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Content Types</CardDescription>
-            <CardTitle className="text-2xl">6</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Form + content collections and single types</p>
-          </CardContent>
-        </Card>
-        <Card className="border-blue-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Shared Components</CardDescription>
-            <CardTitle className="text-2xl">8+</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Reusable Strapi components across types</p>
-          </CardContent>
-        </Card>
-        <Card className="border-amber-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Reference Pages</CardDescription>
-            <CardTitle className="text-2xl">6</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Complete schema and relationship docs</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Feature cards */}
-      <div className="responsive-grid-2">
-        {features.map((feature) => {
-          const Icon = feature.icon
+      <div className="grid gap-6 md:grid-cols-2">
+        {sections.map((section) => {
+          const SectionIcon = getIcon(section.icon);
           return (
-            <Link key={feature.href} href={feature.href}>
-              <Card className="h-full transition-colors hover:border-primary/30 hover:bg-muted/30">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className={`flex h-9 w-9 items-center justify-center rounded-md ${feature.iconColor}`}>
-                      <Icon className="h-4 w-4" />
-                    </div>
-                    <Badge className={`text-xs ${feature.roleColor}`}>{feature.role}</Badge>
+            <Link key={section.id} href={section.href}>
+              <div
+                className={`rounded-lg border p-6 hover:border-accent/50 transition-all ${getColorClass(section.color)}`}
+              >
+                <div className="flex items-start gap-4">
+                  <SectionIcon className="h-6 w-6 shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-foreground mb-2">
+                      {section.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {section.description}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {section.role}
+                    </p>
                   </div>
-                  <CardTitle className="text-base">{feature.title}</CardTitle>
-                  <CardDescription className="text-sm text-pretty">{feature.description}</CardDescription>
-                </CardHeader>
-              </Card>
+                </div>
+              </div>
             </Link>
-          )
+          );
         })}
       </div>
-
-      {/* Architecture callout */}
-      <Card className="border-primary/20 bg-primary/5">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <Layers className="h-5 w-5 text-primary" />
-            <CardTitle className="text-base">Data Architecture</CardTitle>
-          </div>
-          <CardDescription className="text-pretty">
-            All schemas follow a consistent pattern: Strapi content types map 1:1 to TypeScript interfaces
-            on the frontend. Shared components are composed into collection types to enforce data consistency.
-            The Relationships page provides the full entity-relationship diagram.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex gap-2">
-          <Link href="/dashboard/documentation/cms-reference/relationships">
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-              <Code className="h-4 w-4" />
-              View Relationships
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
-          <Link href="/dashboard/documentation/cms-reference/getting-started">
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-              <Users className="h-4 w-4" />
-              Developer Onboarding
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
-        </CardContent>
-      </Card>
     </div>
-  )
+  );
 }

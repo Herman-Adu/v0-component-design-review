@@ -1,193 +1,192 @@
-"use client"
+"use client";
 
-import { DocPage } from "@/components/molecules/doc-page"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  BookOpen,
-  Database,
-  Globe,
-  Cog,
-  ArrowRight,
-  Users,
-  Shield,
-  BarChart3,
-} from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import * as Icons from "lucide-react";
+import stratOverviewData from "@/data/strapi-mock/dashboard/strategic-overview.json";
+import type {
+  StrategicOverviewContent,
+  DashboardIconName,
+} from "@/types/dashboard";
+
+const stratContent = stratOverviewData as StrategicOverviewContent;
+
+const iconMap: Record<
+  DashboardIconName,
+  React.ComponentType<{ className?: string }>
+> = {
+  Code: Icons.Code,
+  Database: Icons.Database,
+  Rocket: Icons.Rocket,
+  Layers: Icons.Layers,
+  Shield: Icons.Shield,
+  ShieldCheck: Icons.ShieldCheck,
+  BookOpen: Icons.BookOpen,
+  LayoutGrid: Icons.LayoutGrid,
+  Zap: Icons.Zap,
+  TestTube: Icons.TestTube,
+  ArrowRight: Icons.ArrowRight,
+  Lock: Icons.Lock,
+  HeartPulse: Icons.HeartPulse,
+  Activity: Icons.Activity,
+  SearchCheck: Icons.SearchCheck,
+  Link2: Icons.Link2,
+  ClipboardCheck: Icons.ClipboardCheck,
+  FileCheck: Icons.FileCheck,
+  Wrench: Icons.Wrench,
+  Compass: Icons.Compass,
+  FlaskConical: Icons.FlaskConical,
+  Target: Icons.Target,
+  Megaphone: Icons.Megaphone,
+  MailCheck: Icons.MailCheck,
+  Share2: Icons.Share2,
+  Users: Icons.Users,
+  BarChart3: Icons.BarChart3,
+  Settings: Icons.Settings,
+  Search: Icons.Search,
+  Globe: Icons.Globe,
+  TrendingUp: Icons.TrendingUp,
+  Building2: Icons.Building2,
+  Tag: Icons.Tag,
+  DollarSign: Icons.DollarSign,
+  LineChart: Icons.LineChart,
+  PenSquare: Icons.PenSquare,
+  Briefcase: Icons.Briefcase,
+  Palette: Icons.Palette,
+  HardDrive: Icons.HardDrive,
+  MessageSquare: Icons.MessageSquare,
+  Server: Icons.Server,
+  Clock: Icons.Clock,
+  Mail: Icons.Mail,
+  AlertCircle: Icons.AlertCircle,
+  GraduationCap: Icons.GraduationCap,
+  FileText: Icons.FileText,
+  CheckCircle2: Icons.CheckCircle2,
+  Heart: Icons.Heart,
+  Sparkles: Icons.Sparkles,
+  LinkedinIcon: Icons.Linkedin,
+  TwitterIcon: Icons.Twitter,
+  FacebookIcon: Icons.Facebook,
+  InstagramIcon: Icons.Instagram,
+  Route: Icons.Route,
+  Cloud: Icons.Cloud,
+  Lightbulb: Icons.Lightbulb,
+  Gauge: Icons.Gauge,
+  Link: Icons.Link,
+  CheckCircle: Icons.CheckCircle,
+};
+
+const getIcon = (iconName: DashboardIconName) =>
+  iconMap[iconName] || Icons.Code;
+
+const getColorClass = (color: string) => {
+  const colors: Record<string, string> = {
+    blue: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+    emerald: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    amber: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+  };
+  return colors[color] || "bg-accent/15 text-accent border-accent/30";
+};
 
 export default function StrategicOverviewPage() {
-  const sections = [
-    {
-      title: "CMS Reference",
-      description: "Strapi headless CMS: content types, form collections, single types, shared components, and relationship modelling. Everything powering the backend data layer.",
-      icon: Database,
-      href: "/dashboard/documentation/cms-reference/overview",
-      color: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-      iconColor: "bg-blue-500/10 text-blue-400",
-      pages: 7,
-      audience: "Developer / Architect",
-    },
-    {
-      title: "App Reference",
-      description: "Next.js 16 frontend: atomic component system, server vs client rendering, hydration guards, server actions, email system, security architecture, and performance caching.",
-      icon: Globe,
-      href: "/dashboard/documentation/app-reference/overview",
-      color: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-emerald-500/10 text-emerald-400",
-      pages: 9,
-      audience: "Developer / Architect",
-    },
-    {
-      title: "Infrastructure & Ops",
-      description: "API and GraphQL integration, CMS operations, testing strategy, deployment pipelines, and troubleshooting guides. Production-ready operational knowledge.",
-      icon: Cog,
-      href: "/dashboard/documentation/infrastructure-and-ops/overview",
-      color: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-      iconColor: "bg-amber-500/10 text-amber-400",
-      pages: 6,
-      audience: "Developer / DevOps / CTO",
-    },
-  ]
-
-  const audiences = [
-    {
-      title: "For Developers",
-      icon: BookOpen,
-      description: "Start with Getting Started in any section. Build features using CMS Reference for data, App Reference for UI, and Infrastructure for deployment.",
-      action: "Start Building",
-      href: "/dashboard/documentation/app-reference/getting-started",
-    },
-    {
-      title: "For CTOs & Architects",
-      icon: BarChart3,
-      description: "Review Why Strapi for the CMS business case, then App Overview for architecture decisions. Check Security Architecture and Performance for compliance.",
-      action: "Review Architecture",
-      href: "/dashboard/documentation/strategic-overview/why-strapi",
-    },
-    {
-      title: "For New Team Members",
-      icon: Users,
-      description: "Start with this overview, then follow Getting Started in each section. The documentation mirrors the codebase structure for easy navigation.",
-      action: "Get Oriented",
-      href: "/dashboard/documentation/strategic-overview/getting-started",
-    },
-  ]
+  const { header, sections, audiences, badges } = stratContent;
+  const HeaderIcon = getIcon(header.icon);
 
   return (
-    <DocPage
-      title="Strategic Overview"
-      description="High-level guide to the documentation system. Understand what is covered, how it is organised, and where to start based on your role."
-      badges={[
-        { label: "Navigation Hub", variant: "default" },
-        { label: "All Roles", variant: "outline" },
-      ]}
-      meta={[
-        { label: "Audience", value: "All Roles" },
-        { label: "Last Updated", value: "2026-02-11" },
-      ]}
-    >
-      <section id="documentation-sections">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Documentation Sections</h2>
-        <p className="text-muted-foreground mb-8 leading-relaxed">
-          {"The documentation is split into three reference sections, each covering a distinct layer of the application. Every section follows the same structure: Overview, Getting Started, then detailed topic pages."}
-        </p>
-        <div className="responsive-grid-3">
-          {sections.map((section) => (
-            <Card key={section.title} className="responsive-card bg-card border-border hover:border-primary/30 transition-colors">
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`p-2 rounded-lg ${section.iconColor}`}>
-                    <section.icon className="h-5 w-5" />
-                  </div>
-                  <Badge variant="outline" className="text-xs">{section.pages} pages</Badge>
-                </div>
-                <CardTitle className="text-lg">{section.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="responsive-card-content space-y-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">{section.description}</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <Badge variant="outline" className={`text-truncate-responsive ${section.color}`}>{section.audience}</Badge>
-                  <Link href={section.href}>
-                    <Button variant="ghost" size="sm" className="gap-1">
-                      {"Explore"} <ArrowRight className="h-3 w-3" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+    <div className="space-y-8">
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+            <HeaderIcon className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground text-balance">
+              {header.title}
+            </h1>
+            <p className="text-muted-foreground text-pretty">
+              {header.description}
+            </p>
+          </div>
         </div>
-      </section>
-
-      <section id="by-audience" className="mt-12">
-        <h2 className="text-2xl font-bold text-foreground mb-6">By Audience</h2>
-        <div className="responsive-grid-3">
-          {audiences.map((audience) => (
-            <Card key={audience.title} className="responsive-card bg-card border-border">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                    <audience.icon className="h-5 w-5" />
-                  </div>
-                  <CardTitle className="text-base">{audience.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="responsive-card-content space-y-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">{audience.description}</p>
-                <Link href={audience.href} className="mt-auto">
-                  <Button variant="outline" size="sm" className="w-full gap-1 bg-transparent">
-                    {audience.action} <ArrowRight className="h-3 w-3" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <section id="how-docs-are-organised" className="mt-12">
-        <h2 className="text-2xl font-bold text-foreground mb-6">How Docs Are Organised</h2>
-        <Card className="bg-card border-border">
-          <CardContent className="pt-6">
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">
-                  <Shield className="h-4 w-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">Consistent Structure</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {"Every section starts with an Overview (what it covers) and Getting Started (how to begin). Topic pages follow with detailed implementation guidance, code examples, and architecture decisions."}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0">
-                  <BookOpen className="h-4 w-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">Real Code, Not Theory</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {"Every code example references actual files in this codebase. Patterns are drawn from production implementations, not theoretical best practices."}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 shrink-0">
-                  <Users className="h-4 w-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">Role-Based Navigation</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {"Each page indicates its target audience (Developer, Architect, CTO). Use the sidebar to browse by section, or follow the audience paths above to find relevant content quickly."}
-                  </p>
-                </div>
-              </div>
+        <div className="flex gap-2 mt-2">
+          {badges.map((badge) => (
+            <div
+              key={badge}
+              className="text-xs px-3 py-1 rounded-full bg-accent/15 text-accent border border-accent/30"
+            >
+              {badge}
             </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
+      </div>
+
+      <section>
+        <h2 className="text-2xl font-bold text-foreground mb-6">
+          Documentation Sections
+        </h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          {sections.map((section) => {
+            const SectionIcon = getIcon(section.icon);
+            return (
+              <Link key={section.id} href={section.href}>
+                <div
+                  className={`rounded-lg border p-6 hover:border-accent/50 transition-all h-full ${getColorClass(section.color)}`}
+                >
+                  <div className="flex items-start gap-4">
+                    <SectionIcon className="h-6 w-6 shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-2">
+                        {section.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {section.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs text-muted-foreground">
+                          {section.pages} pages
+                        </p>
+                        <p className="text-xs text-muted-foreground font-medium">
+                          {section.audience}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </section>
-    </DocPage>
-  )
+
+      <section>
+        <h2 className="text-2xl font-bold text-foreground mb-6">
+          Where to Start
+        </h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          {audiences.map((pathway) => {
+            const PathwayIcon = getIcon(pathway.icon);
+            return (
+              <div
+                key={pathway.id}
+                className="rounded-lg border border-border bg-card p-6"
+              >
+                <PathwayIcon className="h-8 w-8 text-accent mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-3">
+                  {pathway.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  {pathway.description}
+                </p>
+                <Link
+                  href={pathway.href}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
+                >
+                  {pathway.action} <Icons.ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
 }

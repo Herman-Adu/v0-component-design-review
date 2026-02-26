@@ -1,0 +1,83 @@
+{
+  "header": {
+    "title": "Articles & Insights",
+    "description": "In-depth technical articles covering architecture, security, testing, DevOps, accessibility, and business strategy. Content is organised by skill level so you can start where you are comfortable and progress at your own pace."
+  },
+  "stats": [
+    {
+      "level": "beginner",
+      "icon": "GraduationCap",
+      "count": 10,
+      "color": "green"
+    },
+    {
+      "level": "intermediate",
+      "icon": "BookOpen",
+      "count": 12,
+      "color": "yellow"
+    },
+    {
+      "level": "advanced",
+      "icon": "Zap",
+      "count": 7,
+      "color": "red"
+    }
+  ],
+  "categories": [
+    {
+      "id": "architecture",
+      "title": "Architecture",
+      "color": "blue"
+    },
+    {
+      "id": "security",
+      "title": "Security",
+      "color": "red"
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "color": "purple"
+    },
+    {
+      "id": "performance",
+      "title": "Performance",
+      "color": "green"
+    },
+    {
+      "id": "best-practices",
+      "title": "Best Practices",
+      "color": "accent"
+    },
+    {
+      "id": "rendering",
+      "title": "Rendering",
+      "color": "cyan"
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "color": "emerald"
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility",
+      "color": "indigo"
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "color": "orange"
+    },
+    {
+      "id": "devops",
+      "title": "DevOps",
+      "color": "pink"
+    },
+    {
+      "id": "ai-tooling",
+      "title": "AI Tooling",
+      "color": "violet"
+    }
+  ]
+}

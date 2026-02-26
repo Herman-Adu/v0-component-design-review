@@ -1,0 +1,585 @@
+{
+  "meta": {
+    "slug": "performance-budgets-for-nextjs",
+    "title": "Performance Budgets for Next.js: What to Measure and Why",
+    "excerpt": "Establish performance budgets for your Next.js application. Learn which metrics matter, how to measure them, and how to prevent performance regressions as your codebase grows.",
+    "level": "intermediate",
+    "category": "performance",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "performance",
+      "web-vitals",
+      "lighthouse",
+      "bundle-size",
+      "next.js",
+      "monitoring",
+      "optimization"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "why-budgets",
+      "title": "Why Performance Budgets Matter",
+      "level": 2
+    },
+    { "id": "what-to-measure", "title": "What to Measure", "level": 2 },
+    {
+      "id": "core-web-vitals",
+      "title": "Core Web Vitals Deep Dive",
+      "level": 2
+    },
+    { "id": "setting-targets", "title": "Setting Budget Targets", "level": 2 },
+    { "id": "measurement-tools", "title": "Measurement Tools", "level": 2 },
+    { "id": "enforcement", "title": "Enforcing Budgets in CI", "level": 2 },
+    {
+      "id": "nextjs-optimisations",
+      "title": "Next.js Optimisations",
+      "level": 2
+    },
+    { "id": "monitoring", "title": "Ongoing Monitoring", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "info",
+        "content": "A performance budget is a threshold for metrics that affect user experience. Without one, performance degrades gradually until users leave. With one, every pull request is measured against a defined standard before it can ship."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Why Performance Budgets Matter",
+        "id": "why-budgets"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Performance is not a feature you add later -- it is a constraint you design around from day one. Studies consistently show that page load time directly impacts conversion rates, bounce rates, and user satisfaction. A performance budget makes this constraint explicit and measurable."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "1s Delay Impact",
+            "value": "-7%",
+            "description": "Conversion rate",
+            "positive": false
+          },
+          {
+            "label": "3s Load Time",
+            "value": "53%",
+            "description": "Mobile bounce rate",
+            "positive": false
+          },
+          {
+            "label": "LCP Target",
+            "value": "2.5s",
+            "description": "Google threshold",
+            "positive": true
+          },
+          {
+            "label": "Bundle Budget",
+            "value": "200KB",
+            "description": "JS first-load",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Without a budget, performance degrades through what we call \"death by a thousand cuts\" -- each developer adds a small dependency, a slightly larger image, one more API call. Individually harmless, collectively catastrophic. A budget creates a shared constraint that forces trade-off conversations before code is merged."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Performance Budget Enforcement Flow",
+        "nodes": [
+          {
+            "id": "push",
+            "label": "Developer Push",
+            "description": "Code committed"
+          },
+          {
+            "id": "build",
+            "label": "CI Build",
+            "description": "Next.js build runs"
+          },
+          {
+            "id": "audit",
+            "label": "Lighthouse CI",
+            "description": "Metrics collected"
+          },
+          {
+            "id": "check",
+            "label": "Budget Check",
+            "description": "Pass/fail gate"
+          },
+          {
+            "id": "result",
+            "label": "Deploy / Block",
+            "description": "Based on result"
+          }
+        ],
+        "flow": "horizontal"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "What to Measure",
+        "id": "what-to-measure"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Not all metrics are equally important. Focus on metrics that directly correlate with user experience, not vanity metrics like total page weight alone. The three most important Core Web Vitals are:"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 3,
+        "features": [
+          {
+            "title": "LCP (Loading)",
+            "description": "How fast content appears. Largest Contentful Paint measures when the main content is visible. Users perceive this as \"did my site load?\""
+          },
+          {
+            "title": "INP (Interactivity)",
+            "description": "How responsive pages feel. Interaction to Next Paint measures lag from click to response. Users perceive this as \"is my site frozen?\""
+          },
+          {
+            "title": "CLS (Stability)",
+            "description": "Whether content shifts unexpectedly. Cumulative Layout Shift destroys user trust -- clicking a button that moves causes accidental actions."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Core Web Vitals Deep Dive",
+        "id": "core-web-vitals"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Google uses three Core Web Vitals as ranking signals. Understanding what each measures and what causes regressions is essential for setting meaningful budgets."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Core Web Vitals Thresholds",
+        "headers": [
+          "Metric",
+          "Good",
+          "Needs Improvement",
+          "Poor",
+          "What It Measures"
+        ],
+        "rows": [
+          [
+            "LCP",
+            "< 2.5s",
+            "2.5s - 4.0s",
+            "> 4.0s",
+            "When main content is visible"
+          ],
+          [
+            "INP",
+            "< 200ms",
+            "200ms - 500ms",
+            "> 500ms",
+            "Responsiveness to user input"
+          ],
+          [
+            "CLS",
+            "< 0.1",
+            "0.1 - 0.25",
+            "> 0.25",
+            "Visual stability during load"
+          ],
+          [
+            "FCP",
+            "< 1.8s",
+            "1.8s - 3.0s",
+            "> 3.0s",
+            "First visual content appears"
+          ],
+          ["TTFB", "< 800ms", "800ms - 1.8s", "> 1.8s", "Server response time"],
+          ["TBT", "< 200ms", "200ms - 600ms", "> 600ms", "Main thread blocking"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "LCP: The Most Important Metric"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "LCP measures when the largest content element (hero image, heading, video poster) becomes visible. It is the closest proxy to \"when does the page feel loaded?\" Common LCP killers in Next.js applications include unoptimised images, render-blocking CSS, and slow server responses."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "LCP Optimisation Checklist",
+        "steps": [
+          {
+            "title": "Optimise Server Response",
+            "description": "Use SSG/ISR for cacheable pages. Target TTFB < 200ms for static content, < 800ms for dynamic."
+          },
+          {
+            "title": "Eliminate Render-Blocking Resources",
+            "description": "Inline critical CSS. Defer non-critical stylesheets. Use next/font for zero-layout-shift font loading."
+          },
+          {
+            "title": "Optimise LCP Element",
+            "description": "Use next/image with priority prop for hero images. Preload LCP images. Use responsive srcSet for correct sizing."
+          },
+          {
+            "title": "Avoid Client-Side Rendering for LCP",
+            "description": "If your LCP element depends on client-side data fetching, it cannot render until JS loads, parses, and executes. Use Server Components."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Setting Budget Targets",
+        "id": "setting-targets"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Budget targets should be based on your current performance plus a safety margin, not arbitrary ideals. Measure your baseline first, then set budgets that prevent regression while allowing for gradual improvement."
+      }
+    },
+    {
+      "type": "organism.decisionTree",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Budget Target Decision Framework",
+        "decisions": [
+          {
+            "condition": "New project?",
+            "result": "Start with industry best practices",
+            "recommended": true
+          },
+          {
+            "condition": "Existing project?",
+            "result": "Measure current baseline, set budget at baseline + 10% headroom"
+          },
+          {
+            "condition": "Marketing / Landing page?",
+            "result": "Strictest budgets: LCP < 2.0s, JS < 150KB",
+            "recommended": true
+          },
+          {
+            "condition": "App / Dashboard page?",
+            "result": "Moderate budgets: LCP < 3.0s, JS < 300KB"
+          },
+          {
+            "condition": "Documentation page?",
+            "result": "Static budgets: LCP < 1.5s, JS < 100KB"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Recommended Budget Targets by Page Type",
+        "headers": [
+          "Metric",
+          "Marketing Page",
+          "App Dashboard",
+          "Documentation",
+          "E-Commerce"
+        ],
+        "rows": [
+          [
+            "JS Bundle (first load)",
+            "< 150KB",
+            "< 300KB",
+            "< 100KB",
+            "< 200KB"
+          ],
+          ["Total Page Weight", "< 1MB", "< 2MB", "< 500KB", "< 1.5MB"],
+          ["LCP", "< 2.0s", "< 3.0s", "< 1.5s", "< 2.5s"],
+          ["INP", "< 100ms", "< 200ms", "< 100ms", "< 150ms"],
+          ["CLS", "< 0.05", "< 0.1", "< 0.05", "< 0.1"],
+          ["Image Count", "< 10", "< 20", "< 5", "< 15"],
+          ["Third-Party Scripts", "< 3", "< 5", "0", "< 4"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Measurement Tools",
+        "id": "measurement-tools"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Lab Measurement",
+        "leftItems": [
+          "Consistent results",
+          "Part of CI/CD pipeline",
+          "Catches regressions early",
+          "Free (Lighthouse)"
+        ],
+        "rightTitle": "Field Measurement",
+        "rightItems": [
+          "Real user experience data",
+          "Diverse devices and networks",
+          "Geographic variety",
+          "Catches real-world issues"
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "tip",
+        "content": "Use both. Lab measurement in CI to prevent regressions. Field measurement in production to validate that lab results match reality. If they diverge significantly, your lab setup does not reflect your actual user base."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lighthouse-ci.config.js",
+        "language": "javascript",
+        "code": "// .lighthouserc.js\nmodule.exports = {\n  ci: {\n    collect: {\n      url: [\n        'http://localhost:3000/',           // Homepage\n        'http://localhost:3000/services',   // Service page\n        'http://localhost:3000/dashboard',  // App dashboard\n      ],\n      numberOfRuns: 3, // Run 3 times, use median\n      startServerCommand: 'npm run start',\n    },\n    assert: {\n      assertions: {\n        'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],\n        'interactive': ['error', { maxNumericValue: 3800 }],\n        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],\n        'total-byte-weight': ['warning', { maxNumericValue: 1000000 }],\n      },\n    },\n  },\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Enforcing Budgets in CI",
+        "id": "enforcement"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "A budget that is not enforced is a suggestion. Integrate performance checks into your CI pipeline so that budget violations block deployment. This makes performance a first-class concern alongside tests and type checking."
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "steps": [
+          {
+            "number": 1,
+            "title": "Build",
+            "description": "Next.js production build"
+          },
+          {
+            "number": 2,
+            "title": "Serve",
+            "description": "Start production server"
+          },
+          { "number": 3, "title": "Audit", "description": "Run Lighthouse CI" },
+          {
+            "number": 4,
+            "title": "Assert",
+            "description": "Check against budgets"
+          },
+          { "number": 5, "title": "Report", "description": "Comment on PR" }
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Without Budget Enforcement",
+        "leftItems": [
+          "Bundle grows 5-10KB per sprint unnoticed",
+          "LCP regresses gradually over months",
+          "Performance issues found by users in production",
+          "No accountability for performance impact",
+          "Reactive fixes after damage is done"
+        ],
+        "rightTitle": "With Budget Enforcement",
+        "rightItems": [
+          "Every PR shows exact bundle size impact",
+          "LCP regressions caught before merge",
+          "Performance issues blocked at CI gate",
+          "Developers consider performance during development",
+          "Proactive optimisation built into workflow"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Next.js Performance Optimisations",
+        "id": "nextjs-optimisations"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Next.js provides built-in performance features, but they require correct configuration. Here are the high-impact optimisations that directly affect budget metrics."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "title": "Image Optimisation",
+            "description": "next/image automatically serves WebP/AVIF, resizes per viewport, and lazy-loads below the fold. Use the priority prop on LCP images to preload them.",
+            "items": [
+              "Use next/image for all images",
+              "Set priority on hero/LCP images",
+              "Provide width and height to prevent CLS"
+            ]
+          },
+          {
+            "title": "Font Optimisation",
+            "description": "next/font eliminates layout shift from font loading by using CSS size-adjust. Fonts are self-hosted at build time, eliminating external network requests.",
+            "items": [
+              "Use next/font/google or next/font/local",
+              "Never load fonts from external CDNs",
+              "Use display: swap for text visibility"
+            ]
+          },
+          {
+            "title": "Bundle Analysis",
+            "description": "Use @next/bundle-analyzer to visualise what code ships to the client. Identify oversized dependencies and find tree-shaking opportunities.",
+            "items": [
+              "Run: ANALYZE=true next build",
+              "Check for duplicate dependencies",
+              "Verify tree-shaking works for large libs"
+            ]
+          },
+          {
+            "title": "Rendering Strategy",
+            "description": "Choose the right rendering per route. SSG for static content, ISR for semi-dynamic, SSR for personalised.",
+            "items": [
+              "SSG for docs, marketing, blog",
+              "ISR for product pages, listings",
+              "SSR for dashboards, personalised content"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "08",
+        "title": "Ongoing Monitoring",
+        "id": "monitoring"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Budgets in CI catch regressions before they ship. Monitoring in production catches issues that lab testing misses: slow networks, old devices, geographic latency, and third-party script performance. Both are necessary."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Monitoring Implementation Stages",
+        "steps": [
+          {
+            "title": "Stage 1: CI Budget Gates",
+            "description": "Lighthouse CI runs on every PR. Budget violations block merge. This is your first line of defence and catches 80% of regressions."
+          },
+          {
+            "title": "Stage 2: Synthetic Monitoring",
+            "description": "Scheduled Lighthouse runs against production. Catches regressions from config changes, CDN issues, and third-party script updates that CI cannot detect."
+          },
+          {
+            "title": "Stage 3: Real User Monitoring (RUM)",
+            "description": "Collect Core Web Vitals from actual users via the web-vitals library. Segmented by device, geography, and connection type. The ground truth."
+          },
+          {
+            "title": "Stage 4: Alerting & Dashboards",
+            "description": "Set threshold alerts on field metrics. If p75 LCP exceeds 3s for 24 hours, trigger an alert. Build dashboards showing trends over time."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "09",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "content": "Performance budgets transform performance from a vague aspiration into an engineering constraint with clear thresholds, automated enforcement, and measurable outcomes. Start with three metrics (LCP, CLS, JS bundle size), enforce them in CI, and expand from there. The budget itself is less important than the process it creates -- forcing developers to consider performance impact before code is merged."
+      }
+    }
+  ]
+}

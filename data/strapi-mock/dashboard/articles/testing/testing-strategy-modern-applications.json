@@ -1,0 +1,407 @@
+{
+  "meta": {
+    "slug": "testing-strategy-modern-applications",
+    "title": "Testing Strategy for Modern Web Applications",
+    "excerpt": "A comprehensive testing pyramid approach for Next.js applications with practical examples",
+    "level": "intermediate",
+    "category": "testing",
+    "readTime": "16 min",
+    "publishedAt": "2026-02-25",
+    "tags": ["testing", "jest", "playwright", "rtl", "tdd", "quality"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "testing-pyramid", "title": "The Testing Pyramid", "level": 2 },
+    { "id": "unit-testing", "title": "Unit Testing with Vitest", "level": 2 },
+    {
+      "id": "integration-testing",
+      "title": "Integration Testing with RTL",
+      "level": 2
+    },
+    { "id": "e2e-testing", "title": "E2E Testing with Playwright", "level": 2 },
+    { "id": "coverage-targets", "title": "Coverage Targets", "level": 2 },
+    { "id": "testing-philosophy", "title": "Testing Philosophy", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": null,
+        "body": "A robust testing strategy is non-negotiable for production applications. Tests are not about proving your code works - they are about enabling confident changes and catching regressions before users do."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Testing Pyramid",
+        "id": "testing-pyramid"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The testing pyramid guides investment in different test types. More tests at the base (fast, isolated) and fewer at the top (slow, integrated) provides the best balance of confidence and maintenance cost."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Testing Pyramid Structure",
+        "layers": [
+          {
+            "name": "E2E Tests (10%)",
+            "items": [
+              "Critical user journeys",
+              "Cross-browser",
+              "Real environment"
+            ],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Integration Tests (20%)",
+            "items": [
+              "Component interactions",
+              "API handlers",
+              "Database operations"
+            ],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Unit Tests (70%)",
+            "items": [
+              "Pure functions",
+              "Utilities",
+              "Business logic",
+              "Fast & isolated"
+            ],
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Unit Tests",
+            "value": "70%",
+            "change": "Fast, < 1ms each",
+            "positive": true
+          },
+          {
+            "label": "Integration",
+            "value": "20%",
+            "change": "Medium, < 100ms each",
+            "positive": true
+          },
+          {
+            "label": "E2E Tests",
+            "value": "10%",
+            "change": "Slow, < 10s each",
+            "positive": true
+          },
+          {
+            "label": "Total Coverage",
+            "value": "80%+",
+            "change": "Meaningful coverage",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Unit Testing with Vitest",
+        "id": "unit-testing"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Unit tests verify individual functions and modules in isolation. They should be fast enough to run on every file save and provide immediate feedback during development."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "code",
+            "title": "Pure Functions",
+            "description": "Validation logic, formatters, calculators, transformers"
+          },
+          {
+            "icon": "database",
+            "title": "Business Logic",
+            "description": "Domain rules, state machines, data transformations"
+          },
+          {
+            "icon": "shield",
+            "title": "Utility Functions",
+            "description": "String manipulation, date handling, type guards"
+          },
+          {
+            "icon": "layers",
+            "title": "Custom Hooks",
+            "description": "State logic, side effects, data fetching hooks"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/validation.test.ts",
+        "code": "import { describe, it, expect } from \"vitest\"\nimport { validateEmail, sanitizeInput, validatePhoneUK } from \"./validation\"\n\ndescribe(\"validateEmail\", () => {\n  it(\"accepts valid email addresses\", () => {\n    expect(validateEmail(\"user@example.com\")).toBe(true)\n    expect(validateEmail(\"name+tag@domain.co.uk\")).toBe(true)\n    expect(validateEmail(\"test.email@subdomain.example.org\")).toBe(true)\n  })\n\n  it(\"rejects invalid email addresses\", () => {\n    expect(validateEmail(\"invalid\")).toBe(false)\n    expect(validateEmail(\"@nodomain.com\")).toBe(false)\n    expect(validateEmail(\"spaces in@email.com\")).toBe(false)\n    expect(validateEmail(\"\")).toBe(false)\n  })\n})\n\ndescribe(\"sanitizeInput\", () => {\n  it(\"escapes HTML entities to prevent XSS\", () => {\n    expect(sanitizeInput('<script>alert(\"xss\")</script>'))\n      .toBe('&lt;script&gt;alert(\"xss\")&lt;/script&gt;')\n  })\n\n  it(\"preserves safe content\", () => {\n    expect(sanitizeInput(\"Hello, World!\")).toBe(\"Hello, World!\")\n    expect(sanitizeInput(\"Price: £100\")).toBe(\"Price: £100\")\n  })\n})\n\ndescribe(\"validatePhoneUK\", () => {\n  it(\"accepts valid UK phone numbers\", () => {\n    expect(validatePhoneUK(\"07700 900000\")).toBe(true)\n    expect(validatePhoneUK(\"+44 7700 900000\")).toBe(true)\n    expect(validatePhoneUK(\"020 7946 0958\")).toBe(true)\n  })\n\n  it(\"rejects invalid formats\", () => {\n    expect(validatePhoneUK(\"123\")).toBe(false)\n    expect(validatePhoneUK(\"not-a-phone\")).toBe(false)\n  })\n})"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Testing Boundaries",
+        "body": "Focus unit tests on logic, not implementation details. If refactoring forces you to change tests that did not change behavior, your tests are too tightly coupled."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Integration Testing with RTL",
+        "id": "integration-testing"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Integration tests verify that components work together correctly. React Testing Library encourages testing from the user perspective rather than implementation details."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Behavior Testing (RTL)",
+        "notIdealTitle": "Implementation Testing",
+        "idealFor": [
+          "Testing what users see and do",
+          "Query by role, label, text",
+          "Verify outcomes not mechanics",
+          "Survives refactoring"
+        ],
+        "notIdealFor": [
+          "Testing internal state directly",
+          "Checking prop values passed",
+          "Verifying function calls count",
+          "Brittle to refactoring"
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/contact-form.test.tsx",
+        "code": "import { render, screen, waitFor } from \"@testing-library/react\"\nimport userEvent from \"@testing-library/user-event\"\nimport { describe, it, expect, vi } from \"vitest\"\nimport { ContactForm } from \"./contact-form\"\n\ndescribe(\"ContactForm\", () => {\n  it(\"submits valid form data\", async () => {\n    const onSubmit = vi.fn()\n    render(<ContactForm onSubmit={onSubmit} />)\n\n    // Fill out the form using accessible queries\n    await userEvent.type(\n      screen.getByLabelText(/email/i),\n      \"test@example.com\"\n    )\n    await userEvent.type(\n      screen.getByLabelText(/message/i),\n      \"Hello, I have a question about your services.\"\n    )\n\n    // Submit the form\n    await userEvent.click(\n      screen.getByRole(\"button\", { name: /submit/i })\n    )\n\n    // Verify the outcome\n    await waitFor(() => {\n      expect(onSubmit).toHaveBeenCalledWith({\n        email: \"test@example.com\",\n        message: \"Hello, I have a question about your services.\",\n      })\n    })\n  })\n\n  it(\"displays validation errors for invalid input\", async () => {\n    render(<ContactForm onSubmit={vi.fn()} />)\n\n    // Submit without filling required fields\n    await userEvent.click(\n      screen.getByRole(\"button\", { name: /submit/i })\n    )\n\n    // Check for error messages\n    expect(await screen.findByText(/email is required/i)).toBeInTheDocument()\n    expect(await screen.findByText(/message is required/i)).toBeInTheDocument()\n  })\n\n  it(\"disables submit button while submitting\", async () => {\n    const slowSubmit = vi.fn(() => new Promise((r) => setTimeout(r, 100)))\n    render(<ContactForm onSubmit={slowSubmit} />)\n\n    await userEvent.type(screen.getByLabelText(/email/i), \"test@example.com\")\n    await userEvent.type(screen.getByLabelText(/message/i), \"Test message\")\n    await userEvent.click(screen.getByRole(\"button\", { name: /submit/i }))\n\n    // Button should be disabled during submission\n    expect(screen.getByRole(\"button\", { name: /submitting/i })).toBeDisabled()\n  })\n})"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "E2E Testing with Playwright",
+        "id": "e2e-testing"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "End-to-end tests verify complete user journeys through the application. They run against a real browser and catch issues that unit and integration tests miss."
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "What to E2E Test",
+        "steps": [
+          {
+            "label": "Critical Paths",
+            "sublabel": "Registration, checkout, core workflows"
+          },
+          {
+            "label": "Cross-Browser",
+            "sublabel": "Chrome, Firefox, Safari, mobile"
+          },
+          { "label": "Happy Paths", "sublabel": "Primary success scenarios" },
+          {
+            "label": "Error Recovery",
+            "sublabel": "Network failures, edge cases",
+            "color": "yellow"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "e2e/contact-flow.spec.ts",
+        "code": "import { test, expect } from \"@playwright/test\"\n\ntest.describe(\"Contact Form Flow\", () => {\n  test(\"completes multi-step contact submission\", async ({ page }) => {\n    // Navigate to contact page\n    await page.goto(\"/contact\")\n    \n    // Step 1: Select contact type\n    await page.getByRole(\"button\", { name: /general enquiry/i }).click()\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    \n    // Step 2: Fill contact information\n    await page.getByLabel(/first name/i).fill(\"John\")\n    await page.getByLabel(/last name/i).fill(\"Doe\")\n    await page.getByLabel(/email/i).fill(\"john@example.com\")\n    await page.getByLabel(/phone/i).fill(\"07700 900000\")\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    \n    // Step 3: Enter message\n    await page.getByLabel(/message/i).fill(\"I would like to learn more about your services.\")\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    \n    // Step 4: Review and submit\n    await expect(page.getByText(\"John Doe\")).toBeVisible()\n    await expect(page.getByText(\"john@example.com\")).toBeVisible()\n    await page.getByRole(\"button\", { name: /submit/i }).click()\n    \n    // Verify success state\n    await expect(\n      page.getByRole(\"heading\", { name: /thank you/i })\n    ).toBeVisible()\n  })\n\n  test(\"handles validation errors gracefully\", async ({ page }) => {\n    await page.goto(\"/contact\")\n    \n    // Try to proceed without selecting contact type\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    \n    // Should show validation error\n    await expect(\n      page.getByText(/please select a contact type/i)\n    ).toBeVisible()\n  })\n\n  test(\"preserves form state on navigation\", async ({ page }) => {\n    await page.goto(\"/contact\")\n    \n    // Fill some data\n    await page.getByRole(\"button\", { name: /general enquiry/i }).click()\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    await page.getByLabel(/first name/i).fill(\"John\")\n    \n    // Navigate back\n    await page.getByRole(\"button\", { name: /back/i }).click()\n    await page.getByRole(\"button\", { name: /next/i }).click()\n    \n    // Data should be preserved\n    await expect(page.getByLabel(/first name/i)).toHaveValue(\"John\")\n  })\n})"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Coverage Targets",
+        "id": "coverage-targets"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Coverage metrics guide testing investment but are not goals in themselves. High coverage with poor test quality is worse than moderate coverage with meaningful tests."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Recommended Coverage Targets",
+        "headers": ["Area", "Target", "Priority", "Notes"],
+        "rows": [
+          [
+            "Utility Functions",
+            "95%+",
+            "Critical",
+            "Pure functions should be fully tested"
+          ],
+          [
+            "Business Logic",
+            "90%+",
+            "Critical",
+            "Domain rules must be verified"
+          ],
+          ["Components", "80%+", "High", "Focus on behavior, not snapshots"],
+          [
+            "Pages/Routes",
+            "70%+",
+            "Medium",
+            "Covered largely by integration tests"
+          ],
+          [
+            "E2E Critical Paths",
+            "100%",
+            "Critical",
+            "All revenue-generating flows"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Coverage Pitfalls",
+        "body": "Do not chase 100% coverage for its own sake. Some code (error boundaries, third-party integrations) may be better tested manually. Focus coverage efforts where bugs are most costly."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Testing Philosophy",
+        "id": "testing-philosophy"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "users",
+            "title": "Test Behavior, Not Implementation",
+            "description": "Tests should survive refactoring if behavior stays the same"
+          },
+          {
+            "icon": "zap",
+            "title": "Fast Feedback Loops",
+            "description": "Tests run frequently are tests that catch bugs early"
+          },
+          {
+            "icon": "shield",
+            "title": "Test at the Right Level",
+            "description": "Unit for logic, integration for composition, E2E for journeys"
+          },
+          {
+            "icon": "target",
+            "title": "Meaningful Assertions",
+            "description": "Each test should verify something a user would care about"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Test behavior, not implementation. Focus on what users experience, not internal details. A well-structured testing pyramid with meaningful assertions at each level enables confident changes and catches regressions before they reach production."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "href": "/dashboard/content-library/articles/cicd-deployment-pipelines",
+            "title": "CI/CD Deployment Pipelines",
+            "level": "advanced"
+          },
+          {
+            "href": "/dashboard/content-library/articles/security-architecture-deep-dive",
+            "title": "Security Architecture Deep Dive",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

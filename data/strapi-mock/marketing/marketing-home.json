@@ -1,0 +1,83 @@
+{
+  "hero": {
+    "badge": {
+      "icon": "Zap",
+      "text": "Trusted Electrical Professionals"
+    },
+    "title": "Powering Homes & Businesses with Excellence",
+    "description": "Professional electrical services you can trust. From residential repairs to commercial installations, we deliver safe, reliable, and efficient solutions.",
+    "primaryCta": {
+      "label": "Our Services",
+      "href": "/services",
+      "icon": "Zap"
+    },
+    "secondaryCta": {
+      "label": "Get a Free Quote",
+      "href": "/quotation",
+      "icon": "ArrowRight"
+    }
+  },
+  "servicesOverview": {
+    "title": "What We Do",
+    "description": "Comprehensive electrical solutions for every sector",
+    "items": [
+      {
+        "title": "Residential",
+        "description": "Home rewiring, panel upgrades, lighting, and smart home installations.",
+        "icon": "Home"
+      },
+      {
+        "title": "Commercial",
+        "description": "Office fit-outs, energy audits, lighting retrofits, and data cabling.",
+        "icon": "Building2"
+      },
+      {
+        "title": "Industrial",
+        "description": "3-phase power, motor controls, PLC systems, and preventive maintenance.",
+        "icon": "Factory"
+      }
+    ],
+    "cta": {
+      "label": "View All Services",
+      "href": "/services",
+      "icon": "ArrowRight"
+    }
+  },
+  "trustIndicators": {
+    "items": [
+      {
+        "value": "24/7",
+        "label": "Emergency Service",
+        "icon": "Clock"
+      },
+      {
+        "value": "100%",
+        "label": "Satisfaction Guaranteed",
+        "icon": "ShieldCheck"
+      },
+      {
+        "value": "15+ Years",
+        "label": "Industry Experience",
+        "icon": "Award"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Get Started?",
+    "description": "Whether you need a simple repair or a complete electrical installation, our team is ready to help.",
+    "actions": [
+      {
+        "label": "Request Service",
+        "href": "/services#request-service",
+        "icon": "Zap",
+        "variant": "primary"
+      },
+      {
+        "label": "Contact Us",
+        "href": "/contact",
+        "icon": "Phone",
+        "variant": "outline"
+      }
+    ]
+  }
+}

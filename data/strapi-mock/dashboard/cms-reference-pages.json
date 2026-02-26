@@ -1,0 +1,52 @@
+{
+  "documentationSections": [
+    {
+      "id": "getting-started",
+      "slug": "getting-started",
+      "title": "Getting Started with Strapi",
+      "description": "Introduction to Strapi CMS and content modeling",
+      "icon": "Rocket",
+      "color": "green"
+    },
+    {
+      "id": "content-collections",
+      "slug": "content-collections",
+      "title": "Content Collections",
+      "description": "Understanding collection types and structure",
+      "icon": "Database",
+      "color": "blue"
+    },
+    {
+      "id": "shared-components",
+      "slug": "shared-components",
+      "title": "Shared Components",
+      "description": "Reusable components in Strapi",
+      "icon": "Layers",
+      "color": "purple"
+    },
+    {
+      "id": "relationships",
+      "slug": "relationships",
+      "title": "Relationships & Relations",
+      "description": "Connecting content across collections",
+      "icon": "Link",
+      "color": "orange"
+    },
+    {
+      "id": "form-collections",
+      "slug": "form-collections",
+      "title": "Form Collections",
+      "description": "Building dynamic forms with Strapi",
+      "icon": "FileText",
+      "color": "emerald"
+    },
+    {
+      "id": "workflows",
+      "slug": "workflows",
+      "title": "Content Workflows",
+      "description": "Managing content lifecycle and approval flows",
+      "icon": "CheckCircle2",
+      "color": "blue"
+    }
+  ]
+}

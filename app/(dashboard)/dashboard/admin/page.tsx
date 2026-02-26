@@ -1,187 +1,151 @@
-"use client"
+"use client";
 
-import {
-  ShieldCheck,
-  Share2,
-  MailCheck,
-  Users,
-  Settings,
-  BarChart3,
-  Lock,
-  HeartPulse,
-  Activity,
-  SearchCheck,
-  Link2,
-  ClipboardCheck,
-  FileCheck,
-  Wrench,
-  TrendingUp,
-  ArrowRight,
-  Compass,
-  FlaskConical,
-  Target,
-  Megaphone,
-} from "lucide-react"
-import Link from "next/link"
-import { articles } from "@/data/content-library/articles"
-import { caseStudies } from "@/data/content-library/case-studies"
-import { tutorials } from "@/data/content-library/tutorials"
+import * as Icons from "lucide-react";
+import Link from "next/link";
+import { articles } from "@/data/content-library/articles";
+import { caseStudies } from "@/data/content-library/case-studies";
+import { tutorials } from "@/data/content-library/tutorials";
+import adminOverviewData from "@/data/strapi-mock/dashboard/admin-overview.json";
+import type {
+  AdminOverviewContent,
+  DashboardIconName,
+} from "@/types/dashboard";
 
-const totalContent = articles.length + caseStudies.length + tutorials.length
+const adminContent = adminOverviewData as AdminOverviewContent;
+const totalContent = articles.length + caseStudies.length + tutorials.length;
 
-const docSystemTools = [
-  {
-    href: "/dashboard/admin/document-administration/documentation-health",
-    icon: Activity,
-    title: "Health Overview",
-    description: "System-wide health dashboard with real-time stats, coverage tracking, and changelog history.",
-    status: "Available",
-    badge: "Doc Health",
-    badgeColor: "bg-cyan-500/10 text-cyan-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/gap-analysis",
-    icon: Compass,
-    title: "Gap Analysis",
-    description: "Identify missing content areas, under-covered topics, and opportunities for new documentation.",
-    status: "Available",
-    badge: "Doc Health",
-    badgeColor: "bg-cyan-500/10 text-cyan-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/quality-engineering",
-    icon: FlaskConical,
-    title: "Doc QA Overview",
-    description: "Automated documentation quality assurance hub with 5 validation tools and remediation workflow.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/count-validation",
-    icon: SearchCheck,
-    title: "Count Validation",
-    description: "Validate that all overview pages, listing pages, and stat cards display accurate counts matching the data layer.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/route-verification",
-    icon: Link2,
-    title: "Route Verification",
-    description: "Verify every sidebar nav link, cross-reference href, and content slug resolves to an existing page.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/toc-integrity",
-    icon: ClipboardCheck,
-    title: "TOC Integrity",
-    description: "Check that every TableOfContents id matches a SectionHeader id in the DOM. Detect orphaned anchors.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/pattern-compliance",
-    icon: FileCheck,
-    title: "Pattern Compliance",
-    description: "Audit components for consistent patterns: data-driven listings, filter logic, atomic design adherence.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/fix-actions",
-    icon: Wrench,
-    title: "Fix Actions",
-    description: "One-click fixes for common issues: stale counts, missing anchors, broken cross-references.",
-    status: "Available",
-    badge: "Doc QA",
-    badgeColor: "bg-violet-500/10 text-violet-500",
-  },
-]
+// Icon mapping helper
+const iconMap: Record<
+  DashboardIconName,
+  React.ComponentType<{ className?: string }>
+> = {
+  Code: Icons.Code,
+  Database: Icons.Database,
+  Rocket: Icons.Rocket,
+  Layers: Icons.Layers,
+  Shield: Icons.Shield,
+  ShieldCheck: Icons.ShieldCheck,
+  BookOpen: Icons.BookOpen,
+  LayoutGrid: Icons.LayoutGrid,
+  Zap: Icons.Zap,
+  TestTube: Icons.TestTube,
+  ArrowRight: Icons.ArrowRight,
+  Lock: Icons.Lock,
+  HeartPulse: Icons.HeartPulse,
+  Activity: Icons.Activity,
+  SearchCheck: Icons.SearchCheck,
+  Link2: Icons.Link2,
+  ClipboardCheck: Icons.ClipboardCheck,
+  FileCheck: Icons.FileCheck,
+  Wrench: Icons.Wrench,
+  Compass: Icons.Compass,
+  FlaskConical: Icons.FlaskConical,
+  Target: Icons.Target,
+  Megaphone: Icons.Megaphone,
+  MailCheck: Icons.MailCheck,
+  Share2: Icons.Share2,
+  Users: Icons.Users,
+  BarChart3: Icons.BarChart3,
+  Settings: Icons.Settings,
+  Search: Icons.Search,
+  Globe: Icons.Globe,
+  TrendingUp: Icons.TrendingUp,
+  Building2: Icons.Building2,
+  Tag: Icons.Tag,
+  DollarSign: Icons.DollarSign,
+  LineChart: Icons.LineChart,
+  PenSquare: Icons.PenSquare,
+  Briefcase: Icons.Briefcase,
+  Palette: Icons.Palette,
+  HardDrive: Icons.HardDrive,
+  MessageSquare: Icons.MessageSquare,
+  Server: Icons.Server,
+  Clock: Icons.Clock,
+  Mail: Icons.Mail,
+  AlertCircle: Icons.AlertCircle,
+  GraduationCap: Icons.GraduationCap,
+  FileText: Icons.FileText,
+  CheckCircle2: Icons.CheckCircle2,
+  Heart: Icons.Heart,
+  Sparkles: Icons.Sparkles,
+  LinkedinIcon: Icons.Linkedin,
+  TwitterIcon: Icons.Twitter,
+  FacebookIcon: Icons.Facebook,
+  InstagramIcon: Icons.Instagram,
+  Route: Icons.Route,
+  Cloud: Icons.Cloud,
+  Lightbulb: Icons.Lightbulb,
+  Gauge: Icons.Gauge,
+  Link: Icons.Link,
+  CheckCircle: Icons.CheckCircle,
+};
 
-const contentTools = [
-  {
-    href: "/dashboard/admin/digital-marketing",
-    icon: Megaphone,
-    title: "Digital Marketing",
-    description: "Platform marketing for Google, LinkedIn, Twitter/X, and Facebook. SEO, ads, content composers, and analytics.",
-    status: "Available",
-    badge: "Marketing",
-    badgeColor: "bg-accent/10 text-accent",
-  },
-  {
-    href: "/dashboard/admin/email-preview",
-    icon: MailCheck,
-    title: "Email Preview",
-    description: "Preview and test email templates before sending to customers and business notifications.",
-    status: "Available",
-    badge: "Content",
-    badgeColor: "bg-accent/10 text-accent",
-  },
-  {
-    href: "/dashboard/admin/document-administration/documentation-health/gap-analysis",
-    icon: Target,
-    title: "Content Pipeline",
-    description: "10-pass gap analysis with review log scanning, audience coverage, and batch content pipeline.",
-    status: "Available",
-    badge: "Pipeline",
-    badgeColor: "bg-teal-500/10 text-teal-400",
-  },
-]
+const getIcon = (iconName: DashboardIconName) =>
+  iconMap[iconName] || Icons.Code;
 
-const upcomingFeatures = [
-  {
-    icon: Users,
-    title: "User Management",
-    description: "Manage user accounts, roles, and permissions for team members and administrators.",
-    status: "Coming Soon",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics Dashboard",
-    description: "Track form submissions, user engagement, and business metrics in real-time.",
-    status: "Planned",
-  },
-  {
-    icon: Settings,
-    title: "System Settings",
-    description: "Configure application settings, email providers, and integration options.",
-    status: "Planned",
-  },
-]
+// Badge color mapping
+const getBadgeColor = (color: "cyan" | "violet" | "accent" | "teal") => {
+  switch (color) {
+    case "cyan":
+      return "bg-cyan-500/10 text-cyan-500";
+    case "violet":
+      return "bg-violet-500/10 text-violet-500";
+    case "teal":
+      return "bg-teal-500/10 text-teal-400";
+    case "accent":
+      return "bg-accent/10 text-accent";
+    default:
+      return "bg-accent/10 text-accent";
+  }
+};
 
 export default function AdminOverviewPage() {
+  const {
+    header,
+    securityNotice,
+    quickStats,
+    sections,
+    upcomingFeatures,
+    cta,
+  } = adminContent;
+  const HeaderIcon = getIcon(header.icon);
+  const SecurityIcon = getIcon(securityNotice.icon);
+
+  // Resolve dynamic stat values
+  const resolvedStats = quickStats.map((stat) => ({
+    ...stat,
+    displayValue: stat.source === "content-library" ? totalContent : stat.value,
+    displayDescription:
+      stat.source === "content-library"
+        ? `${articles.length} articles, ${caseStudies.length} case studies, ${tutorials.length} tutorials`
+        : stat.description,
+  }));
+
   return (
     <div className="space-y-12">
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 rounded-lg bg-accent/10">
-            <ShieldCheck className="h-6 w-6 text-accent" />
+            <HeaderIcon className="h-6 w-6 text-accent" />
           </div>
-          <h1 className="text-4xl font-bold text-foreground">Admin Dashboard</h1>
+          <h1 className="text-4xl font-bold text-foreground">{header.title}</h1>
         </div>
         <p className="text-lg text-muted-foreground text-balance max-w-3xl">
-          Centralized administration for managing documentation health, content tools, 
-          and system settings. Run health checks, validate data integrity, and maintain 
-          the documentation library at scale.
+          {header.description}
         </p>
       </div>
 
       {/* Security Notice */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-6">
         <div className="flex items-start gap-4">
-          <Lock className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+          <SecurityIcon className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-semibold text-foreground mb-1">Authentication Required</h3>
+            <h3 className="font-semibold text-foreground mb-1">
+              {securityNotice.title}
+            </h3>
             <p className="text-sm text-muted-foreground">
-              In production, all admin features will require authentication. Role-based access control (RBAC) 
-              will restrict features based on user permissions. Currently in development mode for demonstration.
+              {securityNotice.description}
             </p>
           </div>
         </div>
@@ -189,120 +153,123 @@ export default function AdminOverviewPage() {
 
       {/* Quick Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Content Items</p>
-          <p className="text-3xl font-bold text-accent mt-1">{totalContent}</p>
-          <p className="text-xs text-muted-foreground mt-1">{articles.length} articles, {caseStudies.length} case studies, {tutorials.length} tutorials</p>
-        </div>
-        <div className="rounded-lg border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Doc Pages</p>
-          <p className="text-3xl font-bold text-foreground mt-1">35</p>
-          <p className="text-xs text-muted-foreground mt-1">Across 4 major sections</p>
-        </div>
-        <div className="rounded-lg border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Health Checks</p>
-          <p className="text-3xl font-bold text-cyan-500 mt-1">5</p>
-          <p className="text-xs text-muted-foreground mt-1">Automated validation tools</p>
-        </div>
-        <div className="rounded-lg border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Email Templates</p>
-          <p className="text-3xl font-bold text-foreground mt-1">4</p>
-          <p className="text-xs text-muted-foreground mt-1">Customer + business pairs</p>
-        </div>
-      </div>
-
-      {/* Doc System Quick Access */}
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <HeartPulse className="h-6 w-6 text-cyan-500" />
-            <h2 className="text-2xl font-semibold text-foreground">Doc System Management</h2>
-          </div>
-          <Link 
-            href="/dashboard/admin/document-administration/documentation-health"
-            className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
+        {resolvedStats.map((stat) => (
+          <div
+            key={stat.id}
+            className="rounded-lg border border-border bg-card p-5"
           >
-            View all
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {docSystemTools.map((tool) => {
-            const Icon = tool.icon
-            return (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="group rounded-lg border border-border bg-card p-6 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <Icon className="h-8 w-8 text-cyan-500" />
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${tool.badgeColor}`}>
-                    {tool.badge}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-cyan-500 transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{tool.description}</p>
-              </Link>
-            )
-          })}
-        </div>
+            <p className="text-sm text-muted-foreground">{stat.label}</p>
+            <p
+              className={`text-3xl font-bold mt-1 ${stat.id === "content-items" ? "text-accent" : "text-foreground"}`}
+            >
+              {stat.displayValue}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {stat.displayDescription}
+            </p>
+          </div>
+        ))}
       </div>
 
-      {/* Content Tools */}
-      <div>
-        <h2 className="text-2xl font-semibold text-foreground mb-6">Content Tools</h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          {contentTools.map((tool) => {
-            const Icon = tool.icon
-            return (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="group rounded-lg border border-border bg-card p-6 hover:border-accent/50 hover:bg-accent/5 transition-all"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <Icon className="h-8 w-8 text-accent" />
-                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-500/10 text-green-500">
-                    {tool.status}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{tool.description}</p>
-              </Link>
-            )
-          })}
-        </div>
-      </div>
+      {/* Admin Sections */}
+      {sections.map((section) => {
+        const SectionIcon = getIcon(section.icon);
+        return (
+          <section key={section.id} className="space-y-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <SectionIcon className="h-5 w-5 text-accent" />
+                <h2 className="text-2xl font-bold text-foreground">
+                  {section.title}
+                </h2>
+              </div>
+              <p className="text-muted-foreground">{section.description}</p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {section.tools.map((tool) => {
+                const ToolIcon = getIcon(tool.icon);
+                return (
+                  <Link key={tool.id} href={tool.href} className="group">
+                    <div className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent/50 h-full">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+                          <ToolIcon className="h-5 w-5 text-accent" />
+                        </div>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-md font-medium ${getBadgeColor(tool.badgeColor)}`}
+                        >
+                          {tool.badge}
+                        </span>
+                      </div>
+                      <h3 className="font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                        {tool.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {tool.description}
+                      </p>
+                      <p className="text-xs text-accent mt-3">{tool.status}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
 
       {/* Upcoming Features */}
-      <div>
-        <h2 className="text-2xl font-semibold text-foreground mb-6">Upcoming Features</h2>
+      <section className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            {upcomingFeatures.title}
+          </h2>
+          <p className="text-muted-foreground">
+            {upcomingFeatures.description}
+          </p>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-3">
-          {upcomingFeatures.map((feature) => {
-            const Icon = feature.icon
+          {upcomingFeatures.features.map((feature) => {
+            const FeatureIcon = getIcon(feature.icon);
             return (
               <div
-                key={feature.title}
-                className="rounded-lg border border-border bg-card/50 p-6 opacity-75"
+                key={feature.id}
+                className="rounded-lg border border-border bg-card/50 p-5 opacity-60"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <Icon className="h-8 w-8 text-muted-foreground" />
-                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                    {feature.status}
-                  </span>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted mb-3">
+                  <FeatureIcon className="h-5 w-5 text-muted-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="font-semibold text-foreground mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {feature.description}
+                </p>
+                <span className="text-xs px-2 py-1 rounded-md bg-muted text-muted-foreground">
+                  {feature.status}
+                </span>
               </div>
-            )
+            );
           })}
         </div>
+      </section>
+
+      {/* CTA */}
+      <div className="rounded-lg border border-border bg-card p-6">
+        <h3 className="font-semibold text-foreground mb-2">{cta.title}</h3>
+        <p className="text-sm text-muted-foreground mb-4">{cta.description}</p>
+        <Link
+          href={cta.link.href}
+          className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
+        >
+          {cta.link.text}
+          {(() => {
+            const CtaIcon = getIcon(cta.link.icon);
+            return <CtaIcon className="h-4 w-4" />;
+          })()}
+        </Link>
       </div>
     </div>
-  )
+  );
 }

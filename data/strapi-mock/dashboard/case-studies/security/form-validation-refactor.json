@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "slug": "form-validation-refactor",
+    "title": "Validation Refactor: Client-Only to Dual-Layer",
+    "excerpt": "Adding server-side validation without breaking UX",
+    "level": "intermediate",
+    "category": "security",
+    "readTime": "10 min",
+    "publishedAt": "2024-02-10",
+    "tags": ["security", "validation", "zod", "forms"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our contact forms, multi-step registration flows, and data input pages relied entirely on client-side validation. This meant users got instant feedback, but security relied on trust - anyone could bypass validation with browser dev tools or curl requests."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our forms relied entirely on client-side validation, creating security vulnerabilities. Without server validation, we couldn't prevent invalid data from being processed."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Security Coverage",
+            "value": "50%",
+            "change": "Client-only",
+            "positive": false
+          },
+          {
+            "label": "Validation Layers",
+            "value": "1",
+            "change": "No server check",
+            "positive": false
+          },
+          {
+            "label": "Input Sanitization",
+            "value": "None",
+            "change": "Vulnerable",
+            "positive": false
+          },
+          {
+            "label": "Type Safety",
+            "value": "Partial",
+            "change": "Client only",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We implemented dual-layer validation with shared Zod schemas. Client-side validation provides UX polish, server-side validation provides security. Input sanitization happens on both layers."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Client-Only Validation",
+        "beforeCode": "// Client-only validation\nconst onSubmit = (data) => {\n  // Direct submission without server validation\n  await fetch('/api/submit', {\n    body: JSON.stringify(data)\n  })\n}",
+        "afterTitle": "After: Dual-Layer Validation",
+        "afterCode": "\"use server\"\n\nexport async function submitForm(data: unknown) {\n  // 1. Sanitize inputs\n  const sanitized = sanitizeFormData(data)\n  \n  // 2. Validate with Zod\n  const result = schema.safeParse(sanitized)\n  \n  // 3. Return type-safe errors\n  if (!result.success) {\n    return { success: false, errors: result.error }\n  }\n  \n  // 4. Process validated data\n  return processSubmission(result.data)\n}",
+        "improvements": [
+          { "metric": "Security Coverage", "before": "50%", "after": "100%" },
+          {
+            "metric": "Validation Consistency",
+            "before": "Client only",
+            "after": "Both layers"
+          },
+          { "metric": "Type Safety", "before": "Partial", "after": "Full" },
+          { "metric": "XSS Prevention", "before": "None", "after": "Protected" }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/schemas/contact-schema.ts",
+        "language": "typescript",
+        "code": "import { z } from \"zod\"\n\nexport const contactSchema = z.object({\n  name: z.string().min(2).max(100),\n  email: z.string().email(),\n  message: z.string().min(10).max(5000),\n  phone: z.string().optional(),\n})\n\nexport type ContactForm = z.infer<typeof contactSchema>"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Improvements",
+        "headers": ["Aspect", "Before", "After", "Impact"],
+        "rows": [
+          ["Security Coverage", "50%", "100%", "Complete protection"],
+          ["Validation Layers", "1 (Client)", "2 (Both)", "Defense in depth"],
+          ["Type Safety", "Partial", "Full", "Zero bypasses"],
+          ["XSS Prevention", "None", "Active", "Input sanitized"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Client validation for UX, server validation for security. Never trust client data. Use shared schemas to keep validation logic DRY."
+      }
+    }
+  ]
+}

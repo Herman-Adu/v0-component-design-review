@@ -1,0 +1,342 @@
+{
+  "meta": {
+    "slug": "typescript-zod-validation",
+    "title": "Type-Safe Validation with Zod",
+    "excerpt": "Building bulletproof form validation with single source of truth schemas that power both TypeScript types and runtime validation",
+    "level": "beginner",
+    "category": "forms",
+    "readTime": "12 min",
+    "publishedAt": "2026-02-10",
+    "tags": ["zod", "validation", "typescript", "forms", "type-safety"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "the-problem", "title": "The Problem", "level": 2 },
+    { "id": "single-source", "title": "Single Source of Truth", "level": 2 },
+    { "id": "schema-design", "title": "Schema Design Patterns", "level": 2 },
+    {
+      "id": "client-validation",
+      "title": "Client-Side Validation",
+      "level": 3
+    },
+    {
+      "id": "server-validation",
+      "title": "Server-Side Validation",
+      "level": 3
+    },
+    { "id": "advanced-patterns", "title": "Advanced Patterns", "level": 2 },
+    { "id": "error-handling", "title": "Error Handling", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": null,
+        "body": "Our forms handle sensitive customer data including contact details, addresses, and service requests. Validation is not optional - it is a critical security and UX requirement that runs on both client and server."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Problem",
+        "id": "the-problem"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Traditional validation approaches create dangerous gaps between frontend and backend. Types drift, validation rules differ, and bugs slip through the cracks at the worst possible times."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Zod Approach",
+        "notIdealTitle": "Traditional Approach",
+        "idealFor": [
+          "Single schema defines types AND validation",
+          "Same rules run on client and server",
+          "TypeScript types auto-inferred from schemas",
+          "Compile-time errors catch mismatches",
+          "Runtime validation at all boundaries"
+        ],
+        "notIdealFor": [
+          "Types defined separately in frontend and backend",
+          "Validation rules duplicated and prone to drift",
+          "No compile-time safety for validation logic",
+          "Manual synchronization of business rules",
+          "Runtime errors discovered in production"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Single Source of Truth",
+        "id": "single-source"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "With Zod, we define schemas once and derive everything else. This eliminates an entire category of bugs where frontend and backend disagree about data shapes."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Schema-First Architecture",
+        "nodes": [
+          {
+            "label": "Zod Schema",
+            "description": "Single definition",
+            "icon": "database"
+          },
+          {
+            "label": "TypeScript Types",
+            "description": "Auto-inferred",
+            "icon": "code"
+          },
+          {
+            "label": "Client Validation",
+            "description": "React Hook Form",
+            "icon": "shield"
+          },
+          {
+            "label": "Server Validation",
+            "description": "Server Actions",
+            "icon": "shield"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/validation/schemas.ts",
+        "code": "import { z } from \"zod\"\n\n// Define schema ONCE - types are automatically inferred\nexport const personalInfoSchema = z.object({\n  firstName: z\n    .string()\n    .min(2, \"First name must be at least 2 characters\")\n    .max(50, \"First name must be less than 50 characters\"),\n  \n  lastName: z\n    .string()\n    .min(2, \"Last name must be at least 2 characters\")\n    .max(50, \"Last name must be less than 50 characters\"),\n  \n  email: z\n    .string()\n    .email(\"Please enter a valid email address\"),\n  \n  phone: z\n    .string()\n    .min(10, \"Phone number must be at least 10 digits\")\n    .max(15, \"Phone number is too long\"),\n})\n\n// TypeScript type is automatically derived\nexport type PersonalInfo = z.infer<typeof personalInfoSchema>\n// Result: { firstName: string; lastName: string; email: string; phone: string }"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Schema Design Patterns",
+        "id": "schema-design"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Client-Side Validation",
+        "id": "client-validation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "On the client, Zod integrates seamlessly with React Hook Form through the resolver pattern. Validation runs on blur and submit, providing instant feedback to users."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/organisms/personal-info-step.tsx",
+        "code": "import { useForm } from \"react-hook-form\"\nimport { zodResolver } from \"@hookform/resolvers/zod\"\nimport { personalInfoSchema, type PersonalInfo } from \"@/lib/validation/schemas\"\n\nexport function PersonalInfoStep() {\n  const form = useForm<PersonalInfo>({\n    resolver: zodResolver(personalInfoSchema),\n    defaultValues: {\n      firstName: \"\",\n      lastName: \"\",\n      email: \"\",\n      phone: \"\",\n    },\n  })\n\n  // Errors automatically populated from Zod schema\n  const { errors } = form.formState\n  \n  return (\n    <form onSubmit={form.handleSubmit(onSubmit)}>\n      <FormInput\n        label=\"First Name\"\n        error={errors.firstName?.message}\n        {...form.register(\"firstName\")}\n      />\n      {/* TypeScript ensures all fields are covered */}\n    </form>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Server-Side Validation",
+        "id": "server-validation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The same schema runs on the server, ensuring malicious clients cannot bypass validation. Server schemas can include additional rules not needed on the client."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/actions/service-request.ts",
+        "code": "\"use server\"\n\nimport { serverFormSchema } from \"@/lib/validation/server-schemas\"\nimport { sanitizeInput } from \"@/lib/sanitize/input-sanitizer\"\n\nexport async function submitServiceRequest(formData: unknown) {\n  // 1. Parse and validate with Zod\n  const result = serverFormSchema.safeParse(formData)\n  \n  if (!result.success) {\n    // Return structured errors to client\n    return {\n      success: false,\n      errors: result.error.flatten().fieldErrors,\n    }\n  }\n  \n  // 2. Data is now fully typed and validated\n  const validatedData = result.data\n  \n  // 3. Additional sanitization for XSS prevention\n  const sanitizedData = {\n    ...validatedData,\n    personalInfo: {\n      ...validatedData.personalInfo,\n      firstName: sanitizeInput(validatedData.personalInfo.firstName),\n      lastName: sanitizeInput(validatedData.personalInfo.lastName),\n    },\n  }\n  \n  // 4. Safe to use in database/email\n  return { success: true, data: sanitizedData }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Advanced Patterns",
+        "id": "advanced-patterns"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Schema Composition",
+            "description": "Combine smaller schemas into larger ones. Our complete form schema is built from 4 step schemas."
+          },
+          {
+            "icon": "gitBranch",
+            "title": "Conditional Validation",
+            "description": "Use .refine() for complex rules like 'emergency requests require phone number'."
+          },
+          {
+            "icon": "shield",
+            "title": "Transform Pipelines",
+            "description": "Use .transform() to normalize data - trim strings, format phones, convert dates."
+          },
+          {
+            "icon": "code",
+            "title": "Custom Error Messages",
+            "description": "Every validation rule has a user-friendly message that appears in the UI."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Advanced Schema Patterns",
+        "code": "// Schema Composition\nexport const completeFormSchema = z.object({\n  personalInfo: personalInfoSchema,\n  serviceDetails: serviceDetailsSchema,\n  propertyInfo: propertyInfoSchema,\n  schedulePreferences: schedulePreferencesSchema,\n})\n\n// Conditional Validation\nexport const serviceSchema = z.object({\n  urgency: z.enum([\"routine\", \"urgent\", \"emergency\"]),\n  phone: z.string().optional(),\n}).refine(\n  (data) => data.urgency !== \"emergency\" || data.phone,\n  { message: \"Phone required for emergencies\", path: [\"phone\"] }\n)\n\n// Transform Pipeline\nexport const phoneSchema = z.string()\n  .transform(val => val.replace(/\\\\D/g, \"\")) // Remove non-digits\n  .pipe(z.string().min(10, \"Phone must be 10+ digits\"))"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Error Handling",
+        "id": "error-handling"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Zod provides structured error objects that map directly to form fields. We transform these into user-friendly messages with consistent formatting."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Error Flow",
+        "layers": [
+          {
+            "name": "User Input",
+            "items": ["Form Fields", "File Uploads", "Selections"],
+            "color": "#3b82f6"
+          },
+          {
+            "name": "Zod Validation",
+            "items": ["Type Checking", "Constraints", "Custom Rules"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Error Handling",
+            "items": ["Field Mapping", "Message Formatting", "UI Display"],
+            "color": "#ef4444"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Error Handling Pattern",
+        "code": "// Server-side error extraction\nconst result = schema.safeParse(data)\n\nif (!result.success) {\n  const fieldErrors: Record<string, string[]> = {}\n  \n  result.error.issues.forEach((issue) => {\n    const path = issue.path.join(\".\")\n    if (!fieldErrors[path]) fieldErrors[path] = []\n    fieldErrors[path].push(issue.message)\n  })\n  \n  return { success: false, fieldErrors }\n}\n\n// Client-side error display\n{errors.email && (\n  <p className=\"text-sm text-red-500 mt-1\">\n    {errors.email.message}\n  </p>\n)}"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Zod Excels At",
+        "notIdealTitle": "Consider Alternatives For",
+        "idealFor": [
+          "Form validation (client + server)",
+          "API request/response validation",
+          "Environment variable validation",
+          "Configuration file parsing",
+          "Runtime type checking at boundaries"
+        ],
+        "notIdealFor": [
+          "Heavy computational validation (use workers)",
+          "File content validation (use specialized libs)",
+          "Real-time validation of large datasets",
+          "Validation that requires async database checks"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Define schemas as the single source of truth. Let Zod infer your TypeScript types, power your form validation, and guard your server actions. The result is bulletproof type safety from form input to database - with zero type duplication."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Server Actions: Beyond the Basics",
+            "href": "/dashboard/content-library/articles/server-actions-deep-dive",
+            "level": "intermediate"
+          },
+          {
+            "title": "Multi-Step Form Architecture",
+            "href": "/dashboard/content-library/articles/multi-step-form-architecture",
+            "level": "intermediate"
+          },
+          {
+            "title": "Security Architecture Deep Dive",
+            "href": "/dashboard/content-library/articles/security-architecture-deep-dive",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

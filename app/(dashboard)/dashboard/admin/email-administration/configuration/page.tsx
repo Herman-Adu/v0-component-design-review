@@ -1,3 +1,4 @@
+import type { Features, Highlights } from "@/types/strapi-mock";
 import Link from "next/link";
 import {
   Card,
@@ -376,3 +377,4 @@ export default function EmailConfigurationPage() {
     </div>
   );
 }
+

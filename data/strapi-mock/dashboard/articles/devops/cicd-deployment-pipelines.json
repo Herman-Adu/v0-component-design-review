@@ -1,0 +1,438 @@
+{
+  "meta": {
+    "slug": "cicd-deployment-pipelines",
+    "title": "CI/CD Deployment Pipelines for Next.js",
+    "excerpt": "Setting up robust continuous integration and deployment workflows with GitHub Actions and Vercel",
+    "level": "advanced",
+    "category": "devops",
+    "readTime": "13 min",
+    "publishedAt": "2026-02-25",
+    "tags": ["devops", "cicd", "github-actions", "vercel", "automation"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "pipeline-overview", "title": "Pipeline Overview", "level": 2 },
+    { "id": "github-actions", "title": "GitHub Actions Workflow", "level": 2 },
+    { "id": "branch-strategy", "title": "Branch Strategy", "level": 2 },
+    {
+      "id": "environment-management",
+      "title": "Environment Management",
+      "level": 2
+    },
+    { "id": "rollback-strategy", "title": "Rollback Strategy", "level": 2 },
+    { "id": "monitoring", "title": "Deployment Monitoring", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": null,
+        "body": "Automated deployment pipelines eliminate human error, accelerate delivery, and provide confidence in every release. A well-designed CI/CD pipeline is the foundation of sustainable software delivery."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Pipeline Overview",
+        "id": "pipeline-overview"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our pipeline runs automatically on every push, enforcing quality gates before any code reaches production. Each stage must pass before the next begins."
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "CI/CD Pipeline Stages",
+        "steps": [
+          { "label": "Push", "sublabel": "Triggers pipeline" },
+          { "label": "Lint", "sublabel": "Code style check" },
+          { "label": "Type Check", "sublabel": "TypeScript safety" },
+          { "label": "Unit Tests", "sublabel": "Business logic" },
+          { "label": "Build", "sublabel": "Artifact generation" },
+          { "label": "E2E Tests", "sublabel": "Preview deployment" },
+          { "label": "Deploy", "sublabel": "Production only", "color": "green" }
+        ]
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Pipeline Duration",
+            "value": "< 10 min",
+            "change": "Full CI/CD cycle",
+            "positive": true
+          },
+          {
+            "label": "Deploy Frequency",
+            "value": "Daily",
+            "change": "Multiple deploys/day",
+            "positive": true
+          },
+          {
+            "label": "Lead Time",
+            "value": "< 1 hour",
+            "change": "Commit to production",
+            "positive": true
+          },
+          {
+            "label": "Rollback Time",
+            "value": "< 2 min",
+            "change": "Instant via Vercel",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "GitHub Actions Workflow",
+        "id": "github-actions"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our workflow is defined in YAML and runs on GitHub-hosted runners. Jobs are parallelized where possible to minimize total pipeline duration."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": ".github/workflows/ci.yml",
+        "code": "name: CI/CD Pipeline\n\non:\n  push:\n    branches: [main, develop]\n  pull_request:\n    branches: [main]\n\njobs:\n  quality:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      \n      - uses: pnpm/action-setup@v2\n        with:\n          version: 8\n          \n      - uses: actions/setup-node@v4\n        with:\n          node-version: \"20\"\n          cache: \"pnpm\"\n      \n      - run: pnpm install --frozen-lockfile\n      \n      - name: Lint\n        run: pnpm lint\n      \n      - name: Type Check\n        run: pnpm type-check\n      \n      - name: Unit Tests\n        run: pnpm test:unit --coverage\n      \n      - name: Upload Coverage\n        uses: codecov/codecov-action@v3\n        with:\n          token: ${{ secrets.CODECOV_TOKEN }}\n\n  build:\n    needs: quality\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: pnpm/action-setup@v2\n      - uses: actions/setup-node@v4\n        with:\n          node-version: \"20\"\n          cache: \"pnpm\"\n      \n      - run: pnpm install --frozen-lockfile\n      - run: pnpm build\n      \n      - uses: actions/upload-artifact@v3\n        with:\n          name: build\n          path: .next\n\n  e2e:\n    needs: build\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      \n      - uses: actions/download-artifact@v3\n        with:\n          name: build\n          path: .next\n      \n      - name: Install Playwright\n        run: pnpm exec playwright install --with-deps\n      \n      - name: Run E2E Tests\n        run: pnpm test:e2e\n      \n      - uses: actions/upload-artifact@v3\n        if: failure()\n        with:\n          name: playwright-report\n          path: playwright-report\n\n  deploy:\n    needs: e2e\n    if: github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      \n      - uses: amondnet/vercel-action@v25\n        with:\n          vercel-token: ${{ secrets.VERCEL_TOKEN }}\n          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}\n          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}\n          vercel-args: \"--prod\""
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Caching for Speed",
+        "body": "The pnpm cache and build artifact sharing between jobs significantly reduces pipeline duration. Without caching, dependency installation alone can take 2-3 minutes per job."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Branch Strategy",
+        "id": "branch-strategy"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our branching model balances simplicity with the need for staging environments and emergency fixes."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Branch Deployment Mapping",
+        "layers": [
+          {
+            "name": "main",
+            "items": [
+              "Production deployments",
+              "Protected branch",
+              "Requires PR approval"
+            ],
+            "color": "#22c55e"
+          },
+          {
+            "name": "develop",
+            "items": [
+              "Staging environment",
+              "Integration testing",
+              "Pre-release validation"
+            ],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "feature/*",
+            "items": [
+              "Preview deployments",
+              "Per-PR environments",
+              "Isolated testing"
+            ],
+            "color": "#3b82f6"
+          },
+          {
+            "name": "hotfix/*",
+            "items": [
+              "Emergency fixes",
+              "Fast-track to production",
+              "Post-merge to develop"
+            ],
+            "color": "#ef4444"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Branch Protection Rules",
+        "headers": ["Branch", "Protections", "Deploy Target"],
+        "rows": [
+          [
+            "main",
+            "Required reviews, status checks, no force push",
+            "Production"
+          ],
+          ["develop", "Required status checks, no force push", "Staging"],
+          ["feature/*", "None (developer branches)", "Preview (automatic)"],
+          [
+            "hotfix/*",
+            "Same as feature, expedited review",
+            "Production (after merge)"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Environment Management",
+        "id": "environment-management"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Environment variables are managed securely through Vercel with different values for each deployment environment."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Environment Validation",
+        "code": "// lib/env.ts\nimport { z } from \"zod\"\n\nconst envSchema = z.object({\n  // Required in all environments\n  DATABASE_URL: z.string().url(),\n  STRAPI_URL: z.string().url(),\n  STRAPI_TOKEN: z.string().min(1),\n  \n  // Required in production only\n  SENTRY_DSN: z.string().url().optional(),\n  ANALYTICS_ID: z.string().optional(),\n  \n  // Environment indicator\n  NODE_ENV: z.enum([\"development\", \"test\", \"production\"]),\n  VERCEL_ENV: z.enum([\"development\", \"preview\", \"production\"]).optional(),\n})\n\n// Validate at startup - fail fast on missing config\nexport const env = envSchema.parse(process.env)\n\n// Type-safe environment access\nexport type Env = z.infer<typeof envSchema>"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "code",
+            "title": "Development",
+            "description": "Local databases, verbose logging, hot reload enabled"
+          },
+          {
+            "icon": "layers",
+            "title": "Preview",
+            "description": "Staging databases, moderate logging, PR-specific URLs"
+          },
+          {
+            "icon": "shield",
+            "title": "Production",
+            "description": "Production databases, error-only logging, CDN caching"
+          },
+          {
+            "icon": "database",
+            "title": "Database Isolation",
+            "description": "Each environment has separate database instance"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Rollback Strategy",
+        "id": "rollback-strategy"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "When issues occur in production, fast rollback is critical. Our strategy provides multiple rollback options depending on the severity and type of issue."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Rollback Options",
+        "headers": ["Method", "Time", "When to Use"],
+        "rows": [
+          [
+            "Vercel Instant Rollback",
+            "< 30 seconds",
+            "Any deployment issue, immediate relief"
+          ],
+          [
+            "Git Revert",
+            "5-10 minutes",
+            "Code changes that need to be undone permanently"
+          ],
+          [
+            "Feature Flag Toggle",
+            "< 1 minute",
+            "Disable specific features without deployment"
+          ],
+          [
+            "Database Restore",
+            "15-30 minutes",
+            "Data corruption or schema issues"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Incident Response Flow",
+        "steps": [
+          {
+            "label": "Detect",
+            "sublabel": "Alerts trigger investigation",
+            "color": "yellow"
+          },
+          { "label": "Assess", "sublabel": "Determine severity and scope" },
+          {
+            "label": "Rollback",
+            "sublabel": "Restore service fast",
+            "color": "green"
+          },
+          { "label": "Investigate", "sublabel": "Root cause analysis" },
+          {
+            "label": "Fix & Deploy",
+            "sublabel": "Normal CI/CD pipeline",
+            "color": "green"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Database Migrations",
+        "body": "Always write migrations with rollback scripts. Forward-only migrations that cannot be reversed make rollbacks impossible when they involve schema changes."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Deployment Monitoring",
+        "id": "monitoring"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Deployment is not complete until we have confirmed the release is healthy. Automated monitoring catches issues that tests miss."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "Health Endpoints",
+            "description": "API health checks verify all services are responding"
+          },
+          {
+            "icon": "trendingUp",
+            "title": "Error Rate Monitoring",
+            "description": "Spike detection in Sentry error rates post-deploy"
+          },
+          {
+            "icon": "clock",
+            "title": "Performance Metrics",
+            "description": "Core Web Vitals and API response time tracking"
+          },
+          {
+            "icon": "users",
+            "title": "Real User Monitoring",
+            "description": "Synthetic and real user experience tracking"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/api/health/route.ts",
+        "code": "import { NextResponse } from \"next/server\"\n\nexport async function GET() {\n  const checks = {\n    api: \"ok\",\n    database: await checkDatabase(),\n    strapi: await checkStrapi(),\n    timestamp: new Date().toISOString(),\n    version: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || \"local\",\n  }\n\n  const allHealthy = Object.values(checks)\n    .filter((v) => typeof v === \"string\")\n    .every((v) => v === \"ok\")\n\n  return NextResponse.json(checks, { \n    status: allHealthy ? 200 : 503 \n  })\n}\n\nasync function checkDatabase(): Promise<string> {\n  try {\n    // Lightweight query to verify connection\n    await db.execute(\"SELECT 1\")\n    return \"ok\"\n  } catch {\n    return \"error\"\n  }\n}\n\nasync function checkStrapi(): Promise<string> {\n  try {\n    const res = await fetch(`${process.env.STRAPI_URL}/api/health`)\n    return res.ok ? \"ok\" : \"error\"\n  } catch {\n    return \"error\"\n  }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Invest in CI/CD early - the time saved compounds with every deployment. Automated pipelines eliminate human error, provide confidence in releases, and enable the rapid iteration that modern software development requires."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "href": "/dashboard/content-library/articles/testing-strategy-modern-applications",
+            "title": "Testing Strategy for Modern Applications",
+            "level": "intermediate"
+          },
+          {
+            "href": "/dashboard/content-library/articles/security-architecture-deep-dive",
+            "title": "Security Architecture Deep Dive",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

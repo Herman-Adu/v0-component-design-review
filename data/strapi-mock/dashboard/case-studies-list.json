@@ -1,0 +1,50 @@
+{
+  "header": {
+    "title": "Case Studies",
+    "description": "Real-world examples with before/after comparisons, metrics, and actionable takeaways. See how architectural decisions impact production systems."
+  },
+  "stats": [
+    {
+      "label": "Total Studies",
+      "value": 5,
+      "icon": "TrendingUp"
+    },
+    {
+      "label": "Topics Covered",
+      "value": 8,
+      "icon": "Tag"
+    },
+    {
+      "label": "Avg. Metrics Improved",
+      "value": 6,
+      "icon": "BarChart3"
+    }
+  ],
+  "categories": [
+    {
+      "id": "architecture",
+      "title": "Architecture",
+      "color": "blue"
+    },
+    {
+      "id": "performance",
+      "title": "Performance",
+      "color": "green"
+    },
+    {
+      "id": "documentation",
+      "title": "Documentation",
+      "color": "purple"
+    },
+    {
+      "id": "migration",
+      "title": "Migration",
+      "color": "orange"
+    },
+    {
+      "id": "scaling",
+      "title": "Scaling",
+      "color": "red"
+    }
+  ]
+}

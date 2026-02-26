@@ -1,0 +1,616 @@
+{
+  "timestamp": "2026-02-25T13:02:38.706Z",
+  "typesFileValid": {
+    "valid": true
+  },
+  "pagesScanned": 55,
+  "pages": [
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\content-strategy\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\analytics\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\composer\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\events\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\messenger\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page-management\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\getting-started\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\ads-campaigns\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\analytics\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\business-profile\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\composer\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\seo\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\tag-manager\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\analytics\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\articles\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\company-page\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\composer\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\connection-strategy\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\analytics\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\composer\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\engagement\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\hashtag-strategy\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\threads\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\gap-analysis\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\getting-started\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\count-validation\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\fix-actions\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\pattern-compliance\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\route-verification\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\toc-integrity\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\ab-subject-lines\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-preview\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-scheduling\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\recipient-groups\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\template-and-brand\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\getting-started\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\delivery-logs\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\security-audit\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\send-configuration\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\version-history\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\email-dashboard\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\testing-and-ops-guide\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    },
+    {
+      "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\page.tsx",
+      "hasTypeImports": false,
+      "imports": [],
+      "status": "needs-update"
+    }
+  ],
+  "issues": [
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\content-strategy\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\analytics\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\composer\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\events\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\messenger\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page-management\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\getting-started\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\ads-campaigns\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\analytics\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\business-profile\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\composer\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\seo\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\tag-manager\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\analytics\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\articles\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\company-page\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\composer\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\connection-strategy\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\linkedin\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\analytics\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\composer\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\engagement\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\hashtag-strategy\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\twitter\\threads\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\gap-analysis\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\documentation-health\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\getting-started\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\count-validation\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\fix-actions\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\pattern-compliance\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\route-verification\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\document-administration\\quality-engineering\\toc-integrity\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\ab-subject-lines\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-preview\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\email-scheduling\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\recipient-groups\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\template-and-brand\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\getting-started\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\delivery-logs\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\security-audit\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\send-configuration\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\version-history\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\email-dashboard\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\testing-and-ops-guide\\page.tsx",
+      "message": "Page has no type imports"
+    },
+    {
+      "type": "missing-types",
+      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\page.tsx",
+      "message": "Page has no type imports"
+    }
+  ]
+}

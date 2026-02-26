@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "slug": "zustand-form-state-management",
+    "title": "Zustand for Complex Form State",
+    "excerpt": "Patterns for managing multi-step form state with persistence, step tracking, and minimal boilerplate",
+    "level": "intermediate",
+    "category": "forms",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-15",
+    "tags": ["zustand", "state-management", "forms", "persistence"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "why-zustand", "title": "Why Zustand?", "level": 2 },
+    { "id": "store-design", "title": "Store Design", "level": 2 },
+    { "id": "persistence", "title": "Persistence Strategy", "level": 2 },
+    { "id": "step-completion", "title": "Step Completion Logic", "level": 2 },
+    { "id": "multiple-stores", "title": "Multiple Stores Pattern", "level": 2 },
+    { "id": "performance", "title": "Performance Optimization", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "React Hook Form handles field-level state excellently. But multi-step forms need more: step tracking, cross-step data sharing, and persistence. Zustand fills this gap with minimal complexity."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Why Zustand?",
+        "id": "why-zustand"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We evaluated several state management options. Zustand won because it provides exactly what multi-step forms need without the boilerplate of Redux or the limitations of Context."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "State Management Comparison",
+        "headers": ["Feature", "React Context", "Redux", "Zustand"],
+        "rows": [
+          ["Bundle Size", "0 KB (built-in)", "~7 KB", "~1 KB"],
+          ["Boilerplate", "Medium", "High", "Minimal"],
+          ["DevTools", "React DevTools", "Redux DevTools", "Redux DevTools"],
+          ["Persistence", "Manual", "redux-persist", "Built-in middleware"],
+          ["TypeScript", "Verbose", "Verbose", "Native inference"],
+          ["Re-render Control", "Poor", "Good", "Excellent"]
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Zustand",
+        "notIdealTitle": "Context + useReducer",
+        "idealFor": [
+          "Create store with create()",
+          "Define state and actions together",
+          "No Provider needed",
+          "Use store hook directly",
+          "Automatic selector-based re-renders"
+        ],
+        "notIdealFor": [
+          "Define action types as constants",
+          "Create reducer with switch statement",
+          "Wrap app in Provider component",
+          "Use useContext + useReducer hooks",
+          "Manual memoization for performance"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Store Design",
+        "id": "store-design"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our form stores follow a consistent pattern: state sections map to form steps, with dedicated update methods for each section."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Store Structure",
+        "layers": [
+          {
+            "name": "Navigation State",
+            "items": ["currentStep", "totalSteps"],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Form Data",
+            "items": [
+              "personalInfo",
+              "serviceDetails",
+              "propertyInfo",
+              "schedulePreferences"
+            ],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Actions",
+            "items": ["updateX()", "nextStep()", "prevStep()", "resetForm()"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Derived State",
+            "items": ["isStepComplete()", "canSubmit()"],
+            "color": "#3b82f6"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/store/use-form-store.ts",
+        "code": "import { create } from \"zustand\"\nimport { persist } from \"zustand/middleware\"\n\n// Type definitions for each form section\ninterface PersonalInfo {\n  firstName: string\n  lastName: string\n  email: string\n  phone: string\n}\n\ninterface ServiceDetails {\n  serviceType: string\n  urgency: \"routine\" | \"urgent\" | \"emergency\"\n  description: string\n}\n\n// Complete form data structure\ninterface FormData {\n  personalInfo: PersonalInfo\n  serviceDetails: ServiceDetails\n  propertyInfo: PropertyInfo\n  schedulePreferences: SchedulePreferences\n}\n\n// Store interface\ninterface FormStore {\n  currentStep: number\n  data: FormData\n  \n  // Section updates\n  updatePersonalInfo: (data: Partial<PersonalInfo>) => void\n  updateServiceDetails: (data: Partial<ServiceDetails>) => void\n  updatePropertyInfo: (data: Partial<PropertyInfo>) => void\n  updateSchedulePreferences: (data: Partial<SchedulePreferences>) => void\n  \n  // Navigation\n  nextStep: () => void\n  prevStep: () => void\n  goToStep: (step: number) => void\n  \n  // Utilities\n  resetForm: () => void\n  isStepComplete: (step: number) => boolean\n}\n\n// Initial empty state\nconst initialData: FormData = {\n  personalInfo: { firstName: \"\", lastName: \"\", email: \"\", phone: \"\" },\n  serviceDetails: { serviceType: \"\", urgency: \"routine\", description: \"\" },\n  propertyInfo: { address: \"\", city: \"\", state: \"\", zipCode: \"\", propertyType: \"residential\" },\n  schedulePreferences: { preferredDate: \"\", preferredTimeSlot: \"morning\", flexibleScheduling: false },\n}\n\nexport const useFormStore = create<FormStore>()(\n  persist(\n    (set, get) => ({\n      currentStep: 1,\n      data: initialData,\n      \n      // Partial updates merge with existing data\n      updatePersonalInfo: (data) =>\n        set((state) => ({\n          data: {\n            ...state.data,\n            personalInfo: { ...state.data.personalInfo, ...data },\n          },\n        })),\n      \n      // Navigation with bounds checking\n      nextStep: () =>\n        set((state) => ({\n          currentStep: Math.min(state.currentStep + 1, 5),\n        })),\n      \n      prevStep: () =>\n        set((state) => ({\n          currentStep: Math.max(state.currentStep - 1, 1),\n        })),\n      \n      goToStep: (step) =>\n        set(() => ({\n          currentStep: Math.max(1, Math.min(step, 5)),\n        })),\n      \n      resetForm: () =>\n        set(() => ({\n          currentStep: 1,\n          data: initialData,\n        })),\n      \n      // Derived state using get()\n      isStepComplete: (step) => {\n        const { data } = get()\n        switch (step) {\n          case 1:\n            return !!(data.personalInfo.firstName && data.personalInfo.email)\n          case 2:\n            return !!(data.serviceDetails.serviceType && data.serviceDetails.description)\n          // ... other steps\n          default:\n            return false\n        }\n      },\n    }),\n    { name: \"electrical-service-form\" }\n  )\n)"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Persistence Strategy",
+        "id": "persistence"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Zustand's persist middleware automatically syncs state to localStorage. Users can refresh the page or close the browser without losing their progress."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Persistence Flow",
+        "nodes": [
+          {
+            "label": "State Change",
+            "description": "User fills field",
+            "icon": "code"
+          },
+          {
+            "label": "Zustand Store",
+            "description": "Updates in memory",
+            "icon": "database"
+          },
+          {
+            "label": "Persist Middleware",
+            "description": "Serializes state",
+            "icon": "layers"
+          },
+          {
+            "label": "localStorage",
+            "description": "Persistent storage",
+            "icon": "shield"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Persistence Configuration",
+        "code": "import { create } from \"zustand\"\nimport { persist, createJSONStorage } from \"zustand/middleware\"\n\nexport const useFormStore = create<FormStore>()(\n  persist(\n    (set, get) => ({\n      // ... store definition\n    }),\n    {\n      // localStorage key - unique per form type\n      name: \"electrical-service-form\",\n      \n      // Optional: customize storage (default is localStorage)\n      storage: createJSONStorage(() => localStorage),\n      \n      // Optional: only persist certain fields\n      partialize: (state) => ({\n        currentStep: state.currentStep,\n        data: state.data,\n        // Exclude methods and derived state\n      }),\n      \n      // Optional: handle version migrations\n      version: 1,\n      migrate: (persistedState, version) => {\n        if (version === 0) {\n          // Handle migration from older version\n        }\n        return persistedState as FormStore\n      },\n    }\n  )\n)"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "SSR Hydration",
+        "body": "When using persist with Next.js, initial server render will not have localStorage data. This can cause hydration mismatches. Use conditional rendering or the onRehydrateStorage callback to handle this gracefully."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Step Completion Logic",
+        "id": "step-completion"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The isStepComplete function enables UI features like progress indicators and navigation guards that prevent skipping required steps."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Step Completion Implementation",
+        "code": "// In the store\nisStepComplete: (step) => {\n  const { data } = get()\n  \n  switch (step) {\n    case 1: // Personal Info\n      return !!(\n        data.personalInfo.firstName &&\n        data.personalInfo.lastName &&\n        data.personalInfo.email &&\n        data.personalInfo.phone\n      )\n    case 2: // Service Details\n      return !!(\n        data.serviceDetails.serviceType &&\n        data.serviceDetails.description\n      )\n    case 3: // Property Info\n      return !!(\n        data.propertyInfo.address &&\n        data.propertyInfo.city &&\n        data.propertyInfo.zipCode\n      )\n    case 4: // Schedule\n      return !!(\n        data.schedulePreferences.preferredDate &&\n        data.schedulePreferences.preferredTimeSlot\n      )\n    case 5: // Review (always \"complete\" if reached)\n      return true\n    default:\n      return false\n  }\n}\n\n// Usage in progress indicator\nfunction StepIndicator({ step }: { step: number }) {\n  const isComplete = useFormStore((state) => state.isStepComplete(step))\n  const currentStep = useFormStore((state) => state.currentStep)\n  \n  return (\n    <div className={cn(\n      \"w-8 h-8 rounded-full flex items-center justify-center\",\n      isComplete && \"bg-green-500\",\n      currentStep === step && \"bg-accent\",\n      !isComplete && currentStep !== step && \"bg-muted\"\n    )}>\n      {isComplete ? <Check /> : step}\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Multiple Stores Pattern",
+        "id": "multiple-stores"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Each form type has its own store with a unique localStorage key. Stores share a common interface so shared step components can work with any of them."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 3,
+        "features": [
+          {
+            "icon": "database",
+            "title": "useFormStore",
+            "description": "Service request form. 5 steps, stores under 'electrical-service-form' key."
+          },
+          {
+            "icon": "database",
+            "title": "useContactStore",
+            "description": "Contact form. 5 steps, stores under 'electrical-contact-form' key."
+          },
+          {
+            "icon": "database",
+            "title": "useQuotationStore",
+            "description": "Quotation form. 7 steps, stores under 'electrical-quotation-form' key."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Common Store Interface",
+        "code": "// Shared interface that all form stores implement\ninterface BaseFormStore {\n  currentStep: number\n  nextStep: () => void\n  prevStep: () => void\n  goToStep: (step: number) => void\n  resetForm: () => void\n}\n\n// Personal info interface (used in shared step)\ninterface PersonalInfoStore extends BaseFormStore {\n  data: { personalInfo: PersonalInfo }\n  updatePersonalInfo: (data: Partial<PersonalInfo>) => void\n}\n\n// The shared step accepts any store matching this interface\nfunction PersonalInfoStep({ useStore }: { useStore: () => PersonalInfoStore }) {\n  const { data, updatePersonalInfo, nextStep } = useStore()\n  // Works with useFormStore, useContactStore, or useQuotationStore\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Performance Optimization",
+        "id": "performance"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Zustand automatically optimizes re-renders through selector subscriptions. Components only re-render when the specific state they use changes."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Good Patterns",
+        "notIdealTitle": "Avoid These",
+        "idealFor": [
+          "Select specific fields: useStore(s => s.data.personalInfo)",
+          "Select multiple fields with shallow: useStore(s => [s.step, s.data], shallow)",
+          "Memoize selectors for complex derivations",
+          "Split into multiple small stores if unrelated state"
+        ],
+        "notIdealFor": [
+          "Selecting entire state: useStore()",
+          "Creating new objects in selectors",
+          "Subscribing to state you do not use",
+          "One massive store for entire app"
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Optimized Selectors",
+        "code": "// BAD: Re-renders on ANY state change\nconst store = useFormStore()\n\n// GOOD: Only re-renders when currentStep changes\nconst currentStep = useFormStore((state) => state.currentStep)\n\n// GOOD: Select specific nested data\nconst email = useFormStore((state) => state.data.personalInfo.email)\n\n// GOOD: Multiple values with shallow comparison\nimport { shallow } from \"zustand/shallow\"\nconst [step, total] = useFormStore(\n  (state) => [state.currentStep, state.totalSteps],\n  shallow\n)\n\n// GOOD: Memoized complex selector\nconst completedSteps = useFormStore(\n  (state) => [1, 2, 3, 4, 5].filter(step => state.isStepComplete(step))\n)"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Separate form field state (React Hook Form) from form flow state (Zustand). Use Zustand for step tracking, cross-step data, and persistence. Its minimal API, TypeScript support, and built-in persistence make it ideal for multi-step forms. Use selectors to optimize re-renders and keep stores focused on specific features."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Multi-Step Form Architecture",
+            "href": "/dashboard/content-library/articles/multi-step-form-architecture",
+            "level": "intermediate"
+          },
+          {
+            "title": "Type-Safe Validation with Zod",
+            "href": "/dashboard/content-library/articles/typescript-zod-validation",
+            "level": "beginner"
+          },
+          {
+            "title": "Refactoring for Maintainability",
+            "href": "/dashboard/content-library/articles/refactoring-for-maintainability",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

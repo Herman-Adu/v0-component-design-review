@@ -1,0 +1,83 @@
+{
+  "header": {
+    "icon": "FileCheck",
+    "title": "Document Administration",
+    "description": "Strategic oversight and automated quality assurance for documentation. Monitor content health, identify gaps, validate integrity, and maintain consistency at scale."
+  },
+  "sections": [
+    {
+      "id": "documentation-health",
+      "title": "Documentation Health",
+      "description": "Strategic oversight of documentation coverage, content planning, and gap analysis. Track what exists, identify what is missing, and plan future content using the Gap Discovery Engine.",
+      "icon": "HeartPulse",
+      "href": "/dashboard/admin/document-administration/documentation-health",
+      "role": "Project Lead / CTO",
+      "pages": 2,
+      "color": "emerald"
+    },
+    {
+      "id": "quality-engineering",
+      "title": "Quality Engineering",
+      "description": "Automated validation tools for route verification, count accuracy, TOC integrity, pattern compliance, and bulk fix actions. Ensures documentation stays consistent and correct at scale.",
+      "icon": "FlaskConical",
+      "href": "/dashboard/admin/document-administration/quality-engineering",
+      "role": "Web Administrator / DevOps / QA",
+      "pages": 6,
+      "color": "violet"
+    }
+  ],
+  "highlights": [
+    {
+      "id": "gap-discovery",
+      "icon": "Compass",
+      "title": "Gap Discovery Engine",
+      "description": "Automated scanning identifies undocumented routes, missing articles, and content coverage gaps."
+    },
+    {
+      "id": "count-validation",
+      "icon": "SearchCheck",
+      "title": "Count Validation",
+      "description": "Verifies data array counts match documentation claims. Catches stale numbers automatically."
+    },
+    {
+      "id": "route-verification",
+      "icon": "Link2",
+      "title": "Route Verification",
+      "description": "Checks every sidebar navigation link resolves to a real page. Zero broken links guaranteed."
+    },
+    {
+      "id": "toc-integrity",
+      "icon": "ClipboardCheck",
+      "title": "TOC Integrity",
+      "description": "Validates table of contents anchors match section IDs. Prevents navigation errors."
+    },
+    {
+      "id": "auto-remediation",
+      "icon": "Wrench",
+      "title": "Auto Remediation",
+      "description": "One-click fixes for common issues. Update counts, add missing anchors, repair cross-references."
+    },
+    {
+      "id": "pattern-compliance",
+      "icon": "Shield",
+      "title": "Pattern Compliance",
+      "description": "Audits components for atomic design adherence and consistent data-driven patterns."
+    }
+  ],
+  "quickLinks": [
+    {
+      "id": "getting-started",
+      "icon": "Rocket",
+      "title": "Getting Started",
+      "description": "Onboarding guide for documentation administrators",
+      "href": "/dashboard/admin/document-administration/getting-started"
+    },
+    {
+      "id": "metrics",
+      "icon": "BarChart3",
+      "title": "Metrics & Analytics",
+      "description": "Track documentation health scores and quality trends",
+      "href": "/dashboard/admin/document-administration/metrics"
+    }
+  ]
+}

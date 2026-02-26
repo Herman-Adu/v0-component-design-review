@@ -1,0 +1,49 @@
+{
+  "header": {
+    "title": "Social Media",
+    "description": "Templates, best practices, and strategies for effective social media content across multiple platforms."
+  },
+  "stats": [
+    {
+      "label": "Total Templates",
+      "value": 24,
+      "icon": "Share2"
+    },
+    {
+      "label": "Platforms",
+      "value": 4,
+      "icon": "Globe"
+    },
+    {
+      "label": "Content Types",
+      "value": 8,
+      "icon": "Layers"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "linkedin",
+      "title": "LinkedIn",
+      "icon": "LinkedinIcon",
+      "color": "blue"
+    },
+    {
+      "id": "twitter",
+      "title": "Twitter/X",
+      "icon": "TwitterIcon",
+      "color": "black"
+    },
+    {
+      "id": "facebook",
+      "title": "Facebook",
+      "icon": "FacebookIcon",
+      "color": "blue"
+    },
+    {
+      "id": "instagram",
+      "title": "Instagram",
+      "icon": "InstagramIcon",
+      "color": "pink"
+    }
+  ]
+}

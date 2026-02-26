@@ -1,0 +1,29 @@
+{
+  "sections": [
+    {
+      "id": "editorials",
+      "title": "Editorial Guidelines",
+      "icon": "FileText",
+      "href": "/dashboard/admin/digital-marketing/content-strategy/editorial-guidelines"
+    },
+    {
+      "id": "metrics",
+      "title": "Content Metrics",
+      "icon": "BarChart3",
+      "href": "/dashboard/admin/digital-marketing/content-strategy/content-metrics"
+    },
+    {
+      "id": "distribution",
+      "title": "Distribution Channels",
+      "icon": "Share2",
+      "href": "/dashboard/admin/digital-marketing/content-strategy/distribution-channels"
+    },
+    {
+      "id": "calendar",
+      "title": "Content Calendar",
+      "icon": "Calendar",
+      "href": "/dashboard/admin/digital-marketing/content-strategy/content-calendar"
+    }
+  ],
+  "description": "Define your content strategy across editorial standards, performance metrics, distribution channels, and scheduling."
+}

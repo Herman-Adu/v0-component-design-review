@@ -1,0 +1,436 @@
+{
+  "meta": {
+    "slug": "security-architecture-deep-dive",
+    "title": "Security Architecture Deep Dive",
+    "excerpt": "Implementing defense in depth with four security layers: origin validation, rate limiting, input sanitization, and schema validation",
+    "level": "advanced",
+    "category": "security",
+    "readTime": "16 min",
+    "publishedAt": "2026-02-18",
+    "tags": ["security", "csrf", "xss", "rate-limiting", "validation"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "defense-in-depth", "title": "Defense in Depth", "level": 2 },
+    {
+      "id": "layer-1-origin",
+      "title": "Layer 1: Origin Validation",
+      "level": 2
+    },
+    {
+      "id": "layer-2-rate-limit",
+      "title": "Layer 2: Rate Limiting",
+      "level": 2
+    },
+    {
+      "id": "layer-3-sanitization",
+      "title": "Layer 3: Input Sanitization",
+      "level": 2
+    },
+    {
+      "id": "layer-4-validation",
+      "title": "Layer 4: Schema Validation",
+      "level": 2
+    },
+    { "id": "security-pipeline", "title": "The Security Pipeline", "level": 2 },
+    { "id": "attack-prevention", "title": "Attack Prevention", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": null,
+        "body": "Security is not a feature - it is a requirement. Our approach implements defense in depth: multiple layers that each catch different threats. If one layer fails, others still protect the system."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Defense in Depth",
+        "id": "defense-in-depth"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "No single security measure is foolproof. We implement four distinct layers, each targeting different attack vectors. An attacker must bypass ALL layers to succeed."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Layer Architecture",
+        "layers": [
+          {
+            "name": "Layer 1: Origin Validation",
+            "items": ["CSRF Protection", "Referrer Check", "Origin Header"],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Layer 2: Rate Limiting",
+            "items": ["IP Tracking", "Time Windows", "Request Counting"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Layer 3: Input Sanitization",
+            "items": ["XSS Prevention", "HTML Encoding", "Script Removal"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Layer 4: Schema Validation",
+            "items": ["Type Safety", "Constraints", "Business Rules"],
+            "color": "#3b82f6"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Security Layers",
+            "value": "4",
+            "change": "Defense in Depth",
+            "positive": true
+          },
+          {
+            "label": "Attack Vectors Covered",
+            "value": "6+",
+            "change": "CSRF, XSS, DDoS...",
+            "positive": true
+          },
+          {
+            "label": "Rate Limit Windows",
+            "value": "3",
+            "change": "Per action type",
+            "positive": true
+          },
+          {
+            "label": "Validation Rules",
+            "value": "25+",
+            "change": "Type + Business",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Layer 1: Origin Validation",
+        "id": "layer-1-origin"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every Server Action first validates that the request comes from our application. This prevents Cross-Site Request Forgery (CSRF) attacks where malicious sites trick users into submitting forms to our server."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/security/csrf.ts",
+        "code": "import { headers } from \"next/headers\"\n\nconst ALLOWED_ORIGINS = [\n  process.env.NEXT_PUBLIC_APP_URL,\n  \"http://localhost:3000\",\n]\n\nexport async function validateOrigin(): Promise<boolean> {\n  const headersList = await headers()\n  const origin = headersList.get(\"origin\")\n  const referer = headersList.get(\"referer\")\n  \n  // Check origin header first (preferred)\n  if (origin && ALLOWED_ORIGINS.includes(origin)) {\n    return true\n  }\n  \n  // Fall back to referer header\n  if (referer) {\n    const refererOrigin = new URL(referer).origin\n    return ALLOWED_ORIGINS.includes(refererOrigin)\n  }\n  \n  // No valid origin found - reject request\n  return false\n}\n\n// Usage in Server Action\nexport async function submitForm(data: FormData) {\n  if (!await validateOrigin()) {\n    return { success: false, error: \"Invalid request origin\" }\n  }\n  // ... continue processing\n}"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Why Both Headers?",
+        "body": "Some browsers do not send the Origin header for same-origin requests. We check both Origin and Referer headers to ensure legitimate requests are not blocked while still preventing CSRF."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Layer 2: Rate Limiting",
+        "id": "layer-2-rate-limit"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Rate limiting prevents abuse by restricting how many requests a client can make. Each form type has different limits based on expected legitimate usage patterns."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Rate Limit Configuration",
+        "headers": ["Form Type", "Max Requests", "Time Window", "Reasoning"],
+        "rows": [
+          ["Service Request", "5", "15 minutes", "Normal usage: 1-2 attempts"],
+          ["Contact Form", "5", "15 minutes", "Allow retries for errors"],
+          [
+            "Quotation",
+            "3",
+            "30 minutes",
+            "Complex form, fewer attempts expected"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/security/rate-limiter.ts",
+        "code": "interface RateLimiterOptions {\n  maxRequests: number\n  windowMs: number\n}\n\nexport class RateLimiter {\n  private requests: Map<string, { count: number; resetTime: number }> = new Map()\n  \n  constructor(private options: RateLimiterOptions) {}\n  \n  check(identifier: string): RateLimitResult {\n    const now = Date.now()\n    const record = this.requests.get(identifier)\n    \n    // Clean up expired entries\n    if (record && now > record.resetTime) {\n      this.requests.delete(identifier)\n    }\n    \n    const current = this.requests.get(identifier)\n    \n    if (!current) {\n      // First request - allow and start tracking\n      this.requests.set(identifier, {\n        count: 1,\n        resetTime: now + this.options.windowMs,\n      })\n      return { allowed: true, remaining: this.options.maxRequests - 1 }\n    }\n    \n    if (current.count >= this.options.maxRequests) {\n      // Rate limit exceeded\n      return {\n        allowed: false,\n        remaining: 0,\n        retryAfter: Math.ceil((current.resetTime - now) / 1000),\n      }\n    }\n    \n    // Increment counter\n    current.count++\n    return { allowed: true, remaining: this.options.maxRequests - current.count }\n  }\n}\n\n// Pre-configured limiters for each form\nexport const rateLimiters = {\n  serviceRequest: new RateLimiter({ maxRequests: 5, windowMs: 15 * 60 * 1000 }),\n  contactForm: new RateLimiter({ maxRequests: 5, windowMs: 15 * 60 * 1000 }),\n  quotation: new RateLimiter({ maxRequests: 3, windowMs: 30 * 60 * 1000 }),\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Layer 3: Input Sanitization",
+        "id": "layer-3-sanitization"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "All string inputs are sanitized before processing. This prevents Cross-Site Scripting (XSS) attacks where malicious scripts are injected through form fields."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Sanitization Pipeline",
+        "nodes": [
+          {
+            "label": "Raw Input",
+            "description": "User-provided string",
+            "icon": "alertTriangle"
+          },
+          {
+            "label": "HTML Encode",
+            "description": "< > & \" '",
+            "icon": "shield"
+          },
+          {
+            "label": "Trim & Normalize",
+            "description": "Whitespace handling",
+            "icon": "code"
+          },
+          {
+            "label": "Safe Output",
+            "description": "Ready for storage",
+            "icon": "check"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/sanitize/input-sanitizer.ts",
+        "code": "// Characters that can be used in XSS attacks\nconst HTML_ENTITIES: Record<string, string> = {\n  \"&\": \"&amp;\",\n  \"<\": \"&lt;\",\n  \">\": \"&gt;\",\n  '\"': \"&quot;\",\n  \"'\": \"&#x27;\",\n  \"/\": \"&#x2F;\",\n}\n\nexport function sanitizeInput(input: string): string {\n  if (!input || typeof input !== \"string\") return \"\"\n  \n  return input\n    // Replace dangerous characters with HTML entities\n    .replace(/[&<>\"'/]/g, (char) => HTML_ENTITIES[char] || char)\n    // Normalize whitespace\n    .trim()\n    .replace(/\\\\s+/g, \" \")\n}\n\n// Recursively sanitize all strings in an object\nexport function sanitizeObject<T extends Record<string, unknown>>(obj: T): T {\n  const result = { ...obj }\n  \n  for (const key in result) {\n    const value = result[key]\n    if (typeof value === \"string\") {\n      result[key] = sanitizeInput(value) as T[typeof key]\n    } else if (typeof value === \"object\" && value !== null) {\n      result[key] = sanitizeObject(value as Record<string, unknown>) as T[typeof key]\n    }\n  }\n  \n  return result\n}"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Sanitize on Server, Not Just Client",
+        "body": "Client-side sanitization can be bypassed. Always sanitize on the server before storing or using data. Client-side sanitization is only for immediate display feedback."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Layer 4: Schema Validation",
+        "id": "layer-4-validation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "After sanitization, Zod schemas validate data structure, types, and business rules. This catches malformed data that passed previous layers."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "code",
+            "title": "Type Validation",
+            "description": "Ensures strings, numbers, booleans, and enums match expected types."
+          },
+          {
+            "icon": "shield",
+            "title": "Constraint Checking",
+            "description": "Length limits, format patterns (email, phone), and range boundaries."
+          },
+          {
+            "icon": "target",
+            "title": "Business Rules",
+            "description": "Custom validation like 'emergency requires phone' or 'date must be future'."
+          },
+          {
+            "icon": "zap",
+            "title": "Structured Errors",
+            "description": "Field-level error messages that map directly to form UI."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "The Security Pipeline",
+        "id": "security-pipeline"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every Server Action runs through this complete pipeline. The securityCheck function wraps all checks into a single reusable utility."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Request Processing Pipeline",
+        "steps": [
+          {
+            "title": "Origin Validation",
+            "description": "Reject requests from untrusted sources",
+            "icon": "shield"
+          },
+          {
+            "title": "Rate Limit Check",
+            "description": "Enforce request quotas per client",
+            "icon": "clock"
+          },
+          {
+            "title": "Input Sanitization",
+            "description": "Neutralize potentially malicious content",
+            "icon": "code"
+          },
+          {
+            "title": "Schema Validation",
+            "description": "Verify data structure and business rules",
+            "icon": "check"
+          },
+          {
+            "title": "Business Logic",
+            "description": "Process the validated, safe data",
+            "icon": "zap"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/security/index.ts (Security Check Utility)",
+        "code": "export async function securityCheck(\n  limiter: RateLimiter\n): Promise<SecurityCheckResult> {\n  // Step 1: Validate request origin\n  const originValid = await validateOrigin()\n  if (!originValid) {\n    return { passed: false, error: \"Invalid request origin\" }\n  }\n  \n  // Step 2: Check rate limit\n  const clientId = await getClientIdentifier()\n  const rateResult = limiter.check(clientId)\n  \n  if (!rateResult.allowed) {\n    return {\n      passed: false,\n      error: `Rate limit exceeded. Try again in ${rateResult.retryAfter}s`,\n    }\n  }\n  \n  // All checks passed\n  return { passed: true }\n}\n\n// Usage in Server Action\nexport async function submitServiceRequest(data: FormData) {\n  const security = await securityCheck(rateLimiters.serviceRequest)\n  if (!security.passed) {\n    return { success: false, error: security.error }\n  }\n  \n  // Sanitize all input\n  const sanitizedData = sanitizeObject(data)\n  \n  // Validate with Zod\n  const validated = serverFormSchema.safeParse(sanitizedData)\n  if (!validated.success) {\n    return { success: false, errors: validated.error.flatten() }\n  }\n  \n  // Safe to process\n  // ...\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Attack Prevention",
+        "id": "attack-prevention"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Attacks We Prevent",
+        "notIdealTitle": "Additional Measures for Production",
+        "idealFor": [
+          "CSRF (Cross-Site Request Forgery) via origin validation",
+          "XSS (Cross-Site Scripting) via input sanitization",
+          "DDoS/Brute Force via rate limiting",
+          "Injection attacks via schema validation",
+          "Type confusion via TypeScript + Zod"
+        ],
+        "notIdealFor": [
+          "SQL Injection - add parameterized queries with database",
+          "Session hijacking - implement secure session management",
+          "Man-in-the-middle - ensure HTTPS everywhere",
+          "Password attacks - add bcrypt hashing for auth"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "08",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Each security layer catches what others miss. Origin validation stops CSRF, rate limiting prevents abuse, sanitization neutralizes XSS, and schema validation enforces data integrity. Defense in depth is not paranoia - it is engineering discipline. When you add authentication and database access, you will add more layers to this foundation."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Server Actions: Beyond the Basics",
+            "href": "/dashboard/content-library/articles/server-actions-deep-dive",
+            "level": "intermediate"
+          },
+          {
+            "title": "Type-Safe Validation with Zod",
+            "href": "/dashboard/content-library/articles/typescript-zod-validation",
+            "level": "beginner"
+          },
+          {
+            "title": "Building a Production Email System",
+            "href": "/dashboard/content-library/articles/email-system-architecture",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

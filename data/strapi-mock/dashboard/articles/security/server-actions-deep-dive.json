@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "slug": "server-actions-deep-dive",
+    "title": "Server Actions: Beyond the Basics",
+    "excerpt": "Production patterns for secure, type-safe server actions",
+    "level": "intermediate",
+    "category": "security",
+    "readTime": "18 min",
+    "publishedAt": "2026-02-20",
+    "tags": ["server-actions", "security", "next.js", "typescript"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "what-are-server-actions",
+      "title": "What Are Server Actions?",
+      "level": 2
+    },
+    { "id": "our-pipeline", "title": "Our Server Action Pipeline", "level": 2 },
+    { "id": "security-layer", "title": "Security Layer", "level": 3 },
+    { "id": "validation-layer", "title": "Validation Layer", "level": 3 },
+    { "id": "business-logic", "title": "Business Logic Layer", "level": 3 },
+    { "id": "error-handling", "title": "Error Handling", "level": 2 },
+    { "id": "response-patterns", "title": "Response Patterns", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Server Actions simplified our API layer by eliminating the need for separate API routes. But production use requires more than the basics - security, validation, error handling, and consistent response patterns."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "What Are Server Actions?",
+        "id": "what-are-server-actions"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Server Actions are async functions that run on the server, callable directly from Client Components. They replace traditional API routes for mutations, providing automatic request handling, error boundaries, and progressive enhancement."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Server Actions Excel At",
+        "notIdealTitle": "Use API Routes Instead For",
+        "idealFor": [
+          "Form submissions and mutations",
+          "Database operations (CRUD)",
+          "Email sending and notifications",
+          "File processing after upload",
+          "Any action triggered by user interaction"
+        ],
+        "notIdealFor": [
+          "Webhooks from external services",
+          "Public APIs consumed by third parties",
+          "Long-running background jobs",
+          "Streaming responses",
+          "GraphQL endpoints"
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Basic Server Action",
+        "code": "// lib/actions/service-request.ts\n\"use server\"\n\nexport async function submitServiceRequest(formData: FormData) {\n  // This runs on the server\n  const email = formData.get(\"email\") as string\n  \n  // Access server-only resources\n  await db.insert(serviceRequests).values({ email })\n  \n  // Return data to the client\n  return { success: true }\n}\n\n// Usage in Client Component\n\"use client\"\nimport { submitServiceRequest } from \"@/lib/actions/service-request\"\n\nexport function ServiceForm() {\n  const handleSubmit = async (formData: FormData) => {\n    const result = await submitServiceRequest(formData)\n    if (result.success) {\n      // Handle success\n    }\n  }\n  \n  return <form action={handleSubmit}>...</form>\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Our Server Action Pipeline",
+        "id": "our-pipeline"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every Server Action in our application follows a consistent pipeline that handles security, validation, and error handling in a predictable order."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Request Processing Pipeline",
+        "steps": [
+          {
+            "title": "1. Security Check",
+            "description": "Origin validation and rate limiting before any processing",
+            "icon": "shield"
+          },
+          {
+            "title": "2. Input Sanitization",
+            "description": "Neutralize XSS vectors in all string inputs",
+            "icon": "code"
+          },
+          {
+            "title": "3. Schema Validation",
+            "description": "Validate data structure and business rules with Zod",
+            "icon": "check"
+          },
+          {
+            "title": "4. Business Logic",
+            "description": "Process the validated, secure data",
+            "icon": "zap"
+          },
+          {
+            "title": "5. Response",
+            "description": "Return structured success or error response",
+            "icon": "target"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Security Layer",
+        "id": "security-layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Security checks run first, before we touch any user data. If security fails, we reject the request immediately."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Security Check Implementation",
+        "code": "\"use server\"\n\nimport { securityCheck, rateLimiters } from \"@/lib/security\"\nimport { sanitizeObject } from \"@/lib/sanitize/input-sanitizer\"\n\nexport async function submitServiceRequest(data: unknown) {\n  // Step 1: Security check (origin + rate limit)\n  const security = await securityCheck(rateLimiters.serviceRequest)\n  \n  if (!security.passed) {\n    return {\n      success: false,\n      error: security.error, // \"Invalid origin\" or \"Rate limit exceeded\"\n    }\n  }\n  \n  // Security passed, continue to sanitization...\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Validation Layer",
+        "id": "validation-layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "After security checks, we sanitize inputs and validate against our Zod schemas. This catches malformed data that could cause issues downstream."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Validation Implementation",
+        "code": "export async function submitServiceRequest(data: unknown) {\n  // ... security check ...\n  \n  // Step 2: Sanitize all string inputs\n  const sanitizedData = sanitizeObject(data as Record<string, unknown>)\n  \n  // Step 3: Validate with Zod schema\n  const result = serverFormSchema.safeParse(sanitizedData)\n  \n  if (!result.success) {\n    // Return structured validation errors\n    return {\n      success: false,\n      fieldErrors: result.error.flatten().fieldErrors,\n      // Example: { \"personalInfo.email\": [\"Invalid email format\"] }\n    }\n  }\n  \n  // Data is now typed, validated, and sanitized\n  const validatedData = result.data\n  \n  // Continue to business logic...\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Business Logic Layer",
+        "id": "business-logic"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "With validated data, we can safely execute business logic. Our forms send dual emails - one to the customer and one to the business."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Business Logic Flow",
+        "nodes": [
+          {
+            "label": "Validated Data",
+            "description": "Type-safe input",
+            "icon": "database"
+          },
+          {
+            "label": "Email Service",
+            "description": "Dual notifications",
+            "icon": "zap"
+          },
+          {
+            "label": "Customer Email",
+            "description": "Confirmation",
+            "icon": "users"
+          },
+          {
+            "label": "Business Email",
+            "description": "Notification",
+            "icon": "target"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Business Logic Implementation",
+        "code": "export async function submitServiceRequest(data: unknown) {\n  // ... security + validation ...\n  \n  // Step 4: Business logic with validated data\n  try {\n    // Send dual emails\n    const emailService = new EmailService()\n    \n    await Promise.all([\n      emailService.sendCustomerConfirmation({\n        to: validatedData.personalInfo.email,\n        name: validatedData.personalInfo.firstName,\n        serviceType: validatedData.serviceDetails.serviceType,\n        urgency: validatedData.serviceDetails.urgency,\n      }),\n      emailService.sendBusinessNotification({\n        customerName: `${validatedData.personalInfo.firstName} ${validatedData.personalInfo.lastName}`,\n        serviceType: validatedData.serviceDetails.serviceType,\n        urgency: validatedData.serviceDetails.urgency,\n        scheduledDate: validatedData.schedulePreferences.preferredDate,\n      }),\n    ])\n    \n    return { success: true }\n  } catch (error) {\n    // Handle errors gracefully\n    console.error(\"Service request failed:\", error)\n    return {\n      success: false,\n      error: \"Failed to process request. Please try again.\",\n    }\n  }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Error Handling",
+        "id": "error-handling"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Server Actions can fail at multiple points. We use a consistent error handling approach that provides useful feedback without exposing internal details."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "shield",
+            "title": "Security Errors",
+            "description": "Generic messages like 'Invalid request' - never reveal security implementation details."
+          },
+          {
+            "icon": "code",
+            "title": "Validation Errors",
+            "description": "Field-level errors mapped to form fields for inline display."
+          },
+          {
+            "icon": "alertTriangle",
+            "title": "Business Logic Errors",
+            "description": "User-friendly messages with retry suggestions when appropriate."
+          },
+          {
+            "icon": "zap",
+            "title": "Unexpected Errors",
+            "description": "Logged to monitoring, generic message to user, never expose stack traces."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Error Handling Pattern",
+        "code": "// lib/errors/error-handler.ts\nexport function handleActionError(error: unknown): ActionResult {\n  // Log for debugging (server-side only)\n  console.error(\"Action error:\", error)\n  \n  // Known error types\n  if (error instanceof ValidationError) {\n    return {\n      success: false,\n      fieldErrors: error.fieldErrors,\n    }\n  }\n  \n  if (error instanceof RateLimitError) {\n    return {\n      success: false,\n      error: `Too many requests. Please wait ${error.retryAfter} seconds.`,\n    }\n  }\n  \n  if (error instanceof EmailDeliveryError) {\n    return {\n      success: false,\n      error: \"Failed to send confirmation email. Your request was received.\",\n    }\n  }\n  \n  // Unknown errors - never expose details\n  return {\n    success: false,\n    error: \"An unexpected error occurred. Please try again.\",\n  }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Response Patterns",
+        "id": "response-patterns"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "All Server Actions return a consistent response structure that the client can reliably parse and handle."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Response Types",
+        "code": "// Consistent response structure\ntype ActionResult =\n  | { success: true; data?: unknown }\n  | { success: false; error: string }\n  | { success: false; fieldErrors: Record<string, string[]> }\n\n// Client-side handling\nconst result = await submitServiceRequest(formData)\n\nif (result.success) {\n  // Show success message, reset form, redirect\n  toast.success(\"Request submitted successfully!\")\n  resetForm()\n  router.push(\"/confirmation\")\n} else if (\"fieldErrors\" in result) {\n  // Map errors to form fields\n  Object.entries(result.fieldErrors).forEach(([field, messages]) => {\n    form.setError(field, { message: messages[0] })\n  })\n} else {\n  // Show general error\n  toast.error(result.error)\n}"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Progressive Enhancement",
+        "body": "Server Actions work without JavaScript through native form submissions. For the best UX, use the useFormStatus hook to show loading states and useOptimistic for instant feedback on mutations."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Server Actions are powerful but need a consistent pipeline pattern. Always run security checks first, sanitize inputs, validate with Zod, then execute business logic. Use structured responses that the client can reliably handle. Never expose internal error details to users - log them server-side and return generic messages."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Security Architecture Deep Dive",
+            "href": "/dashboard/content-library/articles/security-architecture-deep-dive",
+            "level": "advanced"
+          },
+          {
+            "title": "Type-Safe Validation with Zod",
+            "href": "/dashboard/content-library/articles/typescript-zod-validation",
+            "level": "beginner"
+          },
+          {
+            "title": "Building a Production Email System",
+            "href": "/dashboard/content-library/articles/email-system-architecture",
+            "level": "advanced"
+          }
+        ]
+      }
+    }
+  ]
+}

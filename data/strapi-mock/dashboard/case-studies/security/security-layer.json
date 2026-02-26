@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "slug": "security-layer",
+    "title": "Defense in Depth: Building a Security Layer",
+    "excerpt": "Moving from point fixes to a repeatable security boundary",
+    "level": "intermediate",
+    "category": "security",
+    "readTime": "11 min",
+    "publishedAt": "2024-03-02",
+    "tags": ["security", "middleware", "rate-limiting", "auth"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Security improvements were being added ad hoc: a CSP header here, a validation check there. Each fix solved a specific issue, but we had no consistent security boundary across the app. The result was uneven protection and duplicated logic."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Fragmented Security",
+        "body": "Point fixes leave gaps. Without a shared layer, teams re-implement checks and forget edge cases in new routes."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We had inconsistent authentication checks, no rate limiting for public APIs, and scattered input sanitation. High-traffic endpoints were the most vulnerable because each team implemented protections differently."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Protected Routes",
+            "value": "62%",
+            "change": "Inconsistent checks",
+            "positive": false
+          },
+          {
+            "label": "Rate Limits",
+            "value": "0",
+            "change": "None enabled",
+            "positive": false
+          },
+          {
+            "label": "Validation Coverage",
+            "value": "45%",
+            "change": "Missing server checks",
+            "positive": false
+          },
+          {
+            "label": "Audit Visibility",
+            "value": "Low",
+            "change": "No central logging",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We created a security layer that runs before every request: authentication, authorization, input sanitization, rate limiting, and structured audit logging. It became the default entry point for all routes."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Layer Pipeline",
+        "steps": [
+          {
+            "title": "Authenticate",
+            "description": "Validate session or API token before processing."
+          },
+          {
+            "title": "Authorize",
+            "description": "Check permissions against role and resource scope."
+          },
+          {
+            "title": "Sanitize",
+            "description": "Normalize and sanitize input to prevent injection."
+          },
+          {
+            "title": "Rate Limit",
+            "description": "Throttle abusive traffic and protect critical APIs."
+          },
+          {
+            "title": "Audit",
+            "description": "Log structured events for incident review and analytics."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Route-by-Route Checks",
+        "beforeCode": "export async function POST(req) {\n  const user = await getUser(req)\n  if (!user) return unauth()\n  // Custom checks per route\n  return handler(req)\n}",
+        "afterTitle": "After: Central Security Layer",
+        "afterCode": "export async function POST(req) {\n  return withSecurity(req, {\n    scope: 'admin',\n    rateLimitKey: 'admin-write',\n    handler: handler,\n  })\n}",
+        "improvements": [
+          { "metric": "Coverage", "before": "62%", "after": "100%" },
+          { "metric": "Rate limiting", "before": "None", "after": "Enabled" },
+          {
+            "metric": "Audit logging",
+            "before": "Ad hoc",
+            "after": "Structured"
+          },
+          {
+            "metric": "Maintenance",
+            "before": "Per route",
+            "after": "Centralized"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Outcomes",
+        "headers": ["Metric", "Before", "After", "Impact"],
+        "rows": [
+          ["Protected routes", "62%", "100%", "All endpoints covered"],
+          ["Rate limiting", "0", "12 policies", "Abuse reduced"],
+          ["Validation coverage", "45%", "96%", "Server validated"],
+          ["Incident response", "Manual", "Automated", "Faster triage"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "Default Secure",
+            "description": "Make the secure path the default so new routes inherit protections automatically."
+          },
+          {
+            "icon": "layers",
+            "title": "Layered Checks",
+            "description": "Authentication and authorization are separate concerns. Treat them as distinct steps."
+          },
+          {
+            "icon": "code",
+            "title": "Reusable Policies",
+            "description": "Model rate limits and scopes as reusable policies, not bespoke logic."
+          },
+          {
+            "icon": "target",
+            "title": "Audit Everything",
+            "description": "Structured logs make incident response measurable and repeatable."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Centralize security in a reusable layer. When every route passes through the same pipeline, coverage is complete and maintenance drops dramatically."
+      }
+    }
+  ]
+}

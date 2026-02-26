@@ -1,57 +1,68 @@
-import { Metadata } from "next"
-import { Navbar } from "@/components/molecules/navbar"
-import { MultiStepFormContainer } from "@/features/service-request"
-import { ElectricCurrent } from "@/components/animations/electric-current"
-import { Zap, Home, Building2, Factory, AlertTriangle, ShieldCheck, Clock, Award, Wrench, Lightbulb, Cable, Gauge } from "lucide-react"
-import Link from "next/link"
+import { Metadata } from "next";
+import { Navbar } from "@/components/molecules/navbar";
+import { MultiStepFormContainer } from "@/features/service-request";
+import { ElectricCurrent } from "@/components/animations/electric-current";
+import servicesData from "@/data/strapi-mock/marketing/services.json";
+import type {
+  MarketingServicesContent,
+  MarketingIconName,
+} from "@/types/marketing";
+import {
+  Zap,
+  Home,
+  Building2,
+  Factory,
+  AlertTriangle,
+  ShieldCheck,
+  Clock,
+  Award,
+  Wrench,
+  Lightbulb,
+  Cable,
+  Gauge,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Our Services | Electrical Services",
-  description: "Professional electrical services for residential, commercial, and industrial properties. Licensed electricians, 24/7 emergency service, and quality workmanship guaranteed.",
-}
+  description:
+    "Professional electrical services for residential, commercial, and industrial properties. Licensed electricians, 24/7 emergency service, and quality workmanship guaranteed.",
+};
 
-const services = [
-  {
-    icon: Home,
-    title: "Residential",
-    description: "Complete home electrical solutions including rewiring, panel upgrades, lighting, and smart home installations.",
-    features: ["Full house rewiring", "Panel upgrades", "Lighting design", "EV charger installation"],
-  },
-  {
-    icon: Building2,
-    title: "Commercial",
-    description: "Comprehensive electrical services for offices, retail spaces, and commercial buildings.",
-    features: ["Office fit-outs", "Energy audits", "Lighting retrofits", "Data cabling"],
-  },
-  {
-    icon: Factory,
-    title: "Industrial",
-    description: "Heavy-duty electrical work for manufacturing facilities, warehouses, and industrial sites.",
-    features: ["3-phase power", "Motor controls", "PLC systems", "Preventive maintenance"],
-  },
-  {
-    icon: AlertTriangle,
-    title: "Emergency",
-    description: "24/7 emergency electrical services for urgent repairs and safety concerns.",
-    features: ["Power outages", "Electrical faults", "Safety hazards", "Same-day response"],
-  },
-]
+const servicesContent = servicesData as MarketingServicesContent;
+const {
+  hero,
+  services,
+  servicesSection,
+  specializations,
+  certifications,
+  trustIndicators,
+  requestForm,
+  whyChooseUs,
+  finalCta,
+} = servicesContent;
 
-const specializations = [
-  { icon: Lightbulb, label: "LED Lighting" },
-  { icon: Cable, label: "Rewiring" },
-  { icon: Gauge, label: "Panel Upgrades" },
-  { icon: Zap, label: "EV Chargers" },
-  { icon: Wrench, label: "Repairs" },
-  { icon: ShieldCheck, label: "Safety Inspections" },
-]
+const iconMap = {
+  Zap,
+  Home,
+  Building2,
+  Factory,
+  AlertTriangle,
+  ShieldCheck,
+  Clock,
+  Award,
+  Wrench,
+  Lightbulb,
+  Cable,
+  Gauge,
+  ArrowRight,
+} as const;
 
-const certifications = [
-  { title: "NICEIC Approved", description: "Fully certified and regularly assessed contractor" },
-  { title: "Part P Certified", description: "Compliant with Building Regulations" },
-  { title: "18th Edition", description: "BS 7671 Wiring Regulations qualified" },
-  { title: "Fully Insured", description: "Comprehensive public liability coverage" },
-]
+type IconName = keyof typeof iconMap;
+
+const getIcon = (name?: MarketingIconName) =>
+  name ? iconMap[name as IconName] : undefined;
 
 export default function ServicesPage() {
   return (
@@ -66,28 +77,38 @@ export default function ServicesPage() {
           <div className="container mx-auto px-4 py-16 md:py-20 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
-                <Zap className="w-4 h-4" />
-                Professional Electrical Services
+                {(() => {
+                  const BadgeIcon = getIcon(hero.badge.icon);
+                  return BadgeIcon ? <BadgeIcon className="w-4 h-4" /> : null;
+                })()}
+                {hero.badge.text}
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
-                Expert Electrical Solutions for Every Need
+                {hero.title}
               </h1>
               <p className="text-lg text-muted-foreground mb-8">
-                From residential repairs to large-scale industrial installations, our certified electricians deliver safe, reliable, and efficient electrical services.
+                {hero.description}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <a 
-                  href="#request-service" 
+                <a
+                  href={hero.primaryCta.href}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
                 >
-                  <Zap className="w-4 h-4" />
-                  Request Service
+                  {(() => {
+                    const CtaIcon = getIcon(hero.primaryCta.icon);
+                    return CtaIcon ? <CtaIcon className="w-4 h-4" /> : null;
+                  })()}
+                  {hero.primaryCta.label}
                 </a>
-                <Link 
-                  href="/quotation" 
+                <Link
+                  href={hero.secondaryCta.href}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border border-border text-foreground rounded-lg font-medium hover:bg-muted transition-colors"
                 >
-                  Get a Quote
+                  {hero.secondaryCta.label}
+                  {(() => {
+                    const CtaIcon = getIcon(hero.secondaryCta.icon);
+                    return CtaIcon ? <CtaIcon className="w-4 h-4" /> : null;
+                  })()}
                 </Link>
               </div>
             </div>
@@ -97,9 +118,11 @@ export default function ServicesPage() {
         {/* Services Grid */}
         <section className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Our Services</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              {servicesSection.title}
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We provide a comprehensive range of electrical services tailored to meet your specific requirements.
+              {servicesSection.description}
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
@@ -109,13 +132,25 @@ export default function ServicesPage() {
                 className="group p-6 rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/5"
               >
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-accent" />
+                  {(() => {
+                    const ServiceIcon = getIcon(service.icon);
+                    return ServiceIcon ? (
+                      <ServiceIcon className="w-6 h-6 text-accent" />
+                    ) : null;
+                  })()}
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {service.description}
+                </p>
                 <ul className="space-y-2">
                   {service.features.map((feature) => (
-                    <li key={feature} className="text-xs text-muted-foreground flex items-center gap-2">
+                    <li
+                      key={feature}
+                      className="text-xs text-muted-foreground flex items-center gap-2"
+                    >
                       <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                       {feature}
                     </li>
@@ -131,8 +166,16 @@ export default function ServicesPage() {
           <div className="container mx-auto px-4 py-12">
             <div className="flex flex-wrap justify-center gap-6 md:gap-12">
               {specializations.map((spec) => (
-                <div key={spec.label} className="flex items-center gap-2 text-muted-foreground">
-                  <spec.icon className="w-5 h-5 text-accent" />
+                <div
+                  key={spec.label}
+                  className="flex items-center gap-2 text-muted-foreground"
+                >
+                  {(() => {
+                    const SpecIcon = getIcon(spec.icon);
+                    return SpecIcon ? (
+                      <SpecIcon className="w-5 h-5 text-accent" />
+                    ) : null;
+                  })()}
                   <span className="text-sm font-medium">{spec.label}</span>
                 </div>
               ))}
@@ -150,10 +193,10 @@ export default function ServicesPage() {
             <div className="mx-auto max-w-4xl">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-foreground mb-2 text-balance">
-                  Electrical Service Request
+                  {requestForm.title}
                 </h2>
                 <p className="text-muted-foreground">
-                  Complete the form below to schedule your electrical service
+                  {requestForm.description}
                 </p>
               </div>
               <MultiStepFormContainer />
@@ -165,9 +208,11 @@ export default function ServicesPage() {
         <section className="bg-card border-y border-border">
           <div className="container mx-auto px-4 py-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Us</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                {whyChooseUs.title}
+              </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                We are committed to delivering exceptional electrical services with safety, quality, and customer satisfaction at the forefront.
+                {whyChooseUs.description}
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
@@ -176,8 +221,12 @@ export default function ServicesPage() {
                   <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                     <Award className="w-8 h-8 text-accent" />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{cert.title}</h3>
-                  <p className="text-sm text-muted-foreground">{cert.description}</p>
+                  <h3 className="font-semibold text-foreground mb-2">
+                    {cert.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {cert.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -187,21 +236,23 @@ export default function ServicesPage() {
         {/* Trust Indicators */}
         <section className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto grid gap-8 md:grid-cols-3 text-center">
-            <div className="p-6 rounded-xl bg-card border border-border">
-              <Clock className="w-8 h-8 text-accent mx-auto mb-4" />
-              <div className="text-3xl font-bold text-foreground mb-2">24/7</div>
-              <p className="text-sm text-muted-foreground">Emergency Service Available</p>
-            </div>
-            <div className="p-6 rounded-xl bg-card border border-border">
-              <ShieldCheck className="w-8 h-8 text-accent mx-auto mb-4" />
-              <div className="text-3xl font-bold text-foreground mb-2">100%</div>
-              <p className="text-sm text-muted-foreground">Satisfaction Guaranteed</p>
-            </div>
-            <div className="p-6 rounded-xl bg-card border border-border">
-              <Award className="w-8 h-8 text-accent mx-auto mb-4" />
-              <div className="text-3xl font-bold text-foreground mb-2">15+</div>
-              <p className="text-sm text-muted-foreground">Years of Experience</p>
-            </div>
+            {trustIndicators.map((item) => {
+              const TrustIcon = getIcon(item.icon);
+              return (
+                <div
+                  key={item.label}
+                  className="p-6 rounded-xl bg-card border border-border"
+                >
+                  {TrustIcon ? (
+                    <TrustIcon className="w-8 h-8 text-accent mx-auto mb-4" />
+                  ) : null}
+                  <div className="text-3xl font-bold text-foreground mb-2">
+                    {item.value}
+                  </div>
+                  <p className="text-sm text-muted-foreground">{item.label}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -210,21 +261,21 @@ export default function ServicesPage() {
           <div className="container mx-auto px-4 py-12">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                Need a Detailed Quote?
+                {finalCta.title}
               </h2>
               <p className="text-muted-foreground mb-6">
-                For larger projects or custom requirements, request a comprehensive quotation from our team.
+                {finalCta.description}
               </p>
-              <Link 
-                href="/quotation" 
+              <Link
+                href={finalCta.primaryCta.href}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
               >
-                Request Quotation
+                {finalCta.primaryCta.label}
               </Link>
             </div>
           </div>
         </section>
       </main>
     </>
-  )
+  );
 }

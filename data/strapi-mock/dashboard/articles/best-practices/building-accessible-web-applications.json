@@ -1,0 +1,402 @@
+{
+  "meta": {
+    "slug": "building-accessible-web-applications",
+    "title": "Building Accessible Web Applications",
+    "excerpt": "Practical guide to implementing WCAG 2.1 AA compliance in modern React applications",
+    "level": "intermediate",
+    "category": "best-practices",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-05",
+    "tags": ["accessibility", "wcag", "a11y", "react", "inclusive-design"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "business-case", "title": "The Business Case", "level": 2 },
+    { "id": "semantic-html", "title": "Semantic HTML Foundation", "level": 2 },
+    { "id": "focus-management", "title": "Focus Management", "level": 2 },
+    { "id": "aria-implementation", "title": "ARIA Implementation", "level": 2 },
+    { "id": "color-contrast", "title": "Color & Contrast", "level": 2 },
+    { "id": "testing-approach", "title": "Testing Approach", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": null,
+        "body": "Accessibility is not optional - it is a legal requirement in many jurisdictions and a business imperative. Building accessible applications from the start is significantly cheaper than retrofitting accessibility later."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Business Case",
+        "id": "business-case"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Before diving into implementation, it is important to understand why accessibility matters beyond compliance. The numbers make a compelling case for investment."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Global Population",
+            "value": "15%",
+            "change": "Has some form of disability",
+            "positive": true
+          },
+          {
+            "label": "SEO Improvement",
+            "value": "50%",
+            "change": "Better search performance",
+            "positive": true
+          },
+          {
+            "label": "Market Reach",
+            "value": "1B+",
+            "change": "Potential users globally",
+            "positive": true
+          },
+          {
+            "label": "Legal Risk",
+            "value": "High",
+            "change": "Non-compliance penalties",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "shield",
+            "title": "UK Equality Act",
+            "description": "Requires reasonable adjustments for disabled users accessing services"
+          },
+          {
+            "icon": "shield",
+            "title": "Americans with Disabilities Act",
+            "description": "Applies to websites of public accommodations in the US"
+          },
+          {
+            "icon": "shield",
+            "title": "European Accessibility Act",
+            "description": "EU-wide requirements coming into full effect in 2025"
+          },
+          {
+            "icon": "check",
+            "title": "WCAG 2.1 AA",
+            "description": "The international standard referenced by most regulations"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Semantic HTML Foundation",
+        "id": "semantic-html"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The foundation of accessible web applications is semantic HTML. Using the correct elements provides built-in accessibility features that ARIA cannot replicate."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Best Practice",
+        "notIdealTitle": "Anti-Pattern",
+        "idealFor": [
+          "Using semantic elements (nav, main, article)",
+          "Native button and link elements",
+          "Proper heading levels (h1-h6)",
+          "Form elements with associated labels"
+        ],
+        "notIdealFor": [
+          "Using div for everything",
+          "Click handlers on non-interactive elements",
+          "No heading hierarchy",
+          "Buttons made from spans or divs"
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Bad vs Good: Interactive Elements",
+        "code": "// BAD - Inaccessible\n<div onClick={handleSubmit} className=\"btn\">Submit</div>\n\n// GOOD - Accessible\n<button type=\"submit\" onClick={handleSubmit}>\n  Submit Form\n</button>\n\n// BAD - No label association\n<span>Email</span>\n<input type=\"email\" />\n\n// GOOD - Properly labeled\n<label htmlFor=\"email\">Email address</label>\n<input \n  id=\"email\"\n  type=\"email\"\n  aria-describedby=\"email-hint\"\n/>\n<span id=\"email-hint\" className=\"text-sm text-muted\">\n  We will never share your email\n</span>"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "The First Rule of ARIA",
+        "body": "Do not use ARIA if you can use a native HTML element that provides the same functionality. Native elements have built-in keyboard handling, focus management, and screen reader support."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Focus Management",
+        "id": "focus-management"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Keyboard users navigate with Tab, Shift+Tab, and arrow keys. Proper focus management ensures they can access all interactive content in a logical order."
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Focus Management Checklist",
+        "steps": [
+          {
+            "label": "Visible Focus",
+            "sublabel": "All interactive elements must have visible focus indicators"
+          },
+          {
+            "label": "Logical Order",
+            "sublabel": "Tab order should follow visual reading order"
+          },
+          {
+            "label": "Focus Trapping",
+            "sublabel": "Modals should trap focus until dismissed"
+          },
+          {
+            "label": "Focus Restoration",
+            "sublabel": "Return focus to trigger element when closing modals"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/modal.tsx",
+        "code": "import { useEffect, useRef } from \"react\"\n\nexport function Modal({ isOpen, onClose, children }) {\n  const modalRef = useRef<HTMLDivElement>(null)\n  const triggerRef = useRef<HTMLElement | null>(null)\n\n  useEffect(() => {\n    if (isOpen) {\n      // Store the element that triggered the modal\n      triggerRef.current = document.activeElement as HTMLElement\n      \n      // Focus the modal container\n      modalRef.current?.focus()\n    } else if (triggerRef.current) {\n      // Restore focus when modal closes\n      triggerRef.current.focus()\n    }\n  }, [isOpen])\n\n  // Handle escape key\n  useEffect(() => {\n    function handleKeyDown(e: KeyboardEvent) {\n      if (e.key === \"Escape\" && isOpen) {\n        onClose()\n      }\n    }\n    document.addEventListener(\"keydown\", handleKeyDown)\n    return () => document.removeEventListener(\"keydown\", handleKeyDown)\n  }, [isOpen, onClose])\n\n  if (!isOpen) return null\n\n  return (\n    <div\n      ref={modalRef}\n      role=\"dialog\"\n      aria-modal=\"true\"\n      aria-labelledby=\"modal-title\"\n      tabIndex={-1}\n      className=\"fixed inset-0 z-50 flex items-center justify-center\"\n    >\n      <div className=\"bg-card p-6 rounded-lg max-w-md\">\n        {children}\n      </div>\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "ARIA Implementation",
+        "id": "aria-implementation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "When native HTML semantics are insufficient, ARIA (Accessible Rich Internet Applications) attributes provide additional context to assistive technologies."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Essential ARIA Attributes",
+        "headers": ["Attribute", "Purpose", "Example Use"],
+        "rows": [
+          [
+            "aria-label",
+            "Provides accessible name when text is not visible",
+            "Icon-only buttons"
+          ],
+          [
+            "aria-describedby",
+            "Associates element with descriptive text",
+            "Form field hints"
+          ],
+          [
+            "aria-expanded",
+            "Indicates if collapsible content is open",
+            "Accordion, dropdown"
+          ],
+          [
+            "aria-live",
+            "Announces dynamic content changes",
+            "Toast notifications"
+          ],
+          [
+            "aria-invalid",
+            "Indicates validation state",
+            "Form fields with errors"
+          ],
+          [
+            "aria-hidden",
+            "Hides decorative content from screen readers",
+            "Decorative icons"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/form-field.tsx",
+        "code": "interface FormFieldProps {\n  id: string\n  label: string\n  error?: string\n  hint?: string\n}\n\nexport function FormField({ id, label, error, hint, ...props }: FormFieldProps) {\n  const errorId = `${id}-error`\n  const hintId = `${id}-hint`\n  \n  // Build aria-describedby from available descriptions\n  const describedBy = [\n    hint && hintId,\n    error && errorId,\n  ].filter(Boolean).join(\" \")\n\n  return (\n    <div>\n      <label htmlFor={id} className=\"font-medium\">\n        {label}\n      </label>\n      \n      {hint && (\n        <p id={hintId} className=\"text-sm text-muted-foreground\">\n          {hint}\n        </p>\n      )}\n      \n      <input\n        id={id}\n        aria-describedby={describedBy || undefined}\n        aria-invalid={!!error}\n        className={error ? \"border-red-500\" : \"\"}\n        {...props}\n      />\n      \n      {error && (\n        <p id={errorId} role=\"alert\" className=\"text-sm text-red-500\">\n          {error}\n        </p>\n      )}\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Color & Contrast",
+        "id": "color-contrast"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Color contrast affects users with low vision, color blindness, and those in bright environments. WCAG requires minimum contrast ratios between text and background."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "WCAG Contrast Requirements",
+        "headers": ["Element Type", "AA Standard", "AAA Standard"],
+        "rows": [
+          ["Normal text (< 18px)", "4.5:1 minimum", "7:1 minimum"],
+          ["Large text (18px+ or 14px bold)", "3:1 minimum", "4.5:1 minimum"],
+          ["UI components & graphics", "3:1 minimum", "Not specified"],
+          ["Focus indicators", "3:1 minimum", "Not specified"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Do Not Rely on Color Alone",
+        "body": "Never use color as the only way to convey information. Always provide an additional indicator such as text, an icon, or a pattern. This helps users with color blindness and ensures information is preserved when printed in grayscale."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Accessible Status Indicators",
+        "code": "// BAD - Color only\n<span className={status === \"error\" ? \"text-red-500\" : \"text-green-500\"}>\n  {status}\n</span>\n\n// GOOD - Color + Icon + Text\n<span className={status === \"error\" ? \"text-red-500\" : \"text-green-500\"}>\n  {status === \"error\" ? (\n    <>\n      <XCircle className=\"inline h-4 w-4 mr-1\" aria-hidden=\"true\" />\n      Error: {message}\n    </>\n  ) : (\n    <>\n      <CheckCircle className=\"inline h-4 w-4 mr-1\" aria-hidden=\"true\" />\n      Success: {message}\n    </>\n  )}\n</span>"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Testing Approach",
+        "id": "testing-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A comprehensive accessibility testing strategy combines automated tools with manual testing and real user feedback."
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Accessibility Testing Layers",
+        "steps": [
+          {
+            "label": "Automated",
+            "sublabel": "axe-core, Lighthouse, ESLint a11y plugin - catches ~30% of issues"
+          },
+          {
+            "label": "Manual",
+            "sublabel": "Keyboard-only navigation, zoom to 200%, high contrast mode"
+          },
+          {
+            "label": "Screen Reader",
+            "sublabel": "Test with VoiceOver (Mac), NVDA (Windows), TalkBack (Android)"
+          },
+          {
+            "label": "User Testing",
+            "sublabel": "Include disabled users in usability testing sessions"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Automated Testing Setup",
+        "code": "// Install axe-core for testing\n// npm install -D @axe-core/react\n\n// Add to your test setup or dev mode\nimport React from \"react\"\nimport ReactDOM from \"react-dom\"\n\nif (process.env.NODE_ENV === \"development\") {\n  import(\"@axe-core/react\").then((axe) => {\n    axe.default(React, ReactDOM, 1000)\n  })\n}\n\n// In Playwright E2E tests\nimport { test, expect } from \"@playwright/test\"\nimport AxeBuilder from \"@axe-core/playwright\"\n\ntest(\"page should be accessible\", async ({ page }) => {\n  await page.goto(\"/contact\")\n  \n  const accessibilityScanResults = await new AxeBuilder({ page })\n    .withTags([\"wcag2a\", \"wcag2aa\"])\n    .analyze()\n  \n  expect(accessibilityScanResults.violations).toEqual([])\n})"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "key-takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Build accessibility in from the start - retrofitting is expensive and incomplete. Use semantic HTML as your foundation, add ARIA only when necessary, ensure proper focus management, and test with real assistive technologies."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "href": "/dashboard/content-library/articles/security-architecture-deep-dive",
+            "title": "Security Architecture Deep Dive",
+            "level": "advanced"
+          },
+          {
+            "href": "/dashboard/content-library/articles/multi-step-form-architecture",
+            "title": "Multi-Step Form Architecture",
+            "level": "intermediate"
+          }
+        ]
+      }
+    }
+  ]
+}

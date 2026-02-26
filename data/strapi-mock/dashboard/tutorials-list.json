@@ -1,0 +1,58 @@
+{
+  "header": {
+    "title": "Tutorials",
+    "description": "Step-by-step guides with hands-on exercises covering Next.js, Strapi, testing, and integrations. Learn by doing with practical examples."
+  },
+  "stats": [
+    {
+      "level": "beginner",
+      "icon": "BookOpen",
+      "count": 5,
+      "color": "green"
+    },
+    {
+      "level": "intermediate",
+      "icon": "Layers",
+      "count": 6,
+      "color": "yellow"
+    },
+    {
+      "level": "advanced",
+      "icon": "Zap",
+      "count": 4,
+      "color": "red"
+    }
+  ],
+  "categories": [
+    {
+      "id": "nextjs",
+      "title": "Next.js",
+      "color": "black"
+    },
+    {
+      "id": "strapi",
+      "title": "Strapi",
+      "color": "blue"
+    },
+    {
+      "id": "forms",
+      "title": "Forms & Validation",
+      "color": "purple"
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "color": "green"
+    },
+    {
+      "id": "performance",
+      "title": "Performance",
+      "color": "orange"
+    },
+    {
+      "id": "integration",
+      "title": "Integrations",
+      "color": "violet"
+    }
+  ]
+}

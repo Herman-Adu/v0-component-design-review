@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "slug": "email-consolidation",
+    "title": "Email Consolidation: From 6 Providers to 1",
+    "excerpt": "Reducing delivery failures and simplifying infrastructure",
+    "level": "intermediate",
+    "category": "infrastructure",
+    "readTime": "12 min",
+    "publishedAt": "2024-03-08",
+    "tags": ["infrastructure", "email", "deliverability", "ops"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Transactional emails were split across six providers and multiple API keys. Each product team chose its own provider, which created inconsistent templates, different deliverability settings, and a fragmented audit trail."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "The Operational Cost",
+        "body": "Multiple providers increased vendor management effort and made incident response slow. We needed a single source of truth."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We had inconsistent SPF/DKIM alignment, varying retry policies, and a mix of templates with no shared governance. Failures were hard to debug because logs were spread across multiple dashboards."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Providers",
+            "value": "6",
+            "change": "Fragmented",
+            "positive": false
+          },
+          {
+            "label": "Delivery Failures",
+            "value": "4.8%",
+            "change": "Above 2% target",
+            "positive": false
+          },
+          {
+            "label": "Templates",
+            "value": "31",
+            "change": "Uncontrolled",
+            "positive": false
+          },
+          {
+            "label": "Audit Time",
+            "value": "Hours",
+            "change": "Slow incident review",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We consolidated to one provider with a shared template system, centralized sender domains, and standardized retry policies. A single service wrapper now handles every email."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Consolidation Rollout",
+        "steps": [
+          {
+            "title": "Inventory",
+            "description": "Catalog every template, sender, and provider integration."
+          },
+          {
+            "title": "Unify Domains",
+            "description": "Move to a single sender domain with aligned SPF/DKIM/DMARC."
+          },
+          {
+            "title": "Build Wrapper",
+            "description": "Create a shared email service with templates and retries."
+          },
+          {
+            "title": "Migrate Workflows",
+            "description": "Move transactional and marketing flows to the new provider."
+          },
+          {
+            "title": "Monitor",
+            "description": "Track deliverability and bounce rates on a shared dashboard."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Provider Per Team",
+        "beforeCode": "// Different providers\nawait sendgrid.send(payload)\nawait mailgun.send(payload)\nawait ses.send(payload)",
+        "afterTitle": "After: Shared Email Service",
+        "afterCode": "// One provider, one wrapper\nawait emailService.send('invoice-ready', payload)\nawait emailService.send('password-reset', payload)",
+        "improvements": [
+          { "metric": "Providers", "before": "6", "after": "1" },
+          { "metric": "Templates", "before": "31", "after": "12" },
+          {
+            "metric": "Audit log",
+            "before": "Scattered",
+            "after": "Centralized"
+          },
+          { "metric": "Delivery rate", "before": "95.2%", "after": "98.9%" }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Infrastructure Outcomes",
+        "headers": ["Metric", "Before", "After", "Impact"],
+        "rows": [
+          ["Delivery failures", "4.8%", "1.1%", "-77%"],
+          ["Template count", "31", "12", "-61%"],
+          ["On-call time", "6 hrs/week", "2 hrs/week", "-67%"],
+          ["Vendor cost", "$1,200/mo", "$780/mo", "-35%"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Standardize First",
+            "description": "Define templates and policy rules before migrating providers."
+          },
+          {
+            "icon": "code",
+            "title": "Create a Wrapper",
+            "description": "Centralize send logic so provider changes are invisible to teams."
+          },
+          {
+            "icon": "target",
+            "title": "Measure Deliverability",
+            "description": "Treat delivery rate as a first-class metric with dashboards."
+          },
+          {
+            "icon": "zap",
+            "title": "Plan Rollback",
+            "description": "Staged migration reduced risk and allowed quick recovery."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Consolidate email infrastructure behind a shared service. It improves deliverability, reduces cost, and makes auditing significantly easier."
+      }
+    }
+  ]
+}

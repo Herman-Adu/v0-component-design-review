@@ -1,0 +1,81 @@
+{
+  "header": {
+    "icon": "BookOpen",
+    "title": "Learning Hub",
+    "description": "A comprehensive collection of articles, tutorials, and case studies designed for all skill levels - from developers just starting out to CTOs making technology decisions."
+  },
+  "contentTypes": [
+    {
+      "id": "articles",
+      "title": "Articles & Insights",
+      "description": "In-depth technical articles covering architecture, security, testing, DevOps, and business strategy.",
+      "icon": "FileText",
+      "href": "/dashboard/content-library/articles",
+      "count": 12
+    },
+    {
+      "id": "tutorials",
+      "title": "Tutorials",
+      "description": "Step-by-step guides with hands-on exercises covering Next.js, Strapi, testing, and integrations.",
+      "icon": "GraduationCap",
+      "href": "/dashboard/content-library/tutorials",
+      "count": 8
+    },
+    {
+      "id": "case-studies",
+      "title": "Case Studies",
+      "description": "Real-world examples with before/after comparisons, metrics, and actionable takeaways.",
+      "icon": "TrendingUp",
+      "href": "/dashboard/content-library/case-studies",
+      "count": 5
+    }
+  ],
+  "stats": [
+    {
+      "label": "Total Resources",
+      "value": 25,
+      "icon": "FileText"
+    },
+    {
+      "label": "Skill Levels",
+      "value": 3,
+      "icon": "Layers"
+    },
+    {
+      "label": "Topic Areas",
+      "value": 12,
+      "icon": "Tag"
+    },
+    {
+      "label": "Real-World Cases",
+      "value": 5,
+      "icon": "Briefcase"
+    }
+  ],
+  "audienceSections": [
+    {
+      "id": "beginners",
+      "title": "Just Getting Started?",
+      "description": "Begin with foundational tutorials and beginner-level articles. Suggested path: Getting Started → Fundamentals → First Project.",
+      "icon": "Sparkles",
+      "audience": "Beginner",
+      "cta": "View Beginner Path"
+    },
+    {
+      "id": "intermediate",
+      "title": "Building Solutions",
+      "description": "Deepen your skills with intermediate articles, advanced tutorials, and real-world case studies. Suggested path: Architecture → Advanced Patterns → Case Studies.",
+      "icon": "TrendingUp",
+      "audience": "Intermediate",
+      "cta": "View Intermediate Path"
+    },
+    {
+      "id": "advanced",
+      "title": "Making Decisions",
+      "description": "Stay at the edge of best practices with advanced content, business strategy insights, and scalability case studies. Suggested path: Architecture Decisions → Performance → CTO Strategy.",
+      "icon": "Users",
+      "audience": "Advanced / CTO",
+      "cta": "View Advanced Path"
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "meta": {
+    "slug": "multi-step-form-architecture",
+    "title": "Multi-Step Form Architecture",
+    "excerpt": "Building scalable multi-step forms with shared components, Zustand state management, and 41% code reuse across three different form flows",
+    "level": "intermediate",
+    "category": "forms",
+    "readTime": "15 min",
+    "publishedAt": "2026-02-12",
+    "tags": ["forms", "zustand", "architecture", "state-management", "react"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "the-challenge", "title": "The Challenge", "level": 2 },
+    {
+      "id": "architecture-overview",
+      "title": "Architecture Overview",
+      "level": 2
+    },
+    { "id": "shared-steps", "title": "Shared Steps Pattern", "level": 2 },
+    { "id": "state-management", "title": "State Management", "level": 2 },
+    { "id": "container-pattern", "title": "Container Pattern", "level": 2 },
+    { "id": "navigation-flow", "title": "Navigation Flow", "level": 2 },
+    { "id": "form-submission", "title": "Form Submission", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Building one multi-step form is straightforward. Building three that share code while maintaining flexibility? That requires careful architecture. Here is how we built a scalable multi-step form system."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Challenge",
+        "id": "the-challenge"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our application needed to support three different form flows with varying complexity. The naive approach - building three separate forms - would lead to massive code duplication and inconsistent user experiences."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Form Types",
+            "value": "3",
+            "change": "Service, Contact, Quote",
+            "positive": true
+          },
+          {
+            "label": "Total Steps",
+            "value": "17",
+            "change": "Across all forms",
+            "positive": true
+          },
+          {
+            "label": "Shared Steps",
+            "value": "7",
+            "change": "41% reuse rate",
+            "positive": true
+          },
+          {
+            "label": "Step Components",
+            "value": "10",
+            "change": "Unique implementations",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 3,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "Service Request",
+            "description": "5 steps: Basic flow for requesting electrical services with urgency levels."
+          },
+          {
+            "icon": "users",
+            "title": "Contact Form",
+            "description": "5 steps: General inquiries with reference linking to existing requests."
+          },
+          {
+            "icon": "target",
+            "title": "Quotation",
+            "description": "7 steps: Complex flow with budget ranges, timelines, and specifications."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Architecture Overview",
+        "id": "architecture-overview"
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Multi-Step Form Architecture",
+        "layers": [
+          {
+            "name": "Form Containers",
+            "items": [
+              "ServiceFormContainer",
+              "ContactFormContainer",
+              "QuotationFormContainer"
+            ],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Step Components",
+            "items": ["Shared Steps (7)", "Unique Steps (10)"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "State Layer",
+            "items": ["useFormStore", "useContactStore", "useQuotationStore"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Validation Layer",
+            "items": ["Zod Schemas", "React Hook Form Resolvers"],
+            "color": "#3b82f6"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Design Decisions",
+        "id": null
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Store Injection Pattern",
+            "description": "Shared steps accept a store hook as a prop, allowing them to work with any Zustand store."
+          },
+          {
+            "icon": "gitBranch",
+            "title": "Container Orchestration",
+            "description": "Each form has a container that manages step rendering, navigation, and submission."
+          },
+          {
+            "icon": "shield",
+            "title": "Per-Step Validation",
+            "description": "Each step validates its own fields before allowing navigation to the next step."
+          },
+          {
+            "icon": "database",
+            "title": "Persistent State",
+            "description": "Zustand's persist middleware saves progress to localStorage automatically."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Shared Steps Pattern",
+        "id": "shared-steps"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We identified steps that appear in multiple forms and made them truly reusable by accepting a generic store interface."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Shared Step Usage",
+        "nodes": [
+          {
+            "label": "PersonalInfoStep",
+            "description": "Used in 3 forms",
+            "icon": "users"
+          },
+          {
+            "label": "PropertyInfoStep",
+            "description": "Used in 3 forms",
+            "icon": "target"
+          },
+          {
+            "label": "ScheduleStep",
+            "description": "Used in 3 forms",
+            "icon": "clock"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/organisms/personal-info-step.tsx",
+        "code": "// Shared step that works with any compatible store\ninterface PersonalInfoStepProps {\n  // Accept any store that provides these methods\n  useStore: () => {\n    data: { personalInfo: PersonalInfo }\n    updatePersonalInfo: (data: Partial<PersonalInfo>) => void\n    nextStep: () => void\n  }\n}\n\nexport function PersonalInfoStep({ useStore }: PersonalInfoStepProps) {\n  // Use the injected store\n  const { data, updatePersonalInfo, nextStep } = useStore()\n  \n  const form = useForm<PersonalInfo>({\n    resolver: zodResolver(personalInfoSchema),\n    defaultValues: data.personalInfo,\n  })\n  \n  const onSubmit = (values: PersonalInfo) => {\n    updatePersonalInfo(values)\n    nextStep()\n  }\n  \n  return (\n    <FormStepContainer\n      title=\"Personal Information\"\n      description=\"Let us know how to contact you\"\n    >\n      <form onSubmit={form.handleSubmit(onSubmit)}>\n        <FormInput label=\"First Name\" {...form.register(\"firstName\")} />\n        <FormInput label=\"Last Name\" {...form.register(\"lastName\")} />\n        <FormInput label=\"Email\" type=\"email\" {...form.register(\"email\")} />\n        <FormInput label=\"Phone\" type=\"tel\" {...form.register(\"phone\")} />\n        <FormNavigation isFirst={true} />\n      </form>\n    </FormStepContainer>\n  )\n}\n\n// Usage in different containers\n<PersonalInfoStep useStore={useFormStore} />     // Service form\n<PersonalInfoStep useStore={useContactStore} />  // Contact form\n<PersonalInfoStep useStore={useQuotationStore} /> // Quotation form"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "State Management",
+        "id": "state-management"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Each form has its own Zustand store that manages step navigation, form data, and persistence. The stores share a common interface that shared steps can rely on."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/store/use-form-store.ts",
+        "code": "import { create } from \"zustand\"\nimport { persist } from \"zustand/middleware\"\n\ninterface FormStore {\n  // Current step tracking\n  currentStep: number\n  \n  // Form data for each step\n  data: {\n    personalInfo: PersonalInfo\n    serviceDetails: ServiceDetails\n    propertyInfo: PropertyInfo\n    schedulePreferences: SchedulePreferences\n  }\n  \n  // Update methods (one per step)\n  updatePersonalInfo: (data: Partial<PersonalInfo>) => void\n  updateServiceDetails: (data: Partial<ServiceDetails>) => void\n  updatePropertyInfo: (data: Partial<PropertyInfo>) => void\n  updateSchedulePreferences: (data: Partial<SchedulePreferences>) => void\n  \n  // Navigation\n  nextStep: () => void\n  prevStep: () => void\n  goToStep: (step: number) => void\n  \n  // Utility\n  resetForm: () => void\n  isStepComplete: (step: number) => boolean\n}\n\nexport const useFormStore = create<FormStore>()(\n  persist(\n    (set, get) => ({\n      currentStep: 1,\n      data: initialData,\n      \n      updatePersonalInfo: (data) =>\n        set((state) => ({\n          data: {\n            ...state.data,\n            personalInfo: { ...state.data.personalInfo, ...data },\n          },\n        })),\n      \n      nextStep: () =>\n        set((state) => ({\n          currentStep: Math.min(state.currentStep + 1, 5),\n        })),\n      \n      // ... other methods\n    }),\n    { name: \"electrical-service-form\" } // localStorage key\n  )\n)"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Why Zustand Over Context?",
+        "body": "Zustand provides better performance (components only re-render when their specific slice changes), built-in persistence middleware, and a simpler API than React Context with useReducer."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Container Pattern",
+        "id": "container-pattern"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Each form has a container component that orchestrates step rendering based on current state. The container owns the step mapping and handles the submission logic."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/organisms/service-form-container.tsx",
+        "code": "export function ServiceFormContainer() {\n  const { currentStep } = useFormStore()\n  \n  // Map step numbers to components\n  const renderStep = () => {\n    switch (currentStep) {\n      case 1:\n        return <PersonalInfoStep useStore={useFormStore} />\n      case 2:\n        return <ServiceDetailsStep /> // Unique to this form\n      case 3:\n        return <PropertyInfoStep useStore={useFormStore} />\n      case 4:\n        return <ScheduleStep useStore={useFormStore} />\n      case 5:\n        return <ReviewStep onSubmit={handleSubmit} />\n      default:\n        return null\n    }\n  }\n  \n  return (\n    <div className=\"max-w-2xl mx-auto\">\n      <FormProgressIndicator \n        currentStep={currentStep} \n        totalSteps={5}\n        steps={[\"Contact\", \"Service\", \"Property\", \"Schedule\", \"Review\"]}\n      />\n      {renderStep()}\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Navigation Flow",
+        "id": "navigation-flow"
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Step Navigation Logic",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Validate",
+            "description": "Run Zod schema on current step"
+          },
+          {
+            "number": 2,
+            "title": "Update Store",
+            "description": "Save validated data to Zustand"
+          },
+          {
+            "number": 3,
+            "title": "Navigate",
+            "description": "Increment currentStep"
+          },
+          {
+            "number": 4,
+            "title": "Persist",
+            "description": "Auto-save to localStorage"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Navigation Implementation",
+        "code": "// In each step component\nconst onSubmit = async (values: StepData) => {\n  // 1. Validation happens via React Hook Form + Zod resolver\n  // 2. Update store with validated data\n  updateStepData(values)\n  // 3. Navigate to next step\n  nextStep()\n  // 4. Persistence happens automatically via Zustand middleware\n}\n\n// Previous navigation (no validation needed)\nconst onPrevious = () => {\n  prevStep()\n}\n\n// Skip to specific step (only if steps before it are complete)\nconst onGoToStep = (step: number) => {\n  if (canNavigateToStep(step)) {\n    goToStep(step)\n  }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Form Submission",
+        "id": "form-submission"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The final review step triggers submission through a Server Action. The action runs security checks, validates the complete form, and sends confirmation emails."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Submission Pipeline",
+        "nodes": [
+          {
+            "label": "Review Step",
+            "description": "User confirms",
+            "icon": "check"
+          },
+          {
+            "label": "Server Action",
+            "description": "Security + validation",
+            "icon": "shield"
+          },
+          {
+            "label": "Email Service",
+            "description": "Dual notifications",
+            "icon": "zap"
+          },
+          {
+            "label": "Success",
+            "description": "Reset form",
+            "icon": "target"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Multi-Step Form Benefits",
+        "notIdealTitle": "When to Use Single Forms",
+        "idealFor": [
+          "Complex data collection (5+ fields)",
+          "Progressive disclosure of complexity",
+          "Forms with conditional sections",
+          "Mobile-friendly long forms",
+          "Forms requiring mid-process saves"
+        ],
+        "notIdealFor": [
+          "Simple contact forms (3-4 fields)",
+          "Quick feedback submissions",
+          "Forms where context matters across fields",
+          "Time-sensitive submissions"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "08",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Identify shared patterns, extract them into reusable components, and compose unique flows from common pieces. Our multi-step form system handles 3 different flows with 41% code reuse. The store injection pattern lets shared steps work with any form while maintaining type safety throughout."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Zustand for Complex Form State",
+            "href": "/dashboard/content-library/articles/zustand-form-state-management",
+            "level": "intermediate"
+          },
+          {
+            "title": "Type-Safe Validation with Zod",
+            "href": "/dashboard/content-library/articles/typescript-zod-validation",
+            "level": "beginner"
+          },
+          {
+            "title": "Atomic Design Principles",
+            "href": "/dashboard/content-library/articles/atomic-design-principles",
+            "level": "beginner"
+          }
+        ]
+      }
+    }
+  ]
+}

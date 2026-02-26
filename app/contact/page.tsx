@@ -1,45 +1,43 @@
 /**
  * Contact Us Page
- * 
+ *
  * Features multi-step contact form, office hours, location map,
  * and quick contact options with glassmorphic design
  */
 
-import type { Metadata } from "next"
-import { ContactFormContainer } from "@/features/contact"
-import { OfficeHoursCard } from "@/components/molecules/office-hours-card"
-import { LocationMapCard } from "@/components/molecules/location-map-card"
-import { QuickContactCard } from "@/components/molecules/quick-contact-card"
-import { Mail, MessageSquare, Shield, Clock } from "lucide-react"
-import { Navbar } from "@/components/molecules/navbar"
+import type { Metadata } from "next";
+import { ContactFormContainer } from "@/features/contact";
+import { OfficeHoursCard } from "@/components/molecules/office-hours-card";
+import { LocationMapCard } from "@/components/molecules/location-map-card";
+import { QuickContactCard } from "@/components/molecules/quick-contact-card";
+import contactData from "@/data/strapi-mock/marketing/contact.json";
+import type {
+  MarketingContactContent,
+  MarketingIconName,
+} from "@/types/marketing";
+import { Mail, MessageSquare, Shield, Clock } from "lucide-react";
+import { Navbar } from "@/components/molecules/navbar";
 
 export const metadata: Metadata = {
   title: "Contact Us | Electrical Services",
-  description: "Get in touch with our team. Submit inquiries, follow up on service requests, or reach out for partnerships and feedback.",
-}
+  description:
+    "Get in touch with our team. Submit inquiries, follow up on service requests, or reach out for partnerships and feedback.",
+};
 
-const trustIndicators = [
-  {
-    icon: Shield,
-    title: "Secure & Private",
-    description: "Your information is encrypted and never shared",
-  },
-  {
-    icon: Clock,
-    title: "Quick Response",
-    description: "We respond to all inquiries within 24-48 hours",
-  },
-  {
-    icon: MessageSquare,
-    title: "Expert Support",
-    description: "Our team is here to help with any questions",
-  },
-  {
-    icon: Mail,
-    title: "Confirmation Email",
-    description: "Receive instant confirmation of your inquiry",
-  },
-]
+const contactContent = contactData as MarketingContactContent;
+const { hero, trustIndicators, faqTeaser } = contactContent;
+
+const iconMap = {
+  Mail,
+  MessageSquare,
+  Shield,
+  Clock,
+} as const;
+
+type IconName = keyof typeof iconMap;
+
+const getIcon = (name?: MarketingIconName) =>
+  name ? iconMap[name as IconName] : undefined;
 
 export default function ContactPage() {
   return (
@@ -56,32 +54,44 @@ export default function ContactPage() {
           <div className="container relative mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-                <Mail className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-accent">Get In Touch</span>
+                {(() => {
+                  const BadgeIcon = getIcon(hero.badge.icon);
+                  return BadgeIcon ? (
+                    <BadgeIcon className="h-4 w-4 text-accent" />
+                  ) : null;
+                })()}
+                <span className="text-sm font-medium text-accent">
+                  {hero.badge.text}
+                </span>
               </div>
               <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 text-balance">
-                Contact Us
+                {hero.title}
               </h1>
               <p className="text-lg text-muted-foreground text-pretty">
-                Have a question, need support, or want to discuss a project? 
-                We&apos;re here to help. Fill out the form below or use our quick contact options.
+                {hero.description}
               </p>
             </div>
 
             {/* Trust Indicators */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
               {trustIndicators.map((item) => {
-                const Icon = item.icon
+                const Icon = getIcon(item.icon);
                 return (
-                  <div 
+                  <div
                     key={item.title}
                     className="text-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50"
                   >
-                    <Icon className="h-6 w-6 text-accent mx-auto mb-2" />
-                    <p className="text-sm font-medium text-foreground">{item.title}</p>
-                    <p className="text-xs text-muted-foreground mt-1 hidden sm:block">{item.description}</p>
+                    {Icon ? (
+                      <Icon className="h-6 w-6 text-accent mx-auto mb-2" />
+                    ) : null}
+                    <p className="text-sm font-medium text-foreground">
+                      {item.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
+                      {item.description}
+                    </p>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -111,41 +121,30 @@ export default function ContactPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                Frequently Asked Questions
+                {faqTeaser.title}
               </h2>
               <p className="text-muted-foreground mb-6">
-                Find quick answers to common questions about our services, pricing, and processes.
+                {faqTeaser.description}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                <div className="p-4 rounded-lg bg-card/80 backdrop-blur-sm border border-border/50">
-                  <h3 className="font-medium text-foreground mb-2">What areas do you cover?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    We provide services across London and the surrounding areas within the M25.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-card/80 backdrop-blur-sm border border-border/50">
-                  <h3 className="font-medium text-foreground mb-2">How quickly can you respond?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Emergency calls are prioritized. Standard inquiries receive a response within 24-48 hours.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-card/80 backdrop-blur-sm border border-border/50">
-                  <h3 className="font-medium text-foreground mb-2">Do you offer free quotes?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Yes, we provide free, no-obligation quotes for all residential and commercial projects.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-card/80 backdrop-blur-sm border border-border/50">
-                  <h3 className="font-medium text-foreground mb-2">Are you certified?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    All our electricians are NICEIC registered and fully insured for your peace of mind.
-                  </p>
-                </div>
+                {faqTeaser.items.map((item) => (
+                  <div
+                    key={item.question}
+                    className="p-4 rounded-lg bg-card/80 backdrop-blur-sm border border-border/50"
+                  >
+                    <h3 className="font-medium text-foreground mb-2">
+                      {item.question}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
       </main>
     </>
-  )
+  );
 }
