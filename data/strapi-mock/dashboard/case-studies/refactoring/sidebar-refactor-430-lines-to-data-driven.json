@@ -7,7 +7,12 @@
     "category": "refactoring",
     "readTime": "14 min",
     "publishedAt": "2026-02-04",
-    "tags": ["refactoring", "component-design", "data-driven", "developer-productivity"]
+    "tags": [
+      "refactoring",
+      "component-design",
+      "data-driven",
+      "developer-productivity"
+    ]
   },
   "layout": "content-with-toc",
   "toc": [
@@ -22,7 +27,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "01", "title": "The Unmaintainable Monster", "id": "problem" }
+      "props": {
+        "number": "01",
+        "title": "The Unmaintainable Monster",
+        "id": "problem"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -42,7 +51,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "02", "title": "Why 430 Lines Was Untenable", "id": "pain-points" }
+      "props": {
+        "number": "02",
+        "title": "Why 430 Lines Was Untenable",
+        "id": "pain-points"
+      }
     },
     {
       "type": "organism.verticalFlow",
@@ -106,7 +119,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "03", "title": "The Data-Driven Refactor", "id": "approach" }
+      "props": {
+        "number": "03",
+        "title": "The Data-Driven Refactor",
+        "id": "approach"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -126,7 +143,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "04", "title": "The New Architecture", "id": "architecture" }
+      "props": {
+        "number": "04",
+        "title": "The New Architecture",
+        "id": "architecture"
+      }
     },
     {
       "type": "organism.beforeAfterComparison",

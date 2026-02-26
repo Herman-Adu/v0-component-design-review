@@ -7,22 +7,40 @@
     "category": "infrastructure",
     "readTime": "15 min",
     "publishedAt": "2026-02-03",
-    "tags": ["infrastructure", "build-systems", "debugging", "guard-systems", "lessons-learned"]
+    "tags": [
+      "infrastructure",
+      "build-systems",
+      "debugging",
+      "guard-systems",
+      "lessons-learned"
+    ]
   },
   "layout": "content-with-toc",
   "toc": [
     { "id": "incident", "title": "3:47 AM: The Mystery Error", "level": 2 },
     { "id": "diagnosis", "title": "Peeling Back Layers", "level": 2 },
-    { "id": "root-cause", "title": "The Root Cause: Duplicate Entry", "level": 2 },
+    {
+      "id": "root-cause",
+      "title": "The Root Cause: Duplicate Entry",
+      "level": 2
+    },
     { "id": "solution", "title": "How We Fixed It", "level": 2 },
-    { "id": "guard-systems", "title": "Guard Systems: Prevention Over Cure", "level": 2 },
+    {
+      "id": "guard-systems",
+      "title": "Guard Systems: Prevention Over Cure",
+      "level": 2
+    },
     { "id": "lessons", "title": "Key Lessons", "level": 2 }
   ],
   "blocks": [
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "01", "title": "3:47 AM: The Mystery Error", "id": "incident" }
+      "props": {
+        "number": "01",
+        "title": "3:47 AM: The Mystery Error",
+        "id": "incident"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -51,7 +69,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "02", "title": "Peeling Back Layers", "id": "diagnosis" }
+      "props": {
+        "number": "02",
+        "title": "Peeling Back Layers",
+        "id": "diagnosis"
+      }
     },
     {
       "type": "atom.paragraph",
@@ -92,7 +114,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "03", "title": "The Root Cause: Duplicate Entry", "id": "root-cause" }
+      "props": {
+        "number": "03",
+        "title": "The Root Cause: Duplicate Entry",
+        "id": "root-cause"
+      }
     },
     {
       "type": "molecule.codeBlock",
@@ -157,7 +183,11 @@
     {
       "type": "molecule.sectionHeader",
       "atomicLevel": "molecule",
-      "props": { "number": "05", "title": "Guard Systems: Prevention Over Cure", "id": "guard-systems" }
+      "props": {
+        "number": "05",
+        "title": "Guard Systems: Prevention Over Cure",
+        "id": "guard-systems"
+      }
     },
     {
       "type": "atom.paragraph",
