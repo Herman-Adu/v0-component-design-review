@@ -15,6 +15,9 @@ import rateLimitingBypass from "@/data/strapi-mock/dashboard/case-studies/securi
 import costReductionArchitecture from "@/data/strapi-mock/dashboard/case-studies/business/cost-reduction-architecture.json";
 import strapiMultiSite from "@/data/strapi-mock/dashboard/case-studies/cms/strapi-multi-site-architecture.json";
 import developerProductivity from "@/data/strapi-mock/dashboard/case-studies/business/developer-productivity-gains.json";
+import documentationEvolution from "@/data/strapi-mock/dashboard/case-studies/architecture/documentation-evolution.json";
+import sidebarRefactor from "@/data/strapi-mock/dashboard/case-studies/refactoring/sidebar-refactor-430-lines-to-data-driven.json";
+import tarballDuplicate from "@/data/strapi-mock/dashboard/case-studies/infrastructure/tarball-duplicate-entry-build-failure.json";
 
 export type CaseStudyBlockType =
   | "atom.paragraph"
@@ -116,6 +119,11 @@ const caseStudyContentRegistry: Record<string, CaseStudyContentDocument> = {
   "strapi-multi-site-architecture": strapiMultiSite as CaseStudyContentDocument,
   "developer-productivity-gains":
     developerProductivity as CaseStudyContentDocument,
+  "documentation-evolution": documentationEvolution as CaseStudyContentDocument,
+  "sidebar-refactor-430-lines-to-data-driven":
+    sidebarRefactor as CaseStudyContentDocument,
+  "tarball-duplicate-entry-build-failure":
+    tarballDuplicate as CaseStudyContentDocument,
 };
 
 const validatedCaseStudyContentRegistry = Object.fromEntries(

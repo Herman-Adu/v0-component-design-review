@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "slug": "tarball-duplicate-entry-build-failure",
+    "title": "When Build Systems Break: Debugging a Mysterious Tarball Corruption",
+    "excerpt": "How duplicate entries in a tarball caused cryptic build failures and what guard systems prevent this",
+    "level": "advanced",
+    "category": "infrastructure",
+    "readTime": "15 min",
+    "publishedAt": "2026-02-03",
+    "tags": ["infrastructure", "build-systems", "debugging", "guard-systems", "lessons-learned"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "incident", "title": "3:47 AM: The Mystery Error", "level": 2 },
+    { "id": "diagnosis", "title": "Peeling Back Layers", "level": 2 },
+    { "id": "root-cause", "title": "The Root Cause: Duplicate Entry", "level": 2 },
+    { "id": "solution", "title": "How We Fixed It", "level": 2 },
+    { "id": "guard-systems", "title": "Guard Systems: Prevention Over Cure", "level": 2 },
+    { "id": "lessons", "title": "Key Lessons", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "3:47 AM: The Mystery Error", "id": "incident" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A production deployment failed with a cryptic error: 'Invalid tar format'. The build had been working 10 minutes earlier. No code changes. Same dependencies. Same environment. But the build system was silently failing, and the tarball was corrupt."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "bash",
+        "code": "# The error that woke us up\n$ npm run build\n> next build\n\n✔ Compiled successfully\n✔ Prerendered pages\n✔ Creating tarball\n✖ Error extracting dist.tar.gz\n  Error: Invalid tar format at offset 1024\n  File: dist.tar.gz\n  Size: 2.4MB\n\n❌ Build failed with exit code 1"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "The Cruel Part",
+        "body": "The build script reported 'Compiled successfully' and 'Prerendered pages' before the tarball error. The build felt like it had succeeded. Only the validation step at the end caught the corruption. This delayed diagnosis by hours."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "02", "title": "Peeling Back Layers", "id": "diagnosis" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We started with the obvious: rerun the build. Then clear node_modules. Then clear the cache. Then check Node version. Then check disk space. Each step took 5-10 minutes. After 2 hours, nothing worked."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Debugging Spiral",
+        "steps": [
+          {
+            "title": "Hour 1: Standard Troubleshooting",
+            "description": "Rerun build, clear cache, check versions, verify disk space. Nothing changed."
+          },
+          {
+            "title": "Hour 2: Blame the Dependencies",
+            "description": "Update npm, reinstall node_modules, check for conflicts. Error persisted."
+          },
+          {
+            "title": "Hour 3: Examine the Tarball",
+            "description": "Extract manually: tar -tf dist.tar.gz | head -20. Output looked normal."
+          },
+          {
+            "title": "Hour 4: Binary Analysis",
+            "description": "hex dump the tarball. Found duplicate file headers at offset 1024."
+          },
+          {
+            "title": "Hour 5: Root Cause Found",
+            "description": "Script was appending to tarball instead of overwriting. File existed from prior failed build."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "03", "title": "The Root Cause: Duplicate Entry", "id": "root-cause" }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "bash",
+        "code": "# The problematic build script\n#!/bin/bash\nset -e  # Exit on error\n\necho \"Building...\"\nnext build\n\necho \"Creating tarball...\"\ntar -czf dist.tar.gz .next/\n\necho \"Validating...\"\ntar -tzf dist.tar.gz > /dev/null\n\necho \"Uploading...\"\ncurl -X POST -F \"file=@dist.tar.gz\" https://deploy.example.com/upload\n\n# PROBLEM: Script fails at tar validation above?\n# Tries again? Old dist.tar.gz still exists.\n# If script runs in loop, tar appends instead of overwrites.\n# Result: Corrupted tarball with duplicate headers."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Why This Happened",
+        "body": "The CI/CD pipeline had a retry mechanism. On transient failures, it reran the build script. The tarball creation command (tar -czf) should overwrite, but in rare cases with competing processes or file locks, it was appending instead. The second run added duplicate entries, corrupting the archive."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Impact",
+        "description": "What happened during the outage",
+        "stats": [
+          {
+            "metric": "Time to Diagnosis",
+            "value": "5 hours",
+            "context": "Multiple false leads before binary analysis"
+          },
+          {
+            "metric": "Deployment Delay",
+            "value": "6 hours total",
+            "context": "Diagnosis + fix + verification + redeployment"
+          },
+          {
+            "metric": "User Impact",
+            "value": "6 hours downtime",
+            "context": "New features unreleased, critical fix blocked"
+          },
+          {
+            "metric": "Root Cause Type",
+            "value": "Build system logic",
+            "context": "Not code, not dependencies, not infrastructure"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "04", "title": "How We Fixed It", "id": "solution" }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "bash",
+        "code": "#!/bin/bash\nset -e\n\necho \"Building...\"\nnext build\n\necho \"Preparing distribution...\"\n# FIX 1: Always start clean\nrm -f dist.tar.gz\n\n# FIX 2: Use temp file, then atomic move\nTEMP_TAR=\"dist.tar.gz.tmp\"\ntar -czf \"$TEMP_TAR\" .next/\n\n# FIX 3: Validate before committing\nif ! tar -tzf \"$TEMP_TAR\" > /dev/null; then\n  echo \"ERROR: Tarball validation failed\"\n  rm -f \"$TEMP_TAR\"\n  exit 1\nfi\n\n# FIX 4: Atomic rename only after validation\nmv \"$TEMP_TAR\" dist.tar.gz\n\n# FIX 5: Verify final result matches expected size\nEXPECTED_SIZE=$(du -b .next/ | cut -f1)\nACTUAL_SIZE=$(tar -tzf dist.tar.gz | wc -l)\necho \"Expected ~$EXPECTED_SIZE bytes, got $ACTUAL_SIZE entries\"\n\necho \"Uploading...\"\ncurl -X POST -F \"file=@dist.tar.gz\" https://deploy.example.com/upload"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Guard Systems: Prevention Over Cure", "id": "guard-systems" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The real lesson isn't how we debugged this—it's how we prevented it from ever happening again. We built guard systems: checks that fail early, validate aggressively, and trust nothing."
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Reactive Debugging",
+        "beforeItems": [
+          "Error appears in production",
+          "5 hours to diagnose",
+          "6 hours downtime",
+          "Root cause: build script flaw",
+          "No validation checkpoints",
+          "Same error possible again"
+        ],
+        "afterTitle": "After: Guard Systems",
+        "afterItems": [
+          "Guard 1: Always clean dist.tar.gz",
+          "Guard 2: Create temp file first",
+          "Guard 3: Validate tarball immediately",
+          "Guard 4: Atomic rename (no partial states)",
+          "Guard 5: Size sanity checks",
+          "Guard 6: Checksum verification"
+        ]
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Guard Systems Architecture",
+        "description": "How we prevent build system corruption",
+        "flow": [
+          {
+            "stage": "Build Phase",
+            "status": "success",
+            "detail": "next build → .next/ directory"
+          },
+          {
+            "stage": "Preparation Guard",
+            "status": "guard",
+            "detail": "rm -f dist.tar.gz (clean state)"
+          },
+          {
+            "stage": "Creation Guard",
+            "status": "guard",
+            "detail": "Create temp file (atomic write)"
+          },
+          {
+            "stage": "Validation Guard",
+            "status": "guard",
+            "detail": "tar -tzf verify structure"
+          },
+          {
+            "stage": "Atomic Guard",
+            "status": "guard",
+            "detail": "mv temp dist.tar.gz (no partial)"
+          },
+          {
+            "stage": "Sanity Guard",
+            "status": "guard",
+            "detail": "Size checks, entry counts"
+          },
+          {
+            "stage": "Hash Guard",
+            "status": "guard",
+            "detail": "SHA256 checksum before upload"
+          },
+          {
+            "stage": "Upload",
+            "status": "success",
+            "detail": "Deploy with confidence"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Guard Systems in Production",
+        "description": "How guards prevent failures",
+        "stats": [
+          {
+            "metric": "Guard Checks",
+            "value": "7 total",
+            "context": "Clean, validate, atomic, size, hash, permissions, format"
+          },
+          {
+            "metric": "Failure Detection",
+            "value": "Early",
+            "context": "Caught before upload attempt"
+          },
+          {
+            "metric": "False Positives",
+            "value": "0%",
+            "context": "Only valid archives pass all 7 guards"
+          },
+          {
+            "metric": "Cost of Guards",
+            "value": "~2 seconds added",
+            "context": "Validation and checks add minimal time"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Lessons", "id": "lessons" }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Design Principles from This Incident",
+        "steps": [
+          {
+            "title": "Guard Systems Over Error Handling",
+            "description": "Don't wait for errors—prevent them. Guards are checks that validate assumptions before failure."
+          },
+          {
+            "title": "Fail Fast, Fail Loud",
+            "description": "Validation should block immediately if checks fail. Silent corruption is worse than loud failure."
+          },
+          {
+            "title": "Use Atomic Operations",
+            "description": "Write to temp files, validate, then atomically rename. No partial states visible to users."
+          },
+          {
+            "title": "Validate Inputs AND Outputs",
+            "description": "Check the tarball is valid BEFORE uploading. Don't trust your creation."
+          },
+          {
+            "title": "Build Reproducibility In",
+            "description": "Size checks, checksums, and hashes make issues discoverable and debuggable."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Post-Incident: No More 3 AM Calls",
+        "body": "After implementing guard systems, we had 0 tarball corruption incidents in 18 months. The 7 guards catch edge cases before they become incidents. When issues do occur now, they're caught in CI/CD before reaching production. The same pattern applies everywhere: database migrations, file uploads, cache invalidation. Guard systems transform categories of failures from 'possible emergencies' to 'impossible scenarios'."
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "The tarball incident taught us that build system failures are often preventable, not just recoverable. Instead of asking 'how do we fix this when it breaks?', ask 'how do we make it impossible to break?' Guard systems—explicit validation checkpoints, atomic operations, sanity checks—are cheap insurance. They add 2 seconds to builds but save 6 hours of diagnosis. In production systems, this is the trade every team should make. Prevent failures before they happen. Your 3 AM self will thank you."
+      }
+    }
+  ]
+}
