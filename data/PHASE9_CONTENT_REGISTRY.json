@@ -186,7 +186,7 @@
       "family": "content-library",
       "strapiType": "single",
       "entity": "tutorials-list",
-      "dataSource": "data/strapi-mock/dashboard/tutorials-list.json",
+      "dataSource": "data/strapi-mock/dashboard/content-library/tutorials-list.json",
       "type": "types/dashboard.ts#TutorialsListContent",
       "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
       "status": "done"

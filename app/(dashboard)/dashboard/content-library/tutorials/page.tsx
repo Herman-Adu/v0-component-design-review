@@ -8,7 +8,7 @@ import {
   type TutorialLevel,
   type TutorialCategory,
 } from "@/data/content-library/tutorials";
-import tutorialsListData from "@/data/strapi-mock/dashboard/tutorials-list.json";
+import tutorialsListData from "@/data/strapi-mock/dashboard/content-library/tutorials-list.json";
 import type { TutorialsListContent } from "@/types/dashboard";
 
 // Type the imported JSON
