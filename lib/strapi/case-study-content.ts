@@ -9,6 +9,9 @@ import stateManagementArticle from "@/data/strapi-mock/dashboard/case-studies/ar
 import emailConsolidationCaseStudy from "@/data/strapi-mock/dashboard/case-studies/architecture/email-system-consolidation.json";
 import multiStepFormCaseStudy from "@/data/strapi-mock/dashboard/case-studies/forms/multi-step-form-prototype-to-production.json";
 import edgeCacheRolloutCaseStudy from "@/data/strapi-mock/dashboard/case-studies/rendering/choosing-rendering-strategy-per-page.json";
+import enterpriseCmsMigration from "@/data/strapi-mock/dashboard/case-studies/business/enterprise-cms-migration.json";
+import hydrationGuardPattern from "@/data/strapi-mock/dashboard/case-studies/architecture/hydration-guard-pattern.json";
+import rateLimitingBypass from "@/data/strapi-mock/dashboard/case-studies/security/rate-limiting-bypass-to-production.json";
 
 export type CaseStudyBlockType =
   | "atom.paragraph"
@@ -100,6 +103,11 @@ const caseStudyContentRegistry: Record<string, CaseStudyContentDocument> = {
     multiStepFormCaseStudy as CaseStudyContentDocument,
   "choosing-rendering-strategy-per-page":
     edgeCacheRolloutCaseStudy as CaseStudyContentDocument,
+  "enterprise-cms-migration":
+    enterpriseCmsMigration as CaseStudyContentDocument,
+  "hydration-guard-pattern": hydrationGuardPattern as CaseStudyContentDocument,
+  "rate-limiting-bypass-to-production":
+    rateLimitingBypass as CaseStudyContentDocument,
 };
 
 const validatedCaseStudyContentRegistry = Object.fromEntries(

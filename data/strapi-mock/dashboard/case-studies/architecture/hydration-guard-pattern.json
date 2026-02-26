@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "slug": "hydration-guard-pattern",
+    "title": "From Band-Aid to Bulletproof: Solving Recurring Hydration Failures",
+    "excerpt": "How we evolved from patching individual hydration mismatches to implementing a global guard pattern",
+    "level": "advanced",
+    "category": "architecture",
+    "readTime": "15 min",
+    "publishedAt": "2026-02-05",
+    "tags": ["hydration", "radix-ui", "guard-pattern", "ssr", "architecture"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Recurring Problem", "level": 2 },
+    { "id": "band-aids", "title": "Why Band-Aids Failed", "level": 2 },
+    { "id": "solution", "title": "The Guard Pattern", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Recurring Problem",
+        "id": "problem"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "After adding a complex sidebar with nested Radix UI Collapsible components, hydration errors appeared on every page load. Each collapsible generated random IDs for aria-controls attributes, and these IDs differed between server and client rendering. The errors recurred after every fix and every new section added to the sidebar."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "danger",
+        "title": "The Error That Won't Die",
+        "body": "Warning: Prop aria-controls did not match. Server: radix-:R_8l6itplb_: Client: radix-:R_259knelb_:. Error occurred during hydration. The entire root switched to client rendering."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Why Band-Aids Failed",
+        "id": "band-aids"
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Failed Fix Attempts",
+        "steps": [
+          {
+            "title": "Band-Aid #1: Delayed State with useEffect",
+            "description": "Used useState(false) + useEffect to delay opening collapsible until after hydration"
+          },
+          {
+            "title": "Problem: Visual flash + still generates mismatched IDs",
+            "description": "Component still rendered during SSR, just with different state"
+          },
+          {
+            "title": "Band-Aid #2: suppressHydrationWarning",
+            "description": "Added suppressHydrationWarning to parent div to hide console errors"
+          },
+          {
+            "title": "Problem: Hides error, doesn't fix it",
+            "description": "Accessibility attributes still broken, screen readers received mismatched ARIA controls"
+          },
+          {
+            "title": "Band-Aid #3: Manual ID synchronization",
+            "description": "Tried to manually control Radix's ID generation with custom IDs"
+          },
+          {
+            "title": "Problem: Breaks with any component tree changes",
+            "description": "useId() generates IDs based on tree position, any refactor broke sync again"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Why Every Fix Failed",
+        "body": "The issue wasn't individual bugs—it was architectural. Radix UI components generate unique IDs using React's useId() hook, which produces different values on server vs client when component trees have conditional rendering. Every new sidebar section added new conditional mismatch points. We were treating symptoms, not the disease."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "The Guard Pattern",
+        "id": "solution"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We implemented a global hydration guard pattern using useSyncExternalStore that prevents Radix components from existing during SSR entirely. A static skeleton renders during server rendering, and the real interactive sidebar only mounts after hydration completes—eliminating the mismatch at the architectural level."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The implementation uses React's useSyncExternalStore hook which is designed for SSR-safe state synchronization. It allows different values on server vs client without triggering hydration mismatches."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Why This Works",
+        "body": "useSyncExternalStore is designed for SSR-safe state synchronization. During SSR, the server snapshot returns false, rendering the skeleton. On the client, it immediately returns true after hydration, mounting the real sidebar. No IDs to mismatch because Radix components never exist during SSR."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Hydration Errors",
+            "value": "-100%",
+            "change": "3-5 per page → 0",
+            "positive": true
+          },
+          {
+            "label": "Fix Recurrence",
+            "value": "Eliminated",
+            "change": "After every refactor → Never",
+            "positive": true
+          },
+          {
+            "label": "Debug Hours/Month",
+            "value": "-100%",
+            "change": "8-12 hours → 0 hours",
+            "positive": true
+          },
+          {
+            "label": "New Section Risk",
+            "value": "Zero",
+            "change": "High risk → No risk",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Pattern Applied Beyond Sidebar",
+        "body": "Modals: Radix Dialog components now use hydration guard. Dropdowns: Context menus mount after hydration. Tooltips: Radix Tooltip provider wrapped in guard. Any component using useId() from Radix became safe by default."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "Hydration mismatches are architectural signals, not individual bugs. When the same category of error recurs after every fix, the solution is not a better fix—it is a different architecture. The guard pattern eliminated the entire problem class by preventing client-dependent components from existing during SSR. Band-aids patch symptoms. Architecture eliminates diseases."
+      }
+    }
+  ]
+}

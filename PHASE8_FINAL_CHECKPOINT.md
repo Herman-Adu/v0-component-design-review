@@ -10,7 +10,8 @@
 
 See PHASE8_GENERATION_NOTES.md for the execution summary.
 
-**Phase 9 Status:** IN PROGRESS  
+**Phase 9 Status:** IN PROGRESS
+
 - Articles: 29/29 complete
 - Case Studies: 7/16 complete (Batch 1 + 2)
 - See `PHASE9_GENERATION_NOTES.md` and `CASE_STUDIES_BATCH2_CHECKPOINT.md` for current progress.

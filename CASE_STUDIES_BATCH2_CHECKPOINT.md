@@ -10,12 +10,12 @@
 
 ### 1. Case Study JSON Files (4 new, 7 total)
 
-| File                                       | Category     | Level        | Blocks | Lines | Read Time |
-| ------------------------------------------ | ------------ | ------------ | ------ | ----- | --------- |
-| `security-layer-implementation.json`       | security     | intermediate | 17     | 242   | 11 min    |
-| `email-system-consolidation.json`          | architecture | intermediate | TBD    | TBD   | TBD       |
-| `multi-step-form-prototype-to-production.json` | forms    | intermediate | TBD    | TBD   | TBD       |
-| `choosing-rendering-strategy-per-page.json` | rendering   | intermediate | TBD    | TBD   | TBD       |
+| File                                           | Category     | Level        | Blocks | Lines | Read Time |
+| ---------------------------------------------- | ------------ | ------------ | ------ | ----- | --------- |
+| `security-layer-implementation.json`           | security     | intermediate | 17     | 242   | 11 min    |
+| `email-system-consolidation.json`              | architecture | intermediate | TBD    | TBD   | TBD       |
+| `multi-step-form-prototype-to-production.json` | forms        | intermediate | TBD    | TBD   | TBD       |
+| `choosing-rendering-strategy-per-page.json`    | rendering    | intermediate | TBD    | TBD   | TBD       |
 
 **Location:** `/data/strapi-mock/dashboard/case-studies/[category]/[slug].json`
 
@@ -33,6 +33,7 @@
 ### 3. Registry Updates
 
 **Updated:** `lib/strapi/case-study-content.ts`
+
 - Added 4 new imports
 - Added 4 entries to `caseStudyContentRegistry` object
 - Total entries: 7
@@ -62,6 +63,7 @@
 ### Static Routes Generated
 
 **New Routes (Batch 2):**
+
 ```
 /dashboard/content-library/case-studies/security/security-layer-implementation
 /dashboard/content-library/case-studies/architecture/email-system-consolidation
@@ -70,6 +72,7 @@
 ```
 
 **All Routes (Batch 1 + 2):**
+
 ```
 /dashboard/content-library/case-studies/performance/client-to-server-components
 /dashboard/content-library/case-studies/security/form-validation-refactor
@@ -84,16 +87,19 @@
 ### Problem: "Unexpected token '<'" JSON Error
 
 **Symptoms:**
+
 - Build failing with: `Unexpected token '<', "<!DOCTYPE "... is not valid JSON`
 - Error occurred after adding 4 new imports to `case-study-content.ts`
 - All JSON files valid, but build couldn't resolve them
 
 **Root Cause:**
+
 - Build cache corruption in `.next/` directory
 - Stale artifacts from previous build not invalidating
 - Node modules cache misalignment
 
 **Resolution:**
+
 1. Clean build cache:
    ```bash
    Remove-Item -Path ".next" -Recurse -Force
@@ -146,6 +152,7 @@
 ### Prevention Strategy for Batch 3
 
 **Recommended Workflow:**
+
 1. Create 3 JSON files (sub-batch)
 2. Validate each JSON manually (check structure)
 3. Add 3 imports to `case-study-content.ts`
@@ -166,15 +173,15 @@
 
 ### Completed (7/16 = 43.75%)
 
-| # | Slug                                     | Category     | Batch |
-|---|------------------------------------------|--------------|-------|
-| 1 | client-to-server-components              | performance  | 1     |
-| 2 | form-validation-refactor                 | security     | 1     |
-| 3 | state-management-evolution               | architecture | 1     |
-| 4 | security-layer-implementation            | security     | 2     |
-| 5 | email-system-consolidation               | architecture | 2     |
-| 6 | multi-step-form-prototype-to-production  | forms        | 2     |
-| 7 | choosing-rendering-strategy-per-page     | rendering    | 2     |
+| #   | Slug                                    | Category     | Batch |
+| --- | --------------------------------------- | ------------ | ----- |
+| 1   | client-to-server-components             | performance  | 1     |
+| 2   | form-validation-refactor                | security     | 1     |
+| 3   | state-management-evolution              | architecture | 1     |
+| 4   | security-layer-implementation           | security     | 2     |
+| 5   | email-system-consolidation              | architecture | 2     |
+| 6   | multi-step-form-prototype-to-production | forms        | 2     |
+| 7   | choosing-rendering-strategy-per-page    | rendering    | 2     |
 
 ### Remaining (9/16 = 56.25%)
 
@@ -188,15 +195,15 @@
 
 ## Category Distribution
 
-| Category      | Completed | Remaining | Total |
-|---------------|-----------|-----------|-------|
-| Performance   | 1         | 1         | 2     |
-| Security      | 2         | 1         | 3     |
-| Architecture  | 2         | 1         | 3     |
-| Forms         | 1         | 2         | 3     |
-| Rendering     | 1         | 2         | 3     |
-| Business      | 0         | 1         | 1     |
-| Infrastructure| 0         | 1         | 1     |
+| Category       | Completed | Remaining | Total |
+| -------------- | --------- | --------- | ----- |
+| Performance    | 1         | 1         | 2     |
+| Security       | 2         | 1         | 3     |
+| Architecture   | 2         | 1         | 3     |
+| Forms          | 1         | 2         | 3     |
+| Rendering      | 1         | 2         | 3     |
+| Business       | 0         | 1         | 1     |
+| Infrastructure | 0         | 1         | 1     |
 
 **Well Balanced:** Good coverage across categories
 
@@ -228,6 +235,7 @@ React Components (ContentBlockRenderer, generic)
 - ✅ Will work for Guides (pending)
 
 **Block Types Used (across 7 case studies):**
+
 - Atoms: paragraph (7)
 - Molecules: sectionHeader, infoBox, codeBlock, keyTakeaway
 - Organisms: metricsGrid, architectureDiagram, verticalFlow, beforeAfterComparison, statsTable, featureGrid
