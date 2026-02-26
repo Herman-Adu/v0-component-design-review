@@ -1,0 +1,258 @@
+{
+  "meta": {
+    "slug": "cost-reduction-architecture",
+    "title": "Architecture-Driven Cost Reduction",
+    "excerpt": "How modern web architecture cut operational costs by 65%",
+    "level": "intermediate",
+    "category": "business",
+    "readTime": "12 min",
+    "publishedAt": "2026-02-05",
+    "tags": ["cost-reduction", "roi", "serverless", "vercel", "optimization"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Cost Problem", "level": 2 },
+    { "id": "old-infrastructure", "title": "Traditional Infrastructure", "level": 2 },
+    { "id": "solution", "title": "The Modern Solution", "level": 2 },
+    { "id": "implementation", "title": "Migration Approach", "level": 2 },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "The Cost Problem", "id": "problem" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A growing e-commerce company's infrastructure costs were scaling linearly with traffic, threatening profitability as they expanded. Their traditional hosting approach required constant capacity planning, manual scaling during sales events, and 24/7 DevOps monitoring."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "02", "title": "Traditional Infrastructure", "id": "old-infrastructure" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Monthly Infrastructure Costs",
+        "description": "Traditional always-on infrastructure",
+        "stats": [
+          {
+            "metric": "EC2 Instances",
+            "value": "£3,500",
+            "context": "4x t3.large running 24/7"
+          },
+          {
+            "metric": "Load Balancer",
+            "value": "£800",
+            "context": "Application load balancer"
+          },
+          {
+            "metric": "RDS Database",
+            "value": "£2,200",
+            "context": "db.r5.xlarge (oversized for peak)"
+          },
+          {
+            "metric": "Redis Cluster",
+            "value": "£1,200",
+            "context": "cache.r5.large"
+          },
+          {
+            "metric": "DevOps Monitoring",
+            "value": "£800",
+            "context": "Staff costs for 24/7 monitoring"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "The Scaling Problem",
+        "body": "Resources provisioned for peak traffic (Black Friday) sit idle 90% of the time. Manual scaling required 3-4 hours advance notice. Frequent downtime during unexpected traffic spikes. Annual cost: £102,000."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "03", "title": "The Modern Solution", "id": "solution" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We re-architected to a serverless-first approach using Next.js on Vercel, Strapi on Railway, and edge caching for static content. The new architecture automatically scales with demand and only charges for actual usage."
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Traditional Infrastructure",
+        "beforeItems": [
+          "4x EC2 instances (always running)",
+          "Load balancer (fixed cost)",
+          "RDS database (oversized)",
+          "Redis cluster (always on)",
+          "24/7 monitoring staff",
+          "Manual scaling (3-4 hours)",
+          "Monthly: £8,500"
+        ],
+        "afterTitle": "Modern Architecture",
+        "afterItems": [
+          "Vercel (Next.js, auto-scale)",
+          "Railway (Strapi, auto-scale)",
+          "Vercel Edge (caching)",
+          "Neon (serverless Postgres)",
+          "No DevOps monitoring needed",
+          "Auto-scaling (zero config)",
+          "Monthly: £3,000"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "04", "title": "Migration Approach", "id": "implementation" }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Migration Phases",
+        "steps": [
+          {
+            "title": "Phase 1: Frontend Migration",
+            "description": "Migrate Next.js app to Vercel, validate edge caching",
+            "duration": "2 weeks"
+          },
+          {
+            "title": "Phase 2: Database Migration",
+            "description": "Move from RDS to Neon serverless PostgreSQL",
+            "duration": "1 week"
+          },
+          {
+            "title": "Phase 3: CMS Migration",
+            "description": "Deploy Strapi on Railway with auto-scaling",
+            "duration": "1 week"
+          },
+          {
+            "title": "Phase 4: Traffic Cutover",
+            "description": "Gradual traffic shift, monitor performance and costs",
+            "duration": "2 weeks"
+          },
+          {
+            "title": "Phase 5: Decommission",
+            "description": "Shut down old infrastructure, finalize cost savings",
+            "duration": "1 week"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Key Migration Decisions",
+        "body": "Gradual cutover: Started with 10% traffic to validate costs. Peak load testing: Ran Black Friday simulation before full cutover. Database migration: Used logical replication for zero-downtime cutover. Rollback plan: Kept old infrastructure running for 2 weeks as safety net."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Monthly Hosting",
+            "value": "-65%",
+            "change": "£8,500 → £3,000",
+            "positive": true
+          },
+          {
+            "label": "DevOps Hours",
+            "value": "-95%",
+            "change": "160/month → 8/month",
+            "positive": true
+          },
+          {
+            "label": "Deployment Time",
+            "value": "-99%",
+            "change": "3 weeks → 15 minutes",
+            "positive": true
+          },
+          {
+            "label": "Uptime",
+            "value": "+0.49%",
+            "change": "99.5% → 99.99%",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "First Year Financial Impact",
+        "description": "ROI analysis including migration costs",
+        "stats": [
+          {
+            "metric": "Migration Cost",
+            "value": "£18,000",
+            "context": "6 weeks engineering time"
+          },
+          {
+            "metric": "Monthly Savings",
+            "value": "£5,500",
+            "context": "Hosting + DevOps time"
+          },
+          {
+            "metric": "Break-Even Point",
+            "value": "3.3 months",
+            "context": "ROI achieved Q1"
+          },
+          {
+            "metric": "Year 1 Net Savings",
+            "value": "£48,000",
+            "context": "After migration costs"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Beyond Cost Savings",
+        "body": "Auto-scaling handled Black Friday with zero intervention (previous year required all-hands-on-deck). Deployment frequency increased from 2/month to 30/month. Developer velocity improved due to instant preview deployments. Team morale improved—no more 3am pages for scaling issues."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "Serverless architecture aligns costs with actual usage. You stop paying for idle infrastructure. The cost savings are immediate and measurable, but the productivity gains—faster deployments, auto-scaling, zero DevOps overhead—compound over time. The question isn't whether to migrate, but how quickly you can justify the migration investment."
+      }
+    }
+  ]
+}

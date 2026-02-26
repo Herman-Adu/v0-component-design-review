@@ -12,6 +12,9 @@ import edgeCacheRolloutCaseStudy from "@/data/strapi-mock/dashboard/case-studies
 import enterpriseCmsMigration from "@/data/strapi-mock/dashboard/case-studies/business/enterprise-cms-migration.json";
 import hydrationGuardPattern from "@/data/strapi-mock/dashboard/case-studies/architecture/hydration-guard-pattern.json";
 import rateLimitingBypass from "@/data/strapi-mock/dashboard/case-studies/security/rate-limiting-bypass-to-production.json";
+import costReductionArchitecture from "@/data/strapi-mock/dashboard/case-studies/business/cost-reduction-architecture.json";
+import strapiMultiSite from "@/data/strapi-mock/dashboard/case-studies/cms/strapi-multi-site-architecture.json";
+import developerProductivity from "@/data/strapi-mock/dashboard/case-studies/business/developer-productivity-gains.json";
 
 export type CaseStudyBlockType =
   | "atom.paragraph"
@@ -108,6 +111,12 @@ const caseStudyContentRegistry: Record<string, CaseStudyContentDocument> = {
   "hydration-guard-pattern": hydrationGuardPattern as CaseStudyContentDocument,
   "rate-limiting-bypass-to-production":
     rateLimitingBypass as CaseStudyContentDocument,
+  "cost-reduction-architecture":
+    costReductionArchitecture as CaseStudyContentDocument,
+  "strapi-multi-site-architecture":
+    strapiMultiSite as CaseStudyContentDocument,
+  "developer-productivity-gains":
+    developerProductivity as CaseStudyContentDocument,
 };
 
 const validatedCaseStudyContentRegistry = Object.fromEntries(

@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "slug": "strapi-multi-site-architecture",
+    "title": "Strapi Multi-Site Architecture",
+    "excerpt": "One CMS powering 12 regional websites with shared components",
+    "level": "advanced",
+    "category": "cms",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-05",
+    "tags": ["strapi", "multi-site", "architecture", "enterprise", "localization"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Duplication Problem", "level": 2 },
+    { "id": "old-architecture", "title": "12 Separate CMS Installations", "level": 2 },
+    { "id": "solution", "title": "Multi-Tenancy Solution", "level": 2 },
+    { "id": "implementation", "title": "Implementation Details", "level": 2 },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "The Duplication Problem", "id": "problem" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A retail chain needed to manage 12 regional websites with localized content while maintaining brand consistency. Each site had its own CMS, causing content duplication and inconsistency. Global brand updates required manual deployment to 12 separate systems."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "02", "title": "12 Separate CMS Installations", "id": "old-architecture" }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Old Content Update Workflow",
+        "steps": [
+          {
+            "title": "Brand team creates global content",
+            "description": "New product announcement prepared in Word document"
+          },
+          {
+            "title": "Send to 12 regional managers",
+            "description": "Email blast with content and images"
+          },
+          {
+            "title": "Each region translates and adapts",
+            "description": "12 separate translation workflows"
+          },
+          {
+            "title": "Each region uploads to their CMS",
+            "description": "12 separate CMS logins, 12 manual uploads"
+          },
+          {
+            "title": "Brand team reviews 12 sites",
+            "description": "Manual verification of consistency"
+          },
+          {
+            "title": "Corrections and republishing",
+            "description": "Average: 4 hours per site, 48 hours total"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Cost of Duplication",
+        "description": "Running 12 separate CMS installations",
+        "stats": [
+          {
+            "metric": "Annual Licensing",
+            "value": "£120,000",
+            "context": "£10k per CMS instance"
+          },
+          {
+            "metric": "Content Sync Time",
+            "value": "4 hours",
+            "context": "Per global content update"
+          },
+          {
+            "metric": "Brand Consistency",
+            "value": "60%",
+            "context": "Manual verification found drift"
+          },
+          {
+            "metric": "Technical Debt",
+            "value": "12x",
+            "context": "12 different plugin versions"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "03", "title": "Multi-Tenancy Solution", "id": "solution" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We consolidated to a single Strapi instance with a multi-tenancy model, shared components, and locale-specific content fields. Content is tagged as Global (shared across all sites), Regional (locale-specific variations), or Local (site-specific content)."
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "12 Separate CMS Instances",
+        "beforeItems": [
+          "Site 1 → CMS 1 → Database 1",
+          "Site 2 → CMS 2 → Database 2",
+          "...",
+          "Site 12 → CMS 12 → Database 12",
+          "Content sync: Manual copy/paste",
+          "Brand updates: 48 hours",
+          "Annual cost: £120k"
+        ],
+        "afterTitle": "Single Multi-Tenant Strapi",
+        "afterItems": [
+          "All 12 Sites → Strapi → Single DB",
+          "Content Types:",
+          "- Global (shared across all)",
+          "- Regional (locale-specific)",
+          "- Local (site-specific)",
+          "API: /api/content?locale=en-GB&site=uk",
+          "Brand updates: Instant",
+          "Annual cost: £35k"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "04", "title": "Implementation Details", "id": "implementation" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The multi-tenant architecture uses Strapi's internationalization plugin combined with custom site-scoping middleware. Each content type has a site field and locale field, enabling precise content targeting."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Content Inheritance Model",
+        "body": "Global content (logo, brand colors): Inherited by all 12 sites automatically. Regional content (product descriptions): Translated per locale, shared across sites in that region. Local content (store locations): Unique per site. Fallback chain: Local → Regional → Global. If local translation missing, falls back to regional, then global."
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Migration Approach",
+        "steps": [
+          {
+            "title": "Phase 1: Schema Design",
+            "description": "Design content types with site and locale fields",
+            "duration": "2 weeks"
+          },
+          {
+            "title": "Phase 2: Content Audit",
+            "description": "Categorize existing content as Global/Regional/Local",
+            "duration": "3 weeks"
+          },
+          {
+            "title": "Phase 3: Data Migration",
+            "description": "Migrate all 12 databases to single Strapi instance",
+            "duration": "4 weeks"
+          },
+          {
+            "title": "Phase 4: Site Cutover",
+            "description": "Point each site to new Strapi API, 2 sites per week",
+            "duration": "6 weeks"
+          },
+          {
+            "title": "Phase 5: Decommission",
+            "description": "Shut down old CMS instances, train editors",
+            "duration": "2 weeks"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "CMS Instances",
+            "value": "-92%",
+            "change": "12 → 1",
+            "positive": true
+          },
+          {
+            "label": "Content Sync Time",
+            "value": "-100%",
+            "change": "4 hours → Instant",
+            "positive": true
+          },
+          {
+            "label": "Maintenance Cost",
+            "value": "-71%",
+            "change": "£120k/year → £35k/year",
+            "positive": true
+          },
+          {
+            "label": "Brand Consistency",
+            "value": "+40%",
+            "change": "60% → 100%",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Editor Productivity Impact",
+        "body": "Regional editors can now reuse global content with one click. Brand updates publish to all 12 sites simultaneously (previously 48 hours). Translation workflow integrated into single CMS (previously external). Content preview shows all 12 sites side-by-side for consistency checks."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "Multi-tenancy in Strapi scales content management without scaling complexity. The key is designing a content inheritance model that balances global consistency with local flexibility. Don't treat each site as a separate entity—model the relationships between global, regional, and local content from the start. The consolidation pays for itself in reduced licensing costs alone, but the real win is editorial velocity and brand consistency."
+      }
+    }
+  ]
+}
