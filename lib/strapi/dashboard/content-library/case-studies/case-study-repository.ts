@@ -7,7 +7,7 @@ import {
 import {
   getCaseStudyContentDocument,
   type CaseStudyContentDocument,
-} from "@/lib/strapi/case-study-content";
+} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content";
 
 export interface CaseStudyRecord {
   caseStudy: CaseStudy;

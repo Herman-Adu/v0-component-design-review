@@ -2,12 +2,12 @@ import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
-import type { Article } from "@/lib/strapi/articles";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/articles";
 import {
   listArticles,
   getArticleRecordBySlug,
-} from "@/lib/strapi/article-repository";
-import { toArticleDetailViewModel } from "@/lib/strapi/article-view-models";
+} from "@/lib/strapi/dashboard/content-library/articles/article-repository";
+import { toArticleDetailViewModel } from "@/lib/strapi/dashboard/content-library/articles/article-view-models";
 import { canReadArticle } from "@/lib/authorization/article-policies";
 import { TableOfContents } from "@/components/molecules/article-components";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";

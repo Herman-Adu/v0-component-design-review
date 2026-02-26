@@ -1,23 +1,23 @@
 import "server-only";
 
 import type { TOCItem } from "@/components/molecules/article-components";
-import { caseStudyContentDocumentSchema } from "@/lib/strapi/case-study-schema";
-import clientToServerArticle from "@/data/strapi-mock/dashboard/case-studies/performance/client-to-server-components.json";
-import formValidationArticle from "@/data/strapi-mock/dashboard/case-studies/security/form-validation-refactor.json";
-import securityLayerCaseStudy from "@/data/strapi-mock/dashboard/case-studies/security/security-layer-implementation.json";
-import stateManagementArticle from "@/data/strapi-mock/dashboard/case-studies/architecture/state-management-evolution.json";
-import emailConsolidationCaseStudy from "@/data/strapi-mock/dashboard/case-studies/architecture/email-system-consolidation.json";
-import multiStepFormCaseStudy from "@/data/strapi-mock/dashboard/case-studies/forms/multi-step-form-prototype-to-production.json";
-import edgeCacheRolloutCaseStudy from "@/data/strapi-mock/dashboard/case-studies/rendering/choosing-rendering-strategy-per-page.json";
-import enterpriseCmsMigration from "@/data/strapi-mock/dashboard/case-studies/business/enterprise-cms-migration.json";
-import hydrationGuardPattern from "@/data/strapi-mock/dashboard/case-studies/architecture/hydration-guard-pattern.json";
-import rateLimitingBypass from "@/data/strapi-mock/dashboard/case-studies/security/rate-limiting-bypass-to-production.json";
-import costReductionArchitecture from "@/data/strapi-mock/dashboard/case-studies/business/cost-reduction-architecture.json";
-import strapiMultiSite from "@/data/strapi-mock/dashboard/case-studies/cms/strapi-multi-site-architecture.json";
-import developerProductivity from "@/data/strapi-mock/dashboard/case-studies/business/developer-productivity-gains.json";
-import documentationEvolution from "@/data/strapi-mock/dashboard/case-studies/architecture/documentation-evolution.json";
-import sidebarRefactor from "@/data/strapi-mock/dashboard/case-studies/refactoring/sidebar-refactor-430-lines-to-data-driven.json";
-import tarballDuplicate from "@/data/strapi-mock/dashboard/case-studies/infrastructure/tarball-duplicate-entry-build-failure.json";
+import { caseStudyContentDocumentSchema } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
+import clientToServerArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/performance/client-to-server-components.json";
+import formValidationArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/security/form-validation-refactor.json";
+import securityLayerCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/security/security-layer-implementation.json";
+import stateManagementArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/state-management-evolution.json";
+import emailConsolidationCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/email-system-consolidation.json";
+import multiStepFormCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/forms/multi-step-form-prototype-to-production.json";
+import edgeCacheRolloutCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/rendering/choosing-rendering-strategy-per-page.json";
+import enterpriseCmsMigration from "@/data/strapi-mock/dashboard/content-library/case-studies/business/enterprise-cms-migration.json";
+import hydrationGuardPattern from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/hydration-guard-pattern.json";
+import rateLimitingBypass from "@/data/strapi-mock/dashboard/content-library/case-studies/security/rate-limiting-bypass-to-production.json";
+import costReductionArchitecture from "@/data/strapi-mock/dashboard/content-library/case-studies/business/cost-reduction-architecture.json";
+import strapiMultiSite from "@/data/strapi-mock/dashboard/content-library/case-studies/cms/strapi-multi-site-architecture.json";
+import developerProductivity from "@/data/strapi-mock/dashboard/content-library/case-studies/business/developer-productivity-gains.json";
+import documentationEvolution from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/documentation-evolution.json";
+import sidebarRefactor from "@/data/strapi-mock/dashboard/content-library/case-studies/refactoring/sidebar-refactor-430-lines-to-data-driven.json";
+import tarballDuplicate from "@/data/strapi-mock/dashboard/content-library/case-studies/infrastructure/tarball-duplicate-entry-build-failure.json";
 
 export type CaseStudyBlockType =
   | "atom.paragraph"

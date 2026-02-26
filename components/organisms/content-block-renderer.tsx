@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import type { ArticleContentBlock } from "@/lib/strapi/article-content";
+import type { ArticleContentBlock } from "@/lib/strapi/dashboard/content-library/articles/article-content";
 import {
   ArchitectureDiagram,
   ArticleIcons,

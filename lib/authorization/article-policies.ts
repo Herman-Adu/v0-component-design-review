@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { Article } from "@/lib/strapi/articles";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/articles";
 
 export interface ArticleAccessActor {
   id?: string;

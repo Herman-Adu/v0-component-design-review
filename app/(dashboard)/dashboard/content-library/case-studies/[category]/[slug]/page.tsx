@@ -4,8 +4,8 @@ import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import {
   getCaseStudyRecordBySlug,
   listCaseStudySlugs,
-} from "@/lib/strapi/case-study-repository";
-import { toCaseStudyDetailViewModel } from "@/lib/strapi/case-study-view-models";
+} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-repository";
+import { toCaseStudyDetailViewModel } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-view-models";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 import type { CaseStudy } from "@/data/content-library/case-studies";
 

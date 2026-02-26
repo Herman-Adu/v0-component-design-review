@@ -4,11 +4,11 @@ import {
   getAllArticles,
   getArticleBySlug,
   type Article,
-} from "@/lib/strapi/articles";
+} from "@/lib/strapi/dashboard/content-library/articles/articles";
 import {
   getArticleContentDocument,
   type ArticleContentDocument,
-} from "@/lib/strapi/article-content";
+} from "@/lib/strapi/dashboard/content-library/articles/article-content";
 
 export interface ArticleRecord {
   article: Article;
