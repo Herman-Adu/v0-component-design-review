@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "slug": "zustand-form-store",
+    "title": "Building a Form Store with Zustand",
+    "description": "Create persistent form state with Zustand for multi-step forms",
+    "level": "intermediate",
+    "category": "state-management",
+    "duration": "25 min",
+    "publishedAt": "2024-02-15",
+    "tags": ["zustand", "state-management", "forms", "persistence"],
+    "prerequisites": ["React hooks", "TypeScript generics"],
+    "learningOutcomes": [
+      "Create typed Zustand stores",
+      "Implement the persist middleware",
+      "Build form navigation logic"
+    ]
+  },
+  "steps": [
+    {
+      "title": "Understanding the Requirements",
+      "content": "A multi-step form store needs: current step tracking, form data storage, navigation methods, and persistence.",
+      "code": "// Create a store that:\n// 1. Tracks current step\n// 2. Stores form data\n// 3. Provides navigation (next, prev, goTo)\n// 4. Persists to localStorage\n// 5. Has reset functionality"
+    },
+    {
+      "title": "Defining the Store Interface",
+      "content": "Start with the TypeScript interface for your store.",
+      "solution": "interface ContactFormState {\n  currentStep: number\n  formData: {\n    name: string\n    email: string\n    message: string\n  }\n  \n  // Actions\n  nextStep: () => void\n  prevStep: () => void\n  goToStep: (step: number) => void\n  updateField: <K extends keyof ContactFormState['formData']>(\n    field: K,\n    value: ContactFormState['formData'][K]\n  ) => void\n  reset: () => void\n}"
+    },
+    {
+      "title": "Creating the Store",
+      "content": "Implement the store with persist middleware.",
+      "solution": "import { create } from 'zustand'\nimport { persist } from 'zustand/middleware'\n\nconst initialState = {\n  currentStep: 1,\n  formData: { name: '', email: '', message: '' }\n}\n\nexport const useContactStore = create<ContactFormState>()(\n  persist(\n    (set) => ({\n      ...initialState,\n      \n      nextStep: () => set((state) => ({\n        currentStep: Math.min(state.currentStep + 1, 5)\n      })),\n      \n      prevStep: () => set((state) => ({\n        currentStep: Math.max(state.currentStep - 1, 1)\n      })),\n      \n      goToStep: (step) => set({ currentStep: step }),\n      \n      updateField: (field, value) => set((state) => ({\n        formData: { ...state.formData, [field]: value }\n      })),\n      \n      reset: () => set(initialState)\n    }),\n    { name: 'contact-form' }\n  )\n)",
+      "explanation": "The persist middleware automatically saves to localStorage and rehydrates on mount."
+    }
+  ]
+}

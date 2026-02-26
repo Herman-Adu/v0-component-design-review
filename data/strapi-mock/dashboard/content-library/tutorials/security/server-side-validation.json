@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "slug": "server-side-validation",
+    "title": "Server-Side Validation with Server Actions",
+    "description": "Implement bulletproof validation using Next.js Server Actions and Zod",
+    "level": "intermediate",
+    "category": "security",
+    "duration": "30 min",
+    "publishedAt": "2024-02-01",
+    "tags": ["server-actions", "zod", "validation", "security"],
+    "prerequisites": [
+      "Basic Next.js App Router",
+      "Understanding of Zod schemas"
+    ],
+    "learningOutcomes": [
+      "Create secure server actions",
+      "Implement multi-layer validation",
+      "Build type-safe error responses"
+    ]
+  },
+  "steps": [
+    {
+      "title": "Understanding the Pattern",
+      "content": "Server actions must validate all incoming data. Never trust client-side validation alone.",
+      "code": "// Create a server action that:\n// 1. Uses \"use server\" directive\n// 2. Validates with Zod schema\n// 3. Sanitizes string inputs\n// 4. Returns ActionResult<T> type\n// 5. Handles validation errors gracefully",
+      "hint": "Server actions receive FormData or plain objects and return serializable data."
+    },
+    {
+      "title": "Defining the Schema",
+      "content": "Create a Zod schema that defines your validation rules.",
+      "solution": "const ContactSchema = z.object({\n  name: z.string().min(2).max(100),\n  email: z.string().email(),\n  message: z.string().min(10).max(1000),\n})"
+    },
+    {
+      "title": "Creating the Action Result Type",
+      "content": "Define a discriminated union for type-safe results.",
+      "solution": "type ActionResult<T> = \n  | { success: true; data: T }\n  | { success: false; error: string; fieldErrors?: Record<string, string[]> }",
+      "explanation": "This pattern allows TypeScript to narrow the type based on the success property."
+    },
+    {
+      "title": "Implementing the Server Action",
+      "content": "Build the complete server action with validation and error handling.",
+      "solution": "\"use server\"\n\nexport async function submitContact(\n  formData: unknown\n): Promise<ActionResult<{ id: string }>> {\n  // Validate\n  const result = ContactSchema.safeParse(formData)\n  \n  if (!result.success) {\n    return {\n      success: false,\n      error: \"Validation failed\",\n      fieldErrors: result.error.flatten().fieldErrors\n    }\n  }\n  \n  // Process validated data\n  const id = await saveContact(result.data)\n  \n  return { success: true, data: { id } }\n}"
+    }
+  ]
+}
