@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "slug": "system-vision-and-principles",
+    "title": "System Vision & Principles",
+    "excerpt": "Core architectural vision, design principles, and foundational values that guide all system decisions and technical direction.",
+    "category": "vision",
+    "level": "beginner",
+    "readTime": "8 min",
+    "publishedAt": "2026-02-15T00:00:00Z",
+    "tags": ["architecture", "vision", "principles", "design-decisions"]
+  },
+  "seo": {
+    "metaTitle": "System Vision & Principles — Architecture Authority",
+    "metaDescription": "Learn the core architectural vision, design principles, and values that guide our Next.js documentation platform.",
+    "keywords": "architecture, system design, principles, vision, next.js, documentation",
+    "canonicalUrl": "/dashboard/documentation/strategic/system-vision-and-principles",
+    "metaImage": {
+      "url": "/images/og/system-vision.jpg",
+      "alt": "System Vision Banner"
+    },
+    "metaSocial": [
+      {
+        "socialNetwork": "Twitter",
+        "title": "System Vision & Principles",
+        "description": "Discover the architectural vision and design principles that guide our platform.",
+        "image": {
+          "url": "/images/social/twitter-system-vision.jpg",
+          "alt": "System Vision"
+        }
+      },
+      {
+        "socialNetwork": "Facebook",
+        "title": "System Vision & Principles",
+        "description": "Learn about our core architectural vision and design principles.",
+        "image": {
+          "url": "/images/social/facebook-system-vision.jpg",
+          "alt": "System Vision"
+        }
+      }
+    ],
+    "robots": "index, follow",
+    "preventIndexing": false
+  },
+  "route": {
+    "pattern": "/dashboard/documentation/[domain]/[slug]",
+    "params": {
+      "domain": "strategic",
+      "slug": "system-vision-and-principles"
+    }
+  },
+  "access": {
+    "requiresAuth": false,
+    "visibleToPublic": true
+  },
+  "toc": [
+    {
+      "level": 2,
+      "title": "Our Architectural Vision",
+      "anchor": "architectural-vision"
+    },
+    {
+      "level": 2,
+      "title": "Core Design Principles",
+      "anchor": "core-design-principles"
+    },
+    {
+      "level": 3,
+      "title": "Server-Centric Architecture",
+      "anchor": "server-centric-architecture"
+    },
+    {
+      "level": 3,
+      "title": "Type Safety First",
+      "anchor": "type-safety-first"
+    },
+    {
+      "level": 3,
+      "title": "Strict Reuse Discipline",
+      "anchor": "strict-reuse-discipline"
+    },
+    {
+      "level": 2,
+      "title": "Technical Values",
+      "anchor": "technical-values"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "content": "Our system is built on a clear architectural vision that prioritizes clarity, maintainability, and scalability. Every decision we make aligns with this vision and the principles derived from it."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Our Architectural Vision",
+      "anchorId": "architectural-vision"
+    },
+    {
+      "type": "text",
+      "content": "We believe in building documentation platforms that are fast, accessible, and built on solid architectural foundations. Our 6-layer architecture (schema → builder → repository → viewmodels → facade → manifest) ensures that data flows cleanly through our application with no ambiguity about ownership or responsibility."
+    },
+    {
+      "type": "callout",
+      "type": "diagram-reference",
+      "title": "6-Layer Architecture Model",
+      "content": "This diagram (visual reference) shows how data flows from source through our layers, with each layer having a specific responsibility. See ARCHITECTURE.md for detailed explanation."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Core Design Principles",
+      "anchorId": "core-design-principles"
+    },
+    {
+      "type": "text",
+      "content": "We follow three core principles that guide every architectural decision:"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "1. Server-Centric Architecture",
+      "anchorId": "server-centric-architecture"
+    },
+    {
+      "type": "text",
+      "content": "Data access, validation, and business logic live exclusively on the server. The Next.js App Router enforces this with 'use server' directives and import boundaries. This separation prevents client-side logic from leaking into data concerns and keeps our bundle small."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "title": "example-server-only.ts",
+      "content": "// lib/documentation/articles.ts\nimport 'server-only';\n\nexport function getArticleBySlug(slug: string) {\n  // Only runs on server: database queries, file I/O\n  const article = readJsonFile(`data/articles/${slug}.json`);\n  return parseArticle(article); // TypeScript validates\n}"
+    },
+    {
+      "type": "alert",
+      "alertType": "error",
+      "content": "Avoid: Never import 'server-only' modules in client components. TypeScript and import boundaries enforce this."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "2. Type Safety First",
+      "anchorId": "type-safety-first"
+    },
+    {
+      "type": "text",
+      "content": "Every data layer is defined with TypeScript interfaces and validated with Zod schemas. This provides compile-time safety and runtime verification with no ambiguity."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "title": "schema-example.ts",
+      "content": "// lib/schemas/article-schema.ts\nimport { z } from 'zod';\n\nexport const ArticleSchema = z.object({\n  meta: z.object({\n    slug: z.string(),\n    title: z.string(),\n  }),\n  blocks: z.array(BlockUnionSchema),\n});\n\nexport type Article = z.infer<typeof ArticleSchema>;"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "3. Strict Reuse Discipline",
+      "anchorId": "strict-reuse-discipline"
+    },
+    {
+      "type": "text",
+      "content": "We create new components only when existing ones cannot represent the requirement. Custom styling and prop variations are preferred over component proliferation."
+    },
+    {
+      "type": "alert",
+      "alertType": "warning",
+      "content": "Reuse mindset: Does a Button component with variant='primary' solve this, or do we really need a PrimaryButton component? Prefer the former."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Values",
+      "anchorId": "technical-values"
+    },
+    {
+      "type": "text",
+      "content": "Our technical values follow from these principles:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Data flows unidirectionally: extract → validate → transform → render",
+        "Every layer has explicit governance: schema files lock contract, checklist enforces gates",
+        "SEO is first-class: not deferred, not optional, integrated from day 1",
+        "Tests validate behavior, not implementation: focus on meaningful outcomes",
+        "Documentation is architecture: our docs follow the same 6-layer pattern we preach",
+        "Performance budgets are non-negotiable: we measure and enforce limits"
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "text",
+      "content": "These principles ensure that our system is maintainable, scalable, and accessible to new team members. They are not dogma—they can evolve, but only with explicit review and documentation."
+    }
+  ],
+  "sourceMarkdown": "<p>Original markdown content preserved here for archival purposes. This field stores the source markdown before transformation to blocks.</p>"
+}
