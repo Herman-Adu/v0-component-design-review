@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "slug": "6-layer-architecture-pattern",
+    "title": "6-Layer Architecture Pattern",
+    "excerpt": "The foundational N-tier data access pattern that separates DTOs, Mappers, Repositories, and View Models into clean, testable layers.",
+    "category": "patterns",
+    "level": "intermediate",
+    "publishedAt": "2026-02-28T00:00:00Z",
+    "tags": [
+      "architecture",
+      "data-layer",
+      "patterns",
+      "layered-architecture",
+      "enterprise"
+    ]
+  },
+  "seo": {
+    "metaTitle": "6-Layer Architecture Pattern — Data Access Explained",
+    "metaDescription": "Learn the N-tier data layer pattern that separates concerns across DTOs, Mappers, Repositories, and View Models for clean, maintainable code.",
+    "keywords": "6-layer architecture, N-tier pattern, repository pattern, data access layer, separation of concerns",
+    "canonicalUrl": "/dashboard/documentation/strategic/6-layer-architecture-pattern",
+    "robots": "index, follow",
+    "preventIndexing": false
+  },
+  "route": {
+    "pattern": "/dashboard/documentation/[domain]/[slug]",
+    "params": {
+      "domain": "strategic",
+      "slug": "6-layer-architecture-pattern"
+    }
+  },
+  "access": {
+    "requiresAuth": false,
+    "visibleToPublic": true
+  },
+  "toc": [
+    {
+      "level": 2,
+      "title": "The N-Tier Pattern Overview",
+      "anchor": "n-tier-pattern-overview"
+    },
+    {
+      "level": 3,
+      "title": "Layer 1: DTOs (Data Transfer Objects)",
+      "anchor": "layer-1-dtos"
+    },
+    {
+      "level": 3,
+      "title": "Layer 2: Mappers",
+      "anchor": "layer-2-mappers"
+    },
+    {
+      "level": 3,
+      "title": "Layer 3: Repository (Data Access Layer)",
+      "anchor": "layer-3-repository"
+    },
+    {
+      "level": 3,
+      "title": "Layer 4: View Models",
+      "anchor": "layer-4-view-models"
+    },
+    {
+      "level": 3,
+      "title": "Layer 5: Pages (Server Components)",
+      "anchor": "layer-5-pages"
+    },
+    {
+      "level": 2,
+      "title": "Why This Pattern?",
+      "anchor": "why-this-pattern"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The N-Tier Pattern Overview",
+      "anchorId": "n-tier-pattern-overview"
+    },
+    {
+      "type": "text",
+      "content": "The N-Tier pattern is a time-proven architecture from enterprise systems that cleanly separates data access into distinct, testable layers. Each layer has a single responsibility and communicates with adjacent layers through well-defined contracts."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Layer 1: DTOs (Data Transfer Objects)",
+      "anchorId": "layer-1-dtos"
+    },
+    {
+      "type": "text",
+      "content": "The DTO layer represents the exact shape of data as it comes from your external source (Strapi API, REST API, GraphQL, database, etc.). DTOs contain no business logic and are validated with Zod at import time."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Example: ArticleDTO (from Strapi)\ninterface ArticleDTO {\n  id: string\n  attributes: {\n    title: string\n    slug: string\n    content: RichText\n    publishedAt: string\n  }\n}\n\n// Validated at import with Zod\nconst ArticleDTOSchema = z.object({\n  id: z.string(),\n  attributes: z.object({\n    title: z.string(),\n    slug: z.string(),\n    content: z.unknown(), // RichText\n    publishedAt: z.string()\n  })\n})"
+    },
+    {
+      "type": "text",
+      "content": "Characteristics of good DTOs: exact match to API response shape, no transformations, validation at module init time ensures bad data is caught immediately."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Layer 2: Mappers",
+      "anchorId": "layer-2-mappers"
+    },
+    {
+      "type": "text",
+      "content": "Mappers transform DTOs into Domain Models. They flatten nested structures, apply defaults, compute new values, and create a canonical domain representation."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Example: mapArticleDTO()\nfunction mapArticleDTO(dto: ArticleDTO): Article {\n  return {\n    id: dto.id,\n    title: dto.attributes.title,\n    slug: dto.attributes.slug,\n    excerpt: computeExcerpt(dto.attributes.content), // ← Computed\n    readTime: computeReadTime(dto.attributes.content), // ← Computed\n    publishedAt: new Date(dto.attributes.publishedAt) // ← Parsed\n  }\n}\n\n// Domain Model (flat, enriched)\ninterface Article {\n  id: string\n  title: string\n  slug: string\n  excerpt: string\n  readTime: string\n  publishedAt: Date\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Layer 3: Repository (Data Access Layer)",
+      "anchorId": "layer-3-repository"
+    },
+    {
+      "type": "text",
+      "content": "The Repository provides a clean interface for data access. It's server-only (using Next.js 'use server' directive) and abstracts away the data source, enabling easy swaps between Strapi, REST APIs, databases, etc."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import 'server-only' // Prevents accidental client-side imports\n\ninterface ArticleRepository {\n  getBySlug(slug: string): Promise<Article | null>\n  listAll(): Promise<Article[]>\n  listByCategory(category: string): Promise<Article[]>\n  getRelated(slug: string): Promise<Article[]>\n}\n\n// Implementation: currently loads from JSON\nexport const articleRepository: ArticleRepository = {\n  async getBySlug(slug: string) {\n    const data = await loadJSON(`data/articles/${slug}.json`)\n    const dto = ArticleDTOSchema.parse(data)\n    return mapArticleDTO(dto)\n  },\n  // ... other methods\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Layer 4: View Models",
+      "anchorId": "layer-4-view-models"
+    },
+    {
+      "type": "text",
+      "content": "View Models transform Domain Models into UI-specific shapes. They include computed properties for display, formatting, and additional data fetches (like related articles)."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Transform Article → ArticleDetailViewModel\ninterface ArticleDetailViewModel extends Article {\n  formattedDate: string\n  readTimeLabel: string\n  relatedArticles: Article[]\n}\n\nfunction toArticleDetailViewModel(article: Article): ArticleDetailViewModel {\n  return {\n    ...article,\n    formattedDate: new Intl.DateTimeFormat('en-US').format(article.publishedAt),\n    readTimeLabel: `${article.readTime} min read`,\n    relatedArticles: [] // Fetched separately if needed\n  }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Layer 5: Pages (Server Components)",
+      "anchorId": "layer-5-pages"
+    },
+    {
+      "type": "text",
+      "content": "Pages are React Server Components that orchestrate data access: they call repository methods, transform to view models, and pass props to UI components."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// app/articles/[slug]/page.tsx\nexport default async function ArticlePage({ params }) {\n  const { slug } = params\n  const article = await articleRepository.getBySlug(slug)\n  \n  if (!article) {\n    notFound()\n  }\n  \n  const viewModel = toArticleDetailViewModel(article)\n  return <ArticleView {...viewModel} />\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why This Pattern?",
+      "anchorId": "why-this-pattern"
+    },
+    {
+      "type": "text",
+      "content": "This architecture provides several critical benefits:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "title": "Clear Responsibility",
+          "description": "Each layer has a single job: DTOs match API, Mappers transform, Repository provides access, ViewModels format, Pages orchestrate"
+        },
+        {
+          "title": "Easy Testing",
+          "description": "Each layer can be tested independently with simple unit tests or integration tests at the Repository level"
+        },
+        {
+          "title": "Backend Agnostic",
+          "description": "Switch data sources by swapping Repository implementation; rest of codebase is unaffected"
+        },
+        {
+          "title": "Type Safety",
+          "description": "TypeScript inference flows through each layer; breaking changes are caught at compile time"
+        },
+        {
+          "title": "Reusability",
+          "description": "Same Repository can serve multiple pages; same ViewModels across SSG, SSR, and dynamic routes"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "type_name": "info",
+      "title": "This Is More Than Just Code Organization",
+      "content": "This pattern is proven in enterprise systems and C#/.NET for decades. It works because it separates concerns precisely: data shape concerns, transformation concerns, access concerns, display concerns. When a requirement changes, you know exactly which layer to modify."
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "meta": {
+    "slug": "type-safety-first-contracts-validation",
+    "title": "Type Safety First: Contracts & Validation at Every Boundary",
+    "excerpt": "Learn how Zod schemas and TypeScript contracts validate data at every layer of our architecture, catching bugs at compile time and runtime.",
+    "category": "patterns",
+    "level": "intermediate",
+    "publishedAt": "2026-02-28T00:00:00Z",
+    "tags": [
+      "type-safety",
+      "typescript",
+      "zod",
+      "validation",
+      "contracts",
+      "data-integrity"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Type Safety First: Contracts & Validation — TypeScript Best Practices",
+    "metaDescription": "Discover how to use Zod schemas and TypeScript contracts to validate data at every boundary of your application, preventing bugs before they happen.",
+    "keywords": "type safety, typescript, zod, schema validation, contracts, compile-time validation, runtime validation",
+    "canonicalUrl": "/dashboard/documentation/strategic/type-safety-first-contracts-validation",
+    "robots": "index, follow",
+    "preventIndexing": false
+  },
+  "route": {
+    "pattern": "/dashboard/documentation/[domain]/[slug]",
+    "params": {
+      "domain": "strategic",
+      "slug": "type-safety-first-contracts-validation"
+    }
+  },
+  "access": {
+    "requiresAuth": false,
+    "visibleToPublic": true
+  },
+  "toc": [
+    {
+      "level": 2,
+      "title": "The Type Safety Philosophy",
+      "anchor": "type-safety-philosophy"
+    },
+    {
+      "level": 2,
+      "title": "Contracts at Every Boundary",
+      "anchor": "contracts-at-every-boundary"
+    },
+    {
+      "level": 3,
+      "title": "Boundary 1: API → DTO",
+      "anchor": "boundary-1-api-dto"
+    },
+    {
+      "level": 3,
+      "title": "Boundary 2: DTO → Domain",
+      "anchor": "boundary-2-dto-domain"
+    },
+    {
+      "level": 3,
+      "title": "Boundary 3: Repository → Page",
+      "anchor": "boundary-3-repository-page"
+    },
+    {
+      "level": 3,
+      "title": "Boundary 4: Page → Component",
+      "anchor": "boundary-4-page-component"
+    },
+    {
+      "level": 2,
+      "title": "Example: Article Flow Through All Boundaries",
+      "anchor": "article-flow-example"
+    },
+    {
+      "level": 2,
+      "title": "Why Type Safety Matters",
+      "anchor": "why-type-safety-matters"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Type Safety Philosophy",
+      "anchorId": "type-safety-philosophy"
+    },
+    {
+      "type": "text",
+      "content": "Type safety is our primary defense against bugs. By validating data at compile time with TypeScript and at runtime with Zod, we catch entire categories of bugs before they reach production."
+    },
+    {
+      "type": "text",
+      "content": "The principle is simple: data should be validated as close to its source as possible, and never trusted until validated. This means:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "title": "API data is untrusted",
+          "description": "Even data from our own Strapi API might be malformed or changed unexpectedly"
+        },
+        {
+          "title": "Every transformation is a contract",
+          "description": "When data moves from layer to layer, we validate it matches the expected shape"
+        },
+        {
+          "title": "TypeScript is not enough",
+          "description": "We need runtime validation (Zod) because TypeScript types are erased at runtime"
+        },
+        {
+          "title": "Fail fast and explicitly",
+          "description": "If data is invalid, the app fails immediately with a clear error, not silently with undefined values"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Contracts at Every Boundary",
+      "anchorId": "contracts-at-every-boundary"
+    },
+    {
+      "type": "text",
+      "content": "Our architecture has four critical boundaries where data crosses layer borders. Each boundary has explicit validation:"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Boundary 1: API → DTO",
+      "anchorId": "boundary-1-api-dto"
+    },
+    {
+      "type": "text",
+      "content": "DTOs (Data Transfer Objects) represent the exact shape of data coming from external sources. Zod schemas validate API responses at import time."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// DTOs are thin, untransformed shapes matching API responses\nconst ArticleDTOSchema = z.object({\n  id: z.string(),\n  attributes: z.object({\n    title: z.string(),\n    slug: z.string(),\n    content: z.string(),\n    publishedAt: z.string().datetime(),\n  }),\n});\n\ntype ArticleDTO = z.infer<typeof ArticleDTOSchema>;\n\n// Validation happens at import time\nconst data = JSON.parse(response.body);\nconst validDTO = ArticleDTOSchema.parse(data); // Throws if invalid"
+    },
+    {
+      "type": "text",
+      "content": "If the API returns unexpected data (missing field, wrong type), the parse fails with a clear error message. No silent undefined bugs."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Boundary 2: DTO → Domain",
+      "anchorId": "boundary-2-dto-domain"
+    },
+    {
+      "type": "text",
+      "content": "Mappers transform DTOs into Domain Models. The Domain Model is our internal representation, enriched with computed properties."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Domain Model (internal representation)\ninterface Article {\n  id: string;\n  title: string;\n  slug: string;\n  content: string;\n  excerpt: string;        // ← Computed from content\n  readTime: string;       // ← Computed from content length\n  publishedAt: Date;      // ← Parsed from string\n}\n\n// Mapper with explicit transformation logic\nfunction mapArticleDTO(dto: ArticleDTO): Article {\n  return {\n    id: dto.id,\n    title: dto.attributes.title,\n    slug: dto.attributes.slug,\n    content: dto.attributes.content,\n    excerpt: computeExcerpt(dto.attributes.content),\n    readTime: computeReadTime(dto.attributes.content),\n    publishedAt: new Date(dto.attributes.publishedAt),\n  };\n}\n\n// Result is fully typed and populated, no undefined values"
+    },
+    {
+      "type": "text",
+      "content": "The TypeScript compiler ensures the Domain Model is returned with all required fields. Missing a property is a compile error."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Boundary 3: Repository → Page",
+      "anchorId": "boundary-3-repository-page"
+    },
+    {
+      "type": "text",
+      "content": "Repositories define interfaces that specify which methods exist and what they return. Pages call repository methods with confidence."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Repository interface (contract)\ninterface ArticleRepository {\n  getBySlug(slug: string): Promise<Article | null>;\n  listAll(): Promise<Article[]>;\n  listByCategory(category: string): Promise<Article[]>;\n}\n\n// Page uses the interface, not the implementation\nconst articleRepo: ArticleRepository = { /* implementation */ };\n\n// Every method that exists on the interface is type-checked\nconst article = await articleRepo.getBySlug('my-article'); // ✅ Works\nawait articleRepo.nonExistentMethod(); // ❌ Compile error"
+    },
+    {
+      "type": "text",
+      "content": "If you try to call a method that doesn't exist, TypeScript catches it immediately. And the return type is always known."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Boundary 4: Page → Component",
+      "anchorId": "boundary-4-page-component"
+    },
+    {
+      "type": "text",
+      "content": "Pages pass view models as props to components. TypeScript enforces that all required props are provided with correct types."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// Component defines required props\ninterface ArticleViewProps {\n  article: Article;\n  relatedArticles: Article[];\n  className?: string;\n}\n\nfunction ArticleView({ article, relatedArticles, className }: ArticleViewProps) {\n  return (\n    <article>\n      <h1>{article.title}</h1>\n      <p>{article.excerpt}</p>\n      {/* relatedArticles is guaranteed to be Article[] */}\n    </article>\n  );\n}\n\n// Page passing props\nexport default async function ArticlePage({ params }) {\n  const article = await articleRepo.getBySlug(params.slug);\n  const related = await articleRepo.listRelated(params.slug);\n  \n  return (\n    <ArticleView \n      article={article}              // ✅ Type matches\n      relatedArticles={related}      // ✅ Type matches\n      className='prose'              // ✅ Optional, type matches\n    />\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Example: Article Flow Through All Boundaries",
+      "anchorId": "article-flow-example"
+    },
+    {
+      "type": "text",
+      "content": "Here's how a single article flows through all four boundaries with validation at each step:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        {
+          "title": "API returns JSON response",
+          "description": "External (Strapi API or JSON file)"
+        },
+        {
+          "title": "DTO schema validates shape",
+          "description": "ArticleDTOSchema.parse() ensures exact API shape matches"
+        },
+        {
+          "title": "Mapper transforms to Domain",
+          "description": "mapArticleDTO() converts to Article with computed properties, TypeScript ensures all fields present"
+        },
+        {
+          "title": "Repository method returns typed result",
+          "description": "articleRepository.getBySlug() returns Promise<Article | null>, interface contract is enforced"
+        },
+        {
+          "title": "Page receives repository result",
+          "description": "Article is guaranteed to have id, title, slug, content, excerpt, readTime, publishedAt; no undefined surprises"
+        },
+        {
+          "title": "Component receives props with type checking",
+          "description": "ArticleView component receives article prop that matches ArticleViewProps, TypeScript enforces all required props"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why Type Safety Matters",
+      "anchorId": "why-type-safety-matters"
+    },
+    {
+      "type": "text",
+      "content": "Type safety prevents entire classes of bugs:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "title": "Undefined reference errors",
+          "description": "Impossible to access a property that doesn't exist because TypeScript knows the shape of every object"
+        },
+        {
+          "title": "API contract changes",
+          "description": "When an external API changes, Zod validation fails immediately with a clear error, not silently with wrong data"
+        },
+        {
+          "title": "Prop mismatches",
+          "description": "Passing the wrong props to a component is caught at build time, not discovered at runtime in production"
+        },
+        {
+          "title": "Impossible states",
+          "description": "TypeScript prevents you from creating invalid states (e.g., an article without a slug)"
+        },
+        {
+          "title": "Refactoring confidence",
+          "description": "When you rename a field or change a shape, the compiler tells you everywhere that needs updating"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "type_name": "success",
+      "title": "Result: Bugs Caught Before Production",
+      "content": "With contracts at every boundary and validation at every layer, most bugs are caught during development or at build time. Your code reaches production with confidence."
+    }
+  ]
+}
