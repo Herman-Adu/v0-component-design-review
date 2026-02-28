@@ -1,0 +1,28 @@
+{
+  "documentationSections": [
+    {
+      "id": "getting-started",
+      "slug": "getting-started",
+      "title": "Getting Started",
+      "description": "Start here for a high-level overview of our architecture and goals",
+      "icon": "Rocket",
+      "color": "green"
+    },
+    {
+      "id": "why-strapi",
+      "slug": "why-strapi",
+      "title": "Why Strapi?",
+      "description": "Understanding our CMS choice and architecture decisions",
+      "icon": "Lightbulb",
+      "color": "blue"
+    },
+    {
+      "id": "technology-stack",
+      "slug": "technology-stack",
+      "title": "Technology Stack",
+      "description": "Overview of our tech choices: Next.js, Strapi, TypeScript",
+      "icon": "Layers",
+      "color": "purple"
+    }
+  ]
+}

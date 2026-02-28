@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "slug": "zustand-form-store",
+    "title": "Building a Form Store with Zustand",
+    "excerpt": "Create persistent form state with Zustand for multi-step forms",
+    "level": "intermediate",
+    "category": "state-management",
+    "readTime": "25 min",
+    "publishedAt": "2024-02-15",
+    "tags": [
+      "zustand",
+      "state-management",
+      "forms",
+      "persistence"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Understanding the Requirements",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Defining the Store Interface",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Creating the Store",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Understanding the Requirements",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A multi-step form store needs: current step tracking, form data storage, navigation methods, and persistence."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Create a store that:\n// 1. Tracks current step\n// 2. Stores form data\n// 3. Provides navigation (next, prev, goTo)\n// 4. Persists to localStorage\n// 5. Has reset functionality",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Defining the Store Interface",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start with the TypeScript interface for your store."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "interface ContactFormState {\n  currentStep: number\n  formData: {\n    name: string\n    email: string\n    message: string\n  }\n  \n  // Actions\n  nextStep: () => void\n  prevStep: () => void\n  goToStep: (step: number) => void\n  updateField: <K extends keyof ContactFormState['formData']>(\n    field: K,\n    value: ContactFormState['formData'][K]\n  ) => void\n  reset: () => void\n}",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Creating the Store",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Implement the store with persist middleware."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "import { create } from 'zustand'\nimport { persist } from 'zustand/middleware'\n\nconst initialState = {\n  currentStep: 1,\n  formData: { name: '', email: '', message: '' }\n}\n\nexport const useContactStore = create<ContactFormState>()(\n  persist(\n    (set) => ({\n      ...initialState,\n      \n      nextStep: () => set((state) => ({\n        currentStep: Math.min(state.currentStep + 1, 5)\n      })),\n      \n      prevStep: () => set((state) => ({\n        currentStep: Math.max(state.currentStep - 1, 1)\n      })),\n      \n      goToStep: (step) => set({ currentStep: step }),\n      \n      updateField: (field, value) => set((state) => ({\n        formData: { ...state.formData, [field]: value }\n      })),\n      \n      reset: () => set(initialState)\n    }),\n    { name: 'contact-form' }\n  )\n)",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The persist middleware automatically saves to localStorage and rehydrates on mount."
+      }
+    }
+  ]
+}

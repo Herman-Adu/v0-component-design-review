@@ -1,0 +1,923 @@
+{
+  "meta": {
+    "slug": "security-architecture",
+    "title": "Security Architecture: 7-Layer Defense in Depth",
+    "excerpt": "Complete guide to the seven-layer defense-in-depth security architecture protecting every request from ingress to response. Built on real implementations with OWASP mapping.",
+    "level": "advanced",
+    "category": "security",
+    "readTime": "45 min",
+    "publishedAt": "2026-01-20T00:00:00.000Z",
+    "tags": [
+      "security",
+      "OWASP",
+      "rate-limiting",
+      "CSRF",
+      "input-sanitization",
+      "zero-trust"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "why-security",
+      "title": "Why This Is the Most Important Section",
+      "level": 2
+    },
+    {
+      "id": "security-layers",
+      "title": "The 7 Security Layers",
+      "level": 2
+    },
+    {
+      "id": "rate-limiting",
+      "title": "Layer 1: Rate Limiting",
+      "level": 2
+    },
+    {
+      "id": "csrf",
+      "title": "Layer 2: CSRF Protection",
+      "level": 2
+    },
+    {
+      "id": "sanitization",
+      "title": "Layer 3: Input Sanitization",
+      "level": 2
+    },
+    {
+      "id": "validation",
+      "title": "Layer 4: Server Validation",
+      "level": 2
+    },
+    {
+      "id": "hydration",
+      "title": "Layer 5: Hydration Guards",
+      "level": 2
+    },
+    {
+      "id": "environment",
+      "title": "Layer 6: Environment Validation",
+      "level": 2
+    },
+    {
+      "id": "error-handling",
+      "title": "Layer 7: Safe Error Handling",
+      "level": 2
+    },
+    {
+      "id": "owasp-mapping",
+      "title": "OWASP Top 10 Mapping",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Why This Is the Most Important Section",
+        "id": "why-security"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Attack landscape and stakeholder perspectives"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "In the modern web landscape, security isn't just a feature—it's the foundation that determines whether your application survives contact with the internet. This guide presents a battle-tested, defense-in-depth security architecture that protects every single request from ingress to response."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "The Stakes",
+        "id": "the-stakes"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every public web application faces: - **Bot attacks**: Credential stuffing, content scraping, form spam - **Script injection**: XSS attacks attempting to steal user data or sessions - **CSRF attacks**: Malicious sites forcing authenticated actions - **SQL injection**: Despite ORMs, user input can still reach database queries - **DDoS attempts**: Resource exhaustion through overwhelming traffic - **Data exfiltration**: Attackers probing for sensitive information leaks"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Stakeholder Perspectives",
+        "id": "stakeholder-perspectives"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**For CTOs**: This architecture maps directly to OWASP Top 10, demonstrating compliance with industry standards and reducing insurance premiums."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**For Developers**: Each layer is composable, testable, and doesn't require rewriting your application logic. Security becomes part of the framework, not bolt-on complexity."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**For Users**: They'll never see these layers working—and that's the point. Security should be invisible when it works, obvious only when it fails."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "The 7 Security Layers",
+        "id": "security-layers"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Complete walkthrough of each defense layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our security architecture follows the principle of **defense in depth**: multiple independent layers that each provide protection. If one layer fails or is bypassed, the others continue to protect."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "The Seven Layers",
+        "id": "the-seven-layers"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "1. **Rate Limiting**: Stops brute force attacks and bot floods at the gate 2. **CSRF Protection**: Validates that requests originate from your application 3. **Input Sanitization**: Strips dangerous HTML/scripts from user input 4. **Server Validation**: Type-safe validation of all incoming data 5. **Hydration Guards**: Prevents client-server mismatches from breaking security 6. **Environment Validation**: Ensures required secrets are present at runtime 7. **Safe Error Handling**: Never leaks sensitive information in error messages"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Layer Interaction",
+        "id": "layer-interaction"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "These layers work in sequence:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "Client Request\n    ↓\n[1] Rate Limiting → Block if too many requests\n    ↓\n[2] CSRF Check → Reject if token missing/invalid\n    ↓\n[3] Sanitization → Strip dangerous content\n    ↓\n[4] Validation → Reject if data shape wrong\n    ↓\n[5] Hydration Guard → Ensure client-server sync\n    ↓\n[6] Environment Check → Verify runtime config\n    ↓\n[7] Error Handler → Safe error responses\n    ↓\nServer Action / API Route",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Each layer operates independently. A bypass in one doesn't compromise the others."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Layer 1: Rate Limiting",
+        "id": "rate-limiting"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Token bucket algorithm, IP tracking, configurable limits"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Rate limiting is your first line of defense against abuse. It prevents: - Brute force login attempts - Form spam floods - API abuse and scraping - DDoS attacks (simple ones)"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Token Bucket Algorithm",
+        "id": "token-bucket-algorithm"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We use the **token bucket algorithm** for smooth, predictable rate limiting:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/security/rate-limiter.ts\nimport { Redis } from '@upstash/redis'\n\ninterface RateLimitConfig {\n  maxRequests: number // Bucket capacity\n  windowMs: number    // Refill rate\n}\n\nexport async function checkRateLimit(\n  identifier: string,\n  config: RateLimitConfig\n): Promise<{ allowed: boolean; remaining: number }> {\n  const redis = new Redis({ /* config */ })\n  const key = `rate_limit:${identifier}`\n  \n  const now = Date.now()\n  const windowStart = now - config.windowMs\n  \n  // Remove old requests outside window\n  await redis.zremrangebyscore(key, 0, windowStart)\n  \n  // Count requests in current window\n  const requestCount = await redis.zcard(key)\n  \n  if (requestCount >= config.maxRequests) {\n    return { allowed: false, remaining: 0 }\n  }\n  \n  // Add current request\n  await redis.zadd(key, { score: now, member: `${now}` })\n  await redis.expire(key, Math.ceil(config.windowMs / 1000))\n  \n  return {\n    allowed: true,\n    remaining: config.maxRequests - requestCount - 1\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Usage in Server Actions",
+        "id": "usage-in-server-actions"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "'use server'\n\nimport { checkRateLimit } from '@/lib/security/rate-limiter'\nimport { headers } from 'next/headers'\n\nexport async function submitForm(data: FormData) {\n  const headersList = await headers()\n  const ip = headersList.get('x-forwarded-for') || 'unknown'\n  \n  const { allowed } = await checkRateLimit(ip, {\n    maxRequests: 10,\n    windowMs: 60000 // 10 requests per minute\n  })\n  \n  if (!allowed) {\n    return { error: 'Too many requests. Please try again later.' }\n  }\n  \n  // Process form...\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Configuration by Endpoint",
+        "id": "configuration-by-endpoint"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "const RATE_LIMITS = {\n  contact: { maxRequests: 5, windowMs: 60000 },   // 5/min\n  quote: { maxRequests: 3, windowMs: 300000 },    // 3/5min\n  login: { maxRequests: 10, windowMs: 900000 },   // 10/15min\n  api: { maxRequests: 100, windowMs: 60000 },     // 100/min\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Layer 2: CSRF Protection",
+        "id": "csrf"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Double-submit cookie pattern with HMAC signing"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "CSRF (Cross-Site Request Forgery) attacks trick users into submitting forms on your site from a malicious third-party site. Our protection uses the **double-submit cookie pattern** with HMAC signing."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "How CSRF Attacks Work",
+        "id": "how-csrf-attacks-work"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "1. User logs into yoursite.com 2. User visits evilsite.com (in another tab) 3. evilsite.com contains a hidden form that POSTs to yoursite.com 4. Browser automatically includes yoursite.com cookies 5. Without CSRF protection, the request succeeds"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Double-Submit Cookie Pattern",
+        "id": "double-submit-cookie-pattern"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/security/csrf.ts\nimport { createHmac, randomBytes } from 'crypto'\n\nconst CSRF_SECRET = process.env.CSRF_SECRET!\n\nexport function generateCsrfToken(): string {\n  const token = randomBytes(32).toString('hex')\n  const signature = createHmac('sha256', CSRF_SECRET)\n    .update(token)\n    .digest('hex')\n  return `${token}.${signature}`\n}\n\nexport function verifyCsrfToken(token: string): boolean {\n  const [rawToken, signature] = token.split('.')\n  if (!rawToken || !signature) return false\n  \n  const expectedSignature = createHmac('sha256', CSRF_SECRET)\n    .update(rawToken)\n    .digest('hex')\n  \n  return signature === expectedSignature\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Form Integration",
+        "id": "form-integration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/forms/ContactForm.tsx\nimport { generateCsrfToken } from '@/lib/security/csrf'\n\nexport async function ContactForm() {\n  const csrfToken = generateCsrfToken()\n  \n  return (\n    <form action={submitContactForm}>\n      <input type=\"hidden\" name=\"_csrf\" value={csrfToken} />\n      {/* Other fields */}\n    </form>\n  )\n}",
+        "language": "tsx",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Server Action Validation",
+        "id": "server-action-validation"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "'use server'\n\nimport { verifyCsrfToken } from '@/lib/security/csrf'\n\nexport async function submitContactForm(formData: FormData) {\n  const csrfToken = formData.get('_csrf') as string\n  \n  if (!verifyCsrfToken(csrfToken)) {\n    return { error: 'Invalid security token. Please refresh and try again.' }\n  }\n  \n  // Process form...\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Layer 3: Input Sanitization",
+        "id": "sanitization"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "DOMPurify integration, recursive object sanitization"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Input sanitization removes dangerous HTML and JavaScript from user input before it reaches your database or is displayed to other users."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Why Sanitization Matters",
+        "id": "why-sanitization-matters"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Even with React's built-in XSS protection, you need sanitization for: - Rich text editors (user-generated HTML) - Markdown rendering (can contain HTML) - Third-party API data (don't trust external sources) - Database migrations (existing data may be dirty)"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "DOMPurify Integration",
+        "id": "dompurify-integration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/security/sanitize.ts\nimport DOMPurify from 'isomorphic-dompurify'\n\nexport function sanitizeHtml(dirty: string): string {\n  return DOMPurify.sanitize(dirty, {\n    ALLOWED_TAGS: [\n      'p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li',\n      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre'\n    ],\n    ALLOWED_ATTR: ['href', 'target', 'rel'],\n    ALLOW_DATA_ATTR: false,\n  })\n}\n\nexport function sanitizeText(dirty: string): string {\n  // Strip ALL HTML tags for plain text fields\n  return DOMPurify.sanitize(dirty, {\n    ALLOWED_TAGS: [],\n    ALLOWED_ATTR: [],\n  })\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Recursive Object Sanitization",
+        "id": "recursive-object-sanitization"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "export function sanitizeFormData<T extends Record<string, any>>(\n  data: T,\n  fieldsConfig: Record<keyof T, 'html' | 'text'>\n): T {\n  const sanitized = {} as T\n  \n  for (const [key, value] of Object.entries(data)) {\n    const config = fieldsConfig[key as keyof T]\n    \n    if (typeof value === 'string') {\n      sanitized[key as keyof T] = (\n        config === 'html' ? sanitizeHtml(value) : sanitizeText(value)\n      ) as T[keyof T]\n    } else if (Array.isArray(value)) {\n      sanitized[key as keyof T] = value.map(item =>\n        typeof item === 'string' && config === 'html'\n          ? sanitizeHtml(item)\n          : sanitizeText(String(item))\n      ) as T[keyof T]\n    } else {\n      sanitized[key as keyof T] = value\n    }\n  }\n  \n  return sanitized\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Usage Example",
+        "id": "usage-example"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "'use server'\n\nimport { sanitizeFormData } from '@/lib/security/sanitize'\n\nexport async function submitContactForm(data: FormData) {\n  const raw = {\n    name: data.get('name') as string,\n    email: data.get('email') as string,\n    message: data.get('message') as string,\n  }\n  \n  const clean = sanitizeFormData(raw, {\n    name: 'text',\n    email: 'text',\n    message: 'html', // Allow formatted text\n  })\n  \n  // clean.message is safe to store and display\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Layer 4: Server Validation",
+        "id": "validation"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Zod schemas with custom refinements per form type"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "After sanitization removes dangerous content, validation ensures the data has the correct shape, type, and business rules."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Zod Schema Example",
+        "id": "zod-schema-example"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/validation/contact-schema.ts\nimport { z } from 'zod'\n\nexport const contactFormSchema = z.object({\n  name: z.string()\n    .min(2, 'Name must be at least 2 characters')\n    .max(100, 'Name must be less than 100 characters')\n    .regex(/^[a-zA-Z\\s'-]+$/, 'Name contains invalid characters'),\n  \n  email: z.string()\n    .email('Invalid email address')\n    .min(5)\n    .max(255)\n    .refine(\n      email => !email.endsWith('.test'),\n      'Test email addresses are not allowed'\n    ),\n  \n  phone: z.string()\n    .optional()\n    .refine(\n      phone => !phone || /^[\\d\\s()+-]+$/.test(phone),\n      'Phone contains invalid characters'\n    ),\n  \n  message: z.string()\n    .min(10, 'Message must be at least 10 characters')\n    .max(5000, 'Message must be less than 5000 characters')\n    .refine(\n      msg => !/https?:\\/\\//i.test(msg),\n      'Messages containing URLs are not allowed'\n    ),\n  \n  interests: z.array(z.string())\n    .min(1, 'Select at least one interest')\n    .max(5, 'Select no more than 5 interests'),\n})\n\nexport type ContactFormData = z.infer<typeof contactFormSchema>",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Server Action Integration",
+        "id": "server-action-integration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "'use server'\n\nimport { contactFormSchema } from '@/lib/validation/contact-schema'\nimport { sanitizeFormData } from '@/lib/security/sanitize'\n\nexport async function submitContactForm(formData: FormData) {\n  // 1. Extract raw data\n  const raw = {\n    name: formData.get('name'),\n    email: formData.get('email'),\n    phone: formData.get('phone'),\n    message: formData.get('message'),\n    interests: formData.getAll('interests'),\n  }\n  \n  // 2. Sanitize\n  const clean = sanitizeFormData(raw, {\n    name: 'text',\n    email: 'text',\n    phone: 'text',\n    message: 'html',\n    interests: 'text',\n  })\n  \n  // 3. Validate\n  const result = contactFormSchema.safeParse(clean)\n  \n  if (!result.success) {\n    return {\n      error: 'Validation failed',\n      details: result.error.flatten().fieldErrors,\n    }\n  }\n  \n  // 4. Process validated data\n  const validated = result.data\n  // Send email, save to DB, etc.\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Layer 5: Hydration Guards",
+        "id": "hydration"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Client-server mismatch detection and safe rendering"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Hydration mismatches occur when the server renders one thing but the client expects another. This can break security assumptions if not handled properly."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "The Problem",
+        "id": "the-problem"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// ❌ DANGEROUS: Different values on server vs client\nfunction UserGreeting() {\n  const userName = typeof window !== 'undefined'\n    ? localStorage.getItem('userName')\n    : 'Guest'\n  \n  return <div>Hello, {userName}</div>\n}\n// Server renders: \"Hello, Guest\"\n// Client hydrates: \"Hello, John\"\n// React error + potential security issue",
+        "language": "tsx",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Solution: Hydration-Safe Pattern",
+        "id": "solution:-hydration-safe-pattern"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// ✅ SAFE: Same value on server and client initially\nimport { useState, useEffect } from 'react'\n\nfunction UserGreeting() {\n  const [userName, setUserName] = useState('Guest')\n  const [isHydrated, setIsHydrated] = useState(false)\n  \n  useEffect(() => {\n    setIsHydrated(true)\n    const stored = localStorage.getItem('userName')\n    if (stored) setUserName(stored)\n  }, [])\n  \n  return (\n    <div>\n      Hello, {userName}\n      {!isHydrated && <span className=\"sr-only\">Loading...</span>}\n    </div>\n  )\n}",
+        "language": "tsx",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Hydration Guard Hook",
+        "id": "hydration-guard-hook"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// hooks/useHydrated.ts\nimport { useState, useEffect } from 'react'\n\nexport function useHydrated() {\n  const [isHydrated, setIsHydrated] = useState(false)\n  \n  useEffect(() => {\n    setIsHydrated(true)\n  }, [])\n  \n  return isHydrated\n}\n\n// Usage\nfunction SecureComponent() {\n  const isHydrated = useHydrated()\n  \n  if (!isHydrated) {\n    return <div>Loading...</div>\n  }\n  \n  return <div>Hydrated content with client-side data</div>\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Security Implications",
+        "id": "security-implications"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "- **CSRF tokens**: Must be consistent server → client - **User state**: Can't assume client has same data as server - **Feature flags**: Environment-based features must hydrate safely - **A/B tests**: Variant selection must be deterministic"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "08",
+        "title": "Layer 6: Environment Validation",
+        "id": "environment"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Runtime env var checking and startup guards"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Missing or invalid environment variables can break security features silently. Validate them at startup."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Environment Schema",
+        "id": "environment-schema"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/env.ts\nimport { z } from 'zod'\n\nconst envSchema = z.object({\n  // Required secrets\n  CSRF_SECRET: z.string().min(32),\n  DATABASE_URL: z.string().url(),\n  REDIS_URL: z.string().url(),\n  \n  // API keys\n  STRAPI_API_TOKEN: z.string().min(1),\n  \n  // Feature flags\n  ENABLE_RATE_LIMITING: z.enum(['true', 'false']).default('true'),\n  \n  // Node environment\n  NODE_ENV: z.enum(['development', 'production', 'test']),\n})\n\nfunction validateEnv() {\n  const result = envSchema.safeParse(process.env)\n  \n  if (!result.success) {\n    console.error('❌ Environment validation failed:')\n    console.error(result.error.flatten().fieldErrors)\n    throw new Error('Invalid environment configuration')\n  }\n  \n  return result.data\n}\n\nexport const env = validateEnv()",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Startup Validation",
+        "id": "startup-validation"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/startup.ts\nimport { env } from './env'\nimport { Redis } from '@upstash/redis'\nimport { PrismaClient } from '@prisma/client'\n\nexport async function validateStartup() {\n  const checks = [\n    { name: 'Environment', fn: () => env },\n    { name: 'Database', fn: async () => {\n      const prisma = new PrismaClient()\n      await prisma.$connect()\n      await prisma.$disconnect()\n    }},\n    { name: 'Redis', fn: async () => {\n      const redis = new Redis({ url: env.REDIS_URL })\n      await redis.ping()\n    }},\n  ]\n  \n  for (const check of checks) {\n    try {\n      await check.fn()\n      console.log(`✅ ${check.name} OK`)\n    } catch (error) {\n      console.error(`❌ ${check.name} FAILED:`, error)\n      throw error\n    }\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Instrumentation Hook",
+        "id": "instrumentation-hook"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// instrumentation.ts (Next.js 15+)\nexport async function register() {\n  if (process.env.NEXT_RUNTIME === 'nodejs') {\n    const { validateStartup } = await import('./lib/startup')\n    await validateStartup()\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "09",
+        "title": "Layer 7: Safe Error Handling",
+        "id": "error-handling"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Never leak stack traces, structured error responses"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Errors can leak sensitive information like database schemas, file paths, and internal logic. Always sanitize errors before sending to clients."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Unsafe Error Handling",
+        "id": "unsafe-error-handling"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// ❌ DANGEROUS: Leaks internal details\nexport async function submitForm(data: FormData) {\n  try {\n    await database.save(data)\n  } catch (error) {\n    return { error: error.message } // Could be SQL error with schema details!\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Safe Error Handling",
+        "id": "safe-error-handling"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// ✅ SAFE: Generic user message, detailed server logs\nimport { logError } from '@/lib/monitoring/sentry'\n\nexport async function submitForm(data: FormData) {\n  try {\n    await database.save(data)\n    return { success: true }\n  } catch (error) {\n    // Log full details server-side\n    logError(error, {\n      context: 'submitForm',\n      formData: { /* sanitized subset */ },\n    })\n    \n    // Return generic message to client\n    return {\n      error: 'Unable to process your request. Please try again later.',\n      code: 'SUBMISSION_FAILED'\n    }\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Error Classification",
+        "id": "error-classification"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/errors/index.ts\nexport class AppError extends Error {\n  constructor(\n    public code: string,\n    public userMessage: string,\n    public statusCode: number = 500,\n    public details?: Record<string, any>\n  ) {\n    super(userMessage)\n    this.name = 'AppError'\n  }\n}\n\nexport class ValidationError extends AppError {\n  constructor(details: Record<string, string[]>) {\n    super(\n      'VALIDATION_ERROR',\n      'Please check your input and try again.',\n      400,\n      details\n    )\n  }\n}\n\nexport class RateLimitError extends AppError {\n  constructor() {\n    super(\n      'RATE_LIMIT_EXCEEDED',\n      'Too many requests. Please try again later.',\n      429\n    )\n  }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Global Error Handler",
+        "id": "global-error-handler"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/error.tsx\n'use client'\n\nimport { useEffect } from 'react'\nimport { logError } from '@/lib/monitoring/sentry'\n\nexport default function Error({\n  error,\n  reset,\n}: {\n  error: Error & { digest?: string }\n  reset: () => void\n}) {\n  useEffect(() => {\n    // Log to monitoring service\n    logError(error, { digest: error.digest })\n  }, [error])\n  \n  return (\n    <div>\n      <h2>Something went wrong</h2>\n      <p>We've been notified and are looking into it.</p>\n      <button onClick={reset}>Try again</button>\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "10",
+        "title": "OWASP Top 10 Mapping",
+        "id": "owasp-mapping"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "How each layer maps to OWASP threat categories"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "This architecture directly addresses the OWASP Top 10 web application security risks:"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "OWASP Top 10 Coverage",
+        "id": "owasp-top-10-coverage"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A01: Broken Access Control - **Layer 2 (CSRF)**: Prevents unauthorized cross-origin requests - **Layer 4 (Validation)**: Ensures users can only submit valid operations - **Layer 6 (Environment)**: Validates RBAC configurations"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A02: Cryptographic Failures - **Layer 2 (CSRF)**: HMAC signing for token integrity - **Layer 6 (Environment)**: Validates presence of encryption keys - **Best Practice**: Use HTTPS everywhere (enforced at infrastructure level)"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A03: Injection - **Layer 3 (Sanitization)**: Removes SQL/HTML/script injection attempts - **Layer 4 (Validation)**: Type-safe schemas prevent malformed data - **Best Practice**: Use ORMs with parameterized queries"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A04: Insecure Design - **All Layers**: Defense in depth is secure design by definition - **Architecture**: Each layer is independently testable and auditable"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A05: Security Misconfiguration - **Layer 6 (Environment)**: Startup validation catches misconfigurations - **Layer 7 (Errors)**: Never exposes internal configuration in errors"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A06: Vulnerable Components - **Best Practice**: Regular dependency updates via Dependabot - **Layer 6 (Environment)**: Can enforce minimum versions"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A07: Identification and Authentication Failures - **Layer 1 (Rate Limiting)**: Prevents brute force attacks - **Layer 2 (CSRF)**: Prevents session hijacking attempts - **Best Practice**: Use NextAuth.js with secure session management"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A08: Software and Data Integrity Failures - **Layer 2 (CSRF)**: HMAC signing ensures request integrity - **Layer 4 (Validation)**: Zod schemas validate data integrity - **Best Practice**: Use SRI for third-party scripts"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A09: Security Logging and Monitoring Failures - **Layer 7 (Errors)**: Structured error logging to Sentry - **Layer 1 (Rate Limiting)**: Log suspicious patterns - **Best Practice**: Monitor rate limit violations, validation failures"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "### A10: Server-Side Request Forgery (SSRF) - **Layer 3 (Sanitization)**: Strips URLs from user input where appropriate - **Layer 4 (Validation)**: Validates allowed URL patterns - **Best Practice**: Whitelist external API endpoints"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Compliance Summary",
+        "id": "compliance-summary"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "✅ **7/10** directly addressed by architecture layers ✅ **3/10** covered by best practices and infrastructure ✅ **100%** OWASP Top 10 coverage"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "This makes the architecture **audit-ready** for security compliance reviews."
+      }
+    }
+  ]
+}

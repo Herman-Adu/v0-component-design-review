@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "slug": "incremental-static-regeneration-isr",
+    "title": "Incremental Static Regeneration (ISR) Explained",
+    "excerpt": "The best of both worlds - combine static generation's speed with the ability to update content without rebuilding your entire application.",
+    "level": "intermediate",
+    "category": "rendering",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "isr",
+      "rendering",
+      "next.js",
+      "caching",
+      "static-generation",
+      "performance"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "what-is-isr",
+      "title": "What is Incremental Static Regeneration?",
+      "level": 2
+    },
+    { "id": "how-isr-works", "title": "How ISR Works", "level": 2 },
+    {
+      "id": "implementation",
+      "title": "Implementation in Next.js App Router",
+      "level": 2
+    },
+    {
+      "id": "choosing-times",
+      "title": "Choosing Revalidation Times",
+      "level": 2
+    },
+    { "id": "project-reference", "title": "Project Reference", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "What is Incremental Static Regeneration?",
+        "id": "what-is-isr"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "info",
+        "content": "ISR allows you to create or update static pages after build time without rebuilding your entire site. Pages are regenerated in the background while serving stale content to users."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "ISR combines the benefits of static generation (instant loads, CDN caching) with the ability to update content periodically. When a page is requested after the revalidation period, the cached version is served immediately while a new version is generated in the background."
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "steps": [
+          {
+            "number": 1,
+            "title": "Initial Build",
+            "description": "Page is statically generated"
+          },
+          {
+            "number": 2,
+            "title": "Serve Cached",
+            "description": "Requests get cached HTML instantly"
+          },
+          {
+            "number": 3,
+            "title": "Revalidation",
+            "description": "After timeout, regenerate in background"
+          },
+          {
+            "number": 4,
+            "title": "Update Cache",
+            "description": "New version replaces old cache"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Stale-While-Revalidate Pattern",
+        "steps": [
+          {
+            "label": "Fresh Period",
+            "sublabel": "Serve cached, no revalidation",
+            "color": "green"
+          },
+          {
+            "label": "Stale Period",
+            "sublabel": "Serve cached + revalidate in background",
+            "color": "yellow"
+          },
+          {
+            "label": "Fresh Again",
+            "sublabel": "New cache, cycle repeats",
+            "color": "green"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "When to Use ISR",
+        "id": "how-isr-works"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Ideal For",
+        "leftItems": [
+          "E-commerce product pages (price/stock updates)",
+          "News sites with periodic updates",
+          "Blog posts with view counts or comments",
+          "Marketing pages with A/B tested content",
+          "Documentation with CMS-managed content"
+        ],
+        "rightTitle": "Not Ideal For",
+        "rightItems": [
+          "Real-time data (use SSR or client-side)",
+          "User-specific content (use SSR)",
+          "Content that must be immediately consistent",
+          "Authenticated/personalized pages",
+          "Content that never changes (use pure SSG)"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Implementation in Next.js App Router",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Time-Based Revalidation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Set a revalidation period in seconds for automatic periodic regeneration:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "app/products/[id]/page.tsx",
+        "code": "// Revalidate this page every 60 seconds\nexport const revalidate = 60\n\nexport default async function ProductPage({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  const product = await getProduct(id)\n  \n  return (\n    <div>\n      <h1>{product.name}</h1>\n      <p>Price: ${product.price}</p>\n      <p>Stock: {product.stock} available</p>\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Fetch-Level Revalidation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Control caching granularly at the fetch level for different data sources:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "app/news/page.tsx",
+        "code": "export default async function NewsPage() {\n  // This fetch revalidates every 5 minutes\n  const news = await fetch('https://api.example.com/news', {\n    next: { revalidate: 300 }\n  })\n  \n  // This fetch revalidates every hour\n  const featured = await fetch('https://api.example.com/featured', {\n    next: { revalidate: 3600 }\n  })\n  \n  return <NewsList news={news} featured={featured} />\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "On-Demand Revalidation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Trigger revalidation immediately when content changes via webhooks or manual triggers:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "app/api/revalidate/route.ts",
+        "code": "import { revalidatePath, revalidateTag } from \"next/cache\"\nimport { NextRequest, NextResponse } from \"next/server\"\n\nexport async function POST(request: NextRequest) {\n  const { path, tag, secret } = await request.json()\n  \n  // Verify webhook secret\n  if (secret !== process.env.REVALIDATION_SECRET) {\n    return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 })\n  }\n  \n  // Revalidate by path\n  if (path) {\n    revalidatePath(path)\n  }\n  \n  // Or revalidate by tag (more granular)\n  if (tag) {\n    revalidateTag(tag)\n  }\n  \n  return NextResponse.json({ revalidated: true, now: Date.now() })\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Using Tags for Granular Control"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "app/products/[id]/page.tsx",
+        "code": "export default async function ProductPage({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  \n  // Tag this fetch so it can be revalidated independently\n  const product = await fetch(`https://api.example.com/products/${id}`, {\n    next: { tags: ['products', `product-${id}`] }\n  })\n  \n  return <ProductDisplay product={product} />\n}\n\n// In your CMS webhook handler:\n// revalidateTag('products') - revalidates ALL products\n// revalidateTag('product-123') - revalidates only product 123"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Choosing Revalidation Times",
+        "id": "choosing-times"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "warning",
+        "content": "Choose revalidation times based on how frequently your content changes and how critical freshness is. Too short increases server load; too long serves stale content."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Content Type", "Revalidation Time", "Reason"],
+        "rows": [
+          [
+            "Product prices",
+            "60 seconds",
+            "Frequently change, customer-facing impact"
+          ],
+          ["News articles", "5-15 minutes", "Regular updates throughout day"],
+          ["Blog posts", "1 hour", "Periodic updates, not time-sensitive"],
+          [
+            "Documentation",
+            "On-demand only",
+            "Manual CMS updates, should be immediate"
+          ],
+          [
+            "Marketing pages",
+            "On-demand only",
+            "Controlled changes, immediate visibility needed"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Project Reference",
+        "id": "project-reference"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "In our electrical services documentation, ISR would be ideal for:"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 1,
+        "features": [
+          {
+            "title": "Service pricing pages",
+            "description": "Update prices without full redeploy using on-demand revalidation when content changes in Strapi"
+          },
+          {
+            "title": "Team/staff pages",
+            "description": "CMS-managed with on-demand revalidation when team information is updated"
+          },
+          {
+            "title": "Blog/news section",
+            "description": "Periodic updates with reasonable freshness (15-30 minute revalidation)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "content": "ISR gives you the performance benefits of static generation with the freshness of dynamic content. Use time-based revalidation for periodic updates and on-demand revalidation for immediate changes from your CMS."
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "slug": "building-atomic-component",
+    "title": "Building Your First Atomic Component",
+    "excerpt": "Learn to create reusable input components following atomic design principles",
+    "level": "beginner",
+    "category": "components",
+    "readTime": "20 min",
+    "publishedAt": "2024-01-15",
+    "tags": [
+      "atomic-design",
+      "components",
+      "typescript",
+      "accessibility"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Understanding the Requirements",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Defining the Interface",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Building the Component",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Understanding the Requirements",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A FormInput atom needs to accept a label, name, error message, and all standard input props while maintaining accessibility."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Create a FormInput component that:\n// 1. Accepts label, name, error props\n// 2. Extends standard HTML input attributes\n// 3. Shows error message when provided\n// 4. Has accessible ARIA labels\n// 5. Uses proper TypeScript types",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Think about the interface first. What props does a reusable input need?"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Defining the Interface",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start by defining a TypeScript interface that extends HTML input attributes."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {\n  label: string\n  name: string\n  error?: string\n}",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Extending React.InputHTMLAttributes gives us all standard input props (onChange, value, etc.) without manually typing them."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Building the Component",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Now implement the component with proper accessibility attributes."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "export function FormInput({ \n  label, \n  name, \n  error, \n  className = '',\n  ...props \n}: FormInputProps) {\n  return (\n    <div className=\"space-y-2\">\n      <label \n        htmlFor={name} \n        className=\"block text-sm font-medium\"\n      >\n        {label}\n      </label>\n      <input\n        id={name}\n        name={name}\n        aria-invalid={!!error}\n        aria-describedby={error ? `${name}-error` : undefined}\n        className={`w-full px-4 py-2 rounded-lg border ${error ? 'border-red-500' : 'border-border'}`}\n        {...props}\n      />\n      {error && (\n        <p id={`${name}-error`} className=\"text-sm text-red-500\" role=\"alert\">\n          {error}\n        </p>\n      )}\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The aria-invalid and aria-describedby attributes help screen readers understand error states. Props spreading allows consumers to pass any HTML input attribute."
+      }
+    }
+  ]
+}

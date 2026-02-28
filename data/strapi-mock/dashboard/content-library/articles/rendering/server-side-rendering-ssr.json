@@ -1,0 +1,311 @@
+{
+  "meta": {
+    "slug": "server-side-rendering-ssr",
+    "title": "Server-Side Rendering (SSR) Deep Dive",
+    "excerpt": "Dynamic, request-time rendering for personalized and real-time content. Learn when and how to optimize SSR for maximum performance.",
+    "level": "intermediate",
+    "category": "rendering",
+    "readTime": "15 min",
+    "publishedAt": "2024-03-12",
+    "tags": ["ssr", "next.js", "rendering", "dynamic", "performance"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "what-is-ssr",
+      "title": "What is Server-Side Rendering?",
+      "level": 2
+    },
+    { "id": "when-to-use", "title": "When to Use SSR", "level": 2 },
+    {
+      "id": "implementation",
+      "title": "Implementation in Next.js App Router",
+      "level": 2
+    },
+    { "id": "performance", "title": "Performance Optimization", "level": 2 },
+    { "id": "project-reference", "title": "Project Reference", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "info",
+        "content": "SSR generates HTML on the server for each request, allowing you to render dynamic, personalized content while still providing fully formed HTML to search engines and users."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "What is Server-Side Rendering?",
+        "id": "what-is-ssr"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Unlike SSG where pages are built once, SSR renders pages fresh on every request. This enables real-time data, user authentication, personalization, and dynamic content that changes based on the request context."
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "How SSR Works",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Request",
+            "description": "User requests a page"
+          },
+          {
+            "number": 2,
+            "title": "Server Process",
+            "description": "Server fetches data and renders HTML"
+          },
+          {
+            "number": 3,
+            "title": "Response",
+            "description": "Complete HTML sent to client"
+          },
+          {
+            "number": 4,
+            "title": "Hydration",
+            "description": "React takes over for interactivity"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "When to Use SSR",
+        "id": "when-to-use"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Ideal For",
+        "leftItems": [
+          "User dashboards and authenticated pages",
+          "Personalized content (recommendations, feeds)",
+          "Real-time data displays (stock prices, live scores)",
+          "Search results with dynamic filtering",
+          "E-commerce cart and checkout flows"
+        ],
+        "rightTitle": "Consider Alternatives When",
+        "rightItems": [
+          "Content rarely changes (use SSG)",
+          "No personalization needed (use SSG)",
+          "High traffic with identical content (use ISR)",
+          "Static shell with dynamic parts (use PPR)",
+          "Cost-sensitive with simple content"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Implementation in Next.js App Router",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "tip",
+        "content": "In Next.js App Router, SSR is triggered when you use dynamic functions like cookies(), headers(), searchParams, or set dynamic = 'force-dynamic'."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Using Dynamic Functions"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Access request-time data to trigger SSR:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/dashboard/page.tsx",
+        "language": "typescript",
+        "code": "import { cookies, headers } from \"next/headers\"\n\nexport default async function DashboardPage() {\n  // Using cookies() makes this page SSR\n  const cookieStore = await cookies()\n  const sessionToken = cookieStore.get(\"session\")\n  \n  // Using headers() also triggers SSR\n  const headersList = await headers()\n  const userAgent = headersList.get(\"user-agent\")\n  \n  // Fetch personalized data\n  const userData = await fetchUserData(sessionToken)\n  \n  return <Dashboard user={userData} />\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Using searchParams"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Dynamic search parameters trigger SSR:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/products/page.tsx",
+        "language": "typescript",
+        "code": "interface Props {\n  searchParams: Promise<{ category?: string; sort?: string }>\n}\n\nexport default async function ProductsPage({ searchParams }: Props) {\n  const { category, sort } = await searchParams\n  \n  // Fetch products based on dynamic filters\n  const products = await getProducts({ category, sort })\n  \n  return <ProductList products={products} />\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Force Dynamic Rendering"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Explicitly opt into SSR:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/live-data/page.tsx",
+        "language": "typescript",
+        "code": "// Force this page to always render dynamically\nexport const dynamic = \"force-dynamic\"\n\nexport default async function LiveDataPage() {\n  // This data is always fresh\n  const liveData = await fetchLiveData()\n  \n  return <LiveDashboard data={liveData} />\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Performance Optimization",
+        "id": "performance"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "SSR adds server processing time to each request. Here are strategies to optimize performance:"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "title": "Parallel Data Fetching",
+            "description": "Use Promise.all() to fetch multiple data sources simultaneously instead of sequentially."
+          },
+          {
+            "title": "Streaming with Suspense",
+            "description": "Wrap slow components in Suspense to stream HTML progressively and show loading states."
+          },
+          {
+            "title": "Cache Where Appropriate",
+            "description": "Use fetch caching or React cache() for data that doesn't need to be real-time."
+          },
+          {
+            "title": "Edge Runtime",
+            "description": "Deploy SSR functions to edge locations to reduce latency for global users."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Streaming Example"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/dashboard/page.tsx",
+        "language": "typescript",
+        "code": "import { Suspense } from \"react\"\n\nexport default function DashboardPage() {\n  return (\n    <div>\n      {/* This renders immediately */}\n      <DashboardHeader />\n      \n      {/* These stream in as they're ready */}\n      <Suspense fallback={<StatsSkeleton />}>\n        <UserStats />\n      </Suspense>\n      \n      <Suspense fallback={<ActivitySkeleton />}>\n        <RecentActivity />\n      </Suspense>\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Project Reference",
+        "id": "project-reference"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "In our electrical services application, we use SSR for pages that require user-specific or real-time data:"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 1,
+        "features": [
+          {
+            "title": "Quote form",
+            "description": "Captures user session data for prefilling"
+          },
+          {
+            "title": "Admin dashboard",
+            "description": "Displays real-time service requests"
+          },
+          {
+            "title": "Search results",
+            "description": "Dynamic filtering based on query params"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "content": "Use SSR when content must be personalized, authenticated, or real-time. Optimize with parallel fetching, streaming with Suspense boundaries, and appropriate caching strategies to minimize server response time. Remember that every millisecond of server processing time adds to the user's first contentful paint."
+      }
+    }
+  ]
+}

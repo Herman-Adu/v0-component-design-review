@@ -1,0 +1,321 @@
+{
+  "meta": {
+    "slug": "client-to-server-components",
+    "title": "The Great Refactor: Client to Server Components",
+    "excerpt": "How we reduced bundle size by 35% and improved performance",
+    "level": "intermediate",
+    "category": "performance",
+    "readTime": "12 min",
+    "publishedAt": "2024-02-01",
+    "tags": ["performance", "server-components", "next.js", "optimization"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "When we first built the electrical services website with Next.js, every component was a client component. This was the path of least resistance - everything just worked with \"use client\" at the top. But as the application grew, so did the JavaScript bundle. Page loads slowed, Lighthouse scores dropped, and mobile users on slower connections had a noticeably degraded experience."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Why This Matters",
+        "body": "Server components are rendered on the server and send only HTML to the browser. This means zero JavaScript for static content like navigation, footers, headings, and layout wrappers. For a content-heavy site, this can eliminate 30-50% of the client-side JavaScript."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A thorough audit revealed that 100% of our components were client-side, despite most of them being entirely static. The Navbar, Footer, Hero section, service descriptions - none of these needed client interactivity, yet they were all shipping JavaScript to the browser."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Bundle Size",
+            "value": "450KB",
+            "change": "Excessive for content site",
+            "positive": false
+          },
+          {
+            "label": "FCP",
+            "value": "1.8s",
+            "change": "Above 1.5s threshold",
+            "positive": false
+          },
+          {
+            "label": "Lighthouse",
+            "value": "78",
+            "change": "Below 90 target",
+            "positive": false
+          },
+          {
+            "label": "Client Components",
+            "value": "100%",
+            "change": "No server rendering",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Before: Everything Client-Side",
+        "layers": [
+          {
+            "name": "Browser (All JavaScript)",
+            "items": [
+              "Navbar",
+              "Hero",
+              "Forms",
+              "Footer",
+              "Services",
+              "Contact"
+            ],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Hydration Required",
+            "items": ["Every component hydrated", "Even static content"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Server",
+            "items": ["Only serves JavaScript bundle", "No HTML pre-rendering"],
+            "color": "#6b7280"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We conducted a component-by-component audit, classifying each as either truly interactive (needs event handlers, state, effects) or static (can be server-rendered). The goal was to push \"use client\" as far down the component tree as possible."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Migration Strategy",
+        "steps": [
+          {
+            "title": "Audit",
+            "description": "Classified all 24 components as interactive or static. Found that 18 of 24 were purely static."
+          },
+          {
+            "title": "Remove Top-Level use client",
+            "description": "Removed 'use client' from page.tsx and layout.tsx, making them server components by default."
+          },
+          {
+            "title": "Create Client Boundaries",
+            "description": "Wrapped only interactive parts (form inputs, mobile menu toggle) in dedicated client components."
+          },
+          {
+            "title": "Extract Interactivity",
+            "description": "Split large components: static wrapper as server component, interactive island as client component."
+          },
+          {
+            "title": "Verify & Measure",
+            "description": "Ran Lighthouse, checked hydration boundaries, validated no functionality was lost."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Monolithic Client Page",
+        "beforeCode": "\"use client\"\n\n// Everything was client-side\nexport default function HomePage() {\n  return (\n    <>\n      <Navbar />        {/* Static - doesn't need JS */}\n      <Hero />          {/* Static - doesn't need JS */}\n      <Services />      {/* Static - doesn't need JS */}\n      <MultiStepForm /> {/* Interactive - needs JS */}\n      <Testimonials />  {/* Static - doesn't need JS */}\n      <Footer />        {/* Static - doesn't need JS */}\n    </>\n  )\n}",
+        "afterTitle": "After: Hybrid Architecture",
+        "afterCode": "// Server component (default - no directive needed)\nexport default function HomePage() {\n  return (\n    <>\n      <Navbar />           {/* Server component */}\n      <Hero />             {/* Server component */}\n      <Services />         {/* Server component */}\n      <FormContainer />    {/* Client boundary */}\n      <Testimonials />     {/* Server component */}\n      <Footer />           {/* Server component */}\n    </>\n  )\n}\n\n// Only the form wrapper is a client component\n// \"use client\" in FormContainer.tsx only",
+        "improvements": [
+          {
+            "metric": "Client components",
+            "before": "24 (100%)",
+            "after": "6 (25%)"
+          },
+          { "metric": "JS shipped", "before": "450KB", "after": "292KB" },
+          {
+            "metric": "Hydration boundaries",
+            "before": "Every component",
+            "after": "Only interactive"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/Navbar.tsx",
+        "language": "tsx",
+        "code": "// Server component - no \"use client\" directive\n// Zero JavaScript sent to browser for this component\nimport Link from \"next/link\"\nimport { MobileMenuToggle } from \"./MobileMenuToggle\"\n\nexport function Navbar() {\n  return (\n    <nav className=\"border-b\">\n      <div className=\"container flex items-center justify-between py-4\">\n        <Link href=\"/\">Electrical Services</Link>\n        <div className=\"hidden md:flex gap-6\">\n          <Link href=\"/services\">Services</Link>\n          <Link href=\"/contact\">Contact</Link>\n        </div>\n        {/* Only this tiny piece is client-side */}\n        <MobileMenuToggle />\n      </div>\n    </nav>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Performance Comparison",
+        "headers": ["Metric", "Before", "After", "Improvement"],
+        "rows": [
+          ["Bundle Size", "450KB", "292KB", "-35%"],
+          ["First Contentful Paint", "1.8s", "1.1s", "-39%"],
+          ["Lighthouse Score", "78", "94", "+16"],
+          ["Time to Interactive", "2.4s", "1.5s", "-38%"]
+        ]
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Bundle Size",
+            "value": "292KB",
+            "change": "-35%",
+            "positive": true
+          },
+          {
+            "label": "FCP",
+            "value": "1.1s",
+            "change": "-39%",
+            "positive": true
+          },
+          {
+            "label": "Lighthouse",
+            "value": "94",
+            "change": "+16 points",
+            "positive": true
+          },
+          {
+            "label": "TTI",
+            "value": "1.5s",
+            "change": "-38%",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Quick Win",
+        "body": "The biggest gains came from the simplest change: removing \"use client\" from layout.tsx and page.tsx. This single change converted the Navbar, Footer, and all layout wrappers to server components, saving approximately 120KB of JavaScript."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "Default to Server",
+            "description": "Start with server components everywhere. Only add 'use client' when you genuinely need interactivity."
+          },
+          {
+            "icon": "layers",
+            "title": "Push Boundaries Down",
+            "description": "Keep client boundaries as low in the tree as possible. Wrap the smallest interactive piece, not entire sections."
+          },
+          {
+            "icon": "code",
+            "title": "Audit Regularly",
+            "description": "Components evolve. A previously interactive component may become static after a refactor. Audit quarterly."
+          },
+          {
+            "icon": "target",
+            "title": "Measure Impact",
+            "description": "Use Lighthouse CI, bundle analyzers, and real-user monitoring to quantify every architectural change."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Push \"use client\" down the component tree. Default to server components, only add client interactivity where genuinely needed. In our case, this reduced the JavaScript bundle by 35% and improved First Contentful Paint by 39% - all without changing any user-facing functionality."
+      }
+    }
+  ]
+}

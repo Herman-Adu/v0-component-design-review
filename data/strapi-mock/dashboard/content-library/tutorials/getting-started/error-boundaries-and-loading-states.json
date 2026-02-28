@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "slug": "error-boundaries-and-loading-states",
+    "title": "Adding Error Boundaries and Loading States to Next.js",
+    "excerpt": "Learn how to implement error.tsx and loading.tsx conventions in Next.js to create resilient applications that handle failures gracefully and show meaningful loading indicators.",
+    "level": "beginner",
+    "category": "getting-started",
+    "readTime": "30 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "error-boundaries",
+      "loading-states",
+      "next.js",
+      "react",
+      "error-handling",
+      "ux",
+      "resilience"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Understanding the Problem",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Creating Your First error.tsx",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Creating Your First loading.tsx",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. The File Convention Hierarchy",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Advanced: Error Recovery Strategies",
+      "level": 2
+    },
+    {
+      "id": "step-6",
+      "title": "6. Adding a Global Error Boundary",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Understanding the Problem",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Without error boundaries, a single failing component crashes the entire page -- users see a white screen with no way to recover. Without loading states, route transitions appear frozen. Code Review #1 found that our entire application had zero error.tsx files and zero loading.tsx files. Every route was unprotected."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// What happens WITHOUT error boundaries:\n// 1. A component throws an error\n// 2. React's default error handling kicks in\n// 3. The ENTIRE page goes white\n// 4. User sees nothing -- no message, no recovery option\n// 5. They have to manually refresh the browser\n\n// What happens WITHOUT loading states:\n// 1. User clicks a navigation link\n// 2. Nothing visible happens for 1-3 seconds\n// 3. User thinks the click didn't register\n// 4. They click again, maybe multiple times\n// 5. Page suddenly appears all at once\n\n// Goal: Make both failure and loading feel intentional",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Think of error boundaries as try/catch for your UI, and loading states as visual feedback that something is happening."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Creating Your First error.tsx",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Next.js uses a file convention: any file named error.tsx in a route segment automatically becomes the error boundary for that segment. It must be a client component (errors are caught on the client) and receives two props: error (the Error object) and reset (a function to retry rendering)."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/dashboard/error.tsx\n\"use client\"\n\n// error.tsx MUST be a client component\n// It receives the error and a reset function\n\ninterface ErrorBoundaryProps {\n  error: Error & { digest?: string }\n  reset: () => void\n}\n\nexport default function DashboardError({ error, reset }: ErrorBoundaryProps) {\n  return (\n    <div className=\"flex min-h-[400px] flex-col items-center justify-center gap-4\">\n      <div className=\"rounded-full bg-destructive/10 p-4\">\n        <svg className=\"h-8 w-8 text-destructive\" /* alert icon */ />\n      </div>\n      \n      <h2 className=\"text-xl font-semibold\">Something went wrong</h2>\n      \n      <p className=\"text-muted-foreground text-center max-w-md\">\n        {error.message || \"An unexpected error occurred. Please try again.\"}\n      </p>\n      \n      {/* The reset function re-renders the segment */}\n      <button\n        onClick={reset}\n        className=\"rounded-md bg-primary px-4 py-2 text-primary-foreground\"\n      >\n        Try Again\n      </button>\n      \n      {/* Optional: Show error digest for support tickets */}\n      {error.digest && (\n        <p className=\"text-xs text-muted-foreground\">\n          Error ID: {error.digest}\n        </p>\n      )}\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The error.tsx file wraps its route segment in a React Error Boundary. When any component in that segment throws, this component renders instead of a white screen. The reset() function attempts to re-render the segment, which is useful for transient errors like network failures."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Creating Your First loading.tsx",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The loading.tsx convention works with React Suspense. When a route segment is loading (fetching data, importing components), Next.js automatically shows this component. It wraps the page in a Suspense boundary, so the loading state appears instantly while the page content streams in."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/dashboard/loading.tsx\n\n// loading.tsx does NOT need \"use client\" -- it can be a server component\n// It should be lightweight and render immediately\n\nexport default function DashboardLoading() {\n  return (\n    <div className=\"flex min-h-[400px] flex-col items-center justify-center gap-4\">\n      {/* Skeleton loading pattern */}\n      <div className=\"w-full max-w-4xl space-y-6 p-6\">\n        {/* Header skeleton */}\n        <div className=\"space-y-2\">\n          <div className=\"h-8 w-48 animate-pulse rounded bg-muted\" />\n          <div className=\"h-4 w-96 animate-pulse rounded bg-muted\" />\n        </div>\n        \n        {/* Content grid skeleton */}\n        <div className=\"grid grid-cols-1 md:grid-cols-3 gap-4\">\n          {Array.from({ length: 3 }).map((_, i) => (\n            <div key={i} className=\"h-32 animate-pulse rounded-lg bg-muted\" />\n          ))}\n        </div>\n        \n        {/* Table skeleton */}\n        <div className=\"space-y-2\">\n          {Array.from({ length: 5 }).map((_, i) => (\n            <div key={i} className=\"h-12 animate-pulse rounded bg-muted\" />\n          ))}\n        </div>\n      </div>\n    </div>\n  )\n}\n\n// KEY PRINCIPLES:\n// 1. Match the layout of the real page (same grid, same spacing)\n// 2. Use animate-pulse for subtle loading indication\n// 3. Keep it lightweight -- no data fetching, no heavy components\n// 4. Use deterministic keys (index is fine here since list is static)",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Skeleton loading states are preferred over spinners because they give users a preview of the page structure. This reduces perceived loading time and prevents layout shift when the real content arrives."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "The File Convention Hierarchy",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Next.js processes these files in a specific order. Understanding the hierarchy helps you decide where to place error and loading boundaries. The layout wraps everything. Inside the layout, loading.tsx creates a Suspense boundary. Inside that, error.tsx creates an Error Boundary. Finally, the page renders inside both."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// The rendering hierarchy for a route segment:\n\n// app/dashboard/layout.tsx    <-- Wraps everything\n//   app/dashboard/loading.tsx <-- Suspense boundary (shows during load)\n//     app/dashboard/error.tsx <-- Error boundary (catches failures)\n//       app/dashboard/page.tsx <-- The actual page content\n\n// This means:\n// 1. layout.tsx errors are NOT caught by error.tsx in the same segment\n//    (you need a parent error.tsx or the root global-error.tsx)\n// 2. loading.tsx shows BEFORE page.tsx mounts\n// 3. error.tsx catches errors FROM page.tsx and its children\n\n// PRACTICAL STRATEGY:\n// Place error.tsx at these levels:\n\n// app/error.tsx              -- Root fallback (catches everything)\n// app/dashboard/error.tsx    -- Dashboard-wide errors\n// app/dashboard/admin/error.tsx -- Admin-specific errors\n\n// Place loading.tsx at:\n// app/dashboard/loading.tsx  -- Dashboard navigation transitions\n// app/dashboard/admin/document-administration/loading.tsx -- Document administration loading",
+        "language": "dockerfile",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "You don't need error.tsx and loading.tsx in every single route segment. Place them at meaningful boundaries: root level for the global fallback, section level for section-specific handling, and leaf level only for routes with unique loading or error patterns."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Advanced: Error Recovery Strategies",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The basic reset() function retries the render, but for production applications you need smarter recovery. Common patterns include: retry with exponential backoff for API failures, redirect to a safe page after persistent errors, and logging errors to a monitoring service."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-5-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/dashboard/error.tsx\n\"use client\"\n\nimport { useEffect, useState } from \"react\"\nimport { useRouter } from \"next/navigation\"\n\nexport default function DashboardError({\n  error,\n  reset,\n}: {\n  error: Error & { digest?: string }\n  reset: () => void\n}) {\n  const router = useRouter()\n  const [retryCount, setRetryCount] = useState(0)\n  const maxRetries = 3\n\n  // Log error to monitoring (production)\n  useEffect(() => {\n    console.error(\"[Dashboard Error]\", {\n      message: error.message,\n      digest: error.digest,\n      retryCount,\n    })\n    // In production: send to Sentry, LogRocket, etc.\n  }, [error, retryCount])\n\n  function handleRetry() {\n    if (retryCount < maxRetries) {\n      setRetryCount((c) => c + 1)\n      reset()\n    }\n  }\n\n  const canRetry = retryCount < maxRetries\n\n  return (\n    <div className=\"flex min-h-[400px] flex-col items-center justify-center gap-4\">\n      <h2 className=\"text-xl font-semibold\">Something went wrong</h2>\n      <p className=\"text-muted-foreground\">{error.message}</p>\n\n      <div className=\"flex gap-3\">\n        {canRetry ? (\n          <button onClick={handleRetry} className=\"btn-primary\">\n            Try Again ({maxRetries - retryCount} attempts left)\n          </button>\n        ) : (\n          <p className=\"text-sm text-muted-foreground\">\n            Maximum retries reached.\n          </p>\n        )}\n\n        <button\n          onClick={() => router.push(\"/dashboard\")}\n          className=\"btn-secondary\"\n        >\n          Return to Dashboard\n        </button>\n      </div>\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Limiting retries prevents infinite loops. After the maximum, offer navigation to a known-good page. Always log errors -- in development to the console, in production to your monitoring service."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Adding a Global Error Boundary",
+        "id": "step-6"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The root global-error.tsx is a special file that catches errors from the root layout itself. Unlike regular error.tsx files, it replaces the ENTIRE page including the html and body tags, so it must render these elements. This is your last line of defence."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-6-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/global-error.tsx\n\"use client\"\n\n// global-error.tsx replaces the entire HTML document\n// It MUST render <html> and <body> tags\n\nexport default function GlobalError({\n  error,\n  reset,\n}: {\n  error: Error & { digest?: string }\n  reset: () => void\n}) {\n  return (\n    <html lang=\"en\">\n      <body className=\"flex min-h-screen items-center justify-center bg-background\">\n        <div className=\"text-center space-y-4 p-8\">\n          <h1 className=\"text-2xl font-bold\">Application Error</h1>\n          <p className=\"text-muted-foreground\">\n            A critical error occurred. Please refresh the page.\n          </p>\n          <div className=\"flex gap-3 justify-center\">\n            <button\n              onClick={reset}\n              className=\"rounded bg-primary px-4 py-2 text-primary-foreground\"\n            >\n              Try Again\n            </button>\n            <a\n              href=\"/\"\n              className=\"rounded bg-secondary px-4 py-2 text-secondary-foreground\"\n            >\n              Go Home\n            </a>\n          </div>\n        </div>\n      </body>\n    </html>\n  )\n}\n\n// PLACEMENT STRATEGY CHECKLIST:\n// [x] app/global-error.tsx    -- Root layout failures\n// [x] app/error.tsx           -- App-wide fallback\n// [x] app/dashboard/error.tsx -- Dashboard section\n// [ ] Individual pages        -- Only if they need custom handling",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "global-error.tsx is the nuclear option -- it catches errors that even the root layout's error boundary cannot. Use it as a minimal, self-contained page with no external dependencies (no shared layouts, no providers, no context)."
+      }
+    }
+  ]
+}

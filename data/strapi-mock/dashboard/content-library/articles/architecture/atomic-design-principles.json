@@ -1,0 +1,457 @@
+{
+  "meta": {
+    "slug": "atomic-design-principles",
+    "title": "Atomic Design: From Theory to Production",
+    "excerpt": "How we structured our component library using atomic design principles for maximum reusability",
+    "level": "beginner",
+    "category": "architecture",
+    "readTime": "8 min",
+    "publishedAt": "2024-01-15",
+    "tags": ["architecture", "components", "atomic-design"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "what-is-atomic", "title": "What is Atomic Design?", "level": 2 },
+    { "id": "our-implementation", "title": "Our Implementation", "level": 2 },
+    { "id": "atoms", "title": "Atoms (10 Components)", "level": 3 },
+    { "id": "molecules", "title": "Molecules (12 Components)", "level": 3 },
+    { "id": "organisms", "title": "Organisms (23 Components)", "level": 3 },
+    { "id": "benefits", "title": "Why This Architecture", "level": 2 },
+    { "id": "real-example", "title": "Real Example", "level": 2 },
+    { "id": "decision-guide", "title": "Decision Guide", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Atomic Design is a methodology for creating design systems with five distinct levels: Atoms, Molecules, Organisms, Templates, and Pages. We adapted it for our React component library, focusing on the first three levels for maximum reusability."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "What is Atomic Design?",
+        "id": "what-is-atomic"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Coined by Brad Frost, Atomic Design breaks UI into fundamental building blocks that compose into increasingly complex structures. Think of it like chemistry: atoms combine to form molecules, which combine to form organisms."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Component Hierarchy",
+        "layers": [
+          {
+            "name": "Organisms",
+            "items": ["Form Containers", "Step Components", "Review Displays"],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Molecules",
+            "items": ["Navigation", "Cards", "Step Indicators", "Sidebar"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Atoms",
+            "items": ["Input", "Select", "Button", "Checkbox", "DatePicker"],
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Our Implementation",
+        "id": "our-implementation"
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Total Components",
+            "value": "52",
+            "change": "Production Ready",
+            "positive": true
+          },
+          {
+            "label": "Atoms",
+            "value": "10",
+            "change": "Building blocks",
+            "positive": true
+          },
+          {
+            "label": "Molecules",
+            "value": "12",
+            "change": "Composite units",
+            "positive": true
+          },
+          {
+            "label": "Organisms",
+            "value": "23",
+            "change": "Complete features",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Atoms (10 Components)",
+        "id": "atoms"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Atoms are the smallest, most fundamental components. They cannot be broken down further while still being functional. Each atom handles one specific UI responsibility."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "code",
+            "title": "FormInput",
+            "description": "Text input with label, error handling, and validation states. Used in 15+ locations."
+          },
+          {
+            "icon": "code",
+            "title": "FormSelect",
+            "description": "Dropdown selection with shadcn/ui styling and accessibility support."
+          },
+          {
+            "icon": "code",
+            "title": "FormCheckbox",
+            "description": "Checkbox with label and error states for boolean inputs."
+          },
+          {
+            "icon": "code",
+            "title": "DatePicker",
+            "description": "Calendar-based date selection with validation and format handling."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/atoms/form-input.tsx",
+        "code": "// Atom Example: FormInput\ninterface FormInputProps {\n  label: string\n  error?: string\n  ...inputProps\n}\n\nexport function FormInput({ label, error, ...props }: FormInputProps) {\n  return (\n    <div className=\"space-y-2\">\n      <Label>{label}</Label>\n      <Input {...props} className={error ? \"border-red-500\" : \"\"} />\n      {error && <p className=\"text-sm text-red-500\">{error}</p>}\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Molecules (12 Components)",
+        "id": "molecules"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Molecules combine atoms into functional units. They handle specific UI patterns that appear repeatedly across the application."
+      }
+    },
+    {
+      "type": "organism.fileTree",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Molecule Components",
+        "items": [
+          {
+            "name": "molecules/",
+            "type": "folder",
+            "children": [
+              {
+                "name": "form-navigation.tsx",
+                "type": "file",
+                "highlight": true
+              },
+              {
+                "name": "form-step-container.tsx",
+                "type": "file",
+                "highlight": true
+              },
+              {
+                "name": "form-progress-indicator.tsx",
+                "type": "file",
+                "highlight": false
+              },
+              {
+                "name": "step-indicator.tsx",
+                "type": "file",
+                "highlight": false
+              },
+              {
+                "name": "content-card.tsx",
+                "type": "file",
+                "highlight": false
+              },
+              {
+                "name": "office-hours-card.tsx",
+                "type": "file",
+                "highlight": false
+              },
+              {
+                "name": "quick-contact-card.tsx",
+                "type": "file",
+                "highlight": false
+              },
+              { "name": "navbar.tsx", "type": "file", "highlight": false },
+              { "name": "docs-sidebar.tsx", "type": "file", "highlight": false }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/molecules/form-navigation.tsx",
+        "code": "// Molecule Example: Combines Button atoms with navigation logic\nexport function FormNavigation({ \n  onNext, \n  onPrev, \n  isFirst, \n  isLast,\n  isSubmitting \n}: FormNavigationProps) {\n  return (\n    <div className=\"flex justify-between pt-6 border-t\">\n      <Button \n        variant=\"outline\" \n        onClick={onPrev} \n        disabled={isFirst}\n      >\n        Previous\n      </Button>\n      <Button \n        onClick={onNext}\n        disabled={isSubmitting}\n      >\n        {isLast ? \"Submit\" : \"Continue\"}\n      </Button>\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Organisms (23 Components)",
+        "id": "organisms"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Organisms are complete, standalone features. They combine molecules and atoms into fully functional UI sections. In our case, each form step is an organism."
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Service Request Form Organisms",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Personal Info",
+            "description": "Name, email, phone"
+          },
+          {
+            "number": 2,
+            "title": "Service Details",
+            "description": "Type, urgency, description"
+          },
+          {
+            "number": 3,
+            "title": "Property Info",
+            "description": "Address, property type"
+          },
+          { "number": 4, "title": "Schedule", "description": "Date, time slot" }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Shared Step Pattern",
+        "body": "We identified steps that appear in multiple forms (Personal Info, Property Info, Schedule) and made them accept a generic store hook. This allows the same organism to work with different Zustand stores."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Why This Architecture",
+        "id": "benefits"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Maximum Reusability",
+            "description": "FormInput is used in 15+ locations. One change updates all instances automatically."
+          },
+          {
+            "icon": "shield",
+            "title": "Consistent Quality",
+            "description": "All inputs share the same validation patterns, error handling, and accessibility features."
+          },
+          {
+            "icon": "gitBranch",
+            "title": "Independent Testing",
+            "description": "Each atom, molecule, and organism can be unit tested in isolation."
+          },
+          {
+            "icon": "users",
+            "title": "Team Scalability",
+            "description": "New developers understand the structure immediately. Clear boundaries reduce conflicts."
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Atomic Design Shines When",
+        "notIdealTitle": "Consider Alternatives When",
+        "idealFor": [
+          "Building design systems or component libraries",
+          "Multiple teams working on the same codebase",
+          "Applications with consistent UI patterns",
+          "Projects requiring long-term maintainability",
+          "Products with multiple similar forms or flows"
+        ],
+        "notIdealFor": [
+          "One-off marketing pages",
+          "Rapid prototypes that will be discarded",
+          "Very small applications (< 10 components)",
+          "Projects with highly unique UI per page"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Real Example: The Form System",
+        "id": "real-example"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Here is how our atomic architecture handles the multi-step form system with three different form types sharing components:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Form Composition Pattern",
+        "code": "// Three forms, sharing 60% of their components\n\n// Service Request Form (5 steps)\n<ServiceFormContainer>\n  <PersonalInfoStep store={useFormStore} />    // Shared\n  <ServiceDetailsStep />                        // Unique\n  <PropertyInfoStep store={useFormStore} />    // Shared\n  <ScheduleStep store={useFormStore} />        // Shared\n  <ReviewStep />                               // Unique\n</ServiceFormContainer>\n\n// Contact Form (5 steps)\n<ContactFormContainer>\n  <PersonalInfoStep store={useContactStore} /> // Shared\n  <InquiryTypeStep />                          // Unique\n  <PropertyInfoStep store={useContactStore} /> // Shared\n  <ScheduleStep store={useContactStore} />     // Shared\n  <ReviewStep />                               // Unique\n</ContactFormContainer>\n\n// Result: 3 forms, 45 total components, 40% code reuse"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Decision Guide",
+        "id": "decision-guide"
+      }
+    },
+    {
+      "type": "organism.decisionTree",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "When to Create New Components",
+        "decisions": [
+          {
+            "condition": "UI element appears 3+ times",
+            "result": "Create an Atom",
+            "recommended": true
+          },
+          {
+            "condition": "Combining 2-3 atoms with shared logic",
+            "result": "Create a Molecule",
+            "recommended": false
+          },
+          {
+            "condition": "Complete feature with state/effects",
+            "result": "Create an Organism",
+            "recommended": false
+          },
+          {
+            "condition": "One-off styling variation",
+            "result": "Use props/variants, not new component",
+            "recommended": false
+          },
+          {
+            "condition": "Platform-specific UI (mobile/desktop)",
+            "result": "Use responsive design in existing component",
+            "recommended": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Start with atoms, compose upward. Identify shared patterns early and extract them. The initial investment in structure pays dividends as your application grows. Our 52-component system handles 3 different form flows with 40% code reuse - that is the power of atomic design."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "href": "/dashboard/content-library/articles/multi-step-form-architecture",
+            "title": "Multi-Step Form Architecture That Scales",
+            "level": "intermediate"
+          },
+          {
+            "href": "/dashboard/content-library/articles/architecture/planning-full-stack-application",
+            "title": "Planning a Full-Stack Application",
+            "level": "beginner"
+          },
+          {
+            "href": "/dashboard/content-library/articles/zustand-form-state-management",
+            "title": "Zustand for Complex Form State",
+            "level": "intermediate"
+          }
+        ]
+      }
+    }
+  ]
+}

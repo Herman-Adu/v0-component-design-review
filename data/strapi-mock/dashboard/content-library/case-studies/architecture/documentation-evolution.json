@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "slug": "documentation-evolution",
+    "title": "Documentation as a Product: Building a Living Knowledge Base",
+    "excerpt": "How we transformed scattered notes into a structured, multi-audience learning platform",
+    "level": "intermediate",
+    "category": "architecture",
+    "readTime": "16 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "documentation",
+      "knowledge-base",
+      "developer-experience",
+      "content-architecture"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Scattered Knowledge Problem", "level": 2 },
+    {
+      "id": "old-state",
+      "title": "Before: Chaos Across 5 Locations",
+      "level": 2
+    },
+    { "id": "solution", "title": "Documentation as Product", "level": 2 },
+    {
+      "id": "architecture",
+      "title": "Multi-Audience Architecture",
+      "level": 2
+    },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Scattered Knowledge Problem",
+        "id": "problem"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Technical documentation was scattered across README files, Notion pages, and Slack threads. New team members spent days searching for answers. Decision makers had no access to technical rationale. Knowledge left when developers left."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Before: Chaos Across 5 Locations",
+        "id": "old-state"
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Where Knowledge Lived (Before)",
+        "steps": [
+          {
+            "title": "README.md files",
+            "description": "Outdated setup instructions, often wrong for new developers"
+          },
+          {
+            "title": "Notion (3 pages)",
+            "description": "Partial architecture notes, inconsistent with actual code"
+          },
+          {
+            "title": "Slack threads",
+            "description": "Lost after 90 days, searchable only by premium members"
+          },
+          {
+            "title": "Google Docs",
+            "description": "Meeting notes with buried decisions, no version control"
+          },
+          {
+            "title": "Developer heads",
+            "description": "Tribal knowledge, left when developers left"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Cost of Scattered Documentation",
+        "description": "Measured productivity impact",
+        "stats": [
+          {
+            "metric": "Onboarding Time",
+            "value": "2 weeks",
+            "context": "New developers searching for answers"
+          },
+          {
+            "metric": "Documentation Locations",
+            "value": "5+",
+            "context": "No single source of truth"
+          },
+          {
+            "metric": "Content Freshness",
+            "value": "Unknown",
+            "context": "No review process or version control"
+          },
+          {
+            "metric": "Decision Discoverability",
+            "value": "~20%",
+            "context": "Decisions lost, rediscussed repeatedly"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Documentation as Product",
+        "id": "solution"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We built a structured Learning Hub directly into the application dashboard with articles, tutorials, and case studies organized by skill level and topic. Content uses shared components for consistency and is maintained alongside the codebase."
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Scattered Documentation",
+        "beforeItems": [
+          "README.md - Outdated",
+          "Notion (3 pages) - Partial",
+          "Slack threads - Lost",
+          "Google Docs - Buried",
+          "Developer heads - Tribal",
+          "Findability: ~20%",
+          "Freshness: Unknown"
+        ],
+        "afterTitle": "Structured Learning Hub",
+        "afterItems": [
+          "/content-library/articles - 29 articles",
+          "/content-library/tutorials - 13 tutorials",
+          "/content-library/case-studies - 16 case studies",
+          "Skill levels: Beginner → Advanced",
+          "Multiple audiences: Dev/Lead/CTO",
+          "Findability: 100%",
+          "Freshness: Automated checks"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Multi-Audience Architecture",
+        "id": "architecture"
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Content Organization Model",
+        "description": "Three content types serving different audiences",
+        "stats": [
+          {
+            "metric": "Articles",
+            "value": "29 total",
+            "context": "Deep dives: Atomic design, forms, security, performance"
+          },
+          {
+            "metric": "Tutorials",
+            "value": "13 total",
+            "context": "Hands-on: Build a component, server validation, Zustand"
+          },
+          {
+            "metric": "Case Studies",
+            "value": "16 total",
+            "context": "Real-world: Migrations, refactoring, cost reduction, ROI"
+          },
+          {
+            "metric": "Skill Levels",
+            "value": "3 tiers",
+            "context": "Beginner → Intermediate → Advanced content paths"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Implementation Pattern",
+        "body": "Content stored as JSON in version control (same as app code). Zod schemas validate structure. Shared block components render consistently. Server-only accessors provide clean API. No database needed—files are the database."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Content Resources",
+            "value": "+525%",
+            "change": "8 scattered → 50+ structured",
+            "positive": true
+          },
+          {
+            "label": "Onboarding Time",
+            "value": "-79%",
+            "change": "2 weeks → 3 days",
+            "positive": true
+          },
+          {
+            "label": "Knowledge Retention",
+            "value": "Permanent",
+            "change": "Tribal → Documented",
+            "positive": true
+          },
+          {
+            "label": "Stakeholder Access",
+            "value": "New",
+            "change": "None → Full access",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Beyond Search & Discoverability",
+        "body": "New hires onboard in 3 days instead of 2 weeks. CTO can read case studies to understand business decisions. Decisions documented at time they're made, not years later. Content updated alongside code (no version drift). Candidates impressed by comprehensive documentation during interviews."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "Documentation is a product, not an afterthought. Treating it with the same rigor as application code—structured data, shared components, skill-level targeting—transforms scattered notes into a competitive advantage. Store docs in version control. Build them with the same tech stack. Maintain them with the same discipline. The result: a living knowledge base that scales with your team."
+      }
+    }
+  ]
+}

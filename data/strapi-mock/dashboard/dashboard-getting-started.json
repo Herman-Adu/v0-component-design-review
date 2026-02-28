@@ -1,0 +1,218 @@
+{
+  "header": {
+    "badge": {
+      "text": "Beginners Start Here",
+      "variant": "success"
+    },
+    "title": "Getting Started",
+    "description": "Welcome to the Electrical Services project documentation. This is a production-ready Next.js 15 application featuring atomic design, guard architecture, multi-layer security, a comprehensive content library, and a Strapi CMS backend -- all documented from overview to deployment.",
+    "tags": [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Strapi CMS",
+      "Atomic Design",
+      "Guard Architecture"
+    ]
+  },
+  "callout": {
+    "type": "success",
+    "title": "Production-Ready Architecture",
+    "description": "This project demonstrates enterprise-grade patterns: atomic design component system, hydration guard architecture (preventing Radix UI mismatches), defense-in-depth security, and a complete CMS backend with collection types and shared components."
+  },
+  "startingPoints": {
+    "title": "Choose Your Starting Point",
+    "description": "Select documentation based on your role and what you need to accomplish.",
+    "cards": [
+      {
+        "id": "app-overview",
+        "title": "App Overview",
+        "description": "Component system, hydration guards, security architecture, server actions, and performance.",
+        "icon": "Code",
+        "badge": {
+          "text": "Frontend",
+          "color": "blue"
+        },
+        "href": "/dashboard/documentation/app-reference/overview",
+        "features": [
+          "Atomic design system",
+          "Hydration guards",
+          "Security layers",
+          "Server actions"
+        ]
+      },
+      {
+        "id": "cms-overview",
+        "title": "CMS Overview",
+        "description": "Strategic overview of the Strapi headless CMS: schemas, collection types, and architecture.",
+        "icon": "Database",
+        "badge": {
+          "text": "Backend",
+          "color": "purple"
+        },
+        "href": "/dashboard/documentation/cms-reference/overview",
+        "features": [
+          "Collection types",
+          "Shared components",
+          "Content relations",
+          "API integration"
+        ]
+      },
+      {
+        "id": "infra-ops",
+        "title": "Infrastructure & Ops",
+        "description": "Deployment, hosting, CI/CD, monitoring, and DevOps practices.",
+        "icon": "Rocket",
+        "badge": {
+          "text": "DevOps",
+          "color": "orange"
+        },
+        "href": "/dashboard/documentation/infrastructure-and-ops/overview",
+        "features": [
+          "Vercel deployment",
+          "CI/CD pipelines",
+          "Environment config",
+          "Monitoring"
+        ]
+      }
+    ]
+  },
+  "quickStartGuides": {
+    "title": "Quick Start Guides",
+    "description": "Step-by-step guides to get you productive immediately.",
+    "guides": [
+      {
+        "id": "local-setup",
+        "title": "Local Development Setup",
+        "description": "Install dependencies, configure environment, run dev server",
+        "icon": "Zap",
+        "duration": "5 min",
+        "href": "/dashboard/documentation/app-reference/local-development-setup"
+      },
+      {
+        "id": "component-guide",
+        "title": "Component Development Guide",
+        "description": "Learn the atomic design pattern and create new components",
+        "icon": "Layers",
+        "duration": "15 min",
+        "href": "/dashboard/documentation/app-reference/component-development"
+      },
+      {
+        "id": "strapi-setup",
+        "title": "Strapi CMS Setup",
+        "description": "Set up the headless CMS backend and content types",
+        "icon": "Database",
+        "duration": "10 min",
+        "href": "/dashboard/documentation/cms-reference/setup"
+      },
+      {
+        "id": "deployment",
+        "title": "Deploy to Production",
+        "description": "Deploy frontend and backend to Vercel and cloud hosting",
+        "icon": "Rocket",
+        "duration": "20 min",
+        "href": "/dashboard/documentation/infrastructure-and-ops/deployment"
+      }
+    ]
+  },
+  "features": {
+    "title": "What Makes This Project Special",
+    "items": [
+      {
+        "id": "atomic-design",
+        "title": "Atomic Design System",
+        "description": "Component hierarchy from atoms to templates",
+        "icon": "Layers"
+      },
+      {
+        "id": "hydration-guards",
+        "title": "Hydration Guard Architecture",
+        "description": "Prevents SSR/client mismatches with Radix UI",
+        "icon": "Shield"
+      },
+      {
+        "id": "security",
+        "title": "Defense-in-Depth Security",
+        "description": "Multi-layer security with input sanitization and validation",
+        "icon": "ShieldCheck"
+      },
+      {
+        "id": "cms-integration",
+        "title": "Strapi CMS Integration",
+        "description": "Full headless CMS with typed API integration",
+        "icon": "Database"
+      },
+      {
+        "id": "content-library",
+        "title": "Content Library System",
+        "description": "Manage articles, guides, case studies, and social posts",
+        "icon": "BookOpen"
+      },
+      {
+        "id": "admin-tools",
+        "title": "Admin Tools & Dashboards",
+        "description": "Email, document, and digital marketing administration",
+        "icon": "LayoutGrid"
+      }
+    ]
+  },
+  "topicsOverview": {
+    "title": "Documentation Topics",
+    "description": "Explore by category",
+    "topics": [
+      {
+        "id": "app-reference",
+        "title": "App Reference",
+        "description": "Frontend architecture, components, and patterns",
+        "icon": "Code",
+        "badge": "App Ref",
+        "href": "/dashboard/documentation/app-reference/overview"
+      },
+      {
+        "id": "cms-reference",
+        "title": "CMS Overview",
+        "description": "Strapi CMS stats, collection types, shared components",
+        "icon": "Database",
+        "badge": "Strategic",
+        "href": "/dashboard/documentation/cms-reference/overview"
+      },
+      {
+        "id": "infrastructure",
+        "title": "Infrastructure Guide",
+        "description": "Deployment, CI/CD, and cloud infrastructure",
+        "icon": "Rocket",
+        "badge": "Infra",
+        "href": "/dashboard/documentation/infrastructure-and-ops/overview"
+      },
+      {
+        "id": "server-actions",
+        "title": "Server Actions & API",
+        "description": "Type-safe server actions and Strapi API integration",
+        "icon": "Code",
+        "badge": "App Ref",
+        "href": "/dashboard/documentation/app-reference/server-actions-and-api"
+      },
+      {
+        "id": "security-guide",
+        "title": "Security Architecture",
+        "description": "Multi-layer security, input guards, sanitization",
+        "icon": "ShieldCheck",
+        "badge": "Strategic",
+        "href": "/dashboard/documentation/app-reference/security-architecture"
+      },
+      {
+        "id": "testing",
+        "title": "Testing & Quality",
+        "description": "Unit tests, integration tests, E2E testing",
+        "icon": "TestTube",
+        "badge": "DevOps",
+        "href": "/dashboard/documentation/infrastructure-and-ops/testing"
+      }
+    ]
+  },
+  "helpCallout": {
+    "type": "warning",
+    "title": "Need Help?",
+    "description": "Join our community forum, check the FAQ section, or open a GitHub issue for support."
+  }
+}

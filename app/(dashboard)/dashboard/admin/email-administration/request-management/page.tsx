@@ -1,3 +1,4 @@
+import type { Capabilities, Features } from "@/types/strapi-mock";
 import Link from "next/link";
 import {
   Card,
@@ -222,3 +223,4 @@ export default function RequestManagementOverviewPage() {
     </div>
   );
 }
+

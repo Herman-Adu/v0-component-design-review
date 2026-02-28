@@ -1,0 +1,70 @@
+{
+  "header": {
+    "title": "Case Studies",
+    "description": "Real-world examples with before/after comparisons, metrics, and actionable takeaways. See how architectural decisions impact production systems."
+  },
+  "stats": [
+    {
+      "label": "Total Studies",
+      "value": 20,
+      "icon": "TrendingUp"
+    },
+    {
+      "label": "Topics Covered",
+      "value": 9,
+      "icon": "Tag"
+    },
+    {
+      "label": "Avg. Metrics Improved",
+      "value": 6,
+      "icon": "BarChart3"
+    }
+  ],
+  "categories": [
+    {
+      "id": "architecture",
+      "title": "Architecture",
+      "color": "blue"
+    },
+    {
+      "id": "refactoring",
+      "title": "Refactoring",
+      "color": "violet"
+    },
+    {
+      "id": "performance",
+      "title": "Performance",
+      "color": "green"
+    },
+    {
+      "id": "security",
+      "title": "Security",
+      "color": "red"
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "color": "emerald"
+    },
+    {
+      "id": "cms",
+      "title": "CMS",
+      "color": "cyan"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure",
+      "color": "slate"
+    },
+    {
+      "id": "rendering",
+      "title": "Rendering",
+      "color": "indigo"
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "color": "purple"
+    }
+  ]
+}

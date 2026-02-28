@@ -1,0 +1,86 @@
+{
+  "header": {
+    "icon": "Mail",
+    "title": "Email Administration",
+    "description": "Unified hub for request handling, email configuration, and infrastructure. Manage client communications, template branding, and technical monitoring from a centralized dashboard."
+  },
+  "sections": [
+    {
+      "id": "request-management",
+      "title": "Request Management",
+      "description": "Day-to-day handling of client requests. Job tracking, status pipeline, branded correspondence, team assignment, and bulk operations across all form submission types.",
+      "icon": "Briefcase",
+      "href": "/dashboard/admin/email-administration/request-management",
+      "role": "Business Administrator / Office Staff",
+      "pages": 3,
+      "color": "amber"
+    },
+    {
+      "id": "configuration",
+      "title": "Configuration",
+      "description": "Brand identity, templates, preview, A/B subject lines, recipient groups, and scheduling. Control how emails look and behave without touching code.",
+      "icon": "Palette",
+      "href": "/dashboard/admin/email-administration/configuration",
+      "role": "Business Admin / Project Lead",
+      "pages": 6,
+      "color": "blue"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure",
+      "description": "Technical monitoring and operational tools. API health, delivery logs, configuration versioning, and a comprehensive 21-check security audit.",
+      "icon": "HardDrive",
+      "href": "/dashboard/admin/email-administration/infrastructure",
+      "role": "Web Administrator / DevOps / CTO",
+      "pages": 5,
+      "color": "red"
+    }
+  ],
+  "highlights": [
+    {
+      "id": "branded-correspondence",
+      "icon": "MessageSquare",
+      "title": "Branded Correspondence",
+      "description": "Send professional reply emails with configurable sections, presets, and live preview."
+    },
+    {
+      "id": "security",
+      "icon": "Shield",
+      "title": "7-Layer Security",
+      "description": "Rate limiting, CSRF, honeypot, XSS sanitization, Zod validation, API key masking, and env security."
+    },
+    {
+      "id": "sla-tracking",
+      "icon": "Clock",
+      "title": "SLA Tracking",
+      "description": "Priority-based response times with urgency-specific styling and team routing."
+    },
+    {
+      "id": "resend-integration",
+      "icon": "Server",
+      "title": "Resend Integration",
+      "description": "Production-ready email delivery via Resend API with full delivery pipeline observability."
+    },
+    {
+      "id": "role-based-access",
+      "icon": "Users",
+      "title": "Role-Based Access",
+      "description": "Sections organized by role: Office Staff, Business Admins, Project Leads, and DevOps."
+    },
+    {
+      "id": "config-driven",
+      "icon": "Palette",
+      "title": "Config-Driven Templates",
+      "description": "All brand colors, company details, and SLA settings driven from a single config file, Strapi-ready."
+    }
+  ],
+  "quickLinks": [
+    {
+      "id": "getting-started",
+      "icon": "Rocket",
+      "title": "Getting Started",
+      "description": "Role-based onboarding for email administrators",
+      "href": "/dashboard/admin/email-administration/getting-started"
+    }
+  ]
+}

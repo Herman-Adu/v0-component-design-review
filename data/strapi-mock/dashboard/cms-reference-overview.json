@@ -1,0 +1,64 @@
+{
+  "header": {
+    "icon": "Database",
+    "title": "CMS Reference",
+    "description": "Strapi CMS schema definitions, content models, and data architecture for developers."
+  },
+  "sections": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "description": "Step-by-step Strapi installation with PostgreSQL, creating your first content types, and connecting to the Next.js frontend. Full developer onboarding guide.",
+      "icon": "Rocket",
+      "href": "/dashboard/documentation/cms-reference/getting-started",
+      "role": "Developer",
+      "color": "emerald"
+    },
+    {
+      "id": "form-collections",
+      "title": "Form Collections",
+      "description": "Strapi schema definitions for Service Requests, Contact Forms, and Quotation submissions. Copy-paste schemas with full field mappings to TypeScript interfaces.",
+      "icon": "FileText",
+      "href": "/dashboard/documentation/cms-reference/form-collections",
+      "role": "Developer",
+      "color": "emerald"
+    },
+    {
+      "id": "content-collections",
+      "title": "Content Collections",
+      "description": "Schemas for Articles, Tutorials, and Case Studies with rich text fields, media relations, category taxonomies, and SEO metadata. Full TypeScript interface mappings.",
+      "icon": "BookOpen",
+      "href": "/dashboard/documentation/cms-reference/content-collections",
+      "role": "Developer",
+      "color": "emerald"
+    },
+    {
+      "id": "single-types",
+      "title": "Single Types",
+      "description": "Site-wide settings, SEO configuration, company information, and global content stored as Strapi Single Types. Schema definitions with default values.",
+      "icon": "FileCode",
+      "href": "/dashboard/documentation/cms-reference/single-types",
+      "role": "Developer",
+      "color": "emerald"
+    },
+    {
+      "id": "shared-components",
+      "title": "Shared Components",
+      "description": "Reusable Strapi components: Contact Info, UK Address, SEO Metadata, Social Links, and more. Compose these into any collection type or single type.",
+      "icon": "LayoutGrid",
+      "href": "/dashboard/documentation/cms-reference/shared-components",
+      "role": "Developer",
+      "color": "emerald"
+    },
+    {
+      "id": "relationships",
+      "title": "Relationships",
+      "description": "Entity relationship diagrams, component composition patterns, and foreign key mappings across all content types. Architecture-level view of the data model.",
+      "icon": "Share2",
+      "href": "/dashboard/documentation/cms-reference/relationships",
+      "role": "Architect",
+      "color": "blue"
+    }
+  ],
+  "badges": ["Developer", "Architect"]
+}

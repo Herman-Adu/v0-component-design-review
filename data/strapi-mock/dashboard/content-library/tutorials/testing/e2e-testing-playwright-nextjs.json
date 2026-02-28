@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "slug": "e2e-testing-playwright-nextjs",
+    "title": "E2E Testing with Playwright for Next.js",
+    "excerpt": "Set up Playwright for end-to-end testing of a Next.js application. Write resilient tests for server components, client interactions, form submissions, and navigation flows.",
+    "level": "intermediate",
+    "category": "testing",
+    "readTime": "40 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "testing",
+      "playwright",
+      "e2e",
+      "next.js",
+      "ci-cd",
+      "qa"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Setting Up Playwright",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Writing Your First Page Test",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Testing Multi-Step Form Flows",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Running Tests in CI/CD",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Setting Up Playwright",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Playwright installs its own browser binaries (Chromium, Firefox, WebKit) so tests run consistently across environments. The setup creates a configuration file and an example test."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-1-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Install Playwright\n// npx playwright install --with-deps\n// npm init playwright@latest\n\n// playwright.config.ts\nimport { defineConfig, devices } from \"@playwright/test\"\n\nexport default defineConfig({\n  testDir: \"./e2e\",\n  fullyParallel: true,\n  forbidOnly: !!process.env.CI,    // Fail if test.only in CI\n  retries: process.env.CI ? 2 : 0, // Retry flaky tests in CI\n  workers: process.env.CI ? 1 : undefined,\n\n  reporter: [\n    [\"html\"],                       // Visual report\n    [\"list\"],                       // Terminal output\n  ],\n\n  use: {\n    baseURL: \"http://localhost:3000\",\n    trace: \"on-first-retry\",        // Capture trace on failure\n    screenshot: \"only-on-failure\",  // Screenshot on failure\n  },\n\n  projects: [\n    {\n      name: \"chromium\",\n      use: { ...devices[\"Desktop Chrome\"] },\n    },\n    {\n      name: \"mobile-chrome\",\n      use: { ...devices[\"Pixel 5\"] },  // Test mobile layout\n    },\n  ],\n\n  // Start Next.js dev server before tests\n  webServer: {\n    command: \"npm run dev\",\n    url: \"http://localhost:3000\",\n    reuseExistingServer: !process.env.CI,\n    timeout: 120_000,\n  },\n})",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The webServer config automatically starts your Next.js dev server before tests run. In CI, it starts fresh; locally, it reuses an existing server if one is running. The mobile-chrome project ensures your app works on mobile viewports."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Writing Your First Page Test",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start with simple page load tests that verify server-rendered content. These catch broken routes, missing data, and rendering errors."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// e2e/homepage.spec.ts\nimport { test, expect } from \"@playwright/test\"\n\ntest.describe(\"Homepage\", () => {\n  test(\"renders the hero section\", async ({ page }) => {\n    await page.goto(\"/\")\n\n    // Check page title (from Next.js metadata)\n    await expect(page).toHaveTitle(/Electrical Services/)\n\n    // Check hero heading is visible\n    const heading = page.getByRole(\"heading\", { level: 1 })\n    await expect(heading).toBeVisible()\n    await expect(heading).toContainText(\"Electrical\")\n\n    // Check CTA button exists and links correctly\n    const ctaButton = page.getByRole(\"link\", { name: /get a quote/i })\n    await expect(ctaButton).toBeVisible()\n    await expect(ctaButton).toHaveAttribute(\"href\", \"/service-request\")\n  })\n\n  test(\"navigation links work\", async ({ page }) => {\n    await page.goto(\"/\")\n\n    // Click Services link\n    await page.getByRole(\"link\", { name: /services/i }).click()\n\n    // Verify navigation occurred\n    await expect(page).toHaveURL(/\\/services/)\n    await expect(page.getByRole(\"heading\", { level: 1 })).toContainText(\"Services\")\n  })\n\n  test(\"page loads within performance budget\", async ({ page }) => {\n    const start = Date.now()\n    await page.goto(\"/\", { waitUntil: \"domcontentloaded\" })\n    const loadTime = Date.now() - start\n\n    // Page should load within 3 seconds\n    expect(loadTime).toBeLessThan(3000)\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Use getByRole selectors (not CSS selectors or test IDs) as your primary strategy. Role-based selectors survive CSS refactoring, component restructuring, and class name changes. They also verify accessibility -- if getByRole can't find an element, it probably has an accessibility issue."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Testing Multi-Step Form Flows",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Multi-step forms are where E2E tests provide the most value. They test the full user journey: fill fields, validate, navigate between steps, submit, and verify the success state."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// e2e/service-request.spec.ts\nimport { test, expect } from \"@playwright/test\"\n\ntest.describe(\"Service Request Form\", () => {\n  test(\"completes full submission flow\", async ({ page }) => {\n    await page.goto(\"/service-request\")\n\n    // Step 1: Contact Information\n    await page.getByLabel(\"Full Name\").fill(\"John Smith\")\n    await page.getByLabel(\"Email\").fill(\"john@example.com\")\n    await page.getByLabel(\"Phone\").fill(\"0800123456\")\n    await page.getByRole(\"button\", { name: /continue/i }).click()\n\n    // Verify we moved to step 2\n    await expect(page.getByText(\"Service Details\")).toBeVisible()\n\n    // Step 2: Service Details\n    await page.getByLabel(\"Service Type\").selectOption(\"installation\")\n    await page.getByLabel(\"Description\").fill(\n      \"Need a new consumer unit installed in the garage\"\n    )\n    await page.getByLabel(\"Urgency\").selectOption(\"medium\")\n    await page.getByRole(\"button\", { name: /continue/i }).click()\n\n    // Step 3: Scheduling\n    await page.getByLabel(\"Preferred Date\").fill(\"2026-03-15\")\n    await page.getByLabel(\"Preferred Time\").selectOption(\"morning\")\n    await page.getByLabel(\"Address\").fill(\"42 Electric Avenue, London, EC1A 1BB\")\n    await page.getByRole(\"button\", { name: /submit/i }).click()\n\n    // Verify success state\n    await expect(page.getByText(/request.*received/i)).toBeVisible()\n    await expect(page.getByText(/reference number/i)).toBeVisible()\n  })\n\n  test(\"shows validation errors on empty submission\", async ({ page }) => {\n    await page.goto(\"/service-request\")\n\n    // Try to proceed without filling anything\n    await page.getByRole(\"button\", { name: /continue/i }).click()\n\n    // Verify error messages appear\n    await expect(page.getByText(/name.*required/i)).toBeVisible()\n    await expect(page.getByText(/email.*valid/i)).toBeVisible()\n  })\n\n  test(\"preserves data when navigating back\", async ({ page }) => {\n    await page.goto(\"/service-request\")\n\n    // Fill step 1\n    await page.getByLabel(\"Full Name\").fill(\"Jane Doe\")\n    await page.getByLabel(\"Email\").fill(\"jane@example.com\")\n    await page.getByLabel(\"Phone\").fill(\"0800999888\")\n    await page.getByRole(\"button\", { name: /continue/i }).click()\n\n    // Go back to step 1\n    await page.getByRole(\"button\", { name: /back/i }).click()\n\n    // Verify data is preserved\n    await expect(page.getByLabel(\"Full Name\")).toHaveValue(\"Jane Doe\")\n    await expect(page.getByLabel(\"Email\")).toHaveValue(\"jane@example.com\")\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The three tests cover the critical form paths: happy path (full completion), validation (error handling), and state preservation (back navigation). These three tests alone catch 80% of form regression bugs."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Running Tests in CI/CD",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Playwright tests should run on every pull request as a quality gate. The CI configuration needs to install browsers, start the dev server, run tests, and upload failure artifacts."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# .github/workflows/e2e.yml\nname: E2E Tests\n\non:\n  pull_request:\n    branches: [main]\n\njobs:\n  e2e:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: \"npm\"\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Install Playwright browsers\n        run: npx playwright install --with-deps chromium\n\n      - name: Build Next.js\n        run: npm run build\n\n      - name: Run E2E tests\n        run: npx playwright test\n        env:\n          CI: true\n\n      - name: Upload test results\n        if: failure()\n        uses: actions/upload-artifact@v4\n        with:\n          name: playwright-report\n          path: playwright-report/\n          retention-days: 7\n\n# Key CI decisions:\n# - Only install chromium (not all 3 browsers) to save time\n# - Build first, then test against production build\n# - Upload HTML report on failure for debugging\n# - 2 retries in CI to handle transient failures",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Run tests against the production build (npm run build + npm start) in CI, not the dev server. This catches issues that only appear in production mode (missing environment variables, build-time errors, optimisation bugs)."
+      }
+    }
+  ]
+}

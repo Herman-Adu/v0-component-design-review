@@ -19,100 +19,118 @@ import {
   getFooterHtml,
   getContactInfoHtml,
   type UrgencyLevel,
-} from "@/lib/email/config/email-config"
-import type { FormType, JobPriority } from "@/lib/email/services/job-management.types"
+} from "@/lib/email/config/email-config";
+import type {
+  FormType,
+  JobPriority,
+} from "@/lib/email/services/job-management.types";
 
 // ---------------------------------------------------------------------------
 // Public types
 // ---------------------------------------------------------------------------
 
 export interface ContentSection {
-  label: string
-  content: string
+  label: string;
+  content: string;
 }
 
 export interface ContinuationEmailProps {
-  formType: FormType
-  requestId: string
-  clientName: string
-  subject: string
-  priority?: JobPriority
-  urgency?: UrgencyLevel
-  greeting?: string
-  sections: ContentSection[]
-  signOff?: string
-  includeContactInfo?: boolean
+  formType: FormType;
+  requestId: string;
+  clientName: string;
+  subject: string;
+  priority?: JobPriority;
+  urgency?: UrgencyLevel;
+  greeting?: string;
+  sections: ContentSection[];
+  signOff?: string;
+  includeContactInfo?: boolean;
 }
 
 // ---------------------------------------------------------------------------
 // Preset section templates (used by the reply composer UI)
 // ---------------------------------------------------------------------------
 
-export const SECTION_PRESETS: { id: string; label: string; sectionLabel: string; content: string; formTypes: FormType[] }[] = [
+export const SECTION_PRESETS: {
+  id: string;
+  label: string;
+  sectionLabel: string;
+  content: string;
+  formTypes: FormType[];
+}[] = [
   {
     id: "acknowledgement",
     label: "Acknowledgement",
     sectionLabel: "Update",
-    content: "We have received your request and are currently reviewing the details. A member of our team will be in touch shortly with next steps.",
+    content:
+      "We have received your request and are currently reviewing the details. A member of our team will be in touch shortly with next steps.",
     formTypes: ["contact", "quotation", "service"],
   },
   {
     id: "additional-info",
     label: "Request More Info",
     sectionLabel: "Additional Information Required",
-    content: "To process your request efficiently, we require the following additional information:\n\n- \n- \n\nPlease reply to this email or call us at your convenience.",
+    content:
+      "To process your request efficiently, we require the following additional information:\n\n- \n- \n\nPlease reply to this email or call us at your convenience.",
     formTypes: ["contact", "quotation", "service"],
   },
   {
     id: "scheduling",
     label: "Schedule Visit",
     sectionLabel: "Scheduling Your Appointment",
-    content: "We would like to schedule a visit to assess and carry out the required work. Our available times are:\n\n- \n- \n\nPlease let us know which time suits you best, or suggest an alternative.",
+    content:
+      "We would like to schedule a visit to assess and carry out the required work. Our available times are:\n\n- \n- \n\nPlease let us know which time suits you best, or suggest an alternative.",
     formTypes: ["service"],
   },
   {
     id: "quote-provided",
     label: "Quote Provided",
     sectionLabel: "Your Quotation",
-    content: "Based on our assessment, please find below the quotation for the requested work:\n\nScope of Work:\n\nEstimated Cost: $\nValidity: 30 days from the date of this email\n\nThis quotation includes all labour and materials unless otherwise stated. Please confirm your acceptance by replying to this email.",
+    content:
+      "Based on our assessment, please find below the quotation for the requested work:\n\nScope of Work:\n\nEstimated Cost: $\nValidity: 30 days from the date of this email\n\nThis quotation includes all labour and materials unless otherwise stated. Please confirm your acceptance by replying to this email.",
     formTypes: ["quotation", "service"],
   },
   {
     id: "job-complete",
     label: "Job Complete",
     sectionLabel: "Service Completed",
-    content: "We are pleased to confirm that the requested work has been completed successfully.\n\nWork Summary:\n\nAll work has been carried out to the highest standard. A detailed invoice will follow separately. If you have any questions or concerns about the work, please do not hesitate to contact us.",
+    content:
+      "We are pleased to confirm that the requested work has been completed successfully.\n\nWork Summary:\n\nAll work has been carried out to the highest standard. A detailed invoice will follow separately. If you have any questions or concerns about the work, please do not hesitate to contact us.",
     formTypes: ["service"],
   },
   {
     id: "follow-up",
     label: "General Follow-up",
     sectionLabel: "Follow-up",
-    content: "Thank you for your patience. We wanted to provide you with an update regarding your request.\n\n",
+    content:
+      "Thank you for your patience. We wanted to provide you with an update regarding your request.\n\n",
     formTypes: ["contact", "quotation", "service"],
   },
   {
     id: "next-steps",
     label: "Next Steps",
     sectionLabel: "Next Steps",
-    content: "Here is what will happen next:\n\n1. \n2. \n3. \n\nWe will keep you informed of progress throughout.",
+    content:
+      "Here is what will happen next:\n\n1. \n2. \n3. \n\nWe will keep you informed of progress throughout.",
     formTypes: ["contact", "quotation", "service"],
   },
   {
     id: "safety-notice",
     label: "Safety Notice",
     sectionLabel: "Important Safety Information",
-    content: "For your safety, please note the following ahead of our visit:\n\n- Ensure the area around the work site is clear and accessible\n- Keep children and pets away from the work area\n- Our technician will carry identification and PPE\n\nIf you have any specific safety concerns, please let us know in advance.",
+    content:
+      "For your safety, please note the following ahead of our visit:\n\n- Ensure the area around the work site is clear and accessible\n- Keep children and pets away from the work area\n- Our technician will carry identification and PPE\n\nIf you have any specific safety concerns, please let us know in advance.",
     formTypes: ["service"],
   },
   {
     id: "payment-details",
     label: "Payment Details",
     sectionLabel: "Payment Information",
-    content: "Please find below the payment details for the completed work:\n\nAmount Due: $\nPayment Reference: \n\nPayment Methods:\n- Bank Transfer\n- Credit/Debit Card (by phone)\n\nPayment is due within 14 days of the invoice date. Please use the reference number above when making payment.",
+    content:
+      "Please find below the payment details for the completed work:\n\nAmount Due: $\nPayment Reference: \n\nPayment Methods:\n- Bank Transfer\n- Credit/Debit Card (by phone)\n\nPayment is due within 14 days of the invoice date. Please use the reference number above when making payment.",
     formTypes: ["quotation", "service"],
   },
-]
+];
 
 // ---------------------------------------------------------------------------
 // Section label options (for the dropdown in the composer)
@@ -133,19 +151,25 @@ export const SECTION_LABEL_OPTIONS: string[] = [
   "Warranty Information",
   "Terms & Conditions",
   "Custom",
-]
+];
 
 // ---------------------------------------------------------------------------
 // Helper: map priority to urgency for header gradient
 // ---------------------------------------------------------------------------
 
-function getUrgencyFromPriority(priority?: JobPriority, urgency?: UrgencyLevel): UrgencyLevel {
-  if (urgency) return urgency
-  if (!priority) return "routine"
+function getUrgencyFromPriority(
+  priority?: JobPriority,
+  urgency?: UrgencyLevel,
+): UrgencyLevel {
+  if (urgency) return urgency;
+  if (!priority) return "routine";
   switch (priority) {
-  case "urgent": return "urgent"
-  case "high": return "routine"
-    default: return "routine"
+    case "urgent":
+      return "urgent";
+    case "high":
+      return "routine";
+    default:
+      return "routine";
   }
 }
 
@@ -153,17 +177,34 @@ function getUrgencyFromPriority(priority?: JobPriority, urgency?: UrgencyLevel):
 // Helper: form type display labels & badge colours
 // ---------------------------------------------------------------------------
 
-const FORM_TYPE_CONFIG: Record<FormType, { label: string; badgeBg: string; badgeText: string }> = {
-  contact: { label: "Contact Inquiry", badgeBg: "#dbeafe", badgeText: "#1e40af" },
-  quotation: { label: "Quotation Request", badgeBg: "#fef3c7", badgeText: "#b45309" },
-  service: { label: "Service Request", badgeBg: "#d1fae5", badgeText: "#065f46" },
-}
+const FORM_TYPE_CONFIG: Record<
+  FormType,
+  { label: string; badgeBg: string; badgeText: string }
+> = {
+  contact: {
+    label: "Contact Inquiry",
+    badgeBg: "#dbeafe",
+    badgeText: "#1e40af",
+  },
+  quotation: {
+    label: "Quotation Request",
+    badgeBg: "#fef3c7",
+    badgeText: "#b45309",
+  },
+  service: {
+    label: "Service Request",
+    badgeBg: "#d1fae5",
+    badgeText: "#065f46",
+  },
+};
 
 // ---------------------------------------------------------------------------
 // Main template generator
 // ---------------------------------------------------------------------------
 
-export function generateContinuationEmail(props: ContinuationEmailProps): string {
+export function generateContinuationEmail(
+  props: ContinuationEmailProps,
+): string {
   const {
     formType,
     requestId,
@@ -175,35 +216,40 @@ export function generateContinuationEmail(props: ContinuationEmailProps): string
     sections,
     signOff,
     includeContactInfo = true,
-  } = props
+  } = props;
 
-  const resolvedUrgency = getUrgencyFromPriority(priority, urgency)
-  const isEmergency = resolvedUrgency === "emergency"
-  const isUrgent = resolvedUrgency === "urgent"
-  const urgencyColors = URGENCY_COLORS[resolvedUrgency]
-  const formConfig = FORM_TYPE_CONFIG[formType]
+  const resolvedUrgency = getUrgencyFromPriority(priority, urgency);
+  const isEmergency = resolvedUrgency === "emergency";
+  const isUrgent = resolvedUrgency === "urgent";
+  const urgencyColors = URGENCY_COLORS[resolvedUrgency];
+  const formConfig = FORM_TYPE_CONFIG[formType];
 
-  const headerGradient = resolvedUrgency === "routine"
-    ? getDefaultHeaderGradient()
-    : getHeaderGradient(resolvedUrgency)
+  const headerGradient =
+    resolvedUrgency === "routine"
+      ? getDefaultHeaderGradient()
+      : getHeaderGradient(resolvedUrgency);
 
-  const firstName = clientName.split(" ")[0]
-  const greetingText = greeting || `Dear ${firstName},`
-  const signOffText = signOff || `The ${COMPANY.name} Team`
+  const firstName = clientName.split(" ")[0];
+  const greetingText = greeting || `Dear ${firstName},`;
+  const signOffText = signOff || `The ${COMPANY.name} Team`;
+
+  // Indicate that work has started
+  const workStarted = true;
 
   // Build the content section blocks
-  const sectionBlocks = sections.map((section) => {
-    const cardBg = urgencyColors.cardBg || BRAND_COLORS.bgCardMuted
-    const cardBorder = urgencyColors.cardBorder || BRAND_COLORS.borderDefault
-    const borderWidth = resolvedUrgency === "routine" ? "1px" : "2px"
+  const sectionBlocks = sections
+    .map((section) => {
+      const cardBg = urgencyColors.cardBg || BRAND_COLORS.bgCardMuted;
+      const cardBorder = urgencyColors.cardBorder || BRAND_COLORS.borderDefault;
+      const borderWidth = resolvedUrgency === "routine" ? "1px" : "2px";
 
-    // Convert newlines to <br> for proper HTML rendering
-    const htmlContent = section.content
-      .split("\n")
-      .map((line) => line.trim())
-      .join("<br>")
+      // Convert newlines to <br> for proper HTML rendering
+      const htmlContent = section.content
+        .split("\n")
+        .map((line) => line.trim())
+        .join("<br>");
 
-    return `
+      return `
               <!-- Section: ${section.label} -->
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 20px;">
                 <tr>
@@ -230,8 +276,9 @@ export function generateContinuationEmail(props: ContinuationEmailProps): string
                     </table>
                   </td>
                 </tr>
-              </table>`
-  }).join("\n")
+              </table>`;
+    })
+    .join("\n");
 
   return `
 <!DOCTYPE html>
@@ -288,7 +335,9 @@ export function generateContinuationEmail(props: ContinuationEmailProps): string
             </td>
           </tr>
 
-          ${isEmergency ? `
+          ${
+            isEmergency
+              ? `
           <!-- Emergency Banner -->
           <tr>
             <td style="padding: 0 40px;">
@@ -301,7 +350,9 @@ export function generateContinuationEmail(props: ContinuationEmailProps): string
               </table>
             </td>
           </tr>
-          ` : isUrgent ? `
+          `
+              : isUrgent
+                ? `
           <!-- Urgent Banner -->
           <tr>
             <td style="padding: 0 40px;">
@@ -314,7 +365,9 @@ export function generateContinuationEmail(props: ContinuationEmailProps): string
               </table>
             </td>
           </tr>
-          ` : ""}
+          `
+                : ""
+          }
 
           <!-- Body Content -->
           <tr>
@@ -338,13 +391,17 @@ ${sectionBlocks}
             <td style="padding: 0 40px 32px;">
               <hr style="border: none; border-top: 1px solid ${BRAND_COLORS.borderDefault}; margin: 8px 0 24px;">
 
-              ${includeContactInfo ? `
+              ${
+                includeContactInfo
+                  ? `
               <p style="margin: 0 0 16px; color: ${BRAND_COLORS.textMuted}; font-size: 14px; line-height: 1.6;">
                 If you have any questions or need further assistance, please do not hesitate to contact us:
               </p>
               ${getContactInfoHtml()}
               <br>
-              ` : ""}
+              `
+                  : ""
+              }
 
               <p style="margin: 0; color: ${BRAND_COLORS.textMuted}; font-size: 15px; line-height: 1.6;">
                 Kind regards,<br>
@@ -364,14 +421,16 @@ ${sectionBlocks}
   </table>
 </body>
 </html>
-`.trim()
+`.trim();
 }
 
 // ---------------------------------------------------------------------------
 // Plain text version (for accessibility / fallback)
 // ---------------------------------------------------------------------------
 
-export function generateContinuationEmailPlainText(props: ContinuationEmailProps): string {
+export function generateContinuationEmailPlainText(
+  props: ContinuationEmailProps,
+): string {
   const {
     requestId,
     clientName,
@@ -380,15 +439,15 @@ export function generateContinuationEmailPlainText(props: ContinuationEmailProps
     greeting,
     signOff,
     includeContactInfo = true,
-  } = props
+  } = props;
 
-  const firstName = clientName.split(" ")[0]
-  const greetingText = greeting || `Dear ${firstName},`
-  const signOffText = signOff || `The ${COMPANY.name} Team`
+  const firstName = clientName.split(" ")[0];
+  const greetingText = greeting || `Dear ${firstName},`;
+  const signOffText = signOff || `The ${COMPANY.name} Team`;
 
   const sectionText = sections
     .map((s) => `--- ${s.label.toUpperCase()} ---\n\n${s.content}`)
-    .join("\n\n")
+    .join("\n\n");
 
   return [
     `RE: ${subject} (${requestId})`,
@@ -401,10 +460,14 @@ export function generateContinuationEmailPlainText(props: ContinuationEmailProps
     "",
     "---",
     "",
-    includeContactInfo ? `Contact us:\nPhone: ${COMPANY.phone.primary}\nEmail: ${COMPANY.email.support}\nWebsite: ${COMPANY.website}\n` : "",
+    includeContactInfo
+      ? `Contact us:\nPhone: ${COMPANY.phone.primary}\nEmail: ${COMPANY.email.support}\nWebsite: ${COMPANY.website}\n`
+      : "",
     `Kind regards,`,
     signOffText,
     "",
     `${COMPANY.legalName} | ${COMPANY.address.full}`,
-  ].filter(Boolean).join("\n")
+  ]
+    .filter(Boolean)
+    .join("\n");
 }

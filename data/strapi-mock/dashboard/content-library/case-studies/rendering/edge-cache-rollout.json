@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "slug": "edge-cache-rollout",
+    "title": "Edge Cache Rollout: Faster Global Rendering",
+    "excerpt": "Improving global performance with targeted edge caching",
+    "level": "advanced",
+    "category": "rendering",
+    "readTime": "13 min",
+    "publishedAt": "2024-03-18",
+    "tags": ["rendering", "edge", "caching", "performance"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "International users experienced slow initial loads because pages were generated in a single region. We needed a way to serve cached HTML closer to users without giving up dynamic personalization."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Edge Wins",
+        "body": "Edge caching can reduce latency by 40–70% for global traffic when applied to stable content."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "TTFB exceeded 900ms for APAC users and cache headers were inconsistent. We also had mixed content: some pages could be cached safely, others required personalization."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "APAC TTFB",
+            "value": "920ms",
+            "change": "Too slow",
+            "positive": false
+          },
+          {
+            "label": "Cache Hit Rate",
+            "value": "18%",
+            "change": "Low",
+            "positive": false
+          },
+          {
+            "label": "Edge Coverage",
+            "value": "0",
+            "change": "No edge cache",
+            "positive": false
+          },
+          {
+            "label": "Personalized Pages",
+            "value": "35%",
+            "change": "Mixed cacheability",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We categorized routes by cacheability, added explicit revalidation windows, and deployed edge caching only for stable content. Personalized routes stayed on origin with server rendering."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Edge Cache Architecture",
+        "layers": [
+          {
+            "name": "Edge",
+            "items": ["Static HTML", "Marketing pages", "Public docs"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Origin",
+            "items": ["Personalized dashboards", "Authenticated APIs"],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Data",
+            "items": ["Database", "External APIs"],
+            "color": "#64748b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Origin Rendered",
+        "beforeCode": "export const revalidate = 0\nexport async function GET() {\n  return renderAtOrigin()\n}",
+        "afterTitle": "After: Edge Cached",
+        "afterCode": "export const revalidate = 600\nexport const runtime = 'edge'\n\nexport async function GET() {\n  return renderAtEdge()\n}",
+        "improvements": [
+          { "metric": "TTFB (APAC)", "before": "920ms", "after": "280ms" },
+          { "metric": "Cache hit rate", "before": "18%", "after": "64%" },
+          { "metric": "Origin load", "before": "High", "after": "Reduced" },
+          {
+            "metric": "Global consistency",
+            "before": "Variable",
+            "after": "Stable"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Performance Outcomes",
+        "headers": ["Metric", "Before", "After", "Impact"],
+        "rows": [
+          ["APAC TTFB", "920ms", "280ms", "-70%"],
+          ["Cache hit rate", "18%", "64%", "+46 pts"],
+          ["Origin CPU", "74%", "41%", "-33 pts"],
+          ["Global FCP", "2.6s", "1.5s", "-42%"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Classify Routes",
+            "description": "Not every page is cacheable. Treat personalization separately."
+          },
+          {
+            "icon": "target",
+            "title": "Measure Globally",
+            "description": "Track TTFB by region to confirm improvements."
+          },
+          {
+            "icon": "code",
+            "title": "Set Revalidate",
+            "description": "Explicit cache windows keep content fresh without sacrificing speed."
+          },
+          {
+            "icon": "zap",
+            "title": "Start Small",
+            "description": "Pilot with stable routes before expanding edge coverage."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Use edge caching for stable content and keep personalized routes at origin. Clear caching rules deliver predictable global performance gains."
+      }
+    }
+  ]
+}

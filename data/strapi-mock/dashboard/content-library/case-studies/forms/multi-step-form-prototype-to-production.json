@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "slug": "multi-step-form-prototype-to-production",
+    "title": "Multi-Step Form: From Prototype to Production",
+    "excerpt": "The evolution of the service request form from a single-page prototype to a production multi-step form with Zustand state, dual-layer validation, and accessibility",
+    "level": "intermediate",
+    "category": "forms",
+    "readTime": "12 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "forms",
+      "zustand",
+      "validation",
+      "accessibility",
+      "architecture",
+      "refactoring"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our quotation form asked for 18 fields on a single page. Users scrolled, skipped required inputs, and left before submitting. We needed a more approachable flow that still captured complete information."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Why It Matters",
+        "body": "Long, dense forms are a top cause of drop-off. Breaking them into steps increases perceived progress and clarity."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Completion rates were below 30%. Error messages were hidden below the fold, and users had no indication of how much work remained."
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Completion Rate",
+            "value": "28%",
+            "change": "High drop-off",
+            "positive": false
+          },
+          {
+            "label": "Avg. Time",
+            "value": "6:40",
+            "change": "Slow",
+            "positive": false
+          },
+          {
+            "label": "Error Rate",
+            "value": "22%",
+            "change": "Repeated fixes",
+            "positive": false
+          },
+          {
+            "label": "Support Tickets",
+            "value": "18/week",
+            "change": "Form confusion",
+            "positive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We redesigned the flow into four steps with contextual validation and a clear progress indicator. Each step asks only for the information needed at that moment."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Form Step Flow",
+        "steps": [
+          {
+            "title": "Project Basics",
+            "description": "Collect service type and project timeline."
+          },
+          {
+            "title": "Site Details",
+            "description": "Gather location, access, and safety requirements."
+          },
+          {
+            "title": "Budget & Scope",
+            "description": "Capture estimated budget and desired outcomes."
+          },
+          {
+            "title": "Contact Info",
+            "description": "Finalize with contact details and confirmation."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Single Long Form",
+        "beforeCode": "<form>\n  {/* 18 fields in one view */}\n  <Input name=\"address\" />\n  <Input name=\"scope\" />\n  <Input name=\"budget\" />\n  {/* ... */}\n</form>",
+        "afterTitle": "After: Step-Based Flow",
+        "afterCode": "<Wizard>\n  <Step title=\"Project Basics\" />\n  <Step title=\"Site Details\" />\n  <Step title=\"Budget & Scope\" />\n  <Step title=\"Contact Info\" />\n</Wizard>",
+        "improvements": [
+          { "metric": "Completion rate", "before": "28%", "after": "51%" },
+          { "metric": "Errors per submit", "before": "3.2", "after": "1.1" },
+          { "metric": "Time to submit", "before": "6:40", "after": "4:10" },
+          {
+            "metric": "Support tickets",
+            "before": "18/week",
+            "after": "7/week"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Conversion Outcomes",
+        "headers": ["Metric", "Before", "After", "Impact"],
+        "rows": [
+          ["Completion rate", "28%", "51%", "+23 pts"],
+          ["Drop-off after step 1", "41%", "18%", "-23 pts"],
+          ["Average time", "6:40", "4:10", "-38%"],
+          ["Error rate", "22%", "8%", "-64%"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Progress Matters",
+            "description": "Visible steps make the work feel smaller and more manageable."
+          },
+          {
+            "icon": "target",
+            "title": "Validate Per Step",
+            "description": "Show errors near the current context to avoid confusion."
+          },
+          {
+            "icon": "code",
+            "title": "Save State",
+            "description": "Persist data between steps to prevent re-entry frustration."
+          },
+          {
+            "icon": "zap",
+            "title": "Reduce Friction",
+            "description": "Only ask for what you need at each step."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "07", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Break long forms into progressive steps with clear progress indicators. Users finish more often when the workload feels smaller."
+      }
+    }
+  ]
+}

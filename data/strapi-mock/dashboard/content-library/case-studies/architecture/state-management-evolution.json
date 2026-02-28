@@ -1,0 +1,258 @@
+{
+  "meta": {
+    "slug": "state-management-evolution",
+    "title": "State Management Evolution: useState to Zustand",
+    "excerpt": "Scaling form state with persistence and type safety",
+    "level": "advanced",
+    "category": "architecture",
+    "readTime": "14 min",
+    "publishedAt": "2024-02-20",
+    "tags": ["state-management", "zustand", "forms", "architecture"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "context", "title": "Context", "level": 2 },
+    { "id": "problem-analysis", "title": "Problem Analysis", "level": 2 },
+    { "id": "solution-approach", "title": "Solution Approach", "level": 2 },
+    { "id": "implementation", "title": "Implementation", "level": 2 },
+    { "id": "results", "title": "Results & Metrics", "level": 2 },
+    { "id": "lessons-learned", "title": "Lessons Learned", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "01", "title": "Context", "id": "context" }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our multi-step form for requesting electrical services quotations started simple - a few useState hooks at the page level. But as we added validation, persisted state, user preferences, and wizard flow state, the component became unmaintainable. Props were drilled 5+ levels deep, state updates were scattered, and persistence logic was duplicated."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "The Problem with Prop Drilling",
+        "body": "When state is at the page level and needed at nested components, we pass it through every intermediate component. This creates tight coupling, makes components hard to move, and difficult to reuse."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Problem Analysis",
+        "id": "problem-analysis"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Managing multi-step form state with useState became unwieldy as complexity grew. State was scattered, props were drilled, and there was no clear place for shared logic."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "xCircle",
+            "title": "Prop Drilling",
+            "description": "useState scattered across components. Props passed through 5+ levels with no semantic meaning."
+          },
+          {
+            "icon": "xCircle",
+            "title": "No Persistence",
+            "description": "User had to restart form after page reload. No localStorage integration for recovery."
+          },
+          {
+            "icon": "xCircle",
+            "title": "Shared State Difficult",
+            "description": "Sibling components couldn't share state. Had to lift state up 5 levels."
+          },
+          {
+            "icon": "xCircle",
+            "title": "Hard to Debug",
+            "description": "No devtools. When bugs happened, tracing state changes was manual and painful."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Solution Approach",
+        "id": "solution-approach"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We migrated to Zustand, a lightweight state management library with built-in persistence and devtools support. Each form type got its own store with clear actions and selectors."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Zustand Migration Steps",
+        "steps": [
+          {
+            "title": "Create Store",
+            "description": "Define Zustand store with state, actions, and persist middleware."
+          },
+          {
+            "title": "Replace useState",
+            "description": "Remove prop drilling. Use custom hooks to access store everywhere."
+          },
+          {
+            "title": "Add Persistence",
+            "description": "Enable localStorage sync so form data survives page reloads."
+          },
+          {
+            "title": "Enable DevTools",
+            "description": "Integrate Redux DevTools for time-travel debugging."
+          },
+          {
+            "title": "Test & Validate",
+            "description": "Verify all form flows work. Test persistence across sessions."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "stores/quotation-store.ts",
+        "language": "typescript",
+        "code": "import { create } from 'zustand'\nimport { persist } from 'zustand/middleware'\n\ninterface QuotationStore {\n  // State\n  currentStep: number\n  formData: Record<string, unknown>\n  errors: Record<string, string>\n  \n  // Actions\n  updateField: (name: string, value: unknown) => void\n  nextStep: () => void\n  prevStep: () => void\n  setErrors: (errors: Record<string, string>) => void\n  reset: () => void\n}\n\nexport const useQuotationStore = create<QuotationStore>()(n  persist(\n    (set) => ({\n      currentStep: 1,\n      formData: {},\n      errors: {},\n      \n      updateField: (name, value) =>\n        set((state) => ({\n          formData: { ...state.formData, [name]: value },\n        })),\n      \n      nextStep: () =>\n        set((state) => ({ currentStep: state.currentStep + 1 })),\n      \n      prevStep: () =>\n        set((state) => ({ currentStep: state.currentStep - 1 })),\n      \n      setErrors: (errors) => set({ errors }),\n      \n      reset: () => set({ currentStep: 1, formData: {}, errors: {} }),\n    }),\n    {\n      name: 'quotation-store',\n      storage: localStorage,\n    },\n  ),\n)"
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Before: Prop Drilling with useState",
+        "beforeCode": "// Parent\nconst [formData, setFormData] = useState({})\n\n<Step1 \n  data={formData}\n  setData={setFormData}\n  step={step}\n  setStep={setStep}\n  errors={errors}\n  setErrors={setErrors}\n/>",
+        "afterTitle": "After: Zustand Store",
+        "afterCode": "// Any component\nconst { formData, updateField, nextStep } = useQuotationStore()\n\n<FormInput \n  value={formData.email}\n  onChange={(e) => updateField('email', e.target.value)}\n/>",
+        "improvements": [
+          {
+            "metric": "Code lines",
+            "before": "150 (parent component)",
+            "after": "80 (distributed)"
+          },
+          {
+            "metric": "Prop drilling depth",
+            "before": "5+ levels",
+            "after": "0 (hook-based)"
+          },
+          {
+            "metric": "State persistence",
+            "before": "Manual",
+            "after": "Automatic"
+          },
+          {
+            "metric": "Debugging",
+            "before": "Manual inspection",
+            "after": "Redux DevTools"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "Results & Metrics", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Code reduction",
+            "value": "-45%",
+            "change": "Less boilerplate",
+            "positive": true
+          },
+          {
+            "label": "Prop drilling",
+            "value": "0 levels",
+            "change": "Complete elimination",
+            "positive": true
+          },
+          {
+            "label": "State persistence",
+            "value": "Automatic",
+            "change": "localStorage sync",
+            "positive": true
+          },
+          {
+            "label": "Debug speed",
+            "value": "10x faster",
+            "change": "With DevTools",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Lessons Learned",
+        "id": "lessons-learned"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Zustand Advantages",
+        "leftItems": [
+          "Minimal boilerplate",
+          "No Provider wrapper needed",
+          "Tiny bundle size (2KB)",
+          "Great DevTools support"
+        ],
+        "rightTitle": "Context/Redux Overhead",
+        "rightItems": [
+          "Lots of setup code",
+          "Provider wrapper required",
+          "Larger bundles",
+          "Less intuitive debugging"
+        ]
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Key Takeaway",
+        "body": "Use Zustand for form-level state management. It eliminates prop drilling, adds persistence for free, and provides excellent DevTools integration. Your components become simpler and more reusable."
+      }
+    }
+  ]
+}

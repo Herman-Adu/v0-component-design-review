@@ -1,0 +1,74 @@
+app/(dashboard)/dashboard/content-library/page.tsx(133,9): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/content-library/page.tsx(134,7): error TS1109: Expression expected.
+app/(dashboard)/dashboard/content-library/page.tsx(137,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/content-library/page.tsx(281,7): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/content-library/page.tsx(284,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/content-library/page.tsx(321,7): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/content-library/page.tsx(322,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/content-library/page.tsx(323,3): error TS1109: Expression expected.
+app/(dashboard)/dashboard/content-library/page.tsx(324,1): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(97,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(98,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(99,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(99,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(102,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(104,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(105,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(106,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(107,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(108,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(109,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(109,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(112,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(114,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(115,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(116,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(117,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(118,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(119,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(119,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(122,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(124,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(125,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(126,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(127,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(128,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(129,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(129,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(132,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(134,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(135,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(136,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(137,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(138,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(139,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(139,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(140,3): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/infrastructure-and-ops/overview/page.tsx(249,1): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(111,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(112,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(113,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(114,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(115,15): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(116,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(116,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(119,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(120,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(121,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(122,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(123,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(124,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(125,15): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(126,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(126,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(129,18): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(130,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(131,11): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(132,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(133,16): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(134,12): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(135,15): error TS1005: ';' expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(136,5): error TS1109: Expression expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(136,6): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(137,3): error TS1128: Declaration or statement expected.
+app/(dashboard)/dashboard/documentation/strategic-overview/overview/page.tsx(279,1): error TS1128: Declaration or statement expected.

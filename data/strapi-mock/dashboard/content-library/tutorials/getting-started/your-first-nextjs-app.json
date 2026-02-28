@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "slug": "your-first-nextjs-app",
+    "title": "Your First Next.js 16 Application",
+    "excerpt": "Build a complete contact form application from scratch using Next.js 16 App Router",
+    "level": "beginner",
+    "category": "getting-started",
+    "readTime": "45 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "nextjs",
+      "app-router",
+      "beginner",
+      "setup"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Creating Your Project",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Understanding the File Structure",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Building Your First Page",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Running Your Application",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Adding a Server Action",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Creating Your Project",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start by creating a new Next.js 16 project using the create-next-app CLI."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Open your terminal and run:\nnpx create-next-app@latest my-first-app\n\n# When prompted, select:\n# - TypeScript: Yes\n# - ESLint: Yes\n# - Tailwind CSS: Yes\n# - src/ directory: No\n# - App Router: Yes\n# - Import alias: @/*",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Make sure you have Node.js 18+ installed. Check with: node --version"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Understanding the File Structure",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Next.js App Router uses a file-based routing system. Let's explore what was created."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "my-first-app/\n├── app/\n│   ├── layout.tsx      # Root layout (wraps all pages)\n│   ├── page.tsx        # Homepage (/)\n│   └── globals.css     # Global styles\n├── public/             # Static files (images, etc.)\n├── next.config.mjs     # Next.js configuration\n├── tailwind.config.ts  # Tailwind configuration\n└── package.json        # Dependencies",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The app/ folder is where all your pages live. Each folder becomes a URL route, and page.tsx is what gets rendered."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Building Your First Page",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Replace the default homepage with a simple contact page."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/page.tsx\nexport default function HomePage() {\n  return (\n    <main className=\"min-h-screen flex items-center justify-center bg-gray-50\">\n      <div className=\"max-w-md w-full p-8 bg-white rounded-xl shadow-lg\">\n        <h1 className=\"text-2xl font-bold text-gray-900 mb-6\">\n          Contact Us\n        </h1>\n        <form className=\"space-y-4\">\n          <div>\n            <label \n              htmlFor=\"name\" \n              className=\"block text-sm font-medium text-gray-700 mb-1\"\n            >\n              Name\n            </label>\n            <input\n              type=\"text\"\n              id=\"name\"\n              name=\"name\"\n              className=\"w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"\n              placeholder=\"Your name\"\n            />\n          </div>\n          <div>\n            <label \n              htmlFor=\"email\" \n              className=\"block text-sm font-medium text-gray-700 mb-1\"\n            >\n              Email\n            </label>\n            <input\n              type=\"email\"\n              id=\"email\"\n              name=\"email\"\n              className=\"w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"\n              placeholder=\"you@example.com\"\n            />\n          </div>\n          <button\n            type=\"submit\"\n            className=\"w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors\"\n          >\n            Send Message\n          </button>\n        </form>\n      </div>\n    </main>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "This creates a styled contact form using Tailwind CSS classes. The form doesn't submit yet - we'll add that functionality next."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Running Your Application",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start the development server and see your app in action."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# In your terminal, run:\nnpm run dev\n\n# Then open your browser to:\n# http://localhost:3000",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "The development server supports hot reload - changes you make will appear instantly without refreshing."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Adding a Server Action",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Create a server action to handle form submissions securely."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-5-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/actions.ts\n\"use server\"\n\nexport async function submitContact(formData: FormData) {\n  const name = formData.get(\"name\") as string\n  const email = formData.get(\"email\") as string\n  \n  // Validate\n  if (!name || !email) {\n    return { success: false, error: \"All fields are required\" }\n  }\n  \n  // In production, you'd save to a database here\n  console.log(\"Contact submission:\", { name, email })\n  \n  return { success: true, message: \"Thanks for contacting us!\" }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Server Actions run on the server, keeping your data handling secure. The 'use server' directive marks this as server-only code."
+      }
+    }
+  ]
+}

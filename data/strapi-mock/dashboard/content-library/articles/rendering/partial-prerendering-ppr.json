@@ -1,0 +1,322 @@
+{
+  "meta": {
+    "slug": "partial-prerendering-ppr",
+    "title": "Partial Pre-rendering (PPR): The Future of Rendering",
+    "excerpt": "Combine static shells with dynamic content for optimal user experience. Learn how PPR gives you the best of both SSG and SSR.",
+    "level": "advanced",
+    "category": "rendering",
+    "readTime": "16 min",
+    "publishedAt": "2024-03-16",
+    "tags": ["ppr", "next.js", "rendering", "streaming", "performance"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "what-is-ppr",
+      "title": "What is Partial Pre-rendering?",
+      "level": 2
+    },
+    { "id": "when-to-use", "title": "When to Use PPR", "level": 2 },
+    {
+      "id": "implementation",
+      "title": "Implementation in Next.js",
+      "level": 2
+    },
+    { "id": "benefits", "title": "Benefits of PPR", "level": 2 },
+    { "id": "best-practices", "title": "Best Practices", "level": 2 },
+    { "id": "project-reference", "title": "Project Reference", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "info",
+        "content": "PPR is a Next.js rendering strategy that pre-renders a static shell of your page at build time, with dynamic placeholders that are filled in at request time. This gives you instant static loading with streaming dynamic content."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "What is Partial Pre-rendering?",
+        "id": "what-is-ppr"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "PPR represents a paradigm shift in how we think about rendering. Instead of choosing between static OR dynamic for an entire page, PPR lets you have both simultaneously. The static parts load instantly while dynamic parts stream in as they become ready."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "The problem PPR solves: traditional approaches force a choice between SSG (fast but can't have dynamic content) or SSR (dynamic but slower initial load). PPR: static shell loads instantly, dynamic parts stream in."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "How PPR Works",
+        "nodes": [
+          {
+            "id": "build",
+            "label": "Build Time",
+            "description": "Static shell pre-rendered"
+          },
+          {
+            "id": "request",
+            "label": "Request",
+            "description": "User requests page"
+          },
+          {
+            "id": "shell",
+            "label": "Instant Shell",
+            "description": "Static delivered from CDN"
+          },
+          {
+            "id": "stream",
+            "label": "Stream Dynamic",
+            "description": "Dynamic content streams in"
+          },
+          {
+            "id": "complete",
+            "label": "Complete",
+            "description": "Page fully interactive"
+          }
+        ],
+        "flow": "horizontal"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "When to Use PPR",
+        "id": "when-to-use"
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "leftTitle": "Perfect For",
+        "leftItems": [
+          "E-commerce pages (static product + dynamic cart/price)",
+          "Dashboards (static layout + dynamic data)",
+          "Social feeds (static shell + personalized content)",
+          "News sites (static article + dynamic comments)",
+          "SaaS apps (static UI + user-specific data)"
+        ],
+        "rightTitle": "Key Benefits",
+        "rightItems": [
+          "Instant initial page load (static shell)",
+          "Personalized content without sacrificing speed",
+          "Excellent Core Web Vitals scores",
+          "SEO-friendly (static content is crawlable)",
+          "Progressive enhancement built-in"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Implementation in Next.js",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "type": "warning",
+        "content": "PPR is available in Next.js 14+ and became stable in Next.js 15. Enable it in your next.config.js to use this feature."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Enable PPR"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "next.config.js",
+        "language": "javascript",
+        "code": "/** @type {import('next').NextConfig} */\nconst nextConfig = {\n  experimental: {\n    ppr: true,\n  },\n}\n\nmodule.exports = nextConfig"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Create Static Shell with Dynamic Holes"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "Use Suspense boundaries to mark dynamic content that should stream in:"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/dashboard/page.tsx",
+        "language": "typescript",
+        "code": "import { Suspense } from \"react\"\n\n// These components are async and will stream in\nasync function UserGreeting() {\n  const user = await getUser() // Dynamic - needs auth\n  return <h2>Welcome back, {user.name}!</h2>\n}\n\nasync function RecentActivity() {\n  const activity = await getUserActivity() // Dynamic - personalized\n  return <ActivityList items={activity} />\n}\n\n// Static shell renders immediately\nexport default function DashboardPage() {\n  return (\n    <div>\n      {/* Static - renders at build time */}\n      <header>\n        <Logo />\n        <Navigation />\n      </header>\n      \n      <main>\n        {/* Dynamic - streams in */}\n        <Suspense fallback={<GreetingSkeleton />}>\n          <UserGreeting />\n        </Suspense>\n        \n        {/* Static - renders at build time */}\n        <QuickActions />\n        \n        {/* Dynamic - streams in */}\n        <Suspense fallback={<ActivitySkeleton />}>\n          <RecentActivity />\n        </Suspense>\n      </main>\n      \n      {/* Static - renders at build time */}\n      <Footer />\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "E-commerce Example"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "app/products/[id]/page.tsx",
+        "language": "typescript",
+        "code": "import { Suspense } from \"react\"\n\n// Static - same for all users\nasync function ProductInfo({ id }: { id: string }) {\n  const product = await getProduct(id)\n  return (\n    <div>\n      <h1>{product.name}</h1>\n      <p>{product.description}</p>\n      <img src={product.image || \"/placeholder.svg\"} alt={product.name} />\n    </div>\n  )\n}\n\n// Dynamic - user-specific\nasync function PriceAndStock({ id }: { id: string }) {\n  const { price, stock } = await getProductPricing(id)\n  const userDiscount = await getUserDiscount()\n  \n  return (\n    <div>\n      <p>Price: ${price * (1 - userDiscount)}</p>\n      <p>{stock > 0 ? `${stock} in stock` : \"Out of stock\"}</p>\n      <AddToCartButton />\n    </div>\n  )\n}\n\nexport default async function ProductPage({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  \n  return (\n    <div className=\"grid grid-cols-2 gap-8\">\n      {/* Static shell - instant */}\n      <ProductInfo id={id} />\n      \n      {/* Dynamic - streams in */}\n      <Suspense fallback={<PricingSkeleton />}>\n        <PriceAndStock id={id} />\n      </Suspense>\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Benefits of PPR",
+        "id": "benefits"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "title": "Instant Initial Load",
+            "description": "Static shell is served from CDN edge, giving users immediate visual feedback while dynamic content loads."
+          },
+          {
+            "title": "Progressive Enhancement",
+            "description": "Users see the page structure immediately, then watch content stream in. Better perceived performance."
+          },
+          {
+            "title": "Optimal Core Web Vitals",
+            "description": "Fast LCP from static content, good INP from hydrated interactivity, minimal CLS with proper skeletons."
+          },
+          {
+            "title": "SEO Friendly",
+            "description": "Search engines can crawl the static shell immediately. Most important content should be static for best SEO."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Best Practices",
+        "id": "best-practices"
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "PPR Implementation Guidelines",
+        "steps": [
+          {
+            "title": "1. Design Good Skeletons",
+            "description": "Skeleton loaders should match the final content's dimensions to prevent layout shift (CLS). Use CSS animations to indicate loading state."
+          },
+          {
+            "title": "2. Prioritize Critical Content",
+            "description": "Make your most important content static. Put personalization and user-specific data in Suspense boundaries."
+          },
+          {
+            "title": "3. Group Related Dynamic Content",
+            "description": "Use a single Suspense boundary for related dynamic content to reduce the number of streaming chunks."
+          },
+          {
+            "title": "4. Consider Nested Suspense",
+            "description": "For complex pages, nest Suspense boundaries to show progressive loading states as data becomes available."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Project Reference",
+        "id": "project-reference"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "content": "PPR would be excellent for our electrical services platform in scenarios like:"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 1,
+        "features": [
+          {
+            "title": "Quote form",
+            "description": "Static form shell with dynamic pricing estimates"
+          },
+          {
+            "title": "Service pages",
+            "description": "Static service info with dynamic availability"
+          },
+          {
+            "title": "Dashboard",
+            "description": "Static layout with personalized service history"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "content": "PPR represents the future of web rendering in Next.js. Use it when you have pages with a mix of static content and dynamic, personalized data. The static shell gives instant loads while Suspense boundaries stream in user-specific content, providing the best user experience and performance metrics."
+      }
+    }
+  ]
+}

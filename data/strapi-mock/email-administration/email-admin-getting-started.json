@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Getting Started with Email Administration",
+    "description": "Set up and manage email campaigns and request workflows.",
+    "icon": "Rocket"
+  },
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Email Administration Overview",
+      "content": "Manage email templates, campaign requests, and integration settings for reliable, branded correspondence.",
+      "icon": "Mail"
+    },
+    {
+      "id": "configuration",
+      "title": "Configuration & Setup",
+      "content": "Configure email providers, templates, and delivery settings for optimal reliability.",
+      "icon": "Settings"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure & Monitoring",
+      "content": "Monitor email delivery, manage service integrations (Resend, SendGrid), and track system health.",
+      "icon": "Server"
+    },
+    {
+      "id": "requests",
+      "title": "Request Management",
+      "content": "Handle incoming email requests, track SLAs, and manage role-based access controls.",
+      "icon": "MessageSquare"
+    }
+  ],
+  "quickLinks": [
+    {
+      "label": "Configuration",
+      "href": "/dashboard/admin/email-administration/configuration"
+    },
+    {
+      "label": "Request Management",
+      "href": "/dashboard/admin/email-administration/request-management"
+    }
+  ]
+}

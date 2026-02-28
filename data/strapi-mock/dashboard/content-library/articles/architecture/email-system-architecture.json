@@ -1,0 +1,443 @@
+{
+  "meta": {
+    "slug": "email-system-architecture",
+    "title": "Building a Production Email System",
+    "excerpt": "React Email + Resend for beautiful, reliable transactional emails",
+    "level": "advanced",
+    "category": "architecture",
+    "readTime": "16 min",
+    "publishedAt": "2026-02-22",
+    "tags": ["email", "react-email", "resend", "architecture"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "architecture-overview",
+      "title": "Architecture Overview",
+      "level": 2
+    },
+    {
+      "id": "template-layer",
+      "title": "Template Layer (React Email)",
+      "level": 2
+    },
+    { "id": "urgency-styling", "title": "Urgency-Based Styling", "level": 3 },
+    { "id": "service-layer", "title": "Service Layer", "level": 2 },
+    { "id": "dual-email", "title": "Dual Email Pattern", "level": 2 },
+    { "id": "delivery-layer", "title": "Delivery Layer (Resend)", "level": 2 },
+    { "id": "error-handling", "title": "Error Handling", "level": 2 },
+    { "id": "key-takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Email seems simple until you need: HTML/text variants, urgency-based styling, customer and business templates, and reliable delivery. Here is how we built a production email system using React Email and Resend."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Architecture Overview",
+        "id": "architecture-overview"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our email system is organized into three distinct layers, each with a specific responsibility. This separation allows us to change delivery providers without touching templates, or add new templates without changing delivery logic."
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Email System Architecture",
+        "layers": [
+          {
+            "name": "Template Layer",
+            "items": [
+              "React Email",
+              "Shared Styles",
+              "Customer Template",
+              "Business Template"
+            ],
+            "color": "#ef4444"
+          },
+          {
+            "name": "Service Layer",
+            "items": [
+              "EmailService",
+              "ContactEmailService",
+              "QuotationEmailService"
+            ],
+            "color": "#f59e0b"
+          },
+          {
+            "name": "Delivery Layer",
+            "items": ["Resend API", "Error Handling", "Retry Logic"],
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.fileTree",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Email System File Structure",
+        "items": [
+          {
+            "name": "lib/email/",
+            "type": "folder",
+            "children": [
+              {
+                "name": "templates/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "email-styles.ts",
+                    "type": "file",
+                    "highlight": true
+                  },
+                  { "name": "service-request-customer.tsx", "type": "file" },
+                  { "name": "service-request-business.tsx", "type": "file" },
+                  { "name": "contact-customer.tsx", "type": "file" },
+                  { "name": "contact-business.tsx", "type": "file" }
+                ]
+              },
+              {
+                "name": "services/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "email-service.ts",
+                    "type": "file",
+                    "highlight": true
+                  },
+                  { "name": "contact-email-service.ts", "type": "file" },
+                  { "name": "quotation-email-service.ts", "type": "file" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Template Layer (React Email)",
+        "id": "template-layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "React Email lets us build email templates using familiar React components. Templates are type-safe, composable, and can be previewed during development."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "code",
+            "title": "Component-Based",
+            "description": "Build emails with React components - Text, Section, Container, Button, etc."
+          },
+          {
+            "icon": "layers",
+            "title": "Shared Styles",
+            "description": "Central style definitions ensure consistent branding across all emails."
+          },
+          {
+            "icon": "shield",
+            "title": "Type Safety",
+            "description": "TypeScript props ensure all required data is passed to templates."
+          },
+          {
+            "icon": "target",
+            "title": "Dev Preview",
+            "description": "Preview emails in browser during development, no sending required."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/email/templates/service-request-customer.tsx",
+        "code": "import {\n  Body,\n  Container,\n  Head,\n  Heading,\n  Html,\n  Preview,\n  Section,\n  Text,\n} from \"@react-email/components\"\nimport { getEmailStyles, getUrgencyStyles } from \"./email-styles\"\n\ninterface ServiceRequestEmailProps {\n  customerName: string\n  serviceType: string\n  urgency: \"routine\" | \"urgent\" | \"emergency\"\n  scheduledDate: string\n  referenceNumber: string\n}\n\nexport function ServiceRequestCustomerEmail({\n  customerName,\n  serviceType,\n  urgency,\n  scheduledDate,\n  referenceNumber,\n}: ServiceRequestEmailProps) {\n  const styles = getEmailStyles()\n  const urgencyStyles = getUrgencyStyles(urgency)\n  \n  return (\n    <Html>\n      <Head />\n      <Preview>Your service request has been received</Preview>\n      <Body style={styles.body}>\n        <Container style={styles.container}>\n          {/* Header with urgency-based styling */}\n          <Section style={{ ...styles.header, backgroundColor: urgencyStyles.headerBg }}>\n            <Heading style={styles.heading}>\n              Service Request Confirmed\n            </Heading>\n          </Section>\n          \n          {/* Content */}\n          <Section style={styles.content}>\n            <Text style={styles.text}>\n              Hello {customerName},\n            </Text>\n            <Text style={styles.text}>\n              We have received your {urgency} request for {serviceType}.\n            </Text>\n            \n            {/* Request details */}\n            <Section style={styles.detailsBox}>\n              <Text style={styles.detailLabel}>Reference Number</Text>\n              <Text style={styles.detailValue}>{referenceNumber}</Text>\n              \n              <Text style={styles.detailLabel}>Scheduled Date</Text>\n              <Text style={styles.detailValue}>{scheduledDate}</Text>\n              \n              <Text style={styles.detailLabel}>Urgency Level</Text>\n              <Text style={{ ...styles.detailValue, color: urgencyStyles.textColor }}>\n                {urgency.toUpperCase()}\n              </Text>\n            </Section>\n          </Section>\n          \n          {/* Footer */}\n          <Section style={styles.footer}>\n            <Text style={styles.footerText}>\n              Electrical Services Ltd | support@example.com\n            </Text>\n          </Section>\n        </Container>\n      </Body>\n    </Html>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Urgency-Based Styling",
+        "id": "urgency-styling"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Different urgency levels get different visual treatments, making it immediately clear to both customers and staff how urgent a request is."
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Urgency Styling Matrix",
+        "headers": ["Urgency", "Header Color", "Accent Color", "Response Time"],
+        "rows": [
+          [
+            "Routine",
+            "Blue (#3b82f6)",
+            "Blue text/borders",
+            "Within 5 business days"
+          ],
+          [
+            "Urgent",
+            "Orange (#f59e0b)",
+            "Orange highlights",
+            "Within 24 hours"
+          ],
+          [
+            "Emergency",
+            "Red (#ef4444)",
+            "Red urgent indicators",
+            "Same day response"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/email/templates/email-styles.ts",
+        "code": "export function getUrgencyStyles(urgency: \"routine\" | \"urgent\" | \"emergency\") {\n  const styles = {\n    routine: {\n      headerBg: \"#3b82f6\",\n      textColor: \"#3b82f6\",\n      borderColor: \"#3b82f6\",\n      label: \"Routine Service\",\n    },\n    urgent: {\n      headerBg: \"#f59e0b\",\n      textColor: \"#f59e0b\",\n      borderColor: \"#f59e0b\",\n      label: \"Urgent - Priority Response\",\n    },\n    emergency: {\n      headerBg: \"#ef4444\",\n      textColor: \"#ef4444\",\n      borderColor: \"#ef4444\",\n      label: \"EMERGENCY - Immediate Attention\",\n    },\n  }\n  \n  return styles[urgency]\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Service Layer",
+        "id": "service-layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The service layer abstracts email sending logic. Each form type has a dedicated service that knows how to construct and send its specific emails."
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Service Layer Flow",
+        "nodes": [
+          {
+            "label": "Server Action",
+            "description": "Triggers email",
+            "icon": "zap"
+          },
+          {
+            "label": "Email Service",
+            "description": "Constructs email",
+            "icon": "layers"
+          },
+          {
+            "label": "Template",
+            "description": "Renders HTML",
+            "icon": "code"
+          },
+          {
+            "label": "Resend",
+            "description": "Delivers email",
+            "icon": "target"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/email/services/email-service.ts",
+        "code": "import { Resend } from \"resend\"\nimport { render } from \"@react-email/render\"\nimport { ServiceRequestCustomerEmail } from \"../templates/service-request-customer\"\nimport { ServiceRequestBusinessEmail } from \"../templates/service-request-business\"\n\nconst resend = new Resend(process.env.RESEND_API_KEY)\n\nexport class EmailService {\n  async sendServiceRequestEmails(data: ServiceRequestData) {\n    const referenceNumber = generateReferenceNumber()\n    \n    // Send both emails in parallel\n    const [customerResult, businessResult] = await Promise.allSettled([\n      this.sendCustomerConfirmation(data, referenceNumber),\n      this.sendBusinessNotification(data, referenceNumber),\n    ])\n    \n    // Log any failures but don't fail the whole request\n    if (customerResult.status === \"rejected\") {\n      console.error(\"Customer email failed:\", customerResult.reason)\n    }\n    if (businessResult.status === \"rejected\") {\n      console.error(\"Business email failed:\", businessResult.reason)\n    }\n    \n    return { referenceNumber }\n  }\n  \n  private async sendCustomerConfirmation(\n    data: ServiceRequestData,\n    referenceNumber: string\n  ) {\n    const html = await render(\n      ServiceRequestCustomerEmail({\n        customerName: data.personalInfo.firstName,\n        serviceType: data.serviceDetails.serviceType,\n        urgency: data.serviceDetails.urgency,\n        scheduledDate: data.schedulePreferences.preferredDate,\n        referenceNumber,\n      })\n    )\n    \n    return resend.emails.send({\n      from: \"Electrical Services <noreply@example.com>\",\n      to: data.personalInfo.email,\n      subject: `Service Request Confirmed - ${referenceNumber}`,\n      html,\n    })\n  }\n  \n  private async sendBusinessNotification(\n    data: ServiceRequestData,\n    referenceNumber: string\n  ) {\n    // Similar pattern for business email\n  }\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Dual Email Pattern",
+        "id": "dual-email"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every form submission sends two emails with different content for different audiences. The customer gets a confirmation; the business gets actionable details."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Customer Email",
+        "notIdealTitle": "Business Email",
+        "idealFor": [
+          "Confirmation that request was received",
+          "Reference number for future inquiries",
+          "Expected response timeline",
+          "Contact information for questions",
+          "Branded, professional appearance"
+        ],
+        "notIdealFor": [
+          "Full customer contact details",
+          "Complete service requirements",
+          "Property access instructions",
+          "Internal notes and urgency flags",
+          "Direct action links (view in CRM, assign tech)"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Delivery Layer (Resend)",
+        "id": "delivery-layer"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Resend handles actual email delivery with high deliverability rates, tracking, and a simple API. The service layer abstracts this, making it easy to swap providers."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "High Deliverability",
+            "description": "Built-in reputation management and authentication (SPF, DKIM, DMARC)."
+          },
+          {
+            "icon": "target",
+            "title": "Simple API",
+            "description": "One function call to send - no complex configuration required."
+          },
+          {
+            "icon": "database",
+            "title": "Tracking",
+            "description": "Built-in open and click tracking for monitoring email engagement."
+          },
+          {
+            "icon": "shield",
+            "title": "Error Details",
+            "description": "Detailed error responses help diagnose delivery issues."
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Error Handling",
+        "id": "error-handling"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Email delivery can fail for many reasons. We handle errors gracefully to ensure form submissions succeed even if email delivery has issues."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Email Error Handling",
+        "code": "export class EmailService {\n  async sendWithRetry(\n    emailFn: () => Promise<ResendResponse>,\n    maxRetries: number = 2\n  ): Promise<ResendResponse | null> {\n    let lastError: Error | null = null\n    \n    for (let attempt = 1; attempt <= maxRetries; attempt++) {\n      try {\n        const result = await emailFn()\n        return result\n      } catch (error) {\n        lastError = error as Error\n        console.error(`Email attempt ${attempt} failed:`, error)\n        \n        // Don't retry on client errors (invalid email, etc.)\n        if (isClientError(error)) {\n          break\n        }\n        \n        // Wait before retrying (exponential backoff)\n        if (attempt < maxRetries) {\n          await sleep(Math.pow(2, attempt) * 1000)\n        }\n      }\n    }\n    \n    // Log failure but don't throw - form submission should still succeed\n    console.error(\"All email attempts failed:\", lastError)\n    return null\n  }\n}\n\n// In Server Action\nconst emailResult = await emailService.sendServiceRequestEmails(data)\n\n// Form submission succeeds even if email failed\nreturn {\n  success: true,\n  referenceNumber: emailResult.referenceNumber,\n  emailSent: emailResult !== null,\n}"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Form Success vs Email Success",
+        "body": "A form submission should succeed even if email delivery fails. The user filled out the form correctly - do not make them retry because of email infrastructure issues. Log the failure and handle it asynchronously."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaway",
+        "id": "key-takeaway"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Abstract email into layers: templates define what emails look like, services orchestrate when and what to send, and the delivery layer handles the how. This separation lets you change any layer independently. Always send dual emails (customer + business), handle delivery failures gracefully, and never let email issues block form submissions."
+      }
+    },
+    {
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "articles": [
+          {
+            "title": "Server Actions: Beyond the Basics",
+            "href": "/dashboard/content-library/articles/security/server-actions-deep-dive"
+          },
+          {
+            "title": "Security Architecture Deep Dive",
+            "href": "/dashboard/content-library/articles/security/security-architecture-deep-dive"
+          },
+          {
+            "title": "Refactoring for Maintainability",
+            "href": "/dashboard/content-library/articles/best-practices/refactoring-for-maintainability"
+          }
+        ]
+      }
+    }
+  ]
+}

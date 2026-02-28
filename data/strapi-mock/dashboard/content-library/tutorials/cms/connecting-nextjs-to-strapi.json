@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "slug": "connecting-nextjs-to-strapi",
+    "title": "Connecting Next.js to Strapi API",
+    "excerpt": "Fetch and display Strapi content in your Next.js application",
+    "level": "intermediate",
+    "category": "cms",
+    "readTime": "30 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "nextjs",
+      "strapi",
+      "api",
+      "data-fetching"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Setting Up Environment Variables",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Creating a Type-Safe API Client",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Displaying Data in a Server Component",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Adding Error Handling",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Setting Up Environment Variables",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Configure your Next.js app to connect to Strapi."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Create .env.local in your Next.js project root\nSTRAPI_URL=http://localhost:1337\nSTRAPI_TOKEN=your-api-token-here\n\n# Generate an API token in Strapi:\n# Settings → API Tokens → Create new API Token\n# Name: Next.js Frontend\n# Token type: Full access (or custom)\n# Copy the token to your .env.local",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Never commit API tokens to git. Add .env.local to your .gitignore file."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Creating a Type-Safe API Client",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Build a reusable client for fetching Strapi data."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/strapi.ts\ninterface StrapiResponse<T> {\n  data: T\n  meta: {\n    pagination?: {\n      page: number\n      pageSize: number\n      pageCount: number\n      total: number\n    }\n  }\n}\n\ninterface ContactRequest {\n  id: number\n  attributes: {\n    firstName: string\n    lastName: string\n    email: string\n    message: string\n    status: 'pending' | 'reviewed' | 'resolved'\n    createdAt: string\n  }\n}\n\nexport async function getContactRequests(): Promise<ContactRequest[]> {\n  const response = await fetch(\n    `${process.env.STRAPI_URL}/api/contact-requests`,\n    {\n      headers: {\n        Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,\n      },\n      next: { revalidate: 60 }, // Cache for 60 seconds\n    }\n  )\n  \n  if (!response.ok) {\n    throw new Error('Failed to fetch contact requests')\n  }\n  \n  const json: StrapiResponse<ContactRequest[]> = await response.json()\n  return json.data\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "We use TypeScript interfaces to ensure type safety. The next.revalidate option enables ISR caching."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Displaying Data in a Server Component",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Fetch and render Strapi data in a Next.js page."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/contacts/page.tsx\nimport { getContactRequests } from '@/lib/strapi'\n\nexport default async function ContactsPage() {\n  const contacts = await getContactRequests()\n  \n  return (\n    <main className=\"max-w-4xl mx-auto p-8\">\n      <h1 className=\"text-2xl font-bold mb-6\">Contact Requests</h1>\n      \n      <div className=\"space-y-4\">\n        {contacts.map((contact) => (\n          <div \n            key={contact.id}\n            className=\"p-4 border rounded-lg bg-white shadow-sm\"\n          >\n            <div className=\"flex justify-between items-start\">\n              <div>\n                <h2 className=\"font-semibold\">\n                  {contact.attributes.firstName} {contact.attributes.lastName}\n                </h2>\n                <p className=\"text-sm text-gray-600\">\n                  {contact.attributes.email}\n                </p>\n              </div>\n              <span className={`px-2 py-1 text-xs rounded-full ${\n                contact.attributes.status === 'resolved' \n                  ? 'bg-green-100 text-green-800'\n                  : contact.attributes.status === 'reviewed'\n                  ? 'bg-yellow-100 text-yellow-800'\n                  : 'bg-gray-100 text-gray-800'\n              }`}>\n                {contact.attributes.status}\n              </span>\n            </div>\n            <p className=\"mt-2 text-gray-700\">\n              {contact.attributes.message}\n            </p>\n          </div>\n        ))}\n      </div>\n    </main>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Server Components can directly await async functions. No useEffect or useState needed!"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Adding Error Handling",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Handle API errors gracefully with error boundaries."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/contacts/error.tsx\n\"use client\"\n\nexport default function Error({\n  error,\n  reset,\n}: {\n  error: Error\n  reset: () => void\n}) {\n  return (\n    <div className=\"max-w-4xl mx-auto p-8 text-center\">\n      <h2 className=\"text-xl font-semibold text-red-600 mb-4\">\n        Something went wrong!\n      </h2>\n      <p className=\"text-gray-600 mb-4\">{error.message}</p>\n      <button\n        onClick={reset}\n        className=\"px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700\"\n      >\n        Try again\n      </button>\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    }
+  ]
+}

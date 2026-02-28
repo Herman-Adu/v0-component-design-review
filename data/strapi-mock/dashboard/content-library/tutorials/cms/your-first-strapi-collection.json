@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "slug": "your-first-strapi-collection",
+    "title": "Your First Strapi Collection Type",
+    "excerpt": "Set up Strapi CMS and create your first collection type for managing content",
+    "level": "beginner",
+    "category": "cms",
+    "readTime": "40 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "strapi",
+      "cms",
+      "headless",
+      "beginner"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Installing Strapi",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Creating an Admin Account",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Creating Your First Collection Type",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Creating Your First Entry",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Testing Your API",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Installing Strapi",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Create a new Strapi project using the CLI installer."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Create a new Strapi project\nnpx create-strapi-app@latest my-cms\n\n# When prompted:\n# - Installation type: Quickstart (SQLite)\n# - or Custom if you want PostgreSQL\n\n# This will install and start Strapi\n# Admin panel: http://localhost:1337/admin",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Quickstart uses SQLite which is perfect for development. For production, you'll want PostgreSQL or MySQL."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Creating an Admin Account",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "When Strapi starts, you'll be prompted to create your first admin user."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Visit http://localhost:1337/admin\n# You'll see a registration form:\n\nFirst name: [Your name]\nLast name: [Your name]\nEmail: admin@example.com\nPassword: [Strong password]\n\n# Click \"Let's start\" to enter the admin panel",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "This creates a super admin account. In production, you'd want to set up proper roles and permissions for your team."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Creating Your First Collection Type",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Collection Types are for content you'll have multiple entries of, like blog posts or products."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# In the Strapi admin:\n\n1. Go to Content-Type Builder (left sidebar)\n2. Click \"Create new collection type\"\n3. Set the display name: \"Contact Request\"\n4. API ID will auto-generate: \"contact-request\"\n5. Click \"Continue\"\n\n# Now add fields:\n\n1. Click \"Add another field\"\n2. Select \"Text\" and name it \"firstName\"\n3. Go to Advanced Settings and check \"Required\"\n4. Save\n\n5. Add another \"Text\" field named \"lastName\" as Required\n6. Add \"Email\" field named \"email\" as Required\n7. Add \"Text (Long text)\" named \"message\" as Required\n8. Add \"Enumeration\" named \"status\" with values: pending, reviewed, resolved\n\n9. Click \"Save\" (top right)",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Strapi will create the database tables and API endpoints automatically. You now have REST and GraphQL APIs ready to use."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Creating Your First Entry",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Add content via the admin panel."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Draft entries won't appear in the API until published. This is useful for review workflows."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# In the Strapi admin:\n\n1. Go to Content Manager (left sidebar)\n2. Click \"Contact Request\"\n3. Click \"Create new entry\"\n4. Fill in the fields:\n   - firstName: John\n   - lastName: Doe\n   - email: john@example.com\n   - message: I'd like to learn more about your services\n   - status: pending\n5. Click \"Save\"\n6. Click \"Publish\" to make it available via API",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Testing Your API",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Strapi automatically creates REST endpoints for your collection types."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# First, enable public access:\n# Settings → Users & Permissions → Roles → Public\n# Under \"Contact-request\", check \"find\" and \"findOne\"\n# Save\n\n# Now test the API:\ncurl http://localhost:1337/api/contact-requests\n\n# Response:\n{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"attributes\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john@example.com\",\n        \"message\": \"I'd like to learn more...\",\n        \"status\": \"pending\"\n      }\n    }\n  ]\n}",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "By default, all endpoints are private. You need to explicitly enable access for public or authenticated roles."
+      }
+    }
+  ]
+}

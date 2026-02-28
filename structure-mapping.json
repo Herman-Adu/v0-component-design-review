@@ -1,0 +1,899 @@
+{
+  "timestamp": "2026-02-25T13:58:41.355Z",
+  "totalFiles": 36,
+  "uniqueStructures": 27,
+  "structures": {
+    "cta|header|quickStats|sections|securityNotice|upcomingFeatures": [
+      {
+        "fields": [
+          "cta",
+          "header",
+          "quickStats",
+          "sections",
+          "securityNotice",
+          "upcomingFeatures"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "securityNotice",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "quickStats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "upcomingFeatures",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "cta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\admin-overview.json"
+      }
+    ],
+    "callout|features|header|helpCallout|quickStartGuides|startingPoints|topicsOverview": [
+      {
+        "fields": [
+          "callout",
+          "features",
+          "header",
+          "helpCallout",
+          "quickStartGuides",
+          "startingPoints",
+          "topicsOverview"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "callout",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "startingPoints",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "quickStartGuides",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "features",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "topicsOverview",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "helpCallout",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\dashboard-getting-started.json"
+      }
+    ],
+    "authNotice|header|platforms|quickLinks|quickStats": [
+      {
+        "fields": [
+          "authNotice",
+          "header",
+          "platforms",
+          "quickLinks",
+          "quickStats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "authNotice",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "quickStats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "platforms",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\digital-marketing-overview.json"
+      }
+    ],
+    "contentCalendar": [
+      {
+        "fields": [
+          "contentCalendar"
+        ],
+        "types": [
+          {
+            "field": "contentCalendar",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy\\content-calendar.json"
+      }
+    ],
+    "contentMetrics": [
+      {
+        "fields": [
+          "contentMetrics"
+        ],
+        "types": [
+          {
+            "field": "contentMetrics",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy\\content-metrics.json"
+      }
+    ],
+    "distributionChannels": [
+      {
+        "fields": [
+          "distributionChannels"
+        ],
+        "types": [
+          {
+            "field": "distributionChannels",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy\\distribution-channels.json"
+      }
+    ],
+    "editorialGuidelines": [
+      {
+        "fields": [
+          "editorialGuidelines"
+        ],
+        "types": [
+          {
+            "field": "editorialGuidelines",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy\\editorial-guidelines.json"
+      }
+    ],
+    "journeys": [
+      {
+        "fields": [
+          "journeys"
+        ],
+        "types": [
+          {
+            "field": "journeys",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\getting-started\\journeys.json"
+      }
+    ],
+    "quickChecklist": [
+      {
+        "fields": [
+          "quickChecklist"
+        ],
+        "types": [
+          {
+            "field": "quickChecklist",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\getting-started\\quick-checklist.json"
+      }
+    ],
+    "0|1": [
+      {
+        "fields": [
+          "0",
+          "1"
+        ],
+        "types": [
+          {
+            "field": "0",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "1",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\getting-started\\journeys.json"
+      },
+      {
+        "fields": [
+          "0",
+          "1"
+        ],
+        "types": [
+          {
+            "field": "0",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "1",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\overview\\sections.json"
+      }
+    ],
+    "0|1|2|3|4|5": [
+      {
+        "fields": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "types": [
+          {
+            "field": "0",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "1",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "2",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "3",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "4",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "5",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\getting-started\\quick-checklist.json"
+      },
+      {
+        "fields": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "types": [
+          {
+            "field": "0",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "1",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "2",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "3",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "4",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "5",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\overview\\highlights.json"
+      }
+    ],
+    "0|1|2|3|4": [
+      {
+        "fields": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "types": [
+          {
+            "field": "0",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "1",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "2",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "3",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "4",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\quality-engineering\\qa-tools.json"
+      }
+    ],
+    "configHighlights": [
+      {
+        "fields": [
+          "configHighlights"
+        ],
+        "types": [
+          {
+            "field": "configHighlights",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\configuration\\config-highlights.json"
+      }
+    ],
+    "emailTypes": [
+      {
+        "fields": [
+          "emailTypes"
+        ],
+        "types": [
+          {
+            "field": "emailTypes",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\configuration\\email-types.json"
+      }
+    ],
+    "features": [
+      {
+        "fields": [
+          "features"
+        ],
+        "types": [
+          {
+            "field": "features",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\configuration\\features.json"
+      },
+      {
+        "fields": [
+          "features"
+        ],
+        "types": [
+          {
+            "field": "features",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\infrastructure\\features.json"
+      },
+      {
+        "fields": [
+          "features"
+        ],
+        "types": [
+          {
+            "field": "features",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\request-management\\features.json"
+      }
+    ],
+    "journeys|quickChecklist": [
+      {
+        "fields": [
+          "journeys",
+          "quickChecklist"
+        ],
+        "types": [
+          {
+            "field": "journeys",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickChecklist",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\getting-started\\journeys.json"
+      }
+    ],
+    "systemChecks": [
+      {
+        "fields": [
+          "systemChecks"
+        ],
+        "types": [
+          {
+            "field": "systemChecks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\infrastructure\\system-checks.json"
+      }
+    ],
+    "highlights": [
+      {
+        "fields": [
+          "highlights"
+        ],
+        "types": [
+          {
+            "field": "highlights",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\overview\\highlights.json"
+      }
+    ],
+    "sections": [
+      {
+        "fields": [
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\overview\\sections.json"
+      }
+    ],
+    "capabilities": [
+      {
+        "fields": [
+          "capabilities"
+        ],
+        "types": [
+          {
+            "field": "capabilities",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\request-management\\capabilities.json"
+      }
+    ],
+    "faqTeaser|hero|trustIndicators": [
+      {
+        "fields": [
+          "faqTeaser",
+          "hero",
+          "trustIndicators"
+        ],
+        "types": [
+          {
+            "field": "hero",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "trustIndicators",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "faqTeaser",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\marketing\\contact.json"
+      }
+    ],
+    "cta|hero|servicesOverview|trustIndicators": [
+      {
+        "fields": [
+          "cta",
+          "hero",
+          "servicesOverview",
+          "trustIndicators"
+        ],
+        "types": [
+          {
+            "field": "hero",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "servicesOverview",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "trustIndicators",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "cta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\marketing\\marketing-home.json"
+      }
+    ],
+    "faq|header|trustIndicators": [
+      {
+        "fields": [
+          "faq",
+          "header",
+          "trustIndicators"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "trustIndicators",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "faq",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\marketing\\quotation.json"
+      }
+    ],
+    "certifications|finalCta|hero|requestForm|services|servicesSection|specializations|trustIndicators|whyChooseUs": [
+      {
+        "fields": [
+          "certifications",
+          "finalCta",
+          "hero",
+          "requestForm",
+          "services",
+          "servicesSection",
+          "specializations",
+          "trustIndicators",
+          "whyChooseUs"
+        ],
+        "types": [
+          {
+            "field": "hero",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "services",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "servicesSection",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "specializations",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "certifications",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "whyChooseUs",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "trustIndicators",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "requestForm",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "finalCta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\marketing\\services.json"
+      }
+    ],
+    "strategy": [
+      {
+        "fields": [
+          "strategy"
+        ],
+        "types": [
+          {
+            "field": "strategy",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\facebook-strategy.json"
+      },
+      {
+        "fields": [
+          "strategy"
+        ],
+        "types": [
+          {
+            "field": "strategy",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\linkedin-strategy.json"
+      },
+      {
+        "fields": [
+          "strategy"
+        ],
+        "types": [
+          {
+            "field": "strategy",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\twitter-strategy.json"
+      }
+    ],
+    "tools": [
+      {
+        "fields": [
+          "tools"
+        ],
+        "types": [
+          {
+            "field": "tools",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\facebook-tools.json"
+      },
+      {
+        "fields": [
+          "tools"
+        ],
+        "types": [
+          {
+            "field": "tools",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\google-tools.json"
+      },
+      {
+        "fields": [
+          "tools"
+        ],
+        "types": [
+          {
+            "field": "tools",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\linkedin-tools.json"
+      },
+      {
+        "fields": [
+          "tools"
+        ],
+        "types": [
+          {
+            "field": "tools",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\twitter-tools.json"
+      }
+    ],
+    "ecosystem": [
+      {
+        "fields": [
+          "ecosystem"
+        ],
+        "types": [
+          {
+            "field": "ecosystem",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\platforms\\google-ecosystem.json"
+      }
+    ]
+  },
+  "summary": {
+    "filesScanned": 36,
+    "uniqueTypes": 27,
+    "reusableInterfaces": 27
+  }
+}

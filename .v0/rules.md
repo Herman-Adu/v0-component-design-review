@@ -120,12 +120,20 @@ Multi-step work must write to state.json after each phase, not just at the end.
 - Complex organism logic = PRO (Tier 2) if needed
 - Architecture planning/major refactor = MAX (Tier 3) only for replanning
 
-**New Rule for Phase 5+:**
-- Rule 11: MINI Tier Only for Phases 1-5
-  - Do NOT use Max for script generation
-  - Do NOT use Max for component writing
-  - Tier 3 (Max) is forbidden for this project until Phase 6 (full migration)
-  - Violation = immediate checkpoint restart with correct tier
+### Rule 11: MINI Tier Only for Phases 1-5
+- Do NOT use Max for script generation
+- Do NOT use Max for component writing
+- Tier 3 (Max) is forbidden for this project until Phase 6 (full migration)
+- Violation = immediate checkpoint restart with correct tier
+
+### Rule 12: HEALTH-FIRST DECISION MAKING (SESSION INITIALIZATION PROTOCOL v2.0)
+- Every session starts with `.v0/metrics.md` health check FIRST
+- Health ≥ 50%: FULL mode - proceed with task normally
+- Health 20-50%: DENSE mode - reduce context to 30k tokens max
+- Health < 20%: RECOVERY mode - defer non-critical work or split across sessions
+- Model selection is DYNAMIC based on [health status + task type] - see orchestrator.md STEP 4
+- Session announcement (STEP 6 of v2.0) MUST show health + model selection reason
+- Violation: proceeding without health check = framework failure
 
 **Cleanup Status:**
 - ✅ COMPLETE: Root bloat files deleted locally by user
@@ -150,6 +158,19 @@ Multi-step work must write to state.json after each phase, not just at the end.
 
 **Platinum Standard:** This framework is being developed as a reference implementation for Agentic OS. Every failure is a learning opportunity. Every rule must earn its place through enforcement, not aspiration.
 
+### Rule 13: MODEL-METRICS ALIGNMENT (Guard Rails - Non-Negotiable)
+- Model selection (from orchestrator.md MODEL MATRIX decision tree) DRIVES metrics allocation
+- When model changes during session: metrics.md MUST be updated IMMEDIATELY
+- Token budget is PER-MODEL, not universal:
+  - v0 Mini = 50k tokens (25k in DENSE)
+  - v0 Pro = 100k tokens (50k in DENSE)
+  - v0 Max = 150k tokens (75k in DENSE)
+  - v0 Max Fast = 100k tokens (50k in DENSE)
+- Health mode REDUCES budget by 50%: DENSE mode budget = model's budget × 0.5
+- Health < 20% + v0 Max/Pro/Max Fast = DEFER work or downgrade to v0 Mini (15k budget)
+- Violation: Using model without updating metrics.md = STOP immediately, re-validate GATE 1
+- Every model change logs: "[MODEL] [OLD_BUDGET] → [NEW_BUDGET] | Reason: [reason]"
+
 ---
 
-*Rules v1.1 | Last Updated: 2026-02-16*
+*Rules v1.3 | Last Updated: 2026-02-24 | Added Rule 13 (MODEL-METRICS ALIGNMENT) | Guard Rails integrated*

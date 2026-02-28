@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "slug": "rate-limiting-bypass-to-production",
+    "title": "Rate Limiting: From Bypassable to Production-Grade",
+    "excerpt": "How a code review uncovered a critical security flaw where rate limiting could be bypassed",
+    "level": "intermediate",
+    "category": "security",
+    "readTime": "14 min",
+    "publishedAt": "2026-02-09",
+    "tags": ["security", "rate-limiting", "csrf", "honeypot", "server-actions"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Bypassable Rate Limiter", "level": 2 },
+    { "id": "why-failed", "title": "Why In-Memory Failed", "level": 2 },
+    { "id": "solution", "title": "Three-Layer Defence", "level": 2 },
+    { "id": "implementation", "title": "Implementation Details", "level": 2 },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Bypassable Rate Limiter",
+        "id": "problem"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "During Code Review #2 (Security Review), we discovered that the service-request form's rate limiting was implemented using an in-memory JavaScript Map. This meant every server restart, deployment, or serverless cold start reset the counter to zero—effectively making the rate limiter bypassable."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Why In-Memory Failed",
+        "id": "why-failed"
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Critical Vulnerabilities",
+        "items": [
+          {
+            "title": "Deployment Resets Counter",
+            "description": "Every Vercel deployment created fresh process, resetting rateLimitMap to empty"
+          },
+          {
+            "title": "Serverless Cold Starts",
+            "description": "Serverless functions spin up fresh instances. Each cold start = fresh Map = no rate limit history"
+          },
+          {
+            "title": "No CSRF Protection",
+            "description": "Cross-origin requests could submit forms without validation"
+          },
+          {
+            "title": "No Bot Detection",
+            "description": "Automated scripts could submit hundreds of requests"
+          },
+          {
+            "title": "IP-Only Fingerprint",
+            "description": "Using only IP address. Attackers behind NAT could bypass by sharing IP"
+          },
+          {
+            "title": "No Admin Alerts",
+            "description": "When rate limits hit, no one knew. Attacks went unnoticed"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "danger",
+        "title": "Real Attack Scenario",
+        "body": "Attacker submits 5 spam requests (hits rate limit). Waits 10 minutes for scheduled deployment or triggers cold start. Rate limit Map resets to empty. Submits 5 more spam requests. Repeat indefinitely. Estimated spam throughput: 40 submissions per day with zero cost to attacker."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Three-Layer Defence",
+        "id": "solution"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We implemented a three-layer defence-in-depth strategy: persistent rate limiting using an external store (surviving restarts), CSRF token validation on all form submissions, and honeypot fields for bot detection. Each layer operates independently."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Defence-in-Depth Layers",
+        "steps": [
+          {
+            "title": "Layer 3: Honeypot (First Check - Cheapest)",
+            "description": "Hidden field that bots fill but humans don't see. Instant rejection with zero cost"
+          },
+          {
+            "title": "Layer 2: CSRF Validation",
+            "description": "Double-submit cookie pattern validates request came from legitimate form"
+          },
+          {
+            "title": "Layer 1: Persistent Rate Limiting",
+            "description": "External store tracks requests across deployments and cold starts"
+          },
+          {
+            "title": "All Layers Pass → Process Request",
+            "description": "Only legitimate requests from real users on our site within rate limits reach the database"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation Details",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The implementation orders checks from cheapest to most expensive: honeypot (nanoseconds), CSRF (microseconds), rate limit (milliseconds). This prevents expensive store queries for obvious bots, improving performance and reducing costs."
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Fingerprint Generation",
+        "body": "Combine multiple signals to create a more robust identifier: IP address (X-Forwarded-For header), User-Agent string, Accept-Language header. Hash these together: hash(ip + userAgent + language). More resistant to spoofing than IP alone, while remaining stateless."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Rate Limit Bypass",
+            "value": "Eliminated",
+            "change": "Any restart resets → Persistent",
+            "positive": true
+          },
+          {
+            "label": "Bot Submissions",
+            "value": "-100%",
+            "change": "~40/day → 0",
+            "positive": true
+          },
+          {
+            "label": "CSRF Protection",
+            "value": "Added",
+            "change": "None → Double-submit cookie",
+            "positive": true
+          },
+          {
+            "label": "Defence Layers",
+            "value": "+200%",
+            "change": "1 (bypassable) → 3 (independent)",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Why Check Order Matters",
+        "body": "Order checks from cheapest to most expensive: Honeypot: String comparison (nanoseconds). CSRF: Cookie + string comparison (microseconds). Rate limit: External store query (milliseconds). This prevents expensive store queries for obvious bots."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "In-memory rate limiting in serverless or frequently-deployed environments is security theatre—it gives the appearance of protection while providing none. Defence in depth means each layer works independently: if the rate limiter fails, CSRF still blocks cross-origin attacks; if CSRF is bypassed, the honeypot still catches bots. Order your checks from cheapest to most expensive. Never trust a single layer of defence."
+      }
+    }
+  ]
+}

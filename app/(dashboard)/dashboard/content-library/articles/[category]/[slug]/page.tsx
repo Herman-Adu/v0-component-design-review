@@ -1,201 +1,135 @@
-import React from "react"
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react"
-import { getArticleBySlug, getAllArticleSlugs, type Article } from "@/data/content-library/articles"
-
-// Import all rich article components
-import { SSGArticleContent } from "@/features/dashboard/content-library/articles/ssg-article"
-import { SSRArticleContent } from "@/features/dashboard/content-library/articles/ssr-article"
-import { ISRArticleContent } from "@/features/dashboard/content-library/articles/isr-article"
-import { PPRArticleContent } from "@/features/dashboard/content-library/articles/ppr-article"
-import { AtomicDesignArticleContent } from "@/features/dashboard/content-library/articles/atomic-design-article"
-import { PlanningArticleContent } from "@/features/dashboard/content-library/articles/planning-article"
-import { ZodValidationArticleContent } from "@/features/dashboard/content-library/articles/zod-validation-article"
-import { MultiStepFormArticleContent } from "@/features/dashboard/content-library/articles/multi-step-form-article"
-import { ZustandArticleContent } from "@/features/dashboard/content-library/articles/zustand-article"
-import { SecurityArticleContent } from "@/features/dashboard/content-library/articles/security-article"
-import { ServerActionsArticleContent } from "@/features/dashboard/content-library/articles/server-actions-article"
-import { EmailArticleContent } from "@/features/dashboard/content-library/articles/email-article"
-import { RefactoringArticle } from "@/features/dashboard/content-library/articles/refactoring-article"
-import { DocumentationArticle } from "@/features/dashboard/content-library/articles/documentation-article"
-import { AccessibilityArticleContent } from "@/features/dashboard/content-library/articles/accessibility-article"
-import { ROIArticleContent } from "@/features/dashboard/content-library/articles/roi-article"
-import { TechStackArticleContent } from "@/features/dashboard/content-library/articles/tech-stack-article"
-import { TestingArticleContent } from "@/features/dashboard/content-library/articles/testing-article"
-import { CICDArticleContent } from "@/features/dashboard/content-library/articles/cicd-article"
-import { HydrationDeepDiveArticleContent } from "@/features/dashboard/content-library/articles/hydration-deep-dive-article"
-import { GuardPatternArticleContent } from "@/features/dashboard/content-library/articles/guard-pattern-article"
-import { PerformanceBudgetsArticleContent } from "@/features/dashboard/content-library/articles/performance-budgets-article"
-import { ServerClientBoundariesArticleContent } from "@/features/dashboard/content-library/articles/server-client-boundaries-article"
-import { DuplicateProvidersArticleContent } from "@/features/dashboard/content-library/articles/duplicate-providers-article"
-import { HydrationMismatchesArticleContent } from "@/features/dashboard/content-library/articles/hydration-mismatches-article"
-import { AISessionManagementArticleContent } from "@/features/dashboard/content-library/articles/ai-session-management-article"
-// Removed: ThreeAxisReviewArticleContent, ServiceRequestLifecycleArticleContent, ManagingContentStrapiArticleContent
-// These used broken shared molecule props. Content renders via markdown fallback path.
+import React from "react";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/article-content";
+import {
+  listArticles,
+  getArticleRecordBySlug,
+} from "@/lib/strapi/dashboard/content-library/articles/article-repository";
+import { toArticleDetailViewModel } from "@/lib/strapi/dashboard/content-library/articles/article-view-models";
+import { canReadArticle } from "@/lib/authorization/article-policies";
+import { getContentDetailPath } from "@/lib/content-library/url-policy";
+import { TableOfContents } from "@/components/molecules/article-components";
+import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  const slugs = getAllArticleSlugs()
-  const articles = slugs.map(slug => getArticleBySlug(slug)).filter(Boolean)
-  return articles.map((article) => ({
-    category: article!.category,
-    slug: article!.slug
-  }))
+  return listArticles().map((article) => ({
+    category: article.category,
+    slug: article.slug,
+  }));
 }
 
-// Map slugs to their rich content components
-const richArticleComponents: Record<string, React.ComponentType> = {
-  "static-site-generation-ssg": SSGArticleContent,
-  "server-side-rendering-ssr": SSRArticleContent,
-  "incremental-static-regeneration-isr": ISRArticleContent,
-  "partial-prerendering-ppr": PPRArticleContent,
-  "atomic-design-principles": AtomicDesignArticleContent,
-  "planning-full-stack-application": PlanningArticleContent,
-  "typescript-zod-validation": ZodValidationArticleContent,
-  "multi-step-form-architecture": MultiStepFormArticleContent,
-  "zustand-form-state-management": ZustandArticleContent,
-  "security-architecture-deep-dive": SecurityArticleContent,
-  "server-actions-deep-dive": ServerActionsArticleContent,
-  "email-system-architecture": EmailArticleContent,
-  "refactoring-for-maintainability": RefactoringArticle,
-  "documentation-as-architecture": DocumentationArticle,
-  "roi-modern-web-architecture": ROIArticleContent,
-  "tech-stack-decision-framework": TechStackArticleContent,
-  "building-accessible-web-applications": AccessibilityArticleContent,
-  "testing-strategy-modern-applications": TestingArticleContent,
-  "cicd-deployment-pipelines": CICDArticleContent,
-  "why-react-hydration-breaks": HydrationDeepDiveArticleContent,
-  "guard-pattern-architecture": GuardPatternArticleContent,
-  "performance-budgets-for-nextjs": PerformanceBudgetsArticleContent,
-  "server-client-boundaries": ServerClientBoundariesArticleContent,
-  "duplicate-providers-architectural-cost": DuplicateProvidersArticleContent,
-  "hydration-mismatches-use-client-layouts": HydrationMismatchesArticleContent,
-  "ai-session-management-quality-gates": AISessionManagementArticleContent,
-}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const record = getArticleRecordBySlug(slug);
 
-function formatContent(content: string): React.ReactNode {
-  const lines = content.split("\n")
-  const elements: React.ReactNode[] = []
-  let inCodeBlock = false
-  let codeContent: string[] = []
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]
-
-    if (line.startsWith("```")) {
-      if (!inCodeBlock) {
-        inCodeBlock = true
-        codeContent = []
-      } else {
-        inCodeBlock = false
-        elements.push(
-          <pre key={`code-${i}`} className="bg-muted/50 p-4 rounded-lg overflow-x-auto my-4 text-sm">
-            <code className="text-foreground">{codeContent.join("\n")}</code>
-          </pre>
-        )
-      }
-      continue
-    }
-
-    if (inCodeBlock) {
-      codeContent.push(line)
-      continue
-    }
-
-    if (line.startsWith("## ")) {
-      elements.push(
-        <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">
-          {line.slice(3)}
-        </h2>
-      )
-    } else if (line.startsWith("**") && line.endsWith("**")) {
-      elements.push(
-        <p key={i} className="font-semibold text-foreground mt-4 mb-2">
-          {line.slice(2, -2)}
-        </p>
-      )
-    } else if (line.startsWith("- ")) {
-      elements.push(
-        <li key={i} className="text-muted-foreground ml-4 list-disc">
-          {line.slice(2)}
-        </li>
-      )
-    } else if (line.match(/^\d+\./)) {
-      elements.push(
-        <li key={i} className="text-muted-foreground ml-4 list-decimal">
-          {line.replace(/^\d+\.\s*/, "")}
-        </li>
-      )
-    } else if (line.startsWith("|")) {
-      elements.push(
-        <p key={i} className="text-muted-foreground font-mono text-sm">
-          {line}
-        </p>
-      )
-    } else if (line.trim() === "") {
-      elements.push(<div key={i} className="h-3" />)
-    } else {
-      elements.push(
-        <p key={i} className="text-muted-foreground leading-relaxed">
-          {line}
-        </p>
-      )
-    }
+  if (!record || !canReadArticle(record.article)) {
+    return {
+      title: "Article Not Found",
+      robots: { index: false, follow: false },
+    };
   }
 
-  return elements
+  const canonicalPath = getContentDetailPath(
+    "articles",
+    record.article.category,
+    record.article.slug,
+  );
+
+  return {
+    title: record.article.title,
+    description: record.article.excerpt,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      title: record.article.title,
+      description: record.article.excerpt,
+      url: canonicalPath,
+      publishedTime: record.article.publishedAt,
+      tags: record.article.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.article.title,
+      description: record.article.excerpt,
+    },
+  };
 }
 
 function getLevelColor(level: Article["level"]) {
   switch (level) {
     case "beginner":
-      return "bg-green-500/10 text-green-500 border-green-500/20"
+      return "bg-green-500/10 text-green-500 border-green-500/20";
     case "intermediate":
-      return "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
+      return "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
     case "advanced":
-      return "bg-red-500/10 text-red-500 border-red-500/20"
+      return "bg-red-500/10 text-red-500 border-red-500/20";
   }
 }
 
 function getCategoryColor(category: Article["category"]) {
   switch (category) {
     case "architecture":
-      return "bg-blue-500/10 text-blue-500"
+      return "bg-blue-500/10 text-blue-500";
     case "security":
-      return "bg-red-500/10 text-red-500"
+      return "bg-red-500/10 text-red-500";
     case "forms":
-      return "bg-purple-500/10 text-purple-500"
+      return "bg-purple-500/10 text-purple-500";
     case "performance":
-      return "bg-green-500/10 text-green-500"
+      return "bg-green-500/10 text-green-500";
     case "best-practices":
-      return "bg-accent/10 text-accent"
+      return "bg-accent/10 text-accent";
     case "rendering":
-      return "bg-cyan-500/10 text-cyan-500"
+      return "bg-cyan-500/10 text-cyan-500";
     case "business":
-      return "bg-emerald-500/10 text-emerald-500"
+      return "bg-emerald-500/10 text-emerald-500";
     case "accessibility":
-      return "bg-indigo-500/10 text-indigo-500"
+      return "bg-indigo-500/10 text-indigo-500";
     case "testing":
-      return "bg-orange-500/10 text-orange-500"
+      return "bg-orange-500/10 text-orange-500";
     case "devops":
-      return "bg-pink-500/10 text-pink-500"
+      return "bg-pink-500/10 text-pink-500";
     case "ai-tooling":
-      return "bg-violet-500/10 text-violet-500"
+      return "bg-violet-500/10 text-violet-500";
     default:
-      return "bg-muted text-muted-foreground"
+      return "bg-muted text-muted-foreground";
   }
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ category: string; slug: string }> }) {
-  const { slug } = await params
-  const article = getArticleBySlug(slug)
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}) {
+  const { category, slug } = await params;
+  const record = getArticleRecordBySlug(slug);
 
-  if (!article) {
-    notFound()
+  if (!record) {
+    notFound();
   }
 
-  // Check if this article has a rich content component
-  const RichContentComponent = richArticleComponents[slug]
+  if (record.article.category !== category) {
+    redirect(
+      getContentDetailPath(
+        "articles",
+        record.article.category,
+        record.article.slug,
+      ),
+    );
+  }
+
+  if (!canReadArticle(record.article)) {
+    notFound();
+  }
+
+  const articleViewModel = toArticleDetailViewModel(record.article);
+  const contentDocument = record.content;
 
   return (
     <div className="space-y-8">
@@ -211,35 +145,48 @@ export default async function ArticlePage({ params }: { params: Promise<{ catego
       {/* Article Header */}
       <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
-          <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(article.level)}`}>
-            {article.level.charAt(0).toUpperCase() + article.level.slice(1)}
+          <span
+            className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(articleViewModel.level)}`}
+          >
+            {articleViewModel.level.charAt(0).toUpperCase() +
+              articleViewModel.level.slice(1)}
           </span>
-          <span className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(article.category)}`}>
-            {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
+          <span
+            className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(articleViewModel.category)}`}
+          >
+            {articleViewModel.category.charAt(0).toUpperCase() +
+              articleViewModel.category.slice(1)}
           </span>
         </div>
 
-        <h1 className="text-4xl font-bold text-foreground">{article.title}</h1>
-        <p className="text-xl text-muted-foreground">{article.excerpt}</p>
+        <h1 className="text-4xl font-bold text-foreground">
+          {articleViewModel.title}
+        </h1>
+        <p className="text-xl text-muted-foreground">
+          {articleViewModel.excerpt}
+        </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
-            {article.readTime} read
+            {articleViewModel.readTime} read
           </span>
           <span className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
-            {new Date(article.publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {new Date(articleViewModel.publishedAt).toLocaleDateString(
+              "en-US",
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              },
+            )}
           </span>
         </div>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {article.tags.map((tag) => (
+          {articleViewModel.tags.map((tag) => (
             <span
               key={tag}
               className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-muted rounded-md text-muted-foreground"
@@ -253,10 +200,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ catego
 
       {/* Article Content */}
       <article className="border-t border-border pt-8">
-        {RichContentComponent ? (
-          <RichContentComponent />
+        {contentDocument.layout === "content-with-toc" ? (
+          <div className="flex gap-8">
+            <div className="flex-1 min-w-0">
+              <ContentBlockRenderer blocks={contentDocument.blocks} />
+            </div>
+            <aside className="hidden lg:block w-64 shrink-0">
+              <TableOfContents items={contentDocument.toc ?? []} />
+            </aside>
+          </div>
         ) : (
-          <div className="prose max-w-none">{formatContent(article.content)}</div>
+          <div className="space-y-6">
+            <ContentBlockRenderer blocks={contentDocument.blocks} />
+          </div>
         )}
       </article>
 
@@ -271,5 +227,5 @@ export default async function ArticlePage({ params }: { params: Promise<{ catego
         </Link>
       </footer>
     </div>
-  )
+  );
 }

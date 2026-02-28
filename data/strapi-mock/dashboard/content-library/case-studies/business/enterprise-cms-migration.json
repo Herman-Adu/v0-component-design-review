@@ -1,0 +1,259 @@
+{
+  "meta": {
+    "slug": "enterprise-cms-migration",
+    "title": "Enterprise CMS Migration: Legacy to Headless",
+    "excerpt": "How a financial services firm reduced content publishing time by 80%",
+    "level": "intermediate",
+    "category": "business",
+    "readTime": "13 min",
+    "publishedAt": "2026-02-05",
+    "tags": ["enterprise", "cms", "strapi", "migration", "roi"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "problem", "title": "The Legacy Problem", "level": 2 },
+    { "id": "issues", "title": "Why It Was Failing", "level": 2 },
+    { "id": "solution", "title": "The Headless Solution", "level": 2 },
+    { "id": "implementation", "title": "Implementation Approach", "level": 2 },
+    { "id": "results", "title": "The Results", "level": 2 },
+    { "id": "takeaway", "title": "Key Takeaway", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "The Legacy Problem",
+        "id": "problem"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A mid-size financial services company was struggling with their legacy CMS. Content updates took days, required developer intervention, and the system couldn't support their multi-channel strategy. With a growing digital presence across web, mobile app, and partner portals, they needed a solution that could serve content to multiple platforms from a single source."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "02", "title": "Why It Was Failing", "id": "issues" }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Legacy Publishing Workflow",
+        "steps": [
+          {
+            "title": "Marketing creates content",
+            "description": "Content drafted in Word documents, sent via email"
+          },
+          {
+            "title": "Email to development team",
+            "description": "Ticket created, enters 6-month backlog"
+          },
+          {
+            "title": "Developer formats and uploads",
+            "description": "Manual HTML conversion, image optimization, upload to legacy CMS"
+          },
+          {
+            "title": "QA review cycle",
+            "description": "2-3 rounds of feedback and corrections"
+          },
+          {
+            "title": "Production deployment",
+            "description": "Manual deployment process, scheduled for weekly release window"
+          },
+          {
+            "title": "Post-publish fixes",
+            "description": "Typos and formatting issues discovered after launch"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "The Pain Points",
+        "description": "Legacy CMS created bottlenecks across the entire content pipeline",
+        "stats": [
+          {
+            "metric": "Average Publish Time",
+            "value": "48 hours",
+            "context": "From content ready to live on site"
+          },
+          {
+            "metric": "Developer Dependency",
+            "value": "100%",
+            "context": "All content changes required developer time"
+          },
+          {
+            "metric": "Annual Licensing Cost",
+            "value": "£45,000",
+            "context": "Plus hosting and maintenance"
+          },
+          {
+            "metric": "Content Backlog",
+            "value": "6 months",
+            "context": "Marketing requests queued indefinitely"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "The Headless Solution",
+        "id": "solution"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We migrated to a headless Strapi CMS with a custom content workflow, enabling marketing to publish directly while maintaining quality controls. The new architecture decoupled content from presentation, allowing a single content source to serve the website, mobile app, and partner portals simultaneously."
+      }
+    },
+    {
+      "type": "organism.beforeAfterComparison",
+      "atomicLevel": "organism",
+      "props": {
+        "beforeTitle": "Legacy Monolithic CMS",
+        "beforeItems": [
+          "Marketing creates content in Word doc",
+          "Email to development team",
+          "Developer formats and uploads",
+          "QA review cycle (2-3 rounds)",
+          "Production deployment",
+          "Post-publish fixes",
+          "Average time: 48 hours"
+        ],
+        "afterTitle": "Headless Strapi CMS",
+        "afterItems": [
+          "Marketing creates in Strapi editor",
+          "Preview in staging (instant)",
+          "Editor approval (built-in workflow)",
+          "One-click publish",
+          "Automatic deployment to all channels",
+          "Real-time updates",
+          "Average time: 4 hours"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Implementation Approach",
+        "id": "implementation"
+      }
+    },
+    {
+      "type": "organism.processFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Migration Phases",
+        "steps": [
+          {
+            "title": "Phase 1: Discovery",
+            "description": "Audit existing content, identify content types, map workflows",
+            "duration": "2 weeks"
+          },
+          {
+            "title": "Phase 2: Strapi Setup",
+            "description": "Configure content types, build editorial workflow, set up preview",
+            "duration": "3 weeks"
+          },
+          {
+            "title": "Phase 3: Migration",
+            "description": "Content migration scripts, image optimization, URL mapping",
+            "duration": "4 weeks"
+          },
+          {
+            "title": "Phase 4: Training",
+            "description": "Marketing team training, documentation, support processes",
+            "duration": "1 week"
+          },
+          {
+            "title": "Phase 5: Go-Live",
+            "description": "Phased rollout, monitoring, legacy system decommission",
+            "duration": "2 weeks"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "note",
+        "title": "Key Technical Decisions",
+        "body": "Hosting: Railway for Strapi (auto-scaling, managed PostgreSQL). Frontend: Next.js on Vercel (edge caching, instant deployments). Migration: Custom scripts vs manual - automated 80%, manual review 20%. Training: 2-day workshop + written guides + video tutorials. Rollout: Soft launch with 10% traffic for 2 weeks before full cutover."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "05", "title": "The Results", "id": "results" }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Publish Time",
+            "value": "-92%",
+            "change": "48h → 4h",
+            "positive": true
+          },
+          {
+            "label": "Developer Time",
+            "value": "-90%",
+            "change": "20 hrs/week → 2 hrs/week",
+            "positive": true
+          },
+          {
+            "label": "Annual Cost",
+            "value": "-82%",
+            "change": "£45,000 → £8,000",
+            "positive": true
+          },
+          {
+            "label": "Content Output",
+            "value": "+275%",
+            "change": "12/month → 45/month",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "success",
+        "title": "Business Impact Beyond Cost Savings",
+        "body": "Marketing team now publishes 4x more content without additional headcount. Mobile app launched with same content as website (previously impossible). Partner portal integration enabled new revenue stream (£120k/year). Content experiments and A/B testing now possible (previously blocked by developer availability)."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": { "number": "06", "title": "Key Takeaway", "id": "takeaway" }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "text": "Headless CMS pays for itself in developer time savings alone. The content velocity increase is a bonus. When evaluating a migration, focus on the hidden costs of your current system: developer time wasted on content changes, marketing team blocked by technical bottlenecks, and opportunities lost because you can't move fast enough. A modern headless CMS isn't just a technology upgrade—it's a business capability multiplier."
+      }
+    }
+  ]
+}

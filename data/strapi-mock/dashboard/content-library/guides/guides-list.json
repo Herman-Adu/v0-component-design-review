@@ -1,0 +1,40 @@
+{
+  "header": {
+    "title": "Guides",
+    "description": "Comprehensive how-to guides covering deployment, infrastructure, security, and operational best practices."
+  },
+  "stats": [
+    {
+      "label": "Total Guides",
+      "value": 3,
+      "icon": "BookOpen"
+    },
+    {
+      "label": "Categories",
+      "value": 3,
+      "icon": "Layers"
+    },
+    {
+      "label": "Total Sections",
+      "value": 21,
+      "icon": "CheckCircle2"
+    }
+  ],
+  "categories": [
+    {
+      "id": "security",
+      "title": "Security",
+      "color": "red"
+    },
+    {
+      "id": "devops",
+      "title": "DevOps",
+      "color": "blue"
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "color": "orange"
+    }
+  ]
+}

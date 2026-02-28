@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "slug": "writing-your-first-tests",
+    "title": "Writing Your First Tests with Vitest",
+    "excerpt": "Learn test-driven development basics by writing unit tests for a React component",
+    "level": "beginner",
+    "category": "testing",
+    "readTime": "35 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "testing",
+      "vitest",
+      "react-testing-library",
+      "tdd"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Installing Testing Dependencies",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Configuring Vitest",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Creating the Setup File",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Writing Your First Test",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Running Your Tests",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Installing Testing Dependencies",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Add Vitest and React Testing Library to your project."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Install testing dependencies\nnpm install -D vitest @vitejs/plugin-react jsdom\nnpm install -D @testing-library/react @testing-library/jest-dom @testing-library/user-event\n\n# Create vitest.config.ts in your project root",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Vitest is a fast, Vite-powered test runner that works great with modern React projects."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Configuring Vitest",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Create the configuration file for Vitest."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// vitest.config.ts\nimport { defineConfig } from 'vitest/config'\nimport react from '@vitejs/plugin-react'\n\nexport default defineConfig({\n  plugins: [react()],\n  test: {\n    environment: 'jsdom',\n    globals: true,\n    setupFiles: ['./vitest.setup.ts'],\n  },\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Creating the Setup File",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Set up testing utilities that run before each test."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// vitest.setup.ts\nimport '@testing-library/jest-dom'",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "This import adds useful matchers like toBeInTheDocument() and toHaveTextContent()."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Writing Your First Test",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Create a test file for a simple Button component."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/button.test.tsx\nimport { render, screen } from '@testing-library/react'\nimport userEvent from '@testing-library/user-event'\nimport { describe, it, expect, vi } from 'vitest'\n\n// The component we're testing\nfunction Button({ onClick, children }) {\n  return (\n    <button onClick={onClick} className=\"px-4 py-2 bg-blue-600 text-white rounded\">\n      {children}\n    </button>\n  )\n}\n\ndescribe('Button', () => {\n  it('renders with correct text', () => {\n    render(<Button>Click me</Button>)\n    \n    expect(screen.getByRole('button')).toHaveTextContent('Click me')\n  })\n  \n  it('calls onClick when clicked', async () => {\n    const handleClick = vi.fn()\n    render(<Button onClick={handleClick}>Click me</Button>)\n    \n    await userEvent.click(screen.getByRole('button'))\n    \n    expect(handleClick).toHaveBeenCalledTimes(1)\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "We use vi.fn() to create a mock function, then verify it was called after clicking the button."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Running Your Tests",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Add a test script and run your tests."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Add to package.json scripts:\n\"scripts\": {\n  \"test\": \"vitest\",\n  \"test:run\": \"vitest run\"\n}\n\n# Run tests in watch mode:\nnpm test\n\n# Run tests once:\nnpm run test:run\n\n# Expected output:\n# ✓ components/button.test.tsx (2)\n#   ✓ Button (2)\n#     ✓ renders with correct text\n#     ✓ calls onClick when clicked",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Watch mode reruns tests automatically when you change files - great for TDD!"
+      }
+    }
+  ]
+}

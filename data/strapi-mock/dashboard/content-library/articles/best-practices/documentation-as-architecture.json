@@ -1,0 +1,510 @@
+{
+  "meta": {
+    "slug": "documentation-as-architecture",
+    "title": "Documentation as Architecture: Living Docs",
+    "excerpt": "Building documentation that evolves with your codebase",
+    "level": "advanced",
+    "category": "best-practices",
+    "readTime": "12 min",
+    "publishedAt": "2026-02-25",
+    "tags": ["documentation", "architecture", "best-practices", "maintenance"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "why-document", "title": "Why Documentation Matters", "level": 2 },
+    {
+      "id": "documentation-types",
+      "title": "Types of Documentation",
+      "level": 2
+    },
+    { "id": "our-system", "title": "Our Documentation System", "level": 2 },
+    { "id": "living-docs", "title": "Living Documentation", "level": 2 },
+    { "id": "automation", "title": "Automation & Tooling", "level": 2 },
+    { "id": "scaling", "title": "Scaling Documentation", "level": 2 },
+    { "id": "takeaways", "title": "Key Takeaways", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Why Documentation Matters",
+        "id": "why-document"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Documentation is a Product",
+        "body": "Documentation isn't an afterthought - it's a product that serves your team, future developers, and stakeholders. Like any product, it needs design, maintenance, and continuous improvement."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Throughout this project, we treated documentation as code. Every architectural decision, every pattern implementation, every security measure was documented not just for reference, but as a learning resource and decision record."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "users",
+            "title": "Onboarding Speed",
+            "description": "New developers productive in days, not weeks"
+          },
+          {
+            "icon": "shield",
+            "title": "Decision Records",
+            "description": "Understand why choices were made, not just what"
+          },
+          {
+            "icon": "code",
+            "title": "Code Quality",
+            "description": "Documented patterns become enforced standards"
+          },
+          {
+            "icon": "zap",
+            "title": "Reduced Bus Factor",
+            "description": "Knowledge shared, not siloed in individuals"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Types of Documentation",
+        "id": "documentation-types"
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Documentation Hierarchy",
+        "layers": [
+          {
+            "name": "API Reference",
+            "items": [
+              "Component Props",
+              "Function Signatures",
+              "Type Definitions"
+            ],
+            "color": "#3b82f6"
+          },
+          {
+            "name": "How-To Guides",
+            "items": ["Tutorials", "Recipes", "Step-by-Step"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Explanations",
+            "items": ["Architecture", "Design Decisions", "Trade-offs"],
+            "color": "#8b5cf6"
+          },
+          {
+            "name": "Quick Reference",
+            "items": ["Cheatsheets", "Code Examples", "Common Patterns"],
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Documentation That Works",
+        "notIdealTitle": "Documentation That Fails",
+        "idealFor": [
+          "Lives close to the code it describes",
+          "Updated with every code change",
+          "Includes real, working examples",
+          "Explains the 'why' not just 'what'",
+          "Tested and verified automatically",
+          "Easy to search and navigate"
+        ],
+        "notIdealFor": [
+          "Separate wiki nobody updates",
+          "Written once, forgotten forever",
+          "Outdated or broken examples",
+          "Just restates the obvious",
+          "No verification it's accurate",
+          "Buried in nested folders"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Our Documentation System",
+        "id": "our-system"
+      }
+    },
+    {
+      "type": "organism.fileTree",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Documentation Structure",
+        "items": [
+          {
+            "name": "app/dashboard/",
+            "type": "folder",
+            "children": [
+              {
+                "name": "page.tsx",
+                "type": "file",
+                "description": "Getting Started"
+              },
+              {
+                "name": "frontend/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.tsx",
+                    "type": "file",
+                    "description": "Frontend Architecture"
+                  }
+                ]
+              },
+              {
+                "name": "backend/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.tsx",
+                    "type": "file",
+                    "description": "Backend Architecture"
+                  }
+                ]
+              },
+              {
+                "name": "security/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.tsx",
+                    "type": "file",
+                    "description": "Security Implementation"
+                  }
+                ]
+              },
+              {
+                "name": "content-library/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "articles/",
+                    "type": "folder",
+                    "children": [
+                      {
+                        "name": "[slug]/page.tsx",
+                        "type": "file",
+                        "description": "Dynamic articles"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "admin/",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "documentation-health/",
+                    "type": "folder",
+                    "children": [
+                      {
+                        "name": "page.tsx",
+                        "type": "file",
+                        "description": "Health tracking"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Documentation as React Components",
+        "id": null
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Our documentation pages are React components, giving us full control over presentation, interactivity, and consistency."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "components/articles/security-article.tsx",
+        "code": "// Documentation as code - full React component\nexport function SecurityArticle() {\n  return (\n    <div className=\"flex gap-8\">\n      <article className=\"flex-1\">\n        <SectionHeader number=\"01\" title=\"Security Overview\" />\n        \n        <InfoBox type=\"warning\" title=\"Security First\">\n          Every input is sanitized before processing...\n        </InfoBox>\n        \n        <DataFlowDiagram\n          title=\"Security Pipeline\"\n          nodes={[\n            { id: \"input\", label: \"User Input\" },\n            { id: \"sanitize\", label: \"Sanitization\" },\n            { id: \"validate\", label: \"Validation\" },\n            { id: \"store\", label: \"Safe Storage\" },\n          ]}\n        />\n        \n        <CodeBlock\n          filename=\"lib/security/index.ts\"\n          code={actualCodeFromProject}\n        />\n      </article>\n      \n      <TableOfContents items={tocItems} />\n    </div>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Living Documentation",
+        "id": "living-docs"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "Documentation Health Dashboard",
+        "body": "We built a Documentation Health page that tracks coverage, staleness, and gaps. This turns documentation maintenance from a chore into a visible metric."
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Documentation Update Workflow",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Code Change",
+            "description": "Developer modifies component"
+          },
+          {
+            "number": 2,
+            "title": "Doc Check",
+            "description": "Is documentation affected?"
+          },
+          {
+            "number": 3,
+            "title": "Update Docs",
+            "description": "Modify in same PR"
+          },
+          {
+            "number": 4,
+            "title": "Review Both",
+            "description": "Code + docs reviewed together"
+          },
+          {
+            "number": 5,
+            "title": "Health Update",
+            "description": "Update changelog & status"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Tracking Documentation Health",
+        "id": null
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Documentation Health Schema",
+        "code": "interface DocumentationSection {\n  name: string\n  path: string\n  status: \"current\" | \"needs-update\" | \"outdated\" | \"planned\"\n  lastReviewed: string\n  coversComponents: string[]\n  notes?: string\n}\n\nconst documentationSections: DocumentationSection[] = [\n  {\n    name: \"Getting Started\",\n    path: \"/dashboard\",\n    status: \"current\",\n    lastReviewed: \"2026-02-04\",\n    coversComponents: [\"Overview\", \"Quick Start\", \"Architecture\"],\n  },\n  {\n    name: \"Security Implementation\",\n    path: \"/dashboard/documentation/app-reference/security-architecture\",\n    status: \"current\",\n    lastReviewed: \"2026-02-04\",\n    coversComponents: [\"Sanitization\", \"Validation\", \"CSRF\", \"Rate Limiting\"],\n  },\n  // Tracked for every section...\n]"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Automation & Tooling",
+        "id": "automation"
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Documentation Pipeline",
+        "nodes": [
+          {
+            "label": "Write in TSX",
+            "description": "Full React power",
+            "icon": "code"
+          },
+          {
+            "label": "Use Components",
+            "description": "Consistent styling",
+            "icon": "layers"
+          },
+          {
+            "label": "Build & Deploy",
+            "description": "With application",
+            "icon": "zap"
+          },
+          {
+            "label": "Track Health",
+            "description": "Dashboard metrics",
+            "icon": "barChart"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Reusable Documentation Components",
+        "id": null
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 3,
+        "features": [
+          {
+            "icon": "code",
+            "title": "CodeBlock",
+            "description": "Syntax highlighted with copy button and filename"
+          },
+          {
+            "icon": "layers",
+            "title": "ArchitectureDiagram",
+            "description": "Layered architecture visualization"
+          },
+          {
+            "icon": "gitBranch",
+            "title": "DataFlowDiagram",
+            "description": "Show how data moves through system"
+          },
+          {
+            "icon": "barChart",
+            "title": "MetricCard",
+            "description": "Display performance metrics with trends"
+          },
+          {
+            "icon": "checkCircle",
+            "title": "ComparisonCards",
+            "description": "Side-by-side do/don't comparisons"
+          },
+          {
+            "icon": "list",
+            "title": "TableOfContents",
+            "description": "Sticky navigation with scroll tracking"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Scaling Documentation",
+        "id": "scaling"
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Doc Pages",
+            "value": "25+",
+            "change": "+400%",
+            "positive": true
+          },
+          {
+            "label": "Coverage",
+            "value": "95%",
+            "change": "+60%",
+            "positive": true
+          },
+          {
+            "label": "Articles",
+            "value": "14",
+            "change": "New",
+            "positive": true
+          },
+          {
+            "label": "Components",
+            "value": "15+",
+            "change": "Reusable",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "What We Document",
+        "notIdealTitle": "What We Generate",
+        "idealFor": [
+          "Architecture decisions and trade-offs",
+          "Security implementation details",
+          "Component patterns and usage",
+          "API integration approaches",
+          "Deployment and operations",
+          "Troubleshooting guides"
+        ],
+        "notIdealFor": [
+          "TypeScript types from schemas",
+          "API documentation from routes",
+          "Component props from TypeScript",
+          "Test coverage reports",
+          "Bundle analysis",
+          "Performance metrics"
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": "The 3-Click Rule",
+        "body": "Any developer should be able to find any piece of documentation within 3 clicks from the dashboard homepage. If it takes more, the navigation needs improvement."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaways",
+        "id": "takeaways"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Documentation is code: write in the same repo and PRs, use reusable components for consistency, track documentation health like code coverage, include working examples, explain why decisions were made, and keep it searchable and beautiful."
+      }
+    }
+  ]
+}

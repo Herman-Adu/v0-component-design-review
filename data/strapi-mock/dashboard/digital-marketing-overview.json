@@ -1,0 +1,117 @@
+{
+  "header": {
+    "icon": "Megaphone",
+    "title": "Digital Marketing",
+    "description": "Centralized platform marketing for your electrical services business. Manage your presence on Google, LinkedIn, Twitter/X, and Facebook with professional tools for content creation, SEO, advertising, and analytics.",
+    "badges": [
+      { "text": "4 Platforms", "variant": "outline" },
+      { "text": "13 Pages", "variant": "outline" },
+      { "text": "Google Active", "variant": "success" }
+    ]
+  },
+  "authNotice": {
+    "icon": "Lock",
+    "title": "Authentication Required",
+    "description": "In production, Digital Marketing tools require authentication. Role-based access control will restrict platform management based on user permissions. Currently in development mode for demonstration.",
+    "type": "warning"
+  },
+  "quickStats": [
+    {
+      "id": "platforms",
+      "label": "Platforms",
+      "value": 4,
+      "description": "Google, LinkedIn, Twitter, Facebook"
+    },
+    {
+      "id": "active-tools",
+      "label": "Active Tools",
+      "value": 7,
+      "description": "Google platform suite"
+    },
+    {
+      "id": "total-pages",
+      "label": "Total Pages",
+      "value": 13,
+      "description": "Across all platforms"
+    },
+    {
+      "id": "status",
+      "label": "Status",
+      "value": "Active",
+      "description": "Google platform live"
+    }
+  ],
+  "quickLinks": [
+    {
+      "id": "getting-started",
+      "href": "/dashboard/admin/digital-marketing/getting-started",
+      "icon": "Rocket",
+      "title": "Getting Started",
+      "description": "Role-based onboarding guide for the Digital Marketing section"
+    },
+    {
+      "id": "content-strategy",
+      "href": "/dashboard/admin/digital-marketing/content-strategy",
+      "icon": "TrendingUp",
+      "title": "Content Strategy",
+      "description": "Editorial calendar, distribution channels, and content pipeline"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "google",
+      "href": "/dashboard/admin/digital-marketing/google",
+      "icon": "Search",
+      "title": "Google",
+      "description": "Business Profile, SEO, Tag Manager, Ads & Campaigns, Analytics, and Content Composer. Full ecosystem management.",
+      "status": "Active",
+      "badge": "7 Tools",
+      "badgeColor": "blue",
+      "iconColor": "blue",
+      "pages": [
+        { "label": "Business Profile & FAQs", "icon": "Building2" },
+        { "label": "SEO & Site Optimization", "icon": "Search" },
+        { "label": "Tag Manager", "icon": "Tag" },
+        { "label": "Ads & Campaigns", "icon": "DollarSign" },
+        { "label": "Analytics & Reporting", "icon": "LineChart" },
+        { "label": "Content Composer", "icon": "PenSquare" }
+      ]
+    },
+    {
+      "id": "linkedin",
+      "href": "/dashboard/admin/digital-marketing/linkedin",
+      "icon": "Share2",
+      "title": "LinkedIn",
+      "description": "Company page management, professional post composer, article publishing, and B2B engagement strategy.",
+      "status": "Coming Soon",
+      "badge": "B2B Focus",
+      "badgeColor": "sky",
+      "iconColor": "sky",
+      "pages": []
+    },
+    {
+      "id": "twitter",
+      "href": "/dashboard/admin/digital-marketing/twitter",
+      "icon": "Globe",
+      "title": "Twitter/X",
+      "description": "Tweet composer with character limits, thread builder, hashtag strategy, and real-time engagement tracking.",
+      "status": "Coming Soon",
+      "badge": "Quick Updates",
+      "badgeColor": "neutral",
+      "iconColor": "neutral",
+      "pages": []
+    },
+    {
+      "id": "facebook",
+      "href": "/dashboard/admin/digital-marketing/facebook",
+      "icon": "Users",
+      "title": "Facebook",
+      "description": "Business page management, post composer, event creation, community engagement, and Messenger configuration.",
+      "status": "Coming Soon",
+      "badge": "Community",
+      "badgeColor": "indigo",
+      "iconColor": "indigo",
+      "pages": []
+    }
+  ]
+}

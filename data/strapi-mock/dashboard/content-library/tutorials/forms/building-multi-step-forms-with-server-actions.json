@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "slug": "building-multi-step-forms-with-server-actions",
+    "title": "Building Multi-Step Forms with Server Actions",
+    "excerpt": "Build a multi-step service request form using React Server Actions, Zod validation, and progressive enhancement. No client-side form libraries needed.",
+    "level": "intermediate",
+    "category": "forms",
+    "readTime": "40 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "forms",
+      "server-actions",
+      "zod",
+      "validation",
+      "progressive-enhancement",
+      "next.js"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Defining the Form Schema with Zod",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Creating the Server Actions",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Building the Multi-Step Form Component",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Error Handling and Field-Level Validation Messages",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Defining the Form Schema with Zod",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Start by defining what data each step collects. Zod schemas serve double duty: they validate on the server (security) and generate TypeScript types (developer experience). We split the schema into per-step schemas and a combined schema."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-1-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/validations/service-request.ts\nimport { z } from \"zod\"\n\n// Step 1: Contact Information\nexport const contactSchema = z.object({\n  name: z.string().min(2, \"Name must be at least 2 characters\"),\n  email: z.string().email(\"Please enter a valid email address\"),\n  phone: z.string().min(10, \"Phone number must be at least 10 digits\"),\n})\n\n// Step 2: Service Details\nexport const serviceSchema = z.object({\n  serviceType: z.enum(\n    [\"emergency\", \"installation\", \"maintenance\", \"inspection\"],\n    { required_error: \"Please select a service type\" }\n  ),\n  description: z.string().min(20, \"Please describe the issue in at least 20 characters\"),\n  urgency: z.enum([\"low\", \"medium\", \"high\", \"critical\"]),\n})\n\n// Step 3: Scheduling\nexport const scheduleSchema = z.object({\n  preferredDate: z.string().min(1, \"Please select a preferred date\"),\n  preferredTime: z.enum([\"morning\", \"afternoon\", \"evening\"]),\n  address: z.string().min(10, \"Please provide your full address\"),\n  accessNotes: z.string().optional(),\n})\n\n// Combined schema for final submission\nexport const serviceRequestSchema = contactSchema\n  .merge(serviceSchema)\n  .merge(scheduleSchema)\n\n// Infer TypeScript types from schemas\nexport type ContactData = z.infer<typeof contactSchema>\nexport type ServiceData = z.infer<typeof serviceSchema>\nexport type ScheduleData = z.infer<typeof scheduleSchema>\nexport type ServiceRequest = z.infer<typeof serviceRequestSchema>",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Splitting the schema per step means you can validate each step independently. The combined schema validates the complete submission. Zod's .merge() combines them without duplication."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Creating the Server Actions",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Each step has its own server action that validates the step data and returns either success (proceed to next step) or errors (show validation messages). The final step validates everything and submits to the database."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/service-request/actions.ts\n\"use server\"\n\nimport { contactSchema, serviceSchema, scheduleSchema, serviceRequestSchema } from \"@/lib/validations/service-request\"\n\ntype StepResult = {\n  success: boolean\n  errors?: Record<string, string[]>\n  data?: Record<string, unknown>\n}\n\nexport async function validateContactStep(formData: FormData): Promise<StepResult> {\n  const raw = {\n    name: formData.get(\"name\"),\n    email: formData.get(\"email\"),\n    phone: formData.get(\"phone\"),\n  }\n  \n  const result = contactSchema.safeParse(raw)\n  \n  if (!result.success) {\n    return {\n      success: false,\n      errors: result.error.flatten().fieldErrors as Record<string, string[]>,\n    }\n  }\n  \n  return { success: true, data: result.data }\n}\n\nexport async function validateServiceStep(formData: FormData): Promise<StepResult> {\n  const raw = {\n    serviceType: formData.get(\"serviceType\"),\n    description: formData.get(\"description\"),\n    urgency: formData.get(\"urgency\"),\n  }\n  \n  const result = serviceSchema.safeParse(raw)\n  \n  if (!result.success) {\n    return {\n      success: false,\n      errors: result.error.flatten().fieldErrors as Record<string, string[]>,\n    }\n  }\n  \n  return { success: true, data: result.data }\n}\n\nexport async function submitServiceRequest(formData: FormData): Promise<StepResult> {\n  // Validate ALL fields together for the final submission\n  const raw = Object.fromEntries(formData.entries())\n  const result = serviceRequestSchema.safeParse(raw)\n  \n  if (!result.success) {\n    return {\n      success: false,\n      errors: result.error.flatten().fieldErrors as Record<string, string[]>,\n    }\n  }\n  \n  // All validation passed -- save to database\n  // await db.serviceRequests.create({ data: result.data })\n  \n  return { success: true }\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Each action validates only its own step's fields. The final submission re-validates everything as a safety net. This pattern means even if a user manipulates the client-side step progression, the server catches invalid data."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Building the Multi-Step Form Component",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The form component tracks the current step and accumulated data. Each step is a separate sub-component that renders its own fields. Hidden inputs carry forward data from previous steps so the final form submission has everything."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/service-request/form.tsx\n\"use client\"\n\nimport { useState, useActionState } from \"react\"\nimport { validateContactStep, validateServiceStep, submitServiceRequest } from \"./actions\"\n\ntype FormData = Record<string, string>\n\nexport function ServiceRequestForm() {\n  const [step, setStep] = useState(1)\n  const [savedData, setSavedData] = useState<FormData>({})\n  const [errors, setErrors] = useState<Record<string, string[]>>({})\n\n  async function handleStepSubmit(formData: globalThis.FormData) {\n    let result\n\n    if (step === 1) {\n      result = await validateContactStep(formData)\n    } else if (step === 2) {\n      result = await validateServiceStep(formData)\n    } else {\n      result = await submitServiceRequest(formData)\n    }\n\n    if (!result.success) {\n      setErrors(result.errors ?? {})\n      return\n    }\n\n    // Save this step's data and advance\n    const stepData = Object.fromEntries(formData.entries()) as FormData\n    setSavedData((prev) => ({ ...prev, ...stepData }))\n    setErrors({})\n\n    if (step < 3) {\n      setStep((s) => s + 1)\n    } else {\n      // Success! Redirect or show confirmation\n    }\n  }\n\n  return (\n    <form action={handleStepSubmit} className=\"space-y-6\">\n      {/* Carry forward data from previous steps as hidden inputs */}\n      {Object.entries(savedData).map(([key, value]) => (\n        <input key={key} type=\"hidden\" name={key} value={value} />\n      ))}\n\n      {/* Step indicator */}\n      <div className=\"flex gap-2\">\n        {[1, 2, 3].map((s) => (\n          <div\n            key={s}\n            className={`h-2 flex-1 rounded ${\n              s <= step ? \"bg-primary\" : \"bg-muted\"\n            }`}\n          />\n        ))}\n      </div>\n\n      {/* Render current step */}\n      {step === 1 && <ContactFields errors={errors} defaults={savedData} />}\n      {step === 2 && <ServiceFields errors={errors} defaults={savedData} />}\n      {step === 3 && <ScheduleFields errors={errors} defaults={savedData} />}\n\n      {/* Navigation */}\n      <div className=\"flex justify-between\">\n        {step > 1 && (\n          <button\n            type=\"button\"\n            onClick={() => setStep((s) => s - 1)}\n            className=\"btn-secondary\"\n          >\n            Back\n          </button>\n        )}\n        <button type=\"submit\" className=\"btn-primary ml-auto\">\n          {step === 3 ? \"Submit Request\" : \"Continue\"}\n        </button>\n      </div>\n    </form>\n  )\n}\n\n// Example field component with error display\nfunction ContactFields({\n  errors,\n  defaults,\n}: {\n  errors: Record<string, string[]>\n  defaults: FormData\n}) {\n  return (\n    <div className=\"space-y-4\">\n      <div>\n        <label htmlFor=\"name\" className=\"block text-sm font-medium\">\n          Full Name\n        </label>\n        <input\n          id=\"name\"\n          name=\"name\"\n          defaultValue={defaults.name}\n          className=\"mt-1 w-full rounded border p-2\"\n          required\n        />\n        {errors.name && (\n          <p className=\"mt-1 text-sm text-destructive\">{errors.name[0]}</p>\n        )}\n      </div>\n      {/* ... email and phone fields follow same pattern */}\n    </div>\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Hidden inputs carry forward validated data from previous steps. When the user clicks 'Back', the component re-renders with their previous values preserved via the defaults prop. The final submission includes all fields from all steps."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Error Handling and Field-Level Validation Messages",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Good form UX shows errors exactly where they occur -- next to the field that has the problem, not in a generic error banner. Zod's flatten() method gives us field-level error arrays that map directly to form fields."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// The error display pattern:\n\n// 1. Server action returns field-level errors:\n// { errors: { email: [\"Please enter a valid email address\"] } }\n\n// 2. Component renders error below the field:\n{errors.email && (\n  <p role=\"alert\" className=\"mt-1 text-sm text-destructive\">\n    {errors.email[0]}\n  </p>\n)}\n\n// 3. Accessibility: use role=\"alert\" so screen readers announce errors\n// 4. Only show the first error per field (avoid overwhelming the user)\n// 5. Clear errors when the user starts typing (optional UX improvement)\n\n// Bonus: Add aria-invalid to the input when it has errors\n<input\n  name=\"email\"\n  aria-invalid={!!errors.email}\n  aria-describedby={errors.email ? \"email-error\" : undefined}\n  className={cn(\n    \"rounded border p-2\",\n    errors.email && \"border-destructive\"\n  )}\n/>",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Always validate on the server, even if you add client-side validation later. Client-side validation is a UX convenience; server-side validation is a security requirement."
+      }
+    }
+  ]
+}

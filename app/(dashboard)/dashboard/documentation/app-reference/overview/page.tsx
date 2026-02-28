@@ -1,187 +1,151 @@
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { FolderCog, LayoutGrid, Shield, Layers, Code, Mail, ShieldCheck, Zap, ArrowRight, Lightbulb } from "lucide-react"
+import Link from "next/link";
+import * as Icons from "lucide-react";
+import appRefData from "@/data/strapi-mock/dashboard/app-reference-overview.json";
+import type {
+  AppReferenceOverviewContent,
+  DashboardIconName,
+} from "@/types/dashboard";
+
+const appRefContent = appRefData as AppReferenceOverviewContent;
+
+const iconMap: Record<
+  DashboardIconName,
+  React.ComponentType<{ className?: string }>
+> = {
+  Code: Icons.Code,
+  Database: Icons.Database,
+  Rocket: Icons.Rocket,
+  Layers: Icons.Layers,
+  Shield: Icons.Shield,
+  ShieldCheck: Icons.ShieldCheck,
+  BookOpen: Icons.BookOpen,
+  LayoutGrid: Icons.LayoutGrid,
+  Zap: Icons.Zap,
+  TestTube: Icons.TestTube,
+  ArrowRight: Icons.ArrowRight,
+  Lock: Icons.Lock,
+  HeartPulse: Icons.HeartPulse,
+  Activity: Icons.Activity,
+  SearchCheck: Icons.SearchCheck,
+  Link2: Icons.Link2,
+  ClipboardCheck: Icons.ClipboardCheck,
+  FileCheck: Icons.FileCheck,
+  Wrench: Icons.Wrench,
+  Compass: Icons.Compass,
+  FlaskConical: Icons.FlaskConical,
+  Target: Icons.Target,
+  Megaphone: Icons.Megaphone,
+  MailCheck: Icons.MailCheck,
+  Share2: Icons.Share2,
+  Users: Icons.Users,
+  BarChart3: Icons.BarChart3,
+  Settings: Icons.Settings,
+  Search: Icons.Search,
+  Globe: Icons.Globe,
+  TrendingUp: Icons.TrendingUp,
+  Building2: Icons.Building2,
+  Tag: Icons.Tag,
+  DollarSign: Icons.DollarSign,
+  LineChart: Icons.LineChart,
+  PenSquare: Icons.PenSquare,
+  Briefcase: Icons.Briefcase,
+  Palette: Icons.Palette,
+  HardDrive: Icons.HardDrive,
+  MessageSquare: Icons.MessageSquare,
+  Server: Icons.Server,
+  Clock: Icons.Clock,
+  Mail: Icons.Mail,
+  AlertCircle: Icons.AlertCircle,
+  GraduationCap: Icons.GraduationCap,
+  FileText: Icons.FileText,
+  CheckCircle2: Icons.CheckCircle2,
+  Heart: Icons.Heart,
+  Sparkles: Icons.Sparkles,
+  LinkedinIcon: Icons.Linkedin,
+  TwitterIcon: Icons.Twitter,
+  FacebookIcon: Icons.Facebook,
+  InstagramIcon: Icons.Instagram,
+  Route: Icons.Route,
+  Cloud: Icons.Cloud,
+  Lightbulb: Icons.Lightbulb,
+  Gauge: Icons.Gauge,
+  Link: Icons.Link,
+  CheckCircle: Icons.CheckCircle,
+};
+
+const getIcon = (iconName: DashboardIconName) =>
+  iconMap[iconName] || Icons.Code;
+
+const getColorClass = (color: string) => {
+  const colors: Record<string, string> = {
+    blue: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+    emerald: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    red: "bg-red-500/15 text-red-400 border-red-500/30",
+    purple: "bg-purple-500/15 text-purple-400 border-purple-500/30",
+    amber: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+  };
+  return colors[color] || "bg-accent/15 text-accent border-accent/30";
+};
 
 export default function AppReferencePage() {
-  const features = [
-    {
-      title: "Component System",
-      description:
-        "Atomic design inventory: every atom, molecule, and organism with usage counts, prop interfaces, and composition patterns. The structural blueprint of the UI.",
-      icon: LayoutGrid,
-      href: "/dashboard/documentation/app-reference/component-system",
-      role: "Developer / Architect",
-      roleColor: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-      iconColor: "bg-blue-500/10 text-blue-400",
-    },
-    {
-      title: "Hydration & Guards",
-      description:
-        "Hydration mismatch solutions, the global useHydration guard pattern, useSyncExternalStore for safe browser API access, and Suspense boundary rules.",
-      icon: Shield,
-      href: "/dashboard/documentation/app-reference/hydration-and-guards",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-emerald-500/10 text-emerald-400",
-    },
-    {
-      title: "Server vs Client",
-      description:
-        "Decision matrix for when to use React Server Components vs Client Components. Data flow patterns, rendering strategies, and performance tradeoffs.",
-      icon: Layers,
-      href: "/dashboard/documentation/app-reference/server-vs-client",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-purple-500/10 text-purple-400",
-    },
-    {
-      title: "Server Actions & API",
-      description:
-        "Server action architecture with Zod validation, error handling patterns, type-safe action results, and the shared action types system.",
-      icon: Code,
-      href: "/dashboard/documentation/app-reference/server-actions-and-api",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-amber-500/10 text-amber-400",
-    },
-    {
-      title: "Email System",
-      description:
-        "React Email template architecture, Resend delivery integration, urgency-based styling, and the complete email notification pipeline.",
-      icon: Mail,
-      href: "/dashboard/documentation/app-reference/email-system",
-      role: "Developer",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-cyan-500/10 text-cyan-400",
-    },
-    {
-      title: "Security Architecture",
-      description:
-        "7-layer defense-in-depth: CSRF protection, rate limiting, input sanitisation, security headers, honeypot bot detection, and environment variable security.",
-      icon: ShieldCheck,
-      href: "/dashboard/documentation/app-reference/security-architecture",
-      role: "Developer / CTO",
-      roleColor: "bg-red-500/15 text-red-400 border-red-500/30",
-      iconColor: "bg-red-500/10 text-red-400",
-    },
-    {
-      title: "Performance & Caching",
-      description:
-        "TanStack Query caching strategies, Next.js cache configuration, image optimisation, bundle analysis, and server-side rendering performance patterns.",
-      icon: Zap,
-      href: "/dashboard/documentation/app-reference/performance-and-caching",
-      role: "Developer / DevOps",
-      roleColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-      iconColor: "bg-amber-500/10 text-amber-400",
-    },
-  ]
+  const { header, sections, badges } = appRefContent;
+  const HeaderIcon = getIcon(header.icon);
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-            <FolderCog className="h-5 w-5 text-primary" />
+            <HeaderIcon className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground text-balance">App Reference</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground text-balance">
+              {header.title}
+            </h1>
             <p className="text-muted-foreground text-pretty">
-              Next.js frontend architecture, patterns, integration guides, and security implementation.
+              {header.description}
             </p>
           </div>
         </div>
         <div className="flex gap-2 mt-2">
-          <Badge className="text-xs bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20">Developer</Badge>
-          <Badge className="text-xs bg-blue-500/15 text-blue-400 border-blue-500/30 hover:bg-blue-500/20">Architect</Badge>
+          {badges.map((badge) => (
+            <div
+              key={badge}
+              className="text-xs px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+            >
+              {badge}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Quick stats */}
-      <div className="responsive-grid-3">
-        <Card className="border-blue-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Architecture Patterns</CardDescription>
-            <CardTitle className="text-2xl">7</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Component system, hydration, SSR, security, and more</p>
-          </CardContent>
-        </Card>
-        <Card className="border-red-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Security Layers</CardDescription>
-            <CardTitle className="text-2xl">7</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Defense-in-depth from CSRF to env security</p>
-          </CardContent>
-        </Card>
-        <Card className="border-emerald-500/20">
-          <CardHeader className="pb-2">
-            <CardDescription>Reference Pages</CardDescription>
-            <CardTitle className="text-2xl">7</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">Complete frontend documentation</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Feature cards */}
-      <div className="responsive-grid-2">
-        {features.map((feature) => {
-          const Icon = feature.icon
+      <div className="grid gap-6 md:grid-cols-2">
+        {sections.map((section) => {
+          const SectionIcon = getIcon(section.icon);
           return (
-            <Link key={feature.href} href={feature.href}>
-              <Card className="h-full transition-colors hover:border-primary/30 hover:bg-muted/30">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className={`flex h-9 w-9 items-center justify-center rounded-md ${feature.iconColor}`}>
-                      <Icon className="h-4 w-4" />
-                    </div>
-                    <Badge className={`text-xs ${feature.roleColor}`}>{feature.role}</Badge>
+            <Link key={section.id} href={section.href}>
+              <div
+                className={`rounded-lg border p-6 hover:border-accent/50 transition-all ${getColorClass(section.color)}`}
+              >
+                <div className="flex items-start gap-4">
+                  <SectionIcon className="h-6 w-6 shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-foreground mb-2">
+                      {section.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {section.description}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {section.role}
+                    </p>
                   </div>
-                  <CardTitle className="text-base">{feature.title}</CardTitle>
-                  <CardDescription className="text-sm text-pretty">{feature.description}</CardDescription>
-                </CardHeader>
-              </Card>
+                </div>
+              </div>
             </Link>
-          )
+          );
         })}
       </div>
-
-      {/* Architecture callout */}
-      <Card className="border-primary/20 bg-primary/5">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <Lightbulb className="h-5 w-5 text-primary" />
-            <CardTitle className="text-base">Architecture Principles</CardTitle>
-          </div>
-          <CardDescription className="text-pretty">
-            The application follows a server-first pattern: Server Components by default, Client Components only
-            when interactivity is required. All client boundaries use the global hydration guard pattern. Security
-            is implemented as defense-in-depth with 7 independent layers.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex gap-2">
-          <Link href="/dashboard/documentation/app-reference/component-system">
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-              <LayoutGrid className="h-4 w-4" />
-              Component System
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
-          <Link href="/dashboard/documentation/app-reference/security-architecture">
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-              <ShieldCheck className="h-4 w-4" />
-              Security Architecture
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
-        </CardContent>
-      </Card>
     </div>
-  )
+  );
 }

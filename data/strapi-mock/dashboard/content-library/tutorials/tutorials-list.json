@@ -1,0 +1,73 @@
+{
+  "header": {
+    "title": "Tutorials",
+    "description": "Step-by-step guides with hands-on exercises covering Next.js, Strapi, testing, and integrations. Learn by doing with practical examples."
+  },
+  "stats": [
+    {
+      "level": "beginner",
+      "icon": "BookOpen",
+      "count": 7,
+      "color": "green"
+    },
+    {
+      "level": "intermediate",
+      "icon": "Layers",
+      "count": 7,
+      "color": "yellow"
+    },
+    {
+      "level": "advanced",
+      "icon": "Zap",
+      "count": 1,
+      "color": "red"
+    }
+  ],
+  "categories": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "color": "teal"
+    },
+    {
+      "id": "components",
+      "title": "Components",
+      "color": "blue"
+    },
+    {
+      "id": "forms",
+      "title": "Forms & Validation",
+      "color": "purple"
+    },
+    {
+      "id": "security",
+      "title": "Security",
+      "color": "red"
+    },
+    {
+      "id": "state-management",
+      "title": "State Management",
+      "color": "green"
+    },
+    {
+      "id": "cms",
+      "title": "CMS",
+      "color": "emerald"
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "color": "orange"
+    },
+    {
+      "id": "devops",
+      "title": "DevOps",
+      "color": "pink"
+    },
+    {
+      "id": "email",
+      "title": "Email",
+      "color": "violet"
+    }
+  ]
+}

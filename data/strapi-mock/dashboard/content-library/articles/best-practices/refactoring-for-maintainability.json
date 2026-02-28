@@ -1,0 +1,448 @@
+{
+  "meta": {
+    "slug": "refactoring-for-maintainability",
+    "title": "Refactoring for Maintainability: A Case Study",
+    "excerpt": "How we improved code quality through systematic refactoring",
+    "level": "advanced",
+    "category": "best-practices",
+    "readTime": "18 min",
+    "publishedAt": "2026-02-25",
+    "tags": ["refactoring", "code-quality", "best-practices", "maintainability"]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    { "id": "why-refactor", "title": "Why Refactor?", "level": 2 },
+    { "id": "code-smells", "title": "Recognizing Code Smells", "level": 2 },
+    {
+      "id": "refactoring-patterns",
+      "title": "Refactoring Patterns",
+      "level": 2
+    },
+    { "id": "before-after", "title": "Real Examples", "level": 2 },
+    { "id": "measuring-success", "title": "Measuring Success", "level": 2 },
+    {
+      "id": "continuous-improvement",
+      "title": "Continuous Improvement",
+      "level": 2
+    },
+    { "id": "takeaways", "title": "Key Takeaways", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Why Refactor?",
+        "id": "why-refactor"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "The Refactoring Mindset",
+        "body": "Refactoring is not about fixing bugs or adding features. It's about improving the internal structure of code without changing its external behavior. Think of it as cleaning and organizing while the house still functions perfectly."
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "In our electrical services form project, we continuously refactored to maintain code quality as requirements evolved. What started as a simple contact form grew into a sophisticated multi-step wizard with state management, validation, and email notifications."
+      }
+    },
+    {
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "zap",
+            "title": "Improved Performance",
+            "description": "Optimized renders, reduced bundle size, faster load times"
+          },
+          {
+            "icon": "shield",
+            "title": "Better Security",
+            "description": "Centralized sanitization, type-safe validation, secure patterns"
+          },
+          {
+            "icon": "code",
+            "title": "Maintainability",
+            "description": "Clear separation of concerns, reusable components, consistent patterns"
+          },
+          {
+            "icon": "users",
+            "title": "Team Productivity",
+            "description": "Easier onboarding, predictable code locations, self-documenting architecture"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Recognizing Code Smells",
+        "id": "code-smells"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Code smells are indicators that something might be wrong with your code structure. Learning to recognize them is the first step to effective refactoring."
+      }
+    },
+    {
+      "type": "organism.comparisonCards",
+      "atomicLevel": "organism",
+      "props": {
+        "idealTitle": "Healthy Code Indicators",
+        "notIdealTitle": "Common Code Smells",
+        "idealFor": [
+          "Single responsibility components",
+          "Centralized state management",
+          "Shared validation schemas",
+          "Clear separation of concerns",
+          "Consistent naming conventions",
+          "Configuration in dedicated files"
+        ],
+        "notIdealFor": [
+          "Components over 300 lines",
+          "Props drilling through 3+ levels",
+          "Duplicate validation logic",
+          "Mixed concerns in single file",
+          "Inconsistent naming patterns",
+          "Hardcoded values scattered everywhere"
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Refactoring Patterns",
+        "id": "refactoring-patterns"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Pattern 1: Extract Component",
+        "id": null
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "When a component grows too large, extract logical sections into smaller, focused components."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Before: Monolithic Form",
+        "code": "// One massive 500-line component\nfunction ServiceRequestForm() {\n  const [step, setStep] = useState(1)\n  const [formData, setFormData] = useState({})\n  const [errors, setErrors] = useState({})\n  \n  // 50+ lines of validation logic\n  // 100+ lines of form handlers\n  // 300+ lines of JSX for all 5 steps\n  \n  return (\n    <form>\n      {step === 1 && (/* Personal info fields */)}\n      {step === 2 && (/* Service selection */)}\n      {step === 3 && (/* Property details */)}\n      {step === 4 && (/* Schedule */)}\n      {step === 5 && (/* Review */)}\n    </form>\n  )\n}"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "After: Atomic Components",
+        "code": "// Orchestrating component\nfunction ServiceRequestForm() {\n  const { currentStep } = useFormStore()\n  \n  return (\n    <FormProvider>\n      <ProgressIndicator />\n      <StepRenderer step={currentStep} />\n      <NavigationControls />\n    </FormProvider>\n  )\n}\n\n// Each step is its own focused component\n// PersonalInfoStep.tsx - 80 lines\n// ServiceSelectionStep.tsx - 100 lines\n// PropertyDetailsStep.tsx - 90 lines\n// ScheduleStep.tsx - 70 lines\n// ReviewStep.tsx - 120 lines"
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Extract Component Improvements",
+        "headers": ["Metric", "Before", "After"],
+        "rows": [
+          ["Lines per file", "500+", "< 120"],
+          ["Test coverage", "30%", "85%"],
+          ["Time to understand", "30 min", "5 min"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Pattern 2: Centralize State",
+        "id": null
+      }
+    },
+    {
+      "type": "organism.dataFlowDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "State Management Evolution",
+        "nodes": [
+          {
+            "label": "Props Drilling",
+            "description": "Pass state through every component",
+            "icon": "gitBranch"
+          },
+          {
+            "label": "React Context",
+            "description": "Global but causes re-renders",
+            "icon": "layers"
+          },
+          {
+            "label": "Zustand Store",
+            "description": "Selective subscriptions, persistence",
+            "icon": "database"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "lib/store/use-form-store.ts",
+        "code": "// Centralized state with Zustand\nexport const useFormStore = create<FormState>()(\n  persist(\n    (set, get) => ({\n      currentStep: 1,\n      formData: {},\n      \n      // Actions\n      setStep: (step) => set({ currentStep: step }),\n      updateFormData: (data) => set({ \n        formData: { ...get().formData, ...data } \n      }),\n      reset: () => set({ currentStep: 1, formData: {} }),\n      \n      // Computed\n      canProceed: () => validateStep(get().currentStep, get().formData),\n    }),\n    { name: 'service-form' }\n  )\n)"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Pattern 3: Extract Utilities",
+        "id": null
+      }
+    },
+    {
+      "type": "organism.architectureDiagram",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Utility Extraction",
+        "layers": [
+          {
+            "name": "Components",
+            "items": ["FormInput", "ServiceCard", "DatePicker"],
+            "color": "#3b82f6"
+          },
+          {
+            "name": "Hooks",
+            "items": ["useFormValidation", "useDebounce", "useFormStore"],
+            "color": "#8b5cf6"
+          },
+          {
+            "name": "Utilities",
+            "items": ["sanitizeInput", "formatDate", "generateId"],
+            "color": "#22c55e"
+          },
+          {
+            "name": "Constants",
+            "items": ["SERVICE_TYPES", "TIME_SLOTS", "VALIDATION_RULES"],
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Real Examples",
+        "id": "before-after"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Validation Refactoring",
+        "id": null
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Before: Inline Validation",
+        "code": "// Scattered across components\nif (!email || !email.includes('@')) {\n  setErrors({ email: 'Invalid email' })\n}\nif (!phone || phone.length < 10) {\n  setErrors({ phone: 'Invalid phone' })\n}\n// Repeated in multiple places..."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "After: Centralized Zod Schemas",
+        "code": "// lib/validation/schemas.ts\nexport const personalInfoSchema = z.object({\n  email: z.string()\n    .email('Please enter a valid email')\n    .transform(sanitizeEmail),\n  phone: z.string()\n    .regex(phoneRegex, 'Please enter a valid UK phone number')\n    .transform(sanitizePhone),\n})\n\n// Usage in components\nconst result = personalInfoSchema.safeParse(data)\nif (!result.success) {\n  return formatZodErrors(result.error)\n}"
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Validation Refactoring Impact",
+        "headers": ["Metric", "Before", "After"],
+        "rows": [
+          ["Validation code", "200 lines scattered", "50 lines centralized"],
+          ["Consistency", "Varies by component", "100% consistent"],
+          ["Type safety", "None", "Full TypeScript inference"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Security Refactoring",
+        "id": null
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "Before: No Sanitization",
+        "code": "// Direct user input to database\nawait db.insert({\n  name: formData.name,\n  email: formData.email,\n  message: formData.message,\n})"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "filename": "After: Defense in Depth",
+        "code": "// Security pipeline\nconst sanitized = sanitizeFormData(formData)\nconst validated = schema.parse(sanitized)\nconst safe = {\n  name: escapeHtml(validated.name),\n  email: validated.email.toLowerCase(),\n  message: escapeHtml(validated.message),\n}\nawait db.insert(safe)"
+      }
+    },
+    {
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Refactoring Impact",
+        "headers": ["Metric", "Before", "After"],
+        "rows": [
+          ["XSS Protection", "None", "Full"],
+          ["SQL Injection", "Vulnerable", "Protected"],
+          ["Input Validation", "Client only", "Client + Server"]
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Measuring Success",
+        "id": "measuring-success"
+      }
+    },
+    {
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Code Coverage",
+            "value": "85%",
+            "change": "+55%",
+            "positive": true
+          },
+          {
+            "label": "Bundle Size",
+            "value": "124kb",
+            "change": "-40%",
+            "positive": true
+          },
+          {
+            "label": "Build Time",
+            "value": "12s",
+            "change": "-60%",
+            "positive": true
+          },
+          {
+            "label": "Bug Reports",
+            "value": "2/month",
+            "change": "-80%",
+            "positive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Continuous Improvement",
+        "id": "continuous-improvement"
+      }
+    },
+    {
+      "type": "organism.stepFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Our Refactoring Workflow",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Identify",
+            "description": "Spot code smells in reviews"
+          },
+          {
+            "number": 2,
+            "title": "Plan",
+            "description": "Document what needs changing"
+          },
+          {
+            "number": 3,
+            "title": "Test",
+            "description": "Write tests before refactoring"
+          },
+          {
+            "number": 4,
+            "title": "Refactor",
+            "description": "Small, incremental changes"
+          },
+          {
+            "number": 5,
+            "title": "Verify",
+            "description": "Run tests, review, deploy"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "The Boy Scout Rule",
+        "body": "Always leave the code better than you found it. Even small improvements - renaming a variable, extracting a constant, adding a type annotation - compound over time into significant gains."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Key Takeaways",
+        "id": "takeaways"
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "body": "Refactoring is an investment: start with clear code smells, write tests first, make small incremental changes, extract and standardize patterns, measure improvements, and build refactoring into your regular workflow."
+      }
+    }
+  ]
+}

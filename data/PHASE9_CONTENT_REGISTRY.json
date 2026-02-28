@@ -1,0 +1,339 @@
+{
+  "version": "0.1",
+  "date": "2026-02-25",
+  "status": "draft",
+  "pages": [
+    {
+      "path": "/",
+      "family": "marketing",
+      "strapiType": "single",
+      "entity": "marketing-home",
+      "dataSource": "data/strapi-mock/marketing/marketing-home.json",
+      "type": "types/marketing.ts#MarketingHomeContent",
+      "blocks": ["HeroBlock", "FeatureGridBlock", "CTAGroupBlock"],
+      "status": "done"
+    },
+    {
+      "path": "/services",
+      "family": "marketing",
+      "strapiType": "single",
+      "entity": "services",
+      "dataSource": "data/strapi-mock/marketing/services.json",
+      "type": "types/marketing.ts#MarketingServicesContent",
+      "blocks": ["HeroBlock", "FeatureGridBlock", "FAQBlock"],
+      "status": "done"
+    },
+    {
+      "path": "/quotation",
+      "family": "marketing",
+      "strapiType": "single",
+      "entity": "quotation",
+      "dataSource": "data/strapi-mock/marketing/quotation.json",
+      "type": "types/marketing.ts#MarketingQuotationContent",
+      "blocks": ["HeroBlock", "CTAGroupBlock"],
+      "status": "done"
+    },
+    {
+      "path": "/contact",
+      "family": "marketing",
+      "strapiType": "single",
+      "entity": "contact",
+      "dataSource": "data/strapi-mock/marketing/contact.json",
+      "type": "types/marketing.ts#MarketingContactContent",
+      "blocks": ["HeroBlock", "FormBlock", "CTAGroupBlock"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "dashboard-getting-started",
+      "dataSource": "data/strapi-mock/dashboard/dashboard-getting-started.json",
+      "type": "types/dashboard.ts#DashboardGettingStartedContent",
+      "blocks": [
+        "HeroBlock",
+        "NavigationCards",
+        "FeatureGrid",
+        "QuickStartGuides",
+        "TopicsOverview"
+      ],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "admin-overview",
+      "dataSource": "data/strapi-mock/dashboard/admin-overview.json",
+      "type": "types/dashboard.ts#AdminOverviewContent",
+      "blocks": [
+        "HeroBlock",
+        "SecurityNotice",
+        "StatsGrid",
+        "ToolCards",
+        "UpcomingFeatures"
+      ],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/digital-marketing",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "digital-marketing-overview",
+      "dataSource": "data/strapi-mock/dashboard/digital-marketing-overview.json",
+      "type": "types/dashboard.ts#DigitalMarketingOverviewContent",
+      "blocks": [
+        "HeroBlock",
+        "AuthNotice",
+        "StatsGrid",
+        "QuickLinks",
+        "PlatformCards"
+      ],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/document-administration",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "document-administration-overview",
+      "dataSource": "data/strapi-mock/dashboard/document-administration-overview.json",
+      "type": "types/dashboard.ts#DocumentAdministrationOverviewContent",
+      "blocks": ["HeroBlock", "SectionCards", "Highlights", "QuickLinks"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/email-administration",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "email-administration-overview",
+      "dataSource": "data/strapi-mock/dashboard/email-administration-overview.json",
+      "type": "types/dashboard.ts#EmailAdministrationOverviewContent",
+      "blocks": ["HeroBlock", "SectionCards", "Highlights", "QuickLinks"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "content-library-overview",
+      "dataSource": "data/strapi-mock/dashboard/content-library-overview.json",
+      "type": "types/dashboard.ts#ContentLibraryOverviewContent",
+      "blocks": [
+        "HeaderBlock",
+        "ContentTypeCards",
+        "StatsGrid",
+        "AudienceSections"
+      ],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/documentation/app-reference/overview",
+      "family": "documentation",
+      "strapiType": "single",
+      "entity": "app-reference-overview",
+      "dataSource": "data/strapi-mock/dashboard/app-reference-overview.json",
+      "type": "types/dashboard.ts#AppReferenceOverviewContent",
+      "blocks": ["HeaderBlock", "DocSectionCards", "RoleBadges"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/documentation/cms-reference/overview",
+      "family": "documentation",
+      "strapiType": "single",
+      "entity": "cms-reference-overview",
+      "dataSource": "data/strapi-mock/dashboard/cms-reference-overview.json",
+      "type": "types/dashboard.ts#CmsReferenceOverviewContent",
+      "blocks": ["HeaderBlock", "DocSectionCards", "RoleBadges"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/documentation/infrastructure-and-ops/overview",
+      "family": "documentation",
+      "strapiType": "single",
+      "entity": "infrastructure-ops-overview",
+      "dataSource": "data/strapi-mock/dashboard/infrastructure-ops-overview.json",
+      "type": "types/dashboard.ts#InfrastructureOpsOverviewContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "DocSectionCards", "RoleBadges"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/documentation/strategic-overview/overview",
+      "family": "documentation",
+      "strapiType": "single",
+      "entity": "strategic-overview",
+      "dataSource": "data/strapi-mock/dashboard/strategic-overview.json",
+      "type": "types/dashboard.ts#StrategicOverviewContent",
+      "blocks": [
+        "HeaderBlock",
+        "DocSectionCards",
+        "AudiencePathways",
+        "RoleBadges"
+      ],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/articles",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "articles-list",
+      "dataSource": "data/strapi-mock/dashboard/articles-list.json",
+      "type": "types/dashboard.ts#ArticlesListContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/tutorials",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "tutorials-list",
+      "dataSource": "data/strapi-mock/dashboard/content-library/tutorials-list.json",
+      "type": "types/dashboard.ts#TutorialsListContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/case-studies",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "case-studies-list",
+      "dataSource": "data/strapi-mock/dashboard/case-studies-list.json",
+      "type": "types/dashboard.ts#CaseStudiesListContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/case-studies/[category]/[slug]",
+      "family": "content-library",
+      "strapiType": "collection",
+      "entity": "case-studies",
+      "dataSource": "data/strapi-mock/dashboard/case-studies/",
+      "type": "types/dashboard.ts#CaseStudyDetailContent",
+      "repository": "lib/strapi/case-study-repository.ts",
+      "blocks": [
+        "ContentBlockRenderer",
+        "SectionHeader",
+        "InfoBox",
+        "CodeBlock",
+        "KeyTakeaway",
+        "MetricsGrid",
+        "ArchitectureDiagram",
+        "VerticalFlow",
+        "BeforeAfterComparison",
+        "StatsTable",
+        "FeatureGrid"
+      ],
+      "status": "in-progress",
+      "progress": "7/16",
+      "completed": [
+        "client-to-server-components (performance)",
+        "form-validation-refactor (security)",
+        "state-management-evolution (architecture)",
+        "security-layer-implementation (security)",
+        "email-system-consolidation (architecture)",
+        "multi-step-form-prototype-to-production (forms)",
+        "choosing-rendering-strategy-per-page (rendering)"
+      ],
+      "remaining": 9,
+      "notes": "Batch 1 (3) + Batch 2 (4) complete. Batch 3 (9) remaining. Repository infrastructure complete, reusable across all case studies."
+    },
+    {
+      "path": "/dashboard/content-library/guides",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "guides-list",
+      "dataSource": "data/strapi-mock/dashboard/guides-list.json",
+      "type": "types/dashboard.ts#GuidesListContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/social",
+      "family": "content-library",
+      "strapiType": "single",
+      "entity": "social-list",
+      "dataSource": "data/strapi-mock/dashboard/social-list.json",
+      "type": "types/dashboard.ts#SocialListContent",
+      "blocks": ["HeaderBlock", "StatsGrid", "FilteredList"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/digital-marketing/content-strategy",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "content-strategy-overview",
+      "dataSource": "data/strapi-mock/digital-marketing/content-strategy-overview.json",
+      "type": "types/dashboard.ts#ContentStrategyOverviewContent",
+      "blocks": ["SectionCards"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/digital-marketing/getting-started",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "dm-getting-started",
+      "dataSource": "data/strapi-mock/digital-marketing/dm-getting-started.json",
+      "type": "types/dashboard.ts#DigitalMarketingGettingStartedContent",
+      "blocks": ["HeaderBlock", "SectionCards", "QuickLinks"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/document-administration/documentation-health",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "documentation-health-overview",
+      "dataSource": "data/strapi-mock/document-administration/documentation-health-overview.json",
+      "type": "types/dashboard.ts#DocumentationHealthOverviewContent",
+      "blocks": ["HeaderBlock", "SectionCards", "HighlightsGrid"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/document-administration/getting-started",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "doc-admin-getting-started",
+      "dataSource": "data/strapi-mock/document-administration/doc-admin-getting-started.json",
+      "type": "types/dashboard.ts#DocumentAdminGettingStartedContent",
+      "blocks": ["HeaderBlock", "SectionCards", "QuickLinks"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/admin/email-administration/getting-started",
+      "family": "dashboard",
+      "strapiType": "single",
+      "entity": "email-admin-getting-started",
+      "dataSource": "data/strapi-mock/email-administration/email-admin-getting-started.json",
+      "type": "types/dashboard.ts#EmailAdminGettingStartedContent",
+      "blocks": ["HeaderBlock", "SectionCards", "QuickLinks"],
+      "status": "done"
+    },
+    {
+      "path": "/dashboard/content-library/[category]/[slug]",
+      "family": "content-library",
+      "strapiType": "collection",
+      "entity": "content-items",
+      "blocks": ["DetailPage"],
+      "status": "planned"
+    },
+    {
+      "path": "/dashboard/documentation",
+      "family": "documentation",
+      "strapiType": "collection",
+      "entity": "docs",
+      "blocks": ["DocListPage"],
+      "status": "planned"
+    },
+    {
+      "path": "/dashboard/documentation/[category]/[slug]",
+      "family": "documentation",
+      "strapiType": "collection",
+      "entity": "docs",
+      "blocks": ["DocDetailPage"],
+      "status": "planned"
+    }
+  ],
+  "notes": [
+    "This registry is a starting blueprint. Add every page before migration.",
+    "All entries must map to Strapi entities with explicit blocks.",
+    "Status transitions: planned → in-progress → done"
+  ]
+}

@@ -1,3 +1,4 @@
+import type { Journeys } from "@/types/strapi-mock";
 import quickChecklistData from "@/data/strapi-mock/digital-marketing/getting-started/quick-checklist.json";
 import journeysData from "@/data/strapi-mock/digital-marketing/getting-started/journeys.json";
 import Link from "next/link";
@@ -252,3 +253,4 @@ export default function DigitalMarketingGettingStartedPage() {
     </div>
   );
 }
+
