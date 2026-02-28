@@ -1,0 +1,624 @@
+{
+  "meta": {
+    "slug": "deployment-guide",
+    "title": "Production Deployment Guide",
+    "excerpt": "End-to-end deployment guide covering Docker, PaaS, Strapi Cloud, Nginx reverse proxy, backup strategies, performance tuning, and monitoring setup.",
+    "level": "intermediate",
+    "category": "devops",
+    "readTime": "35 min",
+    "publishedAt": "2026-01-15T00:00:00.000Z",
+    "tags": [
+      "Docker",
+      "PostgreSQL",
+      "Nginx",
+      "monitoring",
+      "backups",
+      "CI/CD"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "deployment-options",
+      "title": "Deployment Options",
+      "level": 2
+    },
+    {
+      "id": "docker-deployment",
+      "title": "Docker Deployment",
+      "level": 2
+    },
+    {
+      "id": "backup-recovery",
+      "title": "Backup & Recovery",
+      "level": 2
+    },
+    {
+      "id": "performance-tuning",
+      "title": "Performance Tuning",
+      "level": 2
+    },
+    {
+      "id": "monitoring",
+      "title": "Monitoring & Alerting",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Deployment Options",
+        "id": "deployment-options"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "PaaS vs Docker/VPS vs Strapi Cloud comparison"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Choose the deployment strategy that matches your team's expertise, budget, and scalability needs."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Option 1: Platform as a Service (PaaS)",
+        "id": "option-1:-platform-as-a-service-(paas)"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Best for**: Teams wanting zero DevOps overhead"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Providers**: Vercel, Netlify, Railway, Render"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Pros**: - Zero infrastructure management - Automatic scaling - Built-in CI/CD - Global CDN included - SSL certificates automated"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cons**: - Less control over infrastructure - Vendor lock-in - Higher cost at scale - Limited customization"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cost**: $20-200/month depending on traffic"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Option 2: Docker on VPS",
+        "id": "option-2:-docker-on-vps"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Best for**: Teams needing full control and cost optimization"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Providers**: DigitalOcean, Linode, Hetzner, AWS EC2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Pros**: - Complete infrastructure control - Predictable fixed costs - Custom performance tuning - No vendor lock-in"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cons**: - Requires DevOps expertise - Manual scaling - Security maintenance burden - Self-managed backups"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cost**: $10-100/month for VPS + time investment"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Option 3: Strapi Cloud",
+        "id": "option-3:-strapi-cloud"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Best for**: Strapi-specific hosting with managed CMS"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Pros**: - Optimized for Strapi performance - Managed database and media - Built-in CDN - Automatic updates"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cons**: - More expensive than DIY - Strapi-only (not for Next.js)"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Cost**: $15-99/month per project"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Recommended Architecture",
+        "id": "recommended-architecture"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "Next.js Frontend → Vercel (PaaS)\nStrapi CMS → Railway/Render (PaaS) or VPS\nDatabase → Managed Postgres (Supabase, Neon, Railway)\nMedia → S3/Cloudflare R2\nCache → Upstash Redis",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "This hybrid approach balances ease-of-use with cost optimization."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Docker Deployment",
+        "id": "docker-deployment"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Dockerfile, Docker Compose, and Nginx configuration"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Full Docker setup for production deployment on a VPS."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Dockerfile for Next.js",
+        "id": "dockerfile-for-next.js"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Dockerfile\nFROM node:20-alpine AS base\n\n# Dependencies\nFROM base AS deps\nRUN apk add --no-cache libc6-compat\nWORKDIR /app\nCOPY package.json pnpm-lock.yaml ./\nRUN corepack enable pnpm && pnpm install --frozen-lockfile\n\n# Builder\nFROM base AS builder\nWORKDIR /app\nCOPY --from=deps /app/node_modules ./node_modules\nCOPY . .\nENV NEXT_TELEMETRY_DISABLED=1\nRUN corepack enable pnpm && pnpm build\n\n# Runner\nFROM base AS runner\nWORKDIR /app\nENV NODE_ENV=production\nENV NEXT_TELEMETRY_DISABLED=1\n\nRUN addgroup --system --gid 1001 nodejs\nRUN adduser --system --uid 1001 nextjs\n\nCOPY --from=builder /app/public ./public\nCOPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./\nCOPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static\n\nUSER nextjs\nEXPOSE 3000\nENV PORT=3000\n\nCMD [\"node\", \"server.js\"]",
+        "language": "dockerfile",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Docker Compose",
+        "id": "docker-compose"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# docker-compose.yml\nversion: '3.8'\n\nservices:\n  postgres:\n    image: postgres:16-alpine\n    restart: unless-stopped\n    environment:\n      POSTGRES_DB: production_db\n      POSTGRES_USER: ${DB_USER}\n      POSTGRES_PASSWORD: ${DB_PASSWORD}\n    volumes:\n      - postgres_data:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD-SHELL\", \"pg_isready -U ${DB_USER}\"]\n      interval: 10s\n      timeout: 5s\n      retries: 5\n\n  redis:\n    image: redis:7-alpine\n    restart: unless-stopped\n    volumes:\n      - redis_data:/data\n    command: redis-server --appendonly yes\n\n  strapi:\n    image: strapi/strapi:latest\n    restart: unless-stopped\n    environment:\n      DATABASE_CLIENT: postgres\n      DATABASE_HOST: postgres\n      DATABASE_NAME: production_db\n      DATABASE_USERNAME: ${DB_USER}\n      DATABASE_PASSWORD: ${DB_PASSWORD}\n      JWT_SECRET: ${JWT_SECRET}\n      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}\n      APP_KEYS: ${APP_KEYS}\n    volumes:\n      - strapi_uploads:/srv/app/public/uploads\n    depends_on:\n      postgres:\n        condition: service_healthy\n\n  nextjs:\n    build:\n      context: .\n      dockerfile: Dockerfile\n    restart: unless-stopped\n    environment:\n      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/production_db\n      REDIS_URL: redis://redis:6379\n      NEXT_PUBLIC_STRAPI_URL: ${STRAPI_URL}\n      STRAPI_API_TOKEN: ${STRAPI_API_TOKEN}\n    depends_on:\n      - postgres\n      - redis\n      - strapi\n\n  nginx:\n    image: nginx:alpine\n    restart: unless-stopped\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - ./nginx.conf:/etc/nginx/nginx.conf:ro\n      - ./ssl:/etc/nginx/ssl:ro\n    depends_on:\n      - nextjs\n      - strapi\n\nvolumes:\n  postgres_data:\n  redis_data:\n  strapi_uploads:",
+        "language": "yaml",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Nginx Configuration",
+        "id": "nginx-configuration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# nginx.conf\nevents {\n  worker_connections 1024;\n}\n\nhttp {\n  upstream nextjs {\n    server nextjs:3000;\n  }\n\n  upstream strapi {\n    server strapi:1337;\n  }\n\n  server {\n    listen 80;\n    server_name yourdomain.com;\n    return 301 https://$server_name$request_uri;\n  }\n\n  server {\n    listen 443 ssl http2;\n    server_name yourdomain.com;\n\n    ssl_certificate /etc/nginx/ssl/cert.pem;\n    ssl_certificate_key /etc/nginx/ssl/key.pem;\n\n    # Next.js\n    location / {\n      proxy_pass http://nextjs;\n      proxy_http_version 1.1;\n      proxy_set_header Upgrade $http_upgrade;\n      proxy_set_header Connection 'upgrade';\n      proxy_set_header Host $host;\n      proxy_set_header X-Real-IP $remote_addr;\n      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header X-Forwarded-Proto $scheme;\n      proxy_cache_bypass $http_upgrade;\n    }\n\n    # Strapi\n    location /api {\n      proxy_pass http://strapi;\n      proxy_http_version 1.1;\n      proxy_set_header Upgrade $http_upgrade;\n      proxy_set_header Connection 'upgrade';\n      proxy_set_header Host $host;\n      proxy_cache_bypass $http_upgrade;\n    }\n  }\n}",
+        "language": "nginx",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Deployment Commands",
+        "id": "deployment-commands"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Initial deployment\ndocker-compose up -d --build\n\n# View logs\ndocker-compose logs -f\n\n# Update deployment\ndocker-compose pull\ndocker-compose up -d --build\n\n# Stop services\ndocker-compose down",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Backup & Recovery",
+        "id": "backup-recovery"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Automated scripts for database + uploads backup and restore"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Automated backup strategy with retention policies and disaster recovery procedures."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Backup Script",
+        "id": "backup-script"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "#!/bin/bash\n# backup.sh\n\nBACKUP_DIR=\"/var/backups/app\"\nDATE=$(date +%Y%m%d_%H%M%S)\nRETENTION_DAYS=7\n\nmkdir -p $BACKUP_DIR\n\n# Backup PostgreSQL\necho \"Backing up database...\"\ndocker exec postgres pg_dump -U $DB_USER production_db | \\\n  gzip > $BACKUP_DIR/db_$DATE.sql.gz\n\n# Backup Strapi uploads\necho \"Backing up uploads...\"\ndocker run --rm \\\n  -v strapi_uploads:/data \\\n  -v $BACKUP_DIR:/backup \\\n  alpine tar czf /backup/uploads_$DATE.tar.gz -C /data .\n\n# Backup Redis (if persistent data)\necho \"Backing up Redis...\"\ndocker exec redis redis-cli BGSAVE\nsleep 5\ndocker cp redis:/data/dump.rdb $BACKUP_DIR/redis_$DATE.rdb\n\n# Delete old backups\necho \"Cleaning old backups...\"\nfind $BACKUP_DIR -name \"*.gz\" -mtime +$RETENTION_DAYS -delete\nfind $BACKUP_DIR -name \"*.rdb\" -mtime +$RETENTION_DAYS -delete\n\necho \"Backup complete: $DATE\"",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Restore Script",
+        "id": "restore-script"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "#!/bin/bash\n# restore.sh\n\nif [ -z \"$1\" ]; then\n  echo \"Usage: ./restore.sh YYYYMMDD_HHMMSS\"\n  exit 1\nfi\n\nBACKUP_DIR=\"/var/backups/app\"\nDATE=$1\n\n# Restore database\necho \"Restoring database...\"\ngunzip < $BACKUP_DIR/db_$DATE.sql.gz | \\\n  docker exec -i postgres psql -U $DB_USER production_db\n\n# Restore uploads\necho \"Restoring uploads...\"\ndocker run --rm \\\n  -v strapi_uploads:/data \\\n  -v $BACKUP_DIR:/backup \\\n  alpine tar xzf /backup/uploads_$DATE.tar.gz -C /data\n\n# Restore Redis\necho \"Restoring Redis...\"\ndocker stop redis\ndocker cp $BACKUP_DIR/redis_$DATE.rdb redis:/data/dump.rdb\ndocker start redis\n\necho \"Restore complete\"",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Automated Cron Job",
+        "id": "automated-cron-job"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Add to crontab\ncrontab -e\n\n# Daily backup at 2 AM\n0 2 * * * /opt/app/backup.sh >> /var/log/backup.log 2>&1\n\n# Weekly backup to S3 (Sunday 3 AM)\n0 3 * * 0 aws s3 sync /var/backups/app s3://my-backups/app/",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Disaster Recovery Checklist",
+        "id": "disaster-recovery-checklist"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "1. ✅ Restore database from most recent backup 2. ✅ Restore media uploads 3. ✅ Verify environment variables 4. ✅ Restart all services 5. ✅ Run health checks 6. ✅ Test critical user flows 7. ✅ Monitor error rates for 24h 8. ✅ Document incident for post-mortem"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Performance Tuning",
+        "id": "performance-tuning"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Database optimization, Redis caching, CDN setup"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Performance optimization strategies for production loads."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Database Optimization",
+        "id": "database-optimization"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "-- Add indexes for common queries\nCREATE INDEX idx_articles_slug ON articles(slug);\nCREATE INDEX idx_articles_category ON articles(category);\nCREATE INDEX idx_articles_published ON articles(published_at);\nCREATE INDEX idx_users_email ON users(email);\n\n-- Analyze query performance\nEXPLAIN ANALYZE SELECT * FROM articles WHERE category = 'tutorials';\n\n-- Vacuum regularly (can be automated)\nVACUUM ANALYZE;",
+        "language": "sql",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "PostgreSQL Configuration",
+        "id": "postgresql-configuration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# postgresql.conf (for 4GB RAM server)\nshared_buffers = 1GB\neffective_cache_size = 3GB\nmaintenance_work_mem = 256MB\nmax_connections = 100\nwork_mem = 10MB",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Redis Caching Strategy",
+        "id": "redis-caching-strategy"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/cache/redis.ts\nimport { Redis } from '@upstash/redis'\n\nconst redis = new Redis({ url: process.env.REDIS_URL! })\n\n// Cache with automatic invalidation\nexport async function getCached<T>(\n  key: string,\n  fetcher: () => Promise<T>,\n  ttl: number = 3600\n): Promise<T> {\n  const cached = await redis.get<T>(key)\n  if (cached) return cached\n\n  const fresh = await fetcher()\n  await redis.setex(key, ttl, JSON.stringify(fresh))\n  return fresh\n}\n\n// Cache invalidation\nexport async function invalidateCache(pattern: string) {\n  const keys = await redis.keys(pattern)\n  if (keys.length > 0) {\n    await redis.del(...keys)\n  }\n}\n\n// Usage\nexport async function getArticles() {\n  return getCached(\n    'articles:all',\n    async () => strapiClient.articles.getAll(),\n    3600 // 1 hour\n  )\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "CDN Configuration",
+        "id": "cdn-configuration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// next.config.mjs\nexport default {\n  images: {\n    domains: ['cdn.yourdomain.com', 'strapi.yourdomain.com'],\n    formats: ['image/avif', 'image/webp'],\n    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],\n    minimumCacheTTL: 60,\n  },\n  \n  // Enable compression\n  compress: true,\n  \n  // Static file caching\n  async headers() {\n    return [\n      {\n        source: '/static/:path*',\n        headers: [\n          {\n            key: 'Cache-Control',\n            value: 'public, max-age=31536000, immutable',\n          },\n        ],\n      },\n    ]\n  },\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Performance Monitoring",
+        "id": "performance-monitoring"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/monitoring/performance.ts\nexport function measurePerformance(name: string) {\n  const start = performance.now()\n  \n  return {\n    end: () => {\n      const duration = performance.now() - start\n      console.log(`[Perf] ${name}: ${duration.toFixed(2)}ms`)\n      \n      // Send to monitoring service\n      if (duration > 1000) {\n        Sentry.captureMessage(`Slow operation: ${name}`, {\n          level: 'warning',\n          extra: { duration },\n        })\n      }\n    },\n  }\n}\n\n// Usage\nconst perf = measurePerformance('getArticles')\nconst articles = await getArticles()\nperf.end()",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Monitoring & Alerting",
+        "id": "monitoring"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Health checks, APM tools, alert thresholds"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Production monitoring and alerting setup."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Health Check Endpoint",
+        "id": "health-check-endpoint"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/api/health/route.ts\nimport { NextResponse } from 'next/server'\nimport { Redis } from '@upstash/redis'\nimport { PrismaClient } from '@prisma/client'\n\nconst redis = new Redis({ url: process.env.REDIS_URL! })\nconst prisma = new PrismaClient()\n\nexport async function GET() {\n  const checks = {\n    timestamp: new Date().toISOString(),\n    status: 'healthy',\n    services: {} as Record<string, { status: string; latency?: number }>,\n  }\n\n  // Database check\n  try {\n    const start = performance.now()\n    await prisma.$queryRaw`SELECT 1`\n    checks.services.database = {\n      status: 'healthy',\n      latency: Math.round(performance.now() - start),\n    }\n  } catch (error) {\n    checks.status = 'unhealthy'\n    checks.services.database = { status: 'unhealthy' }\n  }\n\n  // Redis check\n  try {\n    const start = performance.now()\n    await redis.ping()\n    checks.services.redis = {\n      status: 'healthy',\n      latency: Math.round(performance.now() - start),\n    }\n  } catch (error) {\n    checks.status = 'degraded'\n    checks.services.redis = { status: 'unhealthy' }\n  }\n\n  const statusCode = checks.status === 'healthy' ? 200 : 503\n  return NextResponse.json(checks, { status: statusCode })\n}",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Uptime Monitoring",
+        "id": "uptime-monitoring"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# Monitor health endpoint every 5 minutes\n*/5 * * * * curl -f https://yourdomain.com/api/health || \\\n  echo \"Health check failed\" | mail -s \"Site Down\" admin@yourdomain.com",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Sentry Configuration",
+        "id": "sentry-configuration"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// sentry.server.config.ts\nimport * as Sentry from '@sentry/nextjs'\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  environment: process.env.NODE_ENV,\n  tracesSampleRate: 1.0,\n  \n  // Alert on high error rates\n  beforeSend(event, hint) {\n    // Filter out expected errors\n    if (event.exception?.values?.[0]?.type === 'NotFound') {\n      return null\n    }\n    return event\n  },\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Alert Rules",
+        "id": "alert-rules"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# alerting.yml (for monitoring service)\nalerts:\n  - name: High Error Rate\n    condition: error_rate > 5%\n    window: 5m\n    notification: email, slack\n    \n  - name: Slow Response Time\n    condition: p95_latency > 2000ms\n    window: 10m\n    notification: slack\n    \n  - name: Database Connection Pool Exhausted\n    condition: db_connections > 90%\n    window: 1m\n    notification: email, pagerduty\n    \n  - name: High Memory Usage\n    condition: memory_usage > 85%\n    window: 5m\n    notification: slack",
+        "language": "yaml",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Logging Best Practices",
+        "id": "logging-best-practices"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/logger.ts\nimport pino from 'pino'\n\nexport const logger = pino({\n  level: process.env.LOG_LEVEL || 'info',\n  transport: process.env.NODE_ENV === 'development'\n    ? { target: 'pino-pretty' }\n    : undefined,\n})\n\n// Structured logging\nlogger.info({ userId: 123, action: 'login' }, 'User logged in')\nlogger.error({ error, context: 'submitForm' }, 'Form submission failed')\n\n// Performance logging\nlogger.info({\n  operation: 'getArticles',\n  duration: 156,\n  cacheHit: true,\n}, 'Operation completed')",
+        "language": "typescript",
+        "filename": null
+      }
+    }
+  ]
+}

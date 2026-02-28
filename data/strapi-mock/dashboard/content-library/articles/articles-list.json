@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "Articles & Insights",
-    "description": "In-depth technical articles covering architecture, security, testing, DevOps, accessibility, and business strategy. Content is organised by skill level so you can start where you are comfortable and progress at your own pace."
+    "description": "In-depth technical articles covering architecture, security, testing, DevOps, AI tooling, and business strategy. Content is organised by skill level so you can start where you are comfortable and progress at your own pace."
   },
   "stats": [
     {
@@ -58,11 +58,6 @@
       "id": "business",
       "title": "Business",
       "color": "emerald"
-    },
-    {
-      "id": "accessibility",
-      "title": "Accessibility",
-      "color": "indigo"
     },
     {
       "id": "testing",

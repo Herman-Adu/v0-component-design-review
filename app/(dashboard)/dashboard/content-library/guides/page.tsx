@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   Clock,
@@ -7,15 +5,11 @@ import {
   Shield,
   Rocket,
   TestTube,
-  BookOpen,
-  Users,
+  Calendar,
 } from "lucide-react";
-import { guides, type GuideCategory } from "@/data/content-library/guides";
-import guidesListData from "@/data/strapi-mock/dashboard/guides-list.json";
-import type { GuidesListContent } from "@/types/dashboard";
-
-// Type the imported JSON
-const typedGuidesListData = guidesListData as GuidesListContent;
+import { type GuideCategory } from "@/lib/strapi/dashboard/content-library/guides/guide-content";
+import { listGuides } from "@/lib/strapi/dashboard/content-library/guides/guide-repository";
+import { pageLogger } from "@/lib/utils/arch-logger";
 
 const categoryConfig: Record<
   GuideCategory,
@@ -50,6 +44,14 @@ function getLevelColor(level: string) {
 }
 
 export default function GuidesPage() {
+  pageLogger.render("/dashboard/content-library/guides");
+  const guides = listGuides();
+  pageLogger.dataFetch(
+    "/dashboard/content-library/guides",
+    "guides",
+    guides.length,
+  );
+
   return (
     <div className="space-y-8">
       <div>
@@ -87,7 +89,7 @@ export default function GuidesPage() {
           return (
             <Link
               key={guide.id}
-              href={`/dashboard/content-library/guides/${guide.slug}`}
+              href={`/dashboard/content-library/guides/${guide.category}/${guide.slug}`}
               className="group bg-card border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
             >
               <div className="flex items-start justify-between gap-4">
@@ -114,21 +116,21 @@ export default function GuidesPage() {
                   </div>
 
                   <p className="text-sm text-muted-foreground text-pretty">
-                    {guide.description}
+                    {guide.excerpt}
                   </p>
 
                   <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <Clock className="h-3 w-3" />
-                      {guide.duration}
+                      {guide.readTime}
                     </span>
                     <span className="flex items-center gap-1">
-                      <BookOpen className="h-3 w-3" />
-                      {guide.sections.length} sections
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Users className="h-3 w-3" />
-                      {guide.audience[0]}
+                      <Calendar className="h-3 w-3" />
+                      {new Date(guide.publishedAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </span>
                   </div>
                 </div>

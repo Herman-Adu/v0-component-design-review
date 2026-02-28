@@ -1,13 +1,13 @@
-import type { Tutorial } from "@/data/content-library/tutorials";
+import type { Tutorial } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-content";
 
 export interface TutorialDetailViewModel {
   id: string;
   slug: string;
   title: string;
-  description: string;
+  excerpt: string;
   level: Tutorial["level"];
   category: Tutorial["category"];
-  duration: string;
+  readTime: string;
   publishedAt: string;
   tags: string[];
 }
@@ -19,10 +19,10 @@ export function toTutorialDetailViewModel(
     id: tutorial.id,
     slug: tutorial.slug,
     title: tutorial.title,
-    description: tutorial.description,
+    excerpt: tutorial.excerpt,
     level: tutorial.level,
     category: tutorial.category,
-    duration: tutorial.duration,
+    readTime: tutorial.readTime,
     publishedAt: tutorial.publishedAt,
     tags: tutorial.tags,
   };

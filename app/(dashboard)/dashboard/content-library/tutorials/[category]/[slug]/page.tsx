@@ -1,33 +1,65 @@
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
 import {
-  ArrowLeft,
-  Clock,
-  Calendar,
-  Tag,
-  CheckCircle,
-  BookOpen,
-} from "lucide-react";
-import {
-  getTutorialBySlug,
-  getAllTutorialSlugs,
-  type Tutorial,
-} from "@/data/content-library/tutorials";
-import { Spoiler } from "@/components/atoms/spoiler";
-import { CodeBlock } from "@/components/atoms/code-block";
+  listTutorials,
+  getTutorialRecordBySlug,
+} from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-repository";
+import { getContentDetailPath } from "@/lib/content-library/url-policy";
+import { toTutorialDetailViewModel } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-view-models";
+import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  const slugs = getAllTutorialSlugs();
-  const tutorials = slugs
-    .map((slug) => getTutorialBySlug(slug))
-    .filter(Boolean);
+  const tutorials = listTutorials();
   return tutorials.map((tutorial) => ({
-    category: tutorial!.category,
-    slug: tutorial!.slug,
+    category: tutorial.category,
+    slug: tutorial.slug,
   }));
 }
 
-function getLevelColor(level: Tutorial["level"]) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const record = getTutorialRecordBySlug(slug);
+
+  if (!record) {
+    return {
+      title: "Tutorial Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const canonicalPath = getContentDetailPath(
+    "tutorials",
+    record.tutorial.category,
+    record.tutorial.slug,
+  );
+
+  return {
+    title: record.tutorial.title,
+    description: record.tutorial.excerpt,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      title: record.tutorial.title,
+      description: record.tutorial.excerpt,
+      url: canonicalPath,
+      publishedTime: record.tutorial.publishedAt,
+      tags: record.tutorial.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.tutorial.title,
+      description: record.tutorial.excerpt,
+    },
+  };
+}
+
+function getLevelColor(level: string) {
   switch (level) {
     case "beginner":
       return "bg-green-500/10 text-green-500 border-green-500/20";
@@ -38,7 +70,7 @@ function getLevelColor(level: Tutorial["level"]) {
   }
 }
 
-function getCategoryColor(category: Tutorial["category"]) {
+function getCategoryColor(category: string) {
   switch (category) {
     case "components":
       return "bg-blue-500/10 text-blue-500";
@@ -56,6 +88,10 @@ function getCategoryColor(category: Tutorial["category"]) {
       return "bg-emerald-500/10 text-emerald-500";
     case "testing":
       return "bg-orange-500/10 text-orange-500";
+    case "devops":
+      return "bg-pink-500/10 text-pink-500";
+    case "email":
+      return "bg-violet-500/10 text-violet-500";
     default:
       return "bg-muted text-muted-foreground";
   }
@@ -66,12 +102,26 @@ export default async function TutorialPage({
 }: {
   params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const tutorial = getTutorialBySlug(slug);
+  const { slug, category } = await params;
+  const record = getTutorialRecordBySlug(slug);
 
-  if (!tutorial) {
+  if (!record) {
     notFound();
   }
+
+  if (record.tutorial.category !== category) {
+    redirect(
+      getContentDetailPath(
+        "tutorials",
+        record.tutorial.category,
+        record.tutorial.slug,
+      ),
+    );
+  }
+
+  const tutorial = record.tutorial;
+  const tutorialViewModel = toTutorialDetailViewModel(tutorial);
+  const content = record.content;
 
   return (
     <div className="space-y-8">
@@ -88,40 +138,48 @@ export default async function TutorialPage({
       <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(tutorial.level)}`}
+            className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(tutorialViewModel.level)}`}
           >
-            {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
+            {tutorialViewModel.level.charAt(0).toUpperCase() +
+              tutorialViewModel.level.slice(1)}
           </span>
           <span
-            className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(tutorial.category)}`}
+            className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(tutorialViewModel.category)}`}
           >
-            {tutorial.category
+            {tutorialViewModel.category
               .replace("-", " ")
               .replace(/\b\w/g, (l) => l.toUpperCase())}
           </span>
         </div>
 
-        <h1 className="text-4xl font-bold text-foreground">{tutorial.title}</h1>
-        <p className="text-xl text-muted-foreground">{tutorial.description}</p>
+        <h1 className="text-4xl font-bold text-foreground">
+          {tutorialViewModel.title}
+        </h1>
+        <p className="text-xl text-muted-foreground">
+          {tutorialViewModel.excerpt}
+        </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
-            {tutorial.duration}
+            {tutorialViewModel.readTime}
           </span>
           <span className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
-            {new Date(tutorial.publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {new Date(tutorialViewModel.publishedAt).toLocaleDateString(
+              "en-US",
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              },
+            )}
           </span>
         </div>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {tutorial.tags.map((tag) => (
+          {tutorialViewModel.tags.map((tag) => (
             <span
               key={tag}
               className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-muted rounded-md text-muted-foreground"
@@ -133,94 +191,9 @@ export default async function TutorialPage({
         </div>
       </header>
 
-      {/* Prerequisites & Learning Outcomes */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-          <h3 className="font-semibold text-foreground flex items-center gap-2">
-            <BookOpen className="h-5 w-5 text-accent" />
-            Prerequisites
-          </h3>
-          <ul className="space-y-2">
-            {tutorial.prerequisites.map((prereq, idx) => (
-              <li
-                key={idx}
-                className="text-sm text-muted-foreground flex items-start gap-2"
-              >
-                <span className="text-muted-foreground">-</span>
-                {prereq}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-          <h3 className="font-semibold text-foreground flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            What You'll Learn
-          </h3>
-          <ul className="space-y-2">
-            {tutorial.learningOutcomes.map((outcome, idx) => (
-              <li
-                key={idx}
-                className="text-sm text-muted-foreground flex items-start gap-2"
-              >
-                <span className="text-green-500">+</span>
-                {outcome}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Tutorial Steps */}
+      {/* Tutorial Content - Block-based Rendering */}
       <div className="space-y-8 border-t border-border pt-8">
-        <h2 className="text-2xl font-bold text-foreground">Tutorial Steps</h2>
-
-        {tutorial.steps.map((step, idx) => (
-          <section
-            key={idx}
-            className="space-y-4 border-l-4 border-accent pl-6"
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-accent text-accent-foreground text-sm font-bold">
-                {idx + 1}
-              </span>
-              <h3 className="text-xl font-semibold text-foreground">
-                {step.title}
-              </h3>
-            </div>
-
-            <p className="text-muted-foreground">{step.content}</p>
-
-            {step.code && (
-              <CodeBlock
-                language="typescript"
-                title="Challenge"
-                code={step.code}
-              />
-            )}
-
-            {step.hint && (
-              <Spoiler title="Hint">
-                <p className="text-sm text-muted-foreground">{step.hint}</p>
-              </Spoiler>
-            )}
-
-            {step.solution && (
-              <Spoiler title="Show Solution">
-                <CodeBlock language="typescript" code={step.solution} />
-              </Spoiler>
-            )}
-
-            {step.explanation && (
-              <Spoiler title="Explanation">
-                <p className="text-sm text-muted-foreground">
-                  {step.explanation}
-                </p>
-              </Spoiler>
-            )}
-          </section>
-        ))}
+        <ContentBlockRenderer blocks={content.blocks} />
       </div>
 
       {/* Footer Navigation */}

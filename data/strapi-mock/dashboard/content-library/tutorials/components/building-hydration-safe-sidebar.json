@@ -1,0 +1,289 @@
+{
+  "meta": {
+    "slug": "building-hydration-safe-sidebar",
+    "title": "Building a Hydration-Safe Sidebar with Radix UI",
+    "excerpt": "Implement a production-grade hydration guard pattern using useSyncExternalStore, skeleton components, and the guard pattern to eliminate Radix UI hydration mismatches permanently",
+    "level": "intermediate",
+    "category": "components",
+    "readTime": "35 min",
+    "publishedAt": "2026-02-05",
+    "tags": [
+      "hydration",
+      "radix-ui",
+      "sidebar",
+      "useSyncExternalStore",
+      "skeleton"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Understanding the Radix ID Problem",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Why useEffect Band-Aids Fail",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. The useSyncExternalStore Solution",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Building a Static Skeleton",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Applying the Guard Pattern",
+      "level": 2
+    },
+    {
+      "id": "step-6",
+      "title": "6. Making the Hook Reusable Across Your App",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Understanding the Radix ID Problem",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Radix UI is a popular library of accessible, unstyled UI primitives - components like Collapsible, Accordion, Dialog, and Dropdown that handle all the complex accessibility and keyboard interaction logic for you. Internally, Radix uses React's useId() hook (or its own ID generation) to create unique IDs for ARIA attributes like aria-controls. These IDs connect trigger elements to their content panels for screen readers. The problem: useId() generates IDs based on the component's position in the React tree, and this position can differ between server and client when conditional rendering is involved. In a sidebar with many nested Collapsible components, each one generates an ID. If even one component's open/closed state differs between server and client, the entire tree of IDs shifts."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// What Radix generates internally for each Collapsible:\n<button\n  type=\"button\"\n  aria-controls=\"radix-:R_259knelb_:\"  // Generated ID\n  aria-expanded={false}\n>\n  Toggle Section\n</button>\n<div id=\"radix-:R_259knelb_:\">         // Must match!\n  Hidden content here\n</div>\n\n// With 20 collapsible sections in a sidebar,\n// that is 20 pairs of IDs that must match perfectly\n// between server and client.\n\n// If the component tree differs even slightly:\n// Server: aria-controls=\"radix-:R_8l6itplb_:\"\n// Client: aria-controls=\"radix-:R_259knelb_:\"\n// MISMATCH on every single collapsible!",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "ARIA attributes like aria-controls create invisible links between elements for screen readers. When IDs mismatch, accessibility breaks silently."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Why useEffect Band-Aids Fail",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The first instinct when facing hydration issues is to use a common pattern: initialise state to a safe value (false), render that during SSR, then update it in a useEffect after hydration. This is the approach we initially tried for our sidebar - start all sections as closed, then open the active ones after hydration. The problem is threefold: (1) It causes a visible flash where sections collapse then expand. (2) The Radix Collapsible component still generates its internal IDs during SSR, and those IDs change when the component re-renders with a different open state. (3) Every time you add a new section or nested item, you introduce another potential mismatch point. This approach treats each symptom individually instead of solving the root cause."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// THE FRAGILE APPROACH (what we tried first):\nfunction NavSection({ section, pathname }) {\n  const isActive = pathname.startsWith(section.href)\n  \n  // Start closed on server to avoid mismatch\n  const [isOpen, setIsOpen] = useState(false)\n  \n  // Open after hydration if section is active\n  useEffect(() => {\n    if (isActive) {\n      setIsOpen(true)\n    }\n  }, [isActive])\n  \n  return (\n    <Collapsible open={isOpen} onOpenChange={setIsOpen}>\n      <CollapsibleTrigger>\n        {section.label}\n      </CollapsibleTrigger>\n      <CollapsibleContent>\n        {section.children.map(child => (\n          // Each child might ALSO be collapsible...\n          // More Radix IDs, more mismatch potential\n          <NestedCollapsible key={child.href} item={child} />\n        ))}\n      </CollapsibleContent>\n    </Collapsible>\n  )\n}\n\n// PROBLEMS:\n// 1. Visual flash: sections close then open\n// 2. Radix still generates IDs during SSR\n// 3. Every new section = new mismatch risk\n// 4. Must remember to add useEffect to EVERY component",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "This pattern is like putting a plaster on each crack in a wall. It works temporarily, but the foundation is unstable and new cracks appear with every change."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "The useSyncExternalStore Solution",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "React 18 introduced useSyncExternalStore - a hook designed for subscribing to external data sources that works correctly with server-side rendering. Unlike useState + useEffect, it provides a getServerSnapshot parameter that explicitly tells React what value to use during SSR. This means no double-render, no flash, and no timing issues. For hydration detection, we use it to create a clean signal: the server always returns false (not hydrated), and the client returns true (hydrated) after the initial render. The key advantage over useState + useEffect is that useSyncExternalStore is synchronous on the client - it does not wait for a re-render to update."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// hooks/use-hydration.ts\n\"use client\"\n\nimport { useSyncExternalStore } from \"react\"\n\n// A no-op subscribe function. Hydration status never changes\n// after the initial client render, so there is nothing to\n// subscribe to. React requires a subscribe function but we\n// return a no-op unsubscribe.\nconst emptySubscribe = () => () => {}\n\n/**\n * Returns true once the component has hydrated on the client.\n * Returns false during SSR and during the initial hydration pass.\n *\n * Uses useSyncExternalStore which is React's official solution\n * for values that differ between server and client:\n * - getSnapshot (2nd arg): called on the client, returns true\n * - getServerSnapshot (3rd arg): called during SSR, returns false\n *\n * Unlike useState + useEffect, this does NOT cause a double-render.\n * The value transitions from false to true in a single synchronous pass.\n */\nexport function useHydration(): boolean {\n  return useSyncExternalStore(\n    emptySubscribe,\n    () => true,   // Client snapshot: always true\n    () => false    // Server snapshot: always false\n  )\n}\n\n// WHY THIS IS BETTER THAN useState + useEffect:\n// \n// useState approach:\n//   Server: false -> Client render 1: false -> useEffect: true -> Re-render\n//   (Two renders, visible flash)\n//\n// useSyncExternalStore approach:\n//   Server: false -> Client: true (single synchronous pass)\n//   (One render, no flash)",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "useSyncExternalStore is specifically designed for this kind of server/client value split. React's documentation recommends it as the correct primitive for hydration-aware values."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Building a Static Skeleton",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The hydration guard needs something to show while the real component waits to mount. A skeleton component must produce identical HTML on both server and client - which means no Radix primitives, no random IDs, no client-dependent logic. It should visually resemble the real sidebar closely enough that the transition is imperceptible. We use plain HTML elements (div, nav, span) with Tailwind CSS classes and a subtle pulse animation to indicate loading. The skeleton does not need to be interactive - it only exists for the fraction of a second between the initial page load and hydration completing."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/molecules/sidebar-skeleton.tsx\n\n// IMPORTANT: No \"use client\" directive needed.\n// This component must work identically on server and client.\n// No Radix components. No hooks. No random values. Pure HTML + CSS.\n\nexport function SidebarSkeleton() {\n  return (\n    <div className=\"flex h-full w-[var(--sidebar-width)] flex-col border-r border-border bg-sidebar\">\n      {/* Header skeleton */}\n      <div className=\"p-4 border-b border-border\">\n        <div className=\"h-5 w-32 bg-muted rounded animate-pulse\" />\n      </div>\n\n      <nav className=\"flex-1 overflow-y-auto p-2\">\n        {/* Section labels - these are static and predictable */}\n        {[\"MANAGEMENT\", \"BACKEND & CMS\", \"FRONTEND & INTEGRATION\", \"LEARN & GROW\"].map(\n          (label) => (\n            <div key={label} className=\"mb-4\">\n              <div className=\"px-3 py-2\">\n                <span className=\"text-xs font-semibold text-muted-foreground tracking-wider\">\n                  {label}\n                </span>\n              </div>\n              {/* Menu item placeholders */}\n              {Array.from({ length: 2 }).map((_, i) => (\n                <div\n                  key={`${label}-${i}`}\n                  className=\"flex items-center gap-3 px-3 py-2 rounded-md\"\n                >\n                  <div className=\"h-4 w-4 bg-muted rounded animate-pulse\" />\n                  <div className=\"h-4 w-24 bg-muted rounded animate-pulse\" />\n                </div>\n              ))}\n            </div>\n          )\n        )}\n      </nav>\n\n      {/* Footer skeleton */}\n      <div className=\"border-t border-border p-4\">\n        <div className=\"flex items-center gap-3\">\n          <div className=\"h-8 w-8 rounded-full bg-muted animate-pulse\" />\n          <div className=\"h-4 w-20 bg-muted rounded animate-pulse\" />\n        </div>\n      </div>\n    </div>\n  )\n}\n\n// KEY PRINCIPLES:\n// 1. No \"use client\" - works as server component too\n// 2. No Radix/Collapsible - zero generated IDs\n// 3. No hooks - no state, no effects, no context\n// 4. Deterministic keys using string templates, not random\n// 5. Visual similarity to real sidebar for smooth transition",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The skeleton is a disposable stand-in. It exists for approximately 50-100ms on fast connections - just long enough to prevent the hydration mismatch, but short enough that users barely notice the swap."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Applying the Guard Pattern",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Now we combine both pieces - the hydration hook and the skeleton - into the guard pattern. The guard is a conditional render at the top of the sidebar component: if hydration has not completed, return the skeleton; otherwise, return the real interactive sidebar. This is architecturally powerful because it solves the problem at the root: no Radix components exist during SSR at all. No IDs are generated. No aria-controls attributes are created. The server HTML only contains the skeleton's static markup. After hydration, the real sidebar mounts fresh with all its Radix components, and since it is a client-only mount (not a hydration), there is nothing to mismatch against. A bonus benefit: since the real sidebar only mounts after hydration, useState can safely initialise with the correct values from pathname - no need for useEffect-based state syncing."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-5-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/molecules/docs-sidebar.tsx\n\"use client\"\n\nimport { useHydration } from \"@/hooks/use-hydration\"\nimport { SidebarSkeleton } from \"@/components/molecules/sidebar-skeleton\"\n\nexport function DocsSidebar() {\n  const hydrated = useHydration()\n  const pathname = usePathname()\n\n  // GUARD: During SSR and before hydration, render skeleton.\n  // This prevents ALL Radix hydration mismatches because no\n  // Collapsible components exist during server rendering.\n  if (!hydrated) {\n    return <SidebarSkeleton />\n  }\n\n  // AFTER HYDRATION: Safe to render the real sidebar.\n  // All Radix components mount fresh (not hydrating), so\n  // there is nothing for IDs to mismatch against.\n  return (\n    <Sidebar>\n      <SidebarContent>\n        {sections.map(section => (\n          <NavCollapsible key={section.title} section={section} />\n        ))}\n      </SidebarContent>\n    </Sidebar>\n  )\n}\n\n// Inside child components, we can now safely initialise state:\nfunction NavCollapsible({ section }) {\n  const pathname = usePathname()\n  const hasActiveItem = section.items.some(\n    item => pathname.startsWith(item.href)\n  )\n\n  // SAFE! This component only mounts after hydration,\n  // so pathname is already available and correct.\n  const [isOpen, setIsOpen] = useState(hasActiveItem)\n\n  return (\n    <Collapsible open={isOpen} onOpenChange={setIsOpen}>\n      {/* ... */}\n    </Collapsible>\n  )\n}\n\n// BEFORE (fragile):\n// const [isOpen, setIsOpen] = useState(false)\n// useEffect(() => { if (isActive) setIsOpen(true) }, [isActive])\n//\n// AFTER (robust):\n// const [isOpen, setIsOpen] = useState(isActive)\n// No useEffect needed!",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The guard pattern is a single point of protection. Instead of adding workarounds to every child component, one guard at the top protects the entire subtree. This scales to any number of nested components."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Making the Hook Reusable Across Your App",
+        "id": "step-6"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The useHydration hook is not specific to sidebars. Any component that uses browser-dependent libraries (Radix, Headless UI, chart libraries) or browser APIs (matchMedia for responsive layouts, IntersectionObserver for lazy loading) can benefit from this pattern. You can create a generic HydrationGuard wrapper component that accepts a skeleton prop and children, making it reusable across your entire application. This protects you as you scale - every new interactive component you add is automatically safe."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-6-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// A reusable HydrationGuard wrapper component\n\"use client\"\n\nimport { useHydration } from \"@/hooks/use-hydration\"\nimport { type ReactNode } from \"react\"\n\ninterface HydrationGuardProps {\n  children: ReactNode\n  fallback?: ReactNode\n}\n\nexport function HydrationGuard({ children, fallback }: HydrationGuardProps) {\n  const hydrated = useHydration()\n\n  if (!hydrated) {\n    // Return fallback skeleton, or nothing if none provided\n    return fallback ?? null\n  }\n\n  return children\n}\n\n// USAGE EXAMPLES:\n\n// Protecting a sidebar\n<HydrationGuard fallback={<SidebarSkeleton />}>\n  <DocsSidebar />\n</HydrationGuard>\n\n// Protecting a chart that uses browser APIs\n<HydrationGuard fallback={<ChartSkeleton />}>\n  <RevenueChart data={data} />\n</HydrationGuard>\n\n// Protecting a media query dependent component\n<HydrationGuard fallback={<div className=\"h-12\" />}>\n  <ResponsiveNavigation />\n</HydrationGuard>\n\n// Protecting multiple components at once\n<HydrationGuard fallback={<DashboardSkeleton />}>\n  <InteractiveDashboard />\n</HydrationGuard>",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "By extracting the pattern into a reusable component, every developer on the team can protect their components without needing to understand the internals of useSyncExternalStore or hydration mechanics."
+      }
+    }
+  ]
+}

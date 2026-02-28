@@ -190,7 +190,8 @@
       "type": "sub-section-header",
       "atomicLevel": "molecule",
       "props": {
-        "title": "Axis 1: Code Quality"
+        "title": "Axis 1: Code Quality",
+        "id": "axis-1-code-quality"
       }
     },
     {
@@ -238,7 +239,8 @@
       "type": "sub-section-header",
       "atomicLevel": "molecule",
       "props": {
-        "title": "Axis 2: Security"
+        "title": "Axis 2: Security",
+        "id": "axis-2-security"
       }
     },
     {
@@ -269,7 +271,8 @@
       "type": "sub-section-header",
       "atomicLevel": "molecule",
       "props": {
-        "title": "Axis 3: Architecture"
+        "title": "Axis 3: Architecture",
+        "id": "axis-3-architecture"
       }
     },
     {

@@ -7,31 +7,31 @@
     {
       "level": "beginner",
       "icon": "BookOpen",
-      "count": 5,
+      "count": 7,
       "color": "green"
     },
     {
       "level": "intermediate",
       "icon": "Layers",
-      "count": 6,
+      "count": 7,
       "color": "yellow"
     },
     {
       "level": "advanced",
       "icon": "Zap",
-      "count": 4,
+      "count": 1,
       "color": "red"
     }
   ],
   "categories": [
     {
-      "id": "nextjs",
-      "title": "Next.js",
-      "color": "black"
+      "id": "getting-started",
+      "title": "Getting Started",
+      "color": "teal"
     },
     {
-      "id": "strapi",
-      "title": "Strapi",
+      "id": "components",
+      "title": "Components",
       "color": "blue"
     },
     {
@@ -40,18 +40,33 @@
       "color": "purple"
     },
     {
-      "id": "testing",
-      "title": "Testing",
+      "id": "security",
+      "title": "Security",
+      "color": "red"
+    },
+    {
+      "id": "state-management",
+      "title": "State Management",
       "color": "green"
     },
     {
-      "id": "performance",
-      "title": "Performance",
+      "id": "cms",
+      "title": "CMS",
+      "color": "emerald"
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
       "color": "orange"
     },
     {
-      "id": "integration",
-      "title": "Integrations",
+      "id": "devops",
+      "title": "DevOps",
+      "color": "pink"
+    },
+    {
+      "id": "email",
+      "title": "Email",
       "color": "violet"
     }
   ]

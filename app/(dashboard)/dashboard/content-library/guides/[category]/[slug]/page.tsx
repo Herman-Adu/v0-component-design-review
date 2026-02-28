@@ -1,17 +1,66 @@
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Clock, Calendar, Tag, Users, BookOpen } from "lucide-react";
-import { guides, type Guide } from "@/data/content-library/guides";
-
-function getGuideBySlug(slug: string): Guide | undefined {
-  return guides.find((g) => g.slug === slug);
-}
+import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import {
+  getGuideRecordBySlug,
+  listGuides,
+} from "@/lib/strapi/dashboard/content-library/guides/guide-repository";
+import { getContentDetailPath } from "@/lib/content-library/url-policy";
+import { toGuideDetailViewModel } from "@/lib/strapi/dashboard/content-library/guides/guide-view-models";
+import type { Guide } from "@/lib/strapi/dashboard/content-library/guides/guide-content";
+import { TableOfContents } from "@/components/molecules/article-components";
+import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  return guides.map((g) => ({
-    category: g.category,
-    slug: g.slug,
-  }));
+  const guides = listGuides();
+  return guides.map((guide) => {
+    return {
+      category: guide.category,
+      slug: guide.slug,
+    };
+  });
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const record = getGuideRecordBySlug(slug);
+
+  if (!record) {
+    return {
+      title: "Guide Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const canonicalPath = getContentDetailPath(
+    "guides",
+    record.guide.category,
+    record.guide.slug,
+  );
+
+  return {
+    title: record.guide.title,
+    description: record.guide.excerpt,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      title: record.guide.title,
+      description: record.guide.excerpt,
+      url: canonicalPath,
+      publishedTime: record.guide.publishedAt,
+      tags: record.guide.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.guide.title,
+      description: record.guide.excerpt,
+    },
+  };
 }
 
 function getLevelColor(level: Guide["level"]) {
@@ -39,12 +88,25 @@ export default async function GuidePage({
 }: {
   params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const guide = getGuideBySlug(slug);
+  const { slug, category } = await params;
+  const guideRecord = getGuideRecordBySlug(slug);
 
-  if (!guide) {
+  if (!guideRecord) {
     notFound();
   }
+
+  if (guideRecord.guide.category !== category) {
+    redirect(
+      getContentDetailPath(
+        "guides",
+        guideRecord.guide.category,
+        guideRecord.guide.slug,
+      ),
+    );
+  }
+
+  const guideViewModel = toGuideDetailViewModel(guideRecord.guide);
+  const contentDocument = guideRecord.content;
 
   return (
     <div className="space-y-8">
@@ -61,51 +123,44 @@ export default async function GuidePage({
       <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(guide.level)}`}
+            className={`px-3 py-1 text-xs font-medium rounded-full border ${getLevelColor(guideViewModel.level)}`}
           >
-            {guide.level.charAt(0).toUpperCase() + guide.level.slice(1)}
+            {guideViewModel.level.charAt(0).toUpperCase() +
+              guideViewModel.level.slice(1)}
           </span>
           <span
-            className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(guide.category)}`}
+            className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(guideViewModel.category)}`}
           >
-            {guide.category.charAt(0).toUpperCase() + guide.category.slice(1)}
+            {guideViewModel.category.charAt(0).toUpperCase() +
+              guideViewModel.category.slice(1)}
           </span>
         </div>
 
         <h1 className="text-4xl font-bold text-foreground text-balance">
-          {guide.title}
+          {guideViewModel.title}
         </h1>
         <p className="text-xl text-muted-foreground text-pretty">
-          {guide.description}
+          {guideViewModel.excerpt}
         </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
-            {guide.duration}
+            {guideViewModel.readTime}
           </span>
           <span className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
-            Updated{" "}
-            {new Date(guide.lastUpdated).toLocaleDateString("en-US", {
+            {new Date(guideViewModel.publishedAt).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </span>
-          <span className="flex items-center gap-1">
-            <Users className="h-4 w-4" />
-            {guide.audience.join(", ")}
-          </span>
-          <span className="flex items-center gap-1">
-            <BookOpen className="h-4 w-4" />
-            {guide.sections.length} sections
-          </span>
         </div>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {guide.tags.map((tag) => (
+          {guideViewModel.tags.map((tag) => (
             <span
               key={tag}
               className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-muted rounded-md text-muted-foreground"
@@ -117,41 +172,22 @@ export default async function GuidePage({
         </div>
       </header>
 
-      {/* Prerequisites */}
-      <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-        <h3 className="font-semibold text-foreground flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-accent" />
-          Prerequisites
-        </h3>
-        <ul className="space-y-2">
-          {guide.prerequisites.map((prereq, idx) => (
-            <li
-              key={idx}
-              className="text-sm text-muted-foreground flex items-start gap-2"
-            >
-              <span className="text-muted-foreground">-</span>
-              {prereq}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Guide Sections */}
-      <div className="border-t border-border pt-8 space-y-6">
-        <h2 className="text-2xl font-bold text-foreground">Guide Sections</h2>
-        {guide.sections.map((section, idx) => (
-          <div
-            key={section.id}
-            className="bg-card border border-border rounded-lg p-6"
-          >
-            <h3 className="font-semibold text-foreground">
-              {String(idx + 1).padStart(2, "0")}. {section.title}
-            </h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              {section.summary}
-            </p>
+      {/* Guide Content - Block-based Rendering */}
+      <div className="border-t border-border pt-8">
+        {contentDocument.layout === "content-with-toc" ? (
+          <div className="flex gap-8">
+            <div className="flex-1 min-w-0">
+              <ContentBlockRenderer blocks={contentDocument.blocks} />
+            </div>
+            <aside className="hidden lg:block w-64 shrink-0">
+              <TableOfContents items={contentDocument.toc ?? []} />
+            </aside>
           </div>
-        ))}
+        ) : (
+          <div className="space-y-6">
+            <ContentBlockRenderer blocks={contentDocument.blocks} />
+          </div>
+        )}
       </div>
 
       {/* Footer Navigation */}

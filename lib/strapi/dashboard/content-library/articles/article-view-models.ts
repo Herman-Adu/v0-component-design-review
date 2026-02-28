@@ -1,4 +1,4 @@
-import type { Article } from "@/lib/strapi/dashboard/content-library/articles/articles";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/article-content";
 
 export interface ArticleDetailViewModel {
   id: string;
@@ -10,7 +10,7 @@ export interface ArticleDetailViewModel {
   readTime: string;
   publishedAt: string;
   tags: string[];
-  content: string;
+  blocks: Article["blocks"];
 }
 
 export function toArticleDetailViewModel(
@@ -26,6 +26,6 @@ export function toArticleDetailViewModel(
     readTime: article.readTime,
     publishedAt: article.publishedAt,
     tags: article.tags,
-    content: article.content,
+    blocks: article.blocks,
   };
 }

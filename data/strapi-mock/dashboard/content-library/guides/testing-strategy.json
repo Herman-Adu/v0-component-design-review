@@ -1,0 +1,576 @@
+{
+  "meta": {
+    "slug": "testing-strategy",
+    "title": "Testing Strategy: From Unit to E2E",
+    "excerpt": "Comprehensive testing strategy covering unit testing with Vitest, component testing, integration testing, and end-to-end testing with Playwright. Includes test organization, coverage goals, and CI integration.",
+    "level": "intermediate",
+    "category": "testing",
+    "readTime": "30 min",
+    "publishedAt": "2026-01-15T00:00:00.000Z",
+    "tags": [
+      "Vitest",
+      "Playwright",
+      "testing",
+      "CI/CD",
+      "coverage",
+      "TDD"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "testing-philosophy",
+      "title": "Testing Philosophy",
+      "level": 2
+    },
+    {
+      "id": "unit-testing",
+      "title": "Unit Testing with Vitest",
+      "level": 2
+    },
+    {
+      "id": "component-testing",
+      "title": "Component Testing",
+      "level": 2
+    },
+    {
+      "id": "integration-testing",
+      "title": "Integration Testing",
+      "level": 2
+    },
+    {
+      "id": "e2e-testing",
+      "title": "E2E Testing with Playwright",
+      "level": 2
+    },
+    {
+      "id": "ci-integration",
+      "title": "CI/CD Integration",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Testing Philosophy",
+        "id": "testing-philosophy"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "The testing pyramid and where to invest effort"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "A pragmatic approach to testing that maximizes confidence while minimizing maintenance burden."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "The Testing Pyramid",
+        "id": "the-testing-pyramid"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "/\\        E2E Tests (5-10%)\n       /  \\       - Critical user flows\n      /____\\      - Happy path scenarios\n     /      \\     \n    / Integr \\    Integration Tests (20-30%)\n   /  ation   \\   - API routes\n  /____________\\  - Form submissions\n /              \\ \n/   Unit Tests   \\ Unit Tests (60-75%)\n\\________________/ - Pure functions\n                   - Utility libraries\n                   - Business logic",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Why This Distribution?",
+        "id": "why-this-distribution?"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Unit Tests (60-75%)**: - Fast execution (milliseconds) - Easy to debug (isolated failures) - Low maintenance (stable APIs) - High ROI for pure logic"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**Integration Tests (20-30%)**: - Test real interactions - Catch integration bugs - Moderate speed (seconds) - Validate API contracts"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "**E2E Tests (5-10%)**: - Test critical paths only - Slow execution (minutes) - High maintenance cost - Brittle (UI changes break tests)"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Coverage Goals",
+        "id": "coverage-goals"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "- **Unit Tests**: 80%+ coverage for utility functions, business logic - **Integration Tests**: 100% coverage for API routes, server actions - **E2E Tests**: 100% coverage for checkout, signup, payment flows"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "What NOT to Test",
+        "id": "what-not-to-test"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "❌ Third-party libraries (trust they test themselves) ❌ Next.js framework code ❌ Simple getters/setters ❌ Constants and type definitions ❌ Trivial UI components (e.g., `<Button>`)"
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "What TO Test",
+        "id": "what-to-test"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "✅ Business logic and calculations ✅ Form validation rules ✅ API route handlers ✅ Data transformations (mappers) ✅ Security checks (CSRF, rate limiting) ✅ Critical user flows (E2E)"
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Unit Testing with Vitest",
+        "id": "unit-testing"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Setup, patterns, mocking, and coverage"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Unit testing setup and best practices with Vitest."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Vitest Setup",
+        "id": "vitest-setup"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// vitest.config.ts\nimport { defineConfig } from 'vitest/config'\nimport react from '@vitejs/plugin-react'\nimport path from 'path'\n\nexport default defineConfig({\n  plugins: [react()],\n  test: {\n    environment: 'jsdom',\n    globals: true,\n    setupFiles: ['./vitest.setup.ts'],\n    coverage: {\n      provider: 'v8',\n      reporter: ['text', 'json', 'html'],\n      exclude: [\n        'node_modules/',\n        '.next/',\n        'coverage/',\n        '**/*.config.*',\n        '**/*.d.ts',\n      ],\n    },\n  },\n  resolve: {\n    alias: {\n      '@': path.resolve(__dirname, './'),\n    },\n  },\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// vitest.setup.ts\nimport { expect, afterEach } from 'vitest'\nimport { cleanup } from '@testing-library/react'\nimport * as matchers from '@testing-library/jest-dom/matchers'\n\nexpect.extend(matchers)\nafterEach(() => cleanup())",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Pure Functions",
+        "id": "testing-pure-functions"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/utils/formatters.test.ts\nimport { describe, it, expect } from 'vitest'\nimport { formatCurrency, formatDate } from './formatters'\n\ndescribe('formatCurrency', () => {\n  it('formats USD correctly', () => {\n    expect(formatCurrency(1234.56)).toBe('$1,234.56')\n  })\n\n  it('handles zero', () => {\n    expect(formatCurrency(0)).toBe('$0.00')\n  })\n\n  it('handles negative numbers', () => {\n    expect(formatCurrency(-99.99)).toBe('-$99.99')\n  })\n})\n\ndescribe('formatDate', () => {\n  it('formats ISO date', () => {\n    const date = '2026-02-26T00:00:00.000Z'\n    expect(formatDate(date)).toBe('Feb 26, 2026')\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing with Mocks",
+        "id": "testing-with-mocks"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/repository/article-repository.test.ts\nimport { describe, it, expect, vi, beforeEach } from 'vitest'\nimport { getArticleBySlug } from './article-repository'\nimport * as strapiClient from '../strapi/client'\n\nvi.mock('../strapi/client')\n\ndescribe('getArticleBySlug', () => {\n  beforeEach(() => {\n    vi.clearAllMocks()\n  })\n\n  it('returns article when found', async () => {\n    const mockArticle = {\n      id: 1,\n      slug: 'test-article',\n      title: 'Test Article',\n    }\n\n    vi.mocked(strapiClient.fetchArticles).mockResolvedValue([\n      mockArticle,\n    ])\n\n    const result = await getArticleBySlug('test-article')\n    expect(result).toEqual(mockArticle)\n  })\n\n  it('returns null when not found', async () => {\n    vi.mocked(strapiClient.fetchArticles).mockResolvedValue([])\n\n    const result = await getArticleBySlug('nonexistent')\n    expect(result).toBeNull()\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Validation Logic",
+        "id": "testing-validation-logic"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// lib/validation/contact-schema.test.ts\nimport { describe, it, expect } from 'vitest'\nimport { contactFormSchema } from './contact-schema'\n\ndescribe('contactFormSchema', () => {\n  it('accepts valid data', () => {\n    const valid = {\n      name: 'John Doe',\n      email: 'john@example.com',\n      message: 'Hello, I need help with...',\n      interests: ['Web Development'],\n    }\n\n    const result = contactFormSchema.safeParse(valid)\n    expect(result.success).toBe(true)\n  })\n\n  it('rejects short names', () => {\n    const invalid = {\n      name: 'J',\n      email: 'john@example.com',\n      message: 'Hello, I need help with...',\n      interests: ['Web Development'],\n    }\n\n    const result = contactFormSchema.safeParse(invalid)\n    expect(result.success).toBe(false)\n    expect(result.error?.issues[0].message).toContain('at least 2')\n  })\n\n  it('rejects invalid email', () => {\n    const invalid = {\n      name: 'John Doe',\n      email: 'not-an-email',\n      message: 'Hello',\n      interests: ['Web Development'],\n    }\n\n    const result = contactFormSchema.safeParse(invalid)\n    expect(result.success).toBe(false)\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Component Testing",
+        "id": "component-testing"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "React Testing Library patterns for atomic design"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Component testing strategies with React Testing Library."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Atoms",
+        "id": "testing-atoms"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/atoms/Button/Button.test.tsx\nimport { describe, it, expect, vi } from 'vitest'\nimport { render, screen } from '@testing-library/react'\nimport userEvent from '@testing-library/user-event'\nimport { Button } from './Button'\n\ndescribe('Button', () => {\n  it('renders children', () => {\n    render(<Button>Click me</Button>)\n    expect(screen.getByText('Click me')).toBeInTheDocument()\n  })\n\n  it('calls onClick when clicked', async () => {\n    const handleClick = vi.fn()\n    const user = userEvent.setup()\n\n    render(<Button onClick={handleClick}>Click me</Button>)\n    await user.click(screen.getByText('Click me'))\n\n    expect(handleClick).toHaveBeenCalledTimes(1)\n  })\n\n  it('is disabled when disabled prop is true', () => {\n    render(<Button disabled>Click me</Button>)\n    expect(screen.getByText('Click me')).toBeDisabled()\n  })\n\n  it('renders loading state', () => {\n    render(<Button isLoading>Click me</Button>)\n    expect(screen.getByRole('button')).toHaveAttribute('aria-busy', 'true')\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Forms",
+        "id": "testing-forms"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/organisms/ContactForm/ContactForm.test.tsx\nimport { describe, it, expect, vi } from 'vitest'\nimport { render, screen, waitFor } from '@testing-library/react'\nimport userEvent from '@testing-library/user-event'\nimport { ContactForm } from './ContactForm'\n\ndescribe('ContactForm', () => {\n  it('renders all fields', () => {\n    render(<ContactForm />)\n\n    expect(screen.getByLabelText(/name/i)).toBeInTheDocument()\n    expect(screen.getByLabelText(/email/i)).toBeInTheDocument()\n    expect(screen.getByLabelText(/message/i)).toBeInTheDocument()\n  })\n\n  it('shows validation errors on submit', async () => {\n    const user = userEvent.setup()\n    render(<ContactForm />)\n\n    await user.click(screen.getByRole('button', { name: /submit/i }))\n\n    await waitFor(() => {\n      expect(screen.getByText(/name is required/i)).toBeInTheDocument()\n    })\n  })\n\n  it('submits valid data', async () => {\n    const handleSubmit = vi.fn()\n    const user = userEvent.setup()\n\n    render(<ContactForm onSubmit={handleSubmit} />)\n\n    await user.type(screen.getByLabelText(/name/i), 'John Doe')\n    await user.type(screen.getByLabelText(/email/i), 'john@example.com')\n    await user.type(screen.getByLabelText(/message/i), 'Hello, I need help')\n\n    await user.click(screen.getByRole('button', { name: /submit/i }))\n\n    await waitFor(() => {\n      expect(handleSubmit).toHaveBeenCalledWith(\n        expect.objectContaining({\n          name: 'John Doe',\n          email: 'john@example.com',\n        })\n      )\n    })\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing with Context",
+        "id": "testing-with-context"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// components/organisms/UserProfile/UserProfile.test.tsx\nimport { render, screen } from '@testing-library/react'\nimport { UserProvider } from '@/contexts/UserContext'\nimport { UserProfile } from './UserProfile'\n\nfunction renderWithUser(ui: React.ReactElement, user: any) {\n  return render(\n    <UserProvider initialUser={user}>\n      {ui}\n    </UserProvider>\n  )\n}\n\ndescribe('UserProfile', () => {\n  it('displays user name', () => {\n    const user = { name: 'John Doe', email: 'john@example.com' }\n    renderWithUser(<UserProfile />, user)\n\n    expect(screen.getByText('John Doe')).toBeInTheDocument()\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Integration Testing",
+        "id": "integration-testing"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "API route testing, form submission flows"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Integration testing for API routes and server actions."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing API Routes",
+        "id": "testing-api-routes"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/api/contact/route.test.ts\nimport { describe, it, expect, vi, beforeEach } from 'vitest'\nimport { POST } from './route'\nimport * as emailService from '@/lib/email/send'\n\nvi.mock('@/lib/email/send')\n\ndescribe('POST /api/contact', () => {\n  beforeEach(() => {\n    vi.clearAllMocks()\n  })\n\n  it('accepts valid contact form', async () => {\n    vi.mocked(emailService.sendEmail).mockResolvedValue({ success: true })\n\n    const formData = new FormData()\n    formData.append('name', 'John Doe')\n    formData.append('email', 'john@example.com')\n    formData.append('message', 'Hello, I need help')\n\n    const request = new Request('http://localhost:3000/api/contact', {\n      method: 'POST',\n      body: formData,\n    })\n\n    const response = await POST(request)\n    const data = await response.json()\n\n    expect(response.status).toBe(200)\n    expect(data.success).toBe(true)\n    expect(emailService.sendEmail).toHaveBeenCalledTimes(1)\n  })\n\n  it('rejects invalid email', async () => {\n    const formData = new FormData()\n    formData.append('name', 'John Doe')\n    formData.append('email', 'invalid-email')\n    formData.append('message', 'Hello')\n\n    const request = new Request('http://localhost:3000/api/contact', {\n      method: 'POST',\n      body: formData,\n    })\n\n    const response = await POST(request)\n    const data = await response.json()\n\n    expect(response.status).toBe(400)\n    expect(data.error).toContain('email')\n    expect(emailService.sendEmail).not.toHaveBeenCalled()\n  })\n\n  it('handles email service failure', async () => {\n    vi.mocked(emailService.sendEmail).mockRejectedValue(\n      new Error('SMTP error')\n    )\n\n    const formData = new FormData()\n    formData.append('name', 'John Doe')\n    formData.append('email', 'john@example.com')\n    formData.append('message', 'Hello')\n\n    const request = new Request('http://localhost:3000/api/contact', {\n      method: 'POST',\n      body: formData,\n    })\n\n    const response = await POST(request)\n    const data = await response.json()\n\n    expect(response.status).toBe(500)\n    expect(data.error).toBeDefined()\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Server Actions",
+        "id": "testing-server-actions"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// app/actions/contact.test.ts\nimport { describe, it, expect, vi } from 'vitest'\nimport { submitContactForm } from './contact'\n\nvi.mock('@/lib/email/send')\nvi.mock('@/lib/security/rate-limiter')\n\ndescribe('submitContactForm', () => {\n  it('processes valid form', async () => {\n    const formData = new FormData()\n    formData.append('name', 'John Doe')\n    formData.append('email', 'john@example.com')\n    formData.append('message', 'Hello, I need help')\n\n    const result = await submitContactForm(formData)\n\n    expect(result.success).toBe(true)\n    expect(result.error).toBeUndefined()\n  })\n\n  it('enforces rate limiting', async () => {\n    vi.mocked(checkRateLimit).mockResolvedValue({\n      allowed: false,\n      remaining: 0,\n    })\n\n    const formData = new FormData()\n    formData.append('name', 'John Doe')\n    formData.append('email', 'john@example.com')\n    formData.append('message', 'Spam')\n\n    const result = await submitContactForm(formData)\n\n    expect(result.success).toBe(false)\n    expect(result.error).toContain('Too many requests')\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "E2E Testing with Playwright",
+        "id": "e2e-testing"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Browser automation, critical path testing"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "End-to-end testing with Playwright for critical user flows."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Playwright Setup",
+        "id": "playwright-setup"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// playwright.config.ts\nimport { defineConfig, devices } from '@playwright/test'\n\nexport default defineConfig({\n  testDir: './e2e',\n  fullyParallel: true,\n  forbidOnly: !!process.env.CI,\n  retries: process.env.CI ? 2 : 0,\n  workers: process.env.CI ? 1 : undefined,\n  reporter: 'html',\n  use: {\n    baseURL: 'http://localhost:3000',\n    trace: 'on-first-retry',\n    screenshot: 'only-on-failure',\n  },\n  projects: [\n    {\n      name: 'chromium',\n      use: { ...devices['Desktop Chrome'] },\n    },\n    {\n      name: 'firefox',\n      use: { ...devices['Desktop Firefox'] },\n    },\n    {\n      name: 'webkit',\n      use: { ...devices['Desktop Safari'] },\n    },\n  ],\n  webServer: {\n    command: 'pnpm dev',\n    url: 'http://localhost:3000',\n    reuseExistingServer: !process.env.CI,\n  },\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Critical Flow: Contact Form",
+        "id": "critical-flow:-contact-form"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// e2e/contact-form.spec.ts\nimport { test, expect } from '@playwright/test'\n\ntest.describe('Contact Form', () => {\n  test('completes contact form submission', async ({ page }) => {\n    // Navigate to contact page\n    await page.goto('/contact')\n\n    // Fill form\n    await page.getByLabel('Name').fill('John Doe')\n    await page.getByLabel('Email').fill('john@example.com')\n    await page.getByLabel('Message').fill('I need help with my project')\n    await page.getByLabel('Web Development').check()\n\n    // Submit\n    await page.getByRole('button', { name: 'Send Message' }).click()\n\n    // Verify success\n    await expect(page.getByText('Thank you for your message')).toBeVisible()\n  })\n\n  test('shows validation errors', async ({ page }) => {\n    await page.goto('/contact')\n\n    // Submit empty form\n    await page.getByRole('button', { name: 'Send Message' }).click()\n\n    // Check errors\n    await expect(page.getByText('Name is required')).toBeVisible()\n    await expect(page.getByText('Email is required')).toBeVisible()\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Navigation",
+        "id": "testing-navigation"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// e2e/navigation.spec.ts\nimport { test, expect } from '@playwright/test'\n\ntest.describe('Site Navigation', () => {\n  test('navigates through main sections', async ({ page }) => {\n    await page.goto('/')\n\n    // Click Services\n    await page.getByRole('link', { name: 'Services' }).click()\n    await expect(page).toHaveURL('/services')\n    await expect(page.getByRole('heading', { name: 'Services' })).toBeVisible()\n\n    // Click Articles\n    await page.getByRole('link', { name: 'Articles' }).click()\n    await expect(page).toHaveURL(/\\/articles/)\n    await expect(page.getByRole('heading', { name: 'Articles' })).toBeVisible()\n  })\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Testing Mobile",
+        "id": "testing-mobile"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// e2e/mobile.spec.ts\nimport { test, expect, devices } from '@playwright/test'\n\ntest.use({ ...devices['iPhone 12'] })\n\ntest('mobile navigation works', async ({ page }) => {\n  await page.goto('/')\n\n  // Open mobile menu\n  await page.getByLabel('Menu').click()\n\n  // Click nav item\n  await page.getByRole('link', { name: 'Contact' }).click()\n  await expect(page).toHaveURL('/contact')\n})",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "CI/CD Integration",
+        "id": "ci-integration"
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "GitHub Actions workflow, coverage gates"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Automated testing in CI/CD pipeline."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "GitHub Actions Workflow",
+        "id": "github-actions-workflow"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# .github/workflows/test.yml\nname: Test\n\non:\n  push:\n    branches: [main, develop]\n  pull_request:\n    branches: [main]\n\njobs:\n  unit:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: pnpm/action-setup@v2\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: 'pnpm'\n      \n      - run: pnpm install\n      - run: pnpm test:unit\n      \n      - name: Upload coverage\n        uses: codecov/codecov-action@v4\n        with:\n          files: ./coverage/coverage-final.json\n\n  integration:\n    runs-on: ubuntu-latest\n    services:\n      postgres:\n        image: postgres:16\n        env:\n          POSTGRES_PASSWORD: test\n        options: >-\n          --health-cmd pg_isready\n          --health-interval 10s\n          --health-timeout 5s\n          --health-retries 5\n    steps:\n      - uses: actions/checkout@v4\n      - uses: pnpm/action-setup@v2\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: 'pnpm'\n      \n      - run: pnpm install\n      - run: pnpm test:integration\n        env:\n          DATABASE_URL: postgresql://postgres:test@localhost:5432/test\n\n  e2e:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: pnpm/action-setup@v2\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: 'pnpm'\n      \n      - run: pnpm install\n      - run: pnpm exec playwright install --with-deps\n      - run: pnpm test:e2e\n      \n      - uses: actions/upload-artifact@v4\n        if: failure()\n        with:\n          name: playwright-report\n          path: playwright-report/",
+        "language": "yaml",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Package.json Scripts",
+        "id": "package.json-scripts"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "{\n  \"scripts\": {\n    \"test\": \"vitest\",\n    \"test:unit\": \"vitest run --coverage\",\n    \"test:integration\": \"vitest run --config vitest.integration.config.ts\",\n    \"test:e2e\": \"playwright test\",\n    \"test:ci\": \"pnpm test:unit && pnpm test:integration && pnpm test:e2e\"\n  }\n}",
+        "language": "json",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Coverage Gates",
+        "id": "coverage-gates"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "# codecov.yml\ncoverage:\n  status:\n    project:\n      default:\n        target: 80%\n        threshold: 5%\n    patch:\n      default:\n        target: 80%",
+        "language": "yaml",
+        "filename": null
+      }
+    }
+  ]
+}

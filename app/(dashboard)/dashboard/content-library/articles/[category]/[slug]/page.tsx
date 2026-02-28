@@ -1,14 +1,16 @@
 import React from "react";
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
-import type { Article } from "@/lib/strapi/dashboard/content-library/articles/articles";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/article-content";
 import {
   listArticles,
   getArticleRecordBySlug,
 } from "@/lib/strapi/dashboard/content-library/articles/article-repository";
 import { toArticleDetailViewModel } from "@/lib/strapi/dashboard/content-library/articles/article-view-models";
 import { canReadArticle } from "@/lib/authorization/article-policies";
+import { getContentDetailPath } from "@/lib/content-library/url-policy";
 import { TableOfContents } from "@/components/molecules/article-components";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
@@ -17,6 +19,47 @@ export async function generateStaticParams() {
     category: article.category,
     slug: article.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const record = getArticleRecordBySlug(slug);
+
+  if (!record || !canReadArticle(record.article)) {
+    return {
+      title: "Article Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const canonicalPath = getContentDetailPath(
+    "articles",
+    record.article.category,
+    record.article.slug,
+  );
+
+  return {
+    title: record.article.title,
+    description: record.article.excerpt,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      title: record.article.title,
+      description: record.article.excerpt,
+      url: canonicalPath,
+      publishedTime: record.article.publishedAt,
+      tags: record.article.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.article.title,
+      description: record.article.excerpt,
+    },
+  };
 }
 
 function getLevelColor(level: Article["level"]) {
@@ -59,16 +102,26 @@ function getCategoryColor(category: Article["category"]) {
   }
 }
 
-export default function ArticlePage({
+export default async function ArticlePage({
   params,
 }: {
-  params: { category: string; slug: string };
+  params: Promise<{ category: string; slug: string }>;
 }) {
-  const { category, slug } = params;
+  const { category, slug } = await params;
   const record = getArticleRecordBySlug(slug);
 
-  if (!record || record.article.category !== category) {
+  if (!record) {
     notFound();
+  }
+
+  if (record.article.category !== category) {
+    redirect(
+      getContentDetailPath(
+        "articles",
+        record.article.category,
+        record.article.slug,
+      ),
+    );
   }
 
   if (!canReadArticle(record.article)) {

@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "slug": "deploying-nextjs-to-vercel",
+    "title": "Deploying Next.js to Vercel: Environment Variables and Checks",
+    "excerpt": "A step-by-step guide to deploying a Next.js application to Vercel with proper environment variable management, preview deployments, and production checks.",
+    "level": "beginner",
+    "category": "devops",
+    "readTime": "25 min",
+    "publishedAt": "2026-02-09",
+    "tags": [
+      "deployment",
+      "vercel",
+      "environment-variables",
+      "ci-cd",
+      "devops",
+      "next.js",
+      "preview-deployments"
+    ]
+  },
+  "layout": "content-with-toc",
+  "toc": [
+    {
+      "id": "step-1",
+      "title": "1. Connecting Your Repository",
+      "level": 2
+    },
+    {
+      "id": "step-2",
+      "title": "2. Environment Variables: The Three Scopes",
+      "level": 2
+    },
+    {
+      "id": "step-3",
+      "title": "3. Pulling Environment Variables Locally",
+      "level": 2
+    },
+    {
+      "id": "step-4",
+      "title": "4. Preview Deployments and Branch Protection",
+      "level": 2
+    },
+    {
+      "id": "step-5",
+      "title": "5. Build Checks and Deployment Protection",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Connecting Your Repository",
+        "id": "step-1"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Vercel deploys directly from your Git repository. Every push to the main branch triggers a production deployment, and every pull request gets its own preview deployment with a unique URL."
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Step 1: Go to vercel.com/new\n// Step 2: Import your Git repository (GitHub, GitLab, or Bitbucket)\n// Step 3: Vercel auto-detects Next.js and configures build settings\n\n// Default build settings (auto-detected):\n// Framework Preset: Next.js\n// Build Command: next build\n// Output Directory: .next\n// Install Command: npm install (or pnpm/yarn based on lockfile)\n\n// After import, Vercel triggers your first deployment automatically.\n// You'll get a production URL: your-project.vercel.app",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "tip",
+        "title": "💡 Hint",
+        "body": "Vercel reads your lockfile to determine the package manager. Make sure package-lock.json, pnpm-lock.yaml, or yarn.lock is committed to your repository."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Environment Variables: The Three Scopes",
+        "id": "step-2"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Vercel has three environment scopes: Production (live site), Preview (PR deployments), and Development (local via vercel env pull). Each scope can have different values for the same variable. This is critical -- your production database URL should never be used in preview deployments."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-2-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Environment variable configuration in Vercel Dashboard:\n// Settings > Environment Variables\n\n// Example configuration for a typical Next.js app:\n\n// DATABASE_URL\n//   Production:  postgresql://prod-db.example.com:5432/myapp\n//   Preview:     postgresql://staging-db.example.com:5432/myapp_staging\n//   Development: postgresql://localhost:5432/myapp_dev\n\n// NEXT_PUBLIC_SITE_URL\n//   Production:  https://www.yoursite.com\n//   Preview:     (auto) https://your-project-git-branch.vercel.app\n//   Development: http://localhost:3000\n\n// EMAIL_API_KEY\n//   Production:  re_live_xxxxxxxxxxxx\n//   Preview:     re_test_xxxxxxxxxxxx  (test key -- no real emails sent)\n//   Development: re_test_xxxxxxxxxxxx\n\n// IMPORTANT RULES:\n// 1. Variables prefixed with NEXT_PUBLIC_ are exposed to the browser\n//    NEVER put secrets in NEXT_PUBLIC_ variables\n//\n// 2. Server-only variables (no prefix) are only available in:\n//    - Server Components\n//    - Route Handlers\n//    - Server Actions\n//    - Middleware\n//\n// 3. Use different values per scope to prevent:\n//    - Preview deploys writing to production database\n//    - Test emails going to real customers\n//    - Development using production API quotas",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The three-scope model prevents the most common deployment disaster: a preview deployment accidentally modifying production data. Always use test/staging credentials for Preview and Development scopes."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Pulling Environment Variables Locally",
+        "id": "step-3"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Instead of manually copying environment variables to a .env.local file, Vercel CLI can pull them directly from your project settings. This ensures your local development environment always matches what's configured in the dashboard."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-3-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Install Vercel CLI globally\n// npm i -g vercel\n\n// Link your local project to your Vercel project\n// vercel link\n\n// Pull environment variables for development scope\n// vercel env pull .env.local\n\n// This creates/overwrites .env.local with all Development-scope variables:\n// DATABASE_URL=postgresql://localhost:5432/myapp_dev\n// EMAIL_API_KEY=re_test_xxxxxxxxxxxx\n// NEXT_PUBLIC_SITE_URL=http://localhost:3000\n\n// IMPORTANT: .env.local is in .gitignore by default (Next.js convention)\n// NEVER commit .env.local to your repository\n\n// To verify your environment is correct:\n// app/api/health/route.ts\nimport { NextResponse } from \"next/server\"\n\nexport async function GET() {\n  return NextResponse.json({\n    environment: process.env.VERCEL_ENV ?? \"development\",\n    hasDatabase: !!process.env.DATABASE_URL,\n    hasEmailKey: !!process.env.EMAIL_API_KEY,\n    // Never log actual secret values -- only check existence\n  })\n}",
+        "language": "bash",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The health check endpoint is a deployment verification pattern. It confirms that required environment variables are set without exposing their values. Add checks for every critical variable your app needs."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Preview Deployments and Branch Protection",
+        "id": "step-4"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every pull request automatically gets a preview deployment. This is your first line of defence against broken releases -- review the preview URL before merging. You can also add comments on the preview deployment directly in the Vercel dashboard."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-4-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// Preview deployment workflow:\n\n// 1. Create a feature branch\n//    git checkout -b feature/new-service-form\n\n// 2. Make changes and push\n//    git add . && git commit -m \"Add new service form\"\n//    git push origin feature/new-service-form\n\n// 3. Create a pull request on GitHub\n//    Vercel automatically:\n//    - Detects the new PR\n//    - Builds using Preview environment variables\n//    - Deploys to a unique URL\n//    - Posts the preview URL as a PR comment\n\n// 4. Review the preview deployment\n//    - Click the Vercel bot's link in the PR\n//    - Test the changes on the live preview\n//    - Check the build logs for warnings\n\n// 5. Merge the PR\n//    - Vercel automatically deploys to production\n//    - The preview deployment is archived\n\n// Recommended GitHub branch protection rules:\n// Settings > Branches > Branch protection rules > main\n// [x] Require a pull request before merging\n// [x] Require status checks to pass (select \"Vercel\" check)\n// [x] Require branches to be up to date before merging",
+        "language": "text",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "Preview deployments are the single most valuable deployment feature. They let non-developers (designers, project managers, clients) review changes on a real URL before anything touches production."
+      }
+    },
+    {
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Build Checks and Deployment Protection",
+        "id": "step-5"
+      }
+    },
+    {
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Add checks that run during the build to catch problems before they reach production. Next.js build already catches TypeScript errors and ESLint violations, but you can add custom checks for environment variables, API connectivity, and data integrity."
+      }
+    },
+    {
+      "type": "molecule.subSectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "✅ Solution",
+        "id": "step-5-solution"
+      }
+    },
+    {
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "code": "// next.config.mjs -- Enable strict checks during build\n\n/** @type {import('next').NextConfig} */\nconst nextConfig = {\n  // TypeScript errors will FAIL the build (not just warn)\n  typescript: {\n    ignoreBuildErrors: false,  // NEVER set this to true in production\n  },\n  \n  // ESLint errors will FAIL the build\n  eslint: {\n    ignoreDuringBuilds: false, // NEVER set this to true in production\n  },\n}\n\nexport default nextConfig\n\n// Custom build-time environment validation\n// lib/env.ts\nfunction validateEnv() {\n  const required = [\n    \"DATABASE_URL\",\n    \"EMAIL_API_KEY\",\n  ]\n  \n  const missing = required.filter((key) => !process.env[key])\n  \n  if (missing.length > 0) {\n    throw new Error(\n      \"Missing required environment variables: \" + missing.join(\", \")\n    )\n  }\n}\n\n// Call during build (e.g., in a server component or API route)\n// This ensures the build fails if variables are missing\nvalidateEnv()\n\n// Vercel deployment protection (Dashboard):\n// Settings > Deployment Protection\n// [x] Vercel Authentication -- require login to view preview deployments\n// [x] Protection Bypass for Automation -- allow CI/CD tools to access",
+        "language": "typescript",
+        "filename": null
+      }
+    },
+    {
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "📖 Explanation",
+        "body": "The principle is simple: fail fast. If the build succeeds, you have confidence that TypeScript compiles, ESLint passes, and all required environment variables are set. This eliminates the most common class of deployment failures."
+      }
+    }
+  ]
+}

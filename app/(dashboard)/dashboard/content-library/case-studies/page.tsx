@@ -1,17 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Filter, TrendingUp } from "lucide-react";
-import {
-  caseStudies,
-  type CaseStudyCategory,
-} from "@/data/content-library/case-studies";
-import caseStudiesListData from "@/data/strapi-mock/dashboard/case-studies-list.json";
-import type { CaseStudiesListContent } from "@/types/dashboard";
-
-// Type the imported JSON
-const typedCaseStudiesListData = caseStudiesListData as CaseStudiesListContent;
+import { ArrowRight, TrendingUp, Calendar } from "lucide-react";
+import { type CaseStudyCategory } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content";
+import { listCaseStudies } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-repository";
+import { pageLogger } from "@/lib/utils/arch-logger";
 
 function getCategoryColor(category: CaseStudyCategory) {
   switch (category) {
@@ -33,12 +24,13 @@ function getCategoryColor(category: CaseStudyCategory) {
 }
 
 export default function CaseStudiesPage() {
-  const [categoryFilter, setCategoryFilter] = useState<
-    CaseStudyCategory | "all"
-  >("all");
+  pageLogger.render("/dashboard/content-library/case-studies");
 
-  const filteredCaseStudies = caseStudies.filter(
-    (cs) => categoryFilter === "all" || cs.category === categoryFilter,
+  const caseStudies = listCaseStudies();
+  pageLogger.dataFetch(
+    "/dashboard/content-library/case-studies",
+    "case-studies",
+    caseStudies.length,
   );
 
   return (
@@ -68,14 +60,9 @@ export default function CaseStudiesPage() {
           const count = caseStudies.filter((cs) => cs.category === cat).length;
           if (count === 0) return null;
           return (
-            <button
+            <div
               key={cat}
-              onClick={() =>
-                setCategoryFilter(categoryFilter === cat ? "all" : cat)
-              }
-              className={`border rounded-lg p-4 text-center transition-colors ${
-                categoryFilter === cat ? "ring-2 ring-accent" : ""
-              } ${getCategoryColor(cat).replace("text-", "border-").replace("/10", "/20")}`}
+              className={`border rounded-lg p-4 text-center ${getCategoryColor(cat).replace("text-", "border-").replace("/10", "/20")}`}
             >
               <p
                 className={`text-2xl font-bold ${getCategoryColor(cat).split(" ")[1]}`}
@@ -85,93 +72,57 @@ export default function CaseStudiesPage() {
               <p className="text-sm text-muted-foreground capitalize">
                 {cat === "cms" ? "CMS" : cat}
               </p>
-            </button>
+            </div>
           );
         })}
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 p-4 bg-card/50 border border-border rounded-lg">
-        <Filter className="h-4 w-4 text-muted-foreground" />
-        <div className="flex flex-wrap gap-2">
-          <span className="text-sm text-muted-foreground">Category:</span>
-          {(
-            [
-              "all",
-              "performance",
-              "security",
-              "architecture",
-              "refactoring",
-              "business",
-              "cms",
-            ] as const
-          ).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setCategoryFilter(cat)}
-              className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${
-                categoryFilter === cat
-                  ? "bg-accent text-accent-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {cat === "all"
-                ? "All"
-                : cat === "cms"
-                  ? "CMS"
-                  : cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <div className="grid gap-6">
-        {filteredCaseStudies.map((caseStudy) => (
+        {caseStudies.map((caseStudy) => (
           <Link
             key={caseStudy.id}
-            href={`/dashboard/content-library/case-studies/${caseStudy.slug}`}
-            className="group bg-card border border-border rounded-lg overflow-hidden hover:border-accent/50 transition-colors"
+            href={`/dashboard/content-library/case-studies/${caseStudy.category}/${caseStudy.slug}`}
+            className="group bg-card border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
           >
-            <div className="p-6 space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-2">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center gap-2">
                   <span
-                    className={`inline-block px-2 py-0.5 text-xs font-medium rounded ${getCategoryColor(caseStudy.category)}`}
+                    className={`px-2 py-0.5 text-xs font-medium rounded ${getCategoryColor(caseStudy.category)}`}
                   >
-                    {caseStudy.category}
+                    {caseStudy.category === "cms"
+                      ? "CMS"
+                      : caseStudy.category.charAt(0).toUpperCase() +
+                        caseStudy.category.slice(1)}
                   </span>
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
-                    {caseStudy.title}
-                  </h3>
-                  <p className="text-muted-foreground">{caseStudy.subtitle}</p>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors shrink-0 mt-1" />
-              </div>
 
-              <div className="flex flex-wrap gap-4">
-                {caseStudy.results.metrics.slice(0, 3).map((metric, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span className="text-muted-foreground">
-                      {metric.label}:
-                    </span>
-                    <span className="font-medium text-green-500">
-                      {metric.improvement}
-                    </span>
+                <div className="flex items-start gap-3">
+                  <TrendingUp className="h-6 w-6 text-green-500 shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors mb-2">
+                      {caseStudy.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground text-pretty">
+                      {caseStudy.excerpt}
+                    </p>
                   </div>
-                ))}
+                </div>
+
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Calendar className="h-3 w-3" />
+                  {new Date(caseStudy.publishedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </div>
               </div>
+              <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors shrink-0 mt-2" />
             </div>
           </Link>
         ))}
       </div>
-
-      {filteredCaseStudies.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">
-            No case studies match your filter.
-          </p>
-        </div>
-      )}
     </div>
   );
 }

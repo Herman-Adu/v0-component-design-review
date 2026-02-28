@@ -6,12 +6,12 @@
   "stats": [
     {
       "label": "Total Studies",
-      "value": 5,
+      "value": 20,
       "icon": "TrendingUp"
     },
     {
       "label": "Topics Covered",
-      "value": 8,
+      "value": 9,
       "icon": "Tag"
     },
     {
@@ -27,24 +27,44 @@
       "color": "blue"
     },
     {
+      "id": "refactoring",
+      "title": "Refactoring",
+      "color": "violet"
+    },
+    {
       "id": "performance",
       "title": "Performance",
       "color": "green"
     },
     {
-      "id": "documentation",
-      "title": "Documentation",
-      "color": "purple"
-    },
-    {
-      "id": "migration",
-      "title": "Migration",
-      "color": "orange"
-    },
-    {
-      "id": "scaling",
-      "title": "Scaling",
+      "id": "security",
+      "title": "Security",
       "color": "red"
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "color": "emerald"
+    },
+    {
+      "id": "cms",
+      "title": "CMS",
+      "color": "cyan"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure",
+      "color": "slate"
+    },
+    {
+      "id": "rendering",
+      "title": "Rendering",
+      "color": "indigo"
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "color": "purple"
     }
   ]
 }

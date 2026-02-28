@@ -426,15 +426,15 @@
         "articles": [
           {
             "title": "Server Actions: Beyond the Basics",
-            "href": "/dashboard/content-library/articles/architecture/server-actions-deep-dive"
+            "href": "/dashboard/content-library/articles/security/server-actions-deep-dive"
           },
           {
             "title": "Security Architecture Deep Dive",
-            "href": "/dashboard/content-library/articles/architecture/security-architecture-deep-dive"
+            "href": "/dashboard/content-library/articles/security/security-architecture-deep-dive"
           },
           {
             "title": "Refactoring for Maintainability",
-            "href": "/dashboard/content-library/articles/architecture/refactoring-for-maintainability"
+            "href": "/dashboard/content-library/articles/best-practices/refactoring-for-maintainability"
           }
         ]
       }

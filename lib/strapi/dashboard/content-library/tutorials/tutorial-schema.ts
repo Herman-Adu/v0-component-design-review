@@ -14,27 +14,33 @@ const TUTORIAL_CATEGORIES = [
   "email",
 ] as const;
 
-const tutorialStepSchema = z.object({
+const atomicLevelSchema = z.enum(["atom", "molecule", "organism"]);
+
+// Simplified block schema - allows any type/atomicLevel/props combination
+const tutorialBlockSchema = z.object({
+  type: z.string().min(1),
+  atomicLevel: atomicLevelSchema,
+  props: z.record(z.unknown()),
+});
+
+const tocItemSchema = z.object({
+  id: z.string().min(1),
   title: z.string().min(1),
-  content: z.string().min(1),
-  code: z.string().optional(),
-  hint: z.string().optional(),
-  solution: z.string().optional(),
-  explanation: z.string().optional(),
+  level: z.number().int().positive(),
 });
 
 export const tutorialContentDocumentSchema = z.object({
   meta: z.object({
     slug: z.string().min(1),
     title: z.string().min(1),
-    description: z.string().min(1),
+    excerpt: z.string().min(1),
     level: z.enum(TUTORIAL_LEVELS),
     category: z.enum(TUTORIAL_CATEGORIES),
-    duration: z.string().min(1),
+    readTime: z.string().min(1),
     publishedAt: z.string().min(1),
     tags: z.array(z.string()).min(1),
-    prerequisites: z.array(z.string()).min(1),
-    learningOutcomes: z.array(z.string()).min(1),
   }),
-  steps: z.array(tutorialStepSchema).min(1),
+  layout: z.union([z.literal("content-with-toc"), z.literal("content-only")]),
+  toc: z.array(tocItemSchema).optional(),
+  blocks: z.array(tutorialBlockSchema).min(1),
 });

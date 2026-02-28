@@ -1,10 +1,12 @@
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import {
   getCaseStudyRecordBySlug,
   listCaseStudySlugs,
 } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-repository";
+import { getContentDetailPath } from "@/lib/content-library/url-policy";
 import { toCaseStudyDetailViewModel } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-view-models";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 import type { CaseStudy } from "@/data/content-library/case-studies";
@@ -20,6 +22,47 @@ export async function generateStaticParams() {
     })
     .filter(Boolean);
   return caseStudies;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const record = getCaseStudyRecordBySlug(slug);
+
+  if (!record) {
+    return {
+      title: "Case Study Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const canonicalPath = getContentDetailPath(
+    "case-studies",
+    record.caseStudy.category,
+    record.caseStudy.slug,
+  );
+
+  return {
+    title: record.caseStudy.title,
+    description: record.caseStudy.excerpt,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      title: record.caseStudy.title,
+      description: record.caseStudy.excerpt,
+      url: canonicalPath,
+      publishedTime: record.caseStudy.publishedAt,
+      tags: record.caseStudy.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.caseStudy.title,
+      description: record.caseStudy.excerpt,
+    },
+  };
 }
 
 function getCategoryColor(category: CaseStudy["category"]) {
@@ -55,11 +98,21 @@ export default async function CaseStudyPage({
 }: {
   params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, category } = await params;
   const record = getCaseStudyRecordBySlug(slug);
 
   if (!record) {
     notFound();
+  }
+
+  if (record.caseStudy.category !== category) {
+    redirect(
+      getContentDetailPath(
+        "case-studies",
+        record.caseStudy.category,
+        record.caseStudy.slug,
+      ),
+    );
   }
 
   const { caseStudy, content } = record;
@@ -87,7 +140,7 @@ export default async function CaseStudyPage({
         <h1 className="text-4xl font-bold text-foreground text-balance">
           {viewModel.title}
         </h1>
-        <p className="text-xl text-muted-foreground">{caseStudy.subtitle}</p>
+        <p className="text-xl text-muted-foreground">{caseStudy.excerpt}</p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
