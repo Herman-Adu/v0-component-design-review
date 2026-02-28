@@ -25,3 +25,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# transient artifacts
+/backups/
+*-migration-report.json
+*-verification-report.json
+test-results.txt
+postman-*.instructions.md
+scripts/phase10-*.js
