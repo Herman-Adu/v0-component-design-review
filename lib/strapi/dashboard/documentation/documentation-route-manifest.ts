@@ -2,6 +2,7 @@ import { listCmsReference } from "@/lib/strapi/dashboard/documentation/cms-refer
 import { listAppReference } from "@/lib/strapi/dashboard/documentation/app-reference/app-reference-repository";
 import { listInfrastructureOps } from "@/lib/strapi/dashboard/documentation/infrastructure-ops/infrastructure-ops-repository";
 import { listStrategicOverview } from "@/lib/strapi/dashboard/documentation/strategic-overview/strategic-overview-repository";
+import { getDocumentationDetailPath } from "@/lib/content-library/url-policy";
 import type { StrategicOverviewDocument } from "@/lib/strapi/dashboard/documentation/strategic-overview/strategic-overview-schema";
 import type { CmsReferenceDocument } from "@/lib/strapi/dashboard/documentation/cms-reference/cms-reference-schema";
 import type { AppReferenceDocument } from "@/lib/strapi/dashboard/documentation/app-reference/app-reference-schema";
@@ -35,7 +36,7 @@ function mapStrategicOverview(
     slug: record.meta.slug,
     audience: record.meta.audience,
     lastUpdated: record.meta.lastUpdated,
-    path: `/dashboard/documentation/strategic-overview/${record.meta.slug}`,
+    path: getDocumentationDetailPath("strategic-overview", record.meta.slug),
   }));
 }
 
@@ -47,7 +48,7 @@ function mapCmsReference(
     slug: record.meta.slug,
     audience: record.meta.audience,
     lastUpdated: record.meta.lastUpdated,
-    path: `/dashboard/documentation/cms-reference/${record.meta.slug}`,
+    path: getDocumentationDetailPath("cms-reference", record.meta.slug),
   }));
 }
 
@@ -59,7 +60,7 @@ function mapAppReference(
     slug: record.meta.slug,
     audience: record.meta.audience,
     lastUpdated: record.meta.lastUpdated,
-    path: `/dashboard/documentation/app-reference/${record.meta.slug}`,
+    path: getDocumentationDetailPath("app-reference", record.meta.slug),
   }));
 }
 
@@ -71,7 +72,7 @@ function mapInfrastructureOps(
     slug: record.meta.slug,
     audience: record.meta.audience,
     lastUpdated: record.meta.lastUpdated,
-    path: `/dashboard/documentation/infrastructure-ops/${record.meta.slug}`,
+    path: getDocumentationDetailPath("infrastructure-ops", record.meta.slug),
   }));
 }
 

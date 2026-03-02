@@ -4,9 +4,11 @@ import {
   toAbsoluteUrl,
 } from "@/lib/content-library/url-policy";
 import { getContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest";
+import { getDocumentationRouteManifest } from "@/lib/strapi/dashboard/documentation/documentation-route-manifest";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const manifest = getContentRouteManifest();
+  const contentManifest = getContentRouteManifest();
+  const docManifest = getDocumentationRouteManifest();
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -64,14 +66,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: toAbsoluteUrl("/dashboard/documentation"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
   ];
 
-  const dynamicRoutes: MetadataRoute.Sitemap = manifest.all.map((entry) => ({
-    url: toAbsoluteUrl(entry.path),
-    lastModified: new Date(entry.publishedAt),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  // Content Library dynamic routes (from content-route-manifest)
+  const contentRoutes: MetadataRoute.Sitemap = contentManifest.all.map(
+    (entry) => ({
+      url: toAbsoluteUrl(entry.path),
+      lastModified: new Date(entry.publishedAt),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
 
-  return [...staticRoutes, ...dynamicRoutes];
+  // Documentation dynamic routes (from documentation-route-manifest)
+  const documentationRoutes: MetadataRoute.Sitemap = docManifest.all.map(
+    (entry) => ({
+      url: toAbsoluteUrl(entry.path),
+      lastModified: new Date(entry.lastUpdated),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
+
+  return [...staticRoutes, ...contentRoutes, ...documentationRoutes];
 }

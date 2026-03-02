@@ -5,23 +5,27 @@
 You are continuing work in `c:\Users\herma\source\repository\v0-component-design-review`.
 
 Current branch: `feature/import-refactor-2026-03-02`  
-Checkpoint commit: `bdabd08`
+Checkpoint commit: `LATEST` (extendable URL policy + documentation in sitemap)
 
 Primary objective:
 
 1. **Documentation dynamic route system is complete and stable** (`/dashboard/documentation/[category]/[slug]`).
 2. **Navigation links fixed** - all sidebar links now match actual JSON file slugs (single source of truth).
-3. **Integration tests complete** for all 4 documentation repositories:
+3. **URL policy extended** - polymorphic support for content-library AND documentation route systems.
+4. **Sitemap complete** - includes all 12 documentation routes + 21 content library routes for SEO.
+5. **Integration tests complete** for all 4 documentation repositories:
    - ✅ `strategic-overview` (20 tests)
    - ✅ `cms-reference` (19 tests)
    - ✅ `app-reference` (19 tests)
    - ✅ `infrastructure-ops` (19 tests)
-4. **Build passes cleanly** - 77 tests passing, all routes generating correctly.
+6. **Build passes cleanly** - 77 tests passing, all routes generating correctly.
 
 Rules for this continuation:
 
+- Use `lib/content-library/url-policy.ts` for ALL URL generation (polymorphic support)
 - Documentation system is **production-ready** and follows content library architecture patterns
 - All navigation uses actual slugs from JSON files - no hardcoding, no guessing
+- Sitemap automatically includes all dynamic routes from both manifests
 - Integration tests cover all repository operations and content validation
 - Follow established patterns: generateStaticParams, generateMetadata, URL policy
 - Prefer minimal, surgical edits for any future documentation additions
@@ -84,6 +88,22 @@ Rules for this continuation:
 - `troubleshooting` - Troubleshooting Guide
 
 ## Critical Files Reference
+
+**URL Policy (Single Source of Truth for All Routes)**:
+
+- `lib/content-library/url-policy.ts` - Polymorphic URL generation:
+  - `getContentListPath(section)` - routes like `/dashboard/content-library/articles`
+  - `getContentDetailPath(section, category, slug)` - routes like `/dashboard/content-library/articles/architecture/type-safety-first`
+  - `getDocumentationDetailPath(category, slug)` - routes like `/dashboard/documentation/strategic-overview/system-vision`
+  - `getDetailPath(system, category, slug)` - dispatch function for both route systems
+  - `toAbsoluteUrl(pathname)` - converts relative to absolute for canonical URLs
+
+**Sitemap (SEO - All Dynamic Routes)**:
+
+- `app/sitemap.ts` - Generates 33 total routes:
+  - 5 static routes (home, contact, services, quotation, hubs)
+  - 12 documentation routes (from `getDocumentationRouteManifest()`)
+  - 21 content library routes (from `getContentRouteManifest()`)
 
 **Dynamic Route (Main Entry Point)**:
 
@@ -159,19 +179,35 @@ git status
 ## Architecture Principles (Established)
 
 1. **Single Source of Truth**: JSON files in `data/strapi-mock/` are the authority
-2. **No Hardcoding**: Navigation links derive from actual content slugs
-3. **URL Policy**: Follow `getContentDetailPath()` pattern from content library
-4. **Type Safety**: Zod schemas validate all content at module init
+2. **No Hardcoding**: Navigation links, manifests, and URLs all derive from actual content
+3. **URL Policy Polymorphism**: `lib/content-library/url-policy.ts` handles both route systems:
+   - `getContentDetailPath(section, category, slug)` for content-library routes
+   - `getDocumentationDetailPath(category, slug)` for documentation routes
+   - `getDetailPath(system, category, slug)` for polymorphic dispatch
+   - All used by: pages, navigation, manifests, sitemap, metadata generation
+4. **Type Safety**: Zod schemas validate all content at module init; route types prevent invalid combinations
 5. **Repository Pattern**: Clean separation: content-builder → repository → view-model → page
 6. **Test Coverage**: Integration tests verify all repository operations and content validation
+7. **SEO Completeness**: Sitemap includes all dynamic routes (33 total: 12 documentation + 21 content library)
 
 ## Handoff Note
 
-This checkpoint represents **completion of documentation system migration**:
+This checkpoint represents **completion of documentation system migration + URL policy extension**:
 
 - ✅ Dynamic route architecture matching content library pattern
 - ✅ All 4 documentation categories implemented with full stack
 - ✅ Navigation links fixed to match actual JSON file slugs
+- ✅ URL policy extended to polymorphic support for both route systems
+- ✅ Sitemap includes all 12 documentation routes + 21 content library routes
 - ✅ Complete integration test coverage (77 tests)
 - ✅ Build and tests passing
-- ✅ Ready for content additions
+- ✅ Ready for content additions without architectural changes
+
+**Future Additions**: When adding new documentation categories or content sections:
+
+1. Add JSON files to `data/strapi-mock/`
+2. Create repository/schema/builder/view-model stack
+3. Update navigation in `data/nav-data.ts` (uses URL policy functions)
+4. Add category-specific types to `url-policy.ts` if needed
+5. Sitemap and metadata generation work automatically via manifests
+6. No hardcoding required
