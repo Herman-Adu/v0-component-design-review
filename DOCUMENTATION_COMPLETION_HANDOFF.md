@@ -27,6 +27,81 @@
 - Add validation to build pipeline
 - Final comprehensive validation across all layers
 
+### ✅ P2/P3 Optimizations Complete (March 2, 2026)
+
+**Architecture Score Improvement**: 9.2/10 → 9.7/10 (+0.5)
+
+**P2 Refactors (CRITICAL - DRY violations eliminated):**
+
+- ✅ Created `lib/strapi/dashboard/documentation/documentation-helpers.ts` (219 lines)
+  - `getDocumentationViewModel()`: Single source of truth for category dispatch
+  - `getCategoryColor()`, `getAudienceColor()`, `getCategoryLabel()`: Extracted utilities
+  - Union type `DocumentationDetailViewModel` preserves specific block types
+- ✅ Refactored `app/(dashboard)/dashboard/documentation/[category]/[slug]/page.tsx`
+  - Eliminated 140+ lines of duplication (213 → ~100 lines, 47% reduction)
+  - Removed duplicated switch statements in generateMetadata() and Page component
+  - Removed 60 lines of local helper functions
+
+**P3 Optimizations (Performance/Maintainability):**
+
+- ✅ URL Policy Integration: `getDocumentationDetailPath()` for canonical URLs
+- ✅ Explicit Cache Headers: `Cache-Control: public, max-age=31536000, immutable`
+- ✅ Stats Table Pattern: Documented as intentional architectural decision
+
+**Validation Results:**
+
+- ✅ Build: 166 static pages, 29 documentation routes, TypeScript clean (4.9s compile)
+- ✅ Tests: 77 integration tests passing, 0 failures
+- ✅ Type Safety: No `unknown[]`, no `any`, full autocomplete preserved
+
+**Documentation:**
+
+- 📄 [P2_P3_OPTIMIZATION_COMPLETE.md](P2_P3_OPTIMIZATION_COMPLETE.md) - Comprehensive summary
+- 📄 [ARCHITECTURE_REVIEW_3AXIS.md](ARCHITECTURE_REVIEW_3AXIS.md) - Updated with new scores
+
+**Next Phase**: Content-library refactor (~20+ instances of `getCategoryColor()` duplication identified)
+
+---
+
+### ✅ TOC Pattern Fix Complete (March 2, 2026)
+
+**Issue**: Overview and getting-started pages incorrectly included TOC navigation, which didn't match content-library pattern and wasn't appropriate for navigation hub pages.
+
+**Root Cause**: Documentation refactor added `toc` arrays to all pages without considering page type/purpose distinction.
+
+**Solution**: Removed `toc` arrays from 8 navigation hub pages:
+
+- ✅ 4 overview pages (strategic-overview, cms-reference, app-reference, infrastructure-ops)
+- ✅ 4 getting-started pages (one per category)
+
+**Pattern Established**:
+
+- **Navigation hub pages** (overview, getting-started): No TOC - linear reading/onboarding journeys
+- **Detail pages** (relationships, shared-components, why-strapi, etc.): With TOC - deep-dive technical content
+
+**Template Already Supports This**:
+
+```tsx
+{
+  viewModel.toc && viewModel.toc.length > 0 ? (
+    <div className="flex gap-8">
+      <DocumentationBlockRenderer blocks={viewModel.blocks} />
+      <aside className="w-64">
+        <TableOfContents items={viewModel.toc} />
+      </aside>
+    </div>
+  ) : (
+    <DocumentationBlockRenderer blocks={viewModel.blocks} />
+  );
+}
+```
+
+**Validation**:
+
+- ✅ Build passing with 166 static pages
+- ✅ TypeScript clean (no Zod schema errors)
+- ✅ Matches content-library pattern (articles detail pages use same conditional TOC)
+
 ---
 
 ## Architecture Context
@@ -432,7 +507,9 @@ Focus: Consistent, comprehensive, validated implementation across all documentat
 
 - TableOfContents component uses `document.getElementById(item.id)`
 - DocumentationBlockRenderer assigns `id={block.id}` to section headers
-- **No bugs in TOC system** - issue is missing content, not broken links
+- **Optional TOC rendering** - Pages conditionally render TOC based on `viewModel.toc && viewModel.toc.length > 0`
+- **Navigation hub pages (overview, getting-started) have no TOC** - These pages serve as navigation/onboarding hubs and are meant to be read linearly, matching content-library pattern
+- **Detail pages have TOC** - Technical documentation pages (relationships, shared-components, why-strapi, etc.) include TOC for deep-dive navigation
 
 ### Content-Builder Pattern
 

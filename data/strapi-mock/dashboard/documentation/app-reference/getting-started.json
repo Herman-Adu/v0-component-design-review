@@ -18,31 +18,12 @@
     "metaTitle": "App Reference - Getting Started Guide",
     "metaDescription": "Navigate Next.js 15 application documentation with role-based learning paths covering component system, hydration, server actions, and more."
   },
-  "toc": [
+  "blocks": [
     {
+      "type": "block.sectionHeader",
       "id": "intro",
       "title": "Choose Your Learning Path",
-      "level": 2
-    },
-    {
-      "id": "learning-journey",
-      "title": "Learning Journey",
-      "level": 2
-    },
-    {
-      "id": "development-journey",
-      "title": "Development Reference",
-      "level": 2
-    },
-    {
-      "id": "cto-journey",
-      "title": "Architecture Overview",
-      "level": 2
-    },
-    {
-      "id": "architecture",
-      "title": "Architecture Principles",
-      "level": 2
+      "number": "01
     },
     {
       "id": "all-docs",

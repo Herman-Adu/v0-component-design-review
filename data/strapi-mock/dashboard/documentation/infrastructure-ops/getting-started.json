@@ -13,28 +13,6 @@
     "metaTitle": "Infrastructure & Operations - Getting Started Guide",
     "metaDescription": "Complete infrastructure setup guide covering environment variables, PostgreSQL configuration, Vercel deployment, and operational workflows."
   },
-  "toc": [
-    {
-      "id": "overview",
-      "title": "Infrastructure Overview",
-      "level": 2
-    },
-    {
-      "id": "environment",
-      "title": "Environment Setup",
-      "level": 2
-    },
-    {
-      "id": "database",
-      "title": "Database Configuration",
-      "level": 2
-    },
-    {
-      "id": "deployment",
-      "title": "Deployment",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.sectionHeader",

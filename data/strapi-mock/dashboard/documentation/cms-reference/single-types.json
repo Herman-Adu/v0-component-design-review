@@ -7,12 +7,7 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-16",
     "lastUpdated": "2024-01-21",
-    "tags": [
-      "strapi",
-      "backend",
-      "single-types",
-      "configuration"
-    ]
+    "tags": ["strapi", "backend", "single-types", "configuration"]
   },
   "seo": {
     "metaTitle": "Single Types in Strapi | CMS Reference",
@@ -46,12 +41,147 @@
       "language": "json",
       "title": "Sample Single Type Schema",
       "code": "{\n  \"name\": \"SiteSettings\",\n  \"kind\": \"singleType\",\n  \"attributes\": {\n    \"siteName\": { \"type\": \"string\" },\n    \"siteDescription\": { \"type\": \"text\" },\n    \"contactEmail\": { \"type\": \"email\" }\n  }\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "schema-structure",
+      "title": "Schema Structure",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Single types have a complete schema definition similar to collections but with kind set to 'singleType'. Here's a comprehensive example for site settings."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Complete Site Settings Schema",
+      "code": "{\n  \"kind\": \"singleType\",\n  \"collectionName\": \"site_settings\",\n  \"info\": {\n    \"singularName\": \"site-setting\",\n    \"pluralName\": \"site-settings\",\n    \"displayName\": \"Site Settings\"\n  },\n  \"options\": {\n    \"draftAndPublish\": false\n  },\n  \"attributes\": {\n    \"siteName\": {\n      \"type\": \"string\",\n      \"required\": true,\n      \"default\": \"My Site\"\n    },\n    \"siteDescription\": {\n      \"type\": \"text\",\n      \"maxLength\": 200\n    },\n    \"logo\": {\n      \"type\": \"media\",\n      \"multiple\": false,\n      \"required\": false,\n      \"allowedTypes\": [\"images\"]\n    },\n    \"favicon\": {\n      \"type\": \"media\",\n      \"multiple\": false,\n      \"allowedTypes\": [\"images\"]\n    },\n    \"contactEmail\": {\n      \"type\": \"email\",\n      \"required\": true\n    },\n    \"socialLinks\": {\n      \"type\": \"component\",\n      \"repeatable\": true,\n      \"component\": \"links.social-link\"\n    },\n    \"seo\": {\n      \"type\": \"component\",\n      \"repeatable\": false,\n      \"component\": \"shared.seo\"\n    },\n    \"maintenanceMode\": {\n      \"type\": \"boolean\",\n      \"default\": false\n    },\n    \"maintenanceMessage\": {\n      \"type\": \"richtext\"\n    }\n  }\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Single Type Key Difference",
+      "content": "Single types use 'singleType' as the kind value and typically have draftAndPublish set to false since there's only one instance."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "use-cases",
+      "title": "Use Cases",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Single types are ideal for site-wide configuration and one-off pages that don't need multiple entries. Here are common use cases."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Home",
+          "title": "Homepage Content",
+          "description": "Hero section, featured content, and homepage-specific blocks"
+        },
+        {
+          "icon": "Menu",
+          "title": "Navigation",
+          "description": "Main menu items, footer links, and site structure"
+        },
+        {
+          "icon": "FileText",
+          "title": "Legal Pages",
+          "description": "Privacy policy, terms of service, and cookie policy"
+        },
+        {
+          "icon": "Settings",
+          "title": "Global Settings",
+          "description": "Site configuration, theme settings, and feature flags"
+        }
+      ]
+    },
+    {
+      "type": "block.card",
+      "title": "Homepage Single Type",
+      "content": "Manage hero content, featured articles, testimonials, and CTA sections for the homepage",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Navigation Single Type",
+      "content": "Define main navigation structure, footer menus, and mobile navigation configuration",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Legal Content Single Type",
+      "content": "Store privacy policy, terms of service, and GDPR compliance information",
+      "variant": "default"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "When to Use Single Types",
+      "content": "Use single types for content that appears once across the site and doesn't need versioning or multiple entries."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "api-access",
+      "title": "API Access",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Single types have a simplified API pattern compared to collections. There's no need for ID parameters since there's only one instance."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Fetching Single Type Data",
+      "code": "// GET request - no ID needed\nconst response = await fetch(\n  'https://api.example.com/api/site-setting?populate=*',\n  {\n    headers: {\n      'Authorization': `Bearer ${API_TOKEN}`\n    }\n  }\n);\n\nconst { data } = await response.json();\n// data.attributes contains the single type content"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Updating Single Type Data",
+      "code": "// PUT request - no ID in URL\nconst response = await fetch(\n  'https://api.example.com/api/site-setting',\n  {\n    method: 'PUT',\n    headers: {\n      'Content-Type': 'application/json',\n      'Authorization': `Bearer ${API_TOKEN}`\n    },\n    body: JSON.stringify({\n      data: {\n        siteName: 'Updated Site Name',\n        maintenanceMode: false\n      }\n    })\n  }\n);\n\nconst { data } = await response.json();"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "GET /api/{single-type-name} - Retrieve the single instance",
+        "PUT /api/{single-type-name} - Update the single instance",
+        "No DELETE endpoint (single types always exist)",
+        "Use populate parameter to include relations and components",
+        "No pagination needed since there's only one entry"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "API Simplicity",
+      "content": "Single type APIs are simpler than collection APIs since there's no need for ID management, pagination, or filtering."
     }
   ],
   "toc": [
     {
       "id": "common-single-type-patterns",
       "title": "Common Single Type Patterns",
+      "level": 2
+    },
+    {
+      "id": "schema-structure",
+      "title": "Schema Structure",
+      "level": 2
+    },
+    {
+      "id": "use-cases",
+      "title": "Use Cases",
+      "level": 2
+    },
+    {
+      "id": "api-access",
+      "title": "API Access",
       "level": 2
     }
   ]

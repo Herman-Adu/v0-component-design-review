@@ -7,12 +7,7 @@
     "audience": "Frontend Developer / Designer",
     "publishedAt": "2024-01-16",
     "lastUpdated": "2024-01-22",
-    "tags": [
-      "frontend",
-      "components",
-      "atomic-design",
-      "architecture"
-    ]
+    "tags": ["frontend", "components", "atomic-design", "architecture"]
   },
   "seo": {
     "metaTitle": "Component System Overview | App Reference",
@@ -22,6 +17,31 @@
     {
       "id": "component-hierarchy",
       "title": "Component Hierarchy",
+      "level": 2
+    },
+    {
+      "id": "atoms",
+      "title": "Atoms - Building Blocks",
+      "level": 2
+    },
+    {
+      "id": "molecules",
+      "title": "Molecules - Composed Components",
+      "level": 2
+    },
+    {
+      "id": "organisms",
+      "title": "Organisms - Complex Sections",
+      "level": 2
+    },
+    {
+      "id": "templates",
+      "title": "Templates - Page Layouts",
+      "level": 2
+    },
+    {
+      "id": "component-patterns",
+      "title": "Component Patterns",
       "level": 2
     }
   ],
@@ -54,6 +74,268 @@
           "icon": "LayoutGrid",
           "title": "Organisms",
           "description": "Complex, reusable interface sections built from molecules."
+        }
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Atomic Design Methodology",
+      "content": "This system follows Brad Frost's atomic design methodology, creating a hierarchical component architecture from simple to complex."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "atoms",
+      "title": "Atoms - Building Blocks",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Atoms are the foundational building blocks of the UI system. They are the smallest, most basic components that can't be broken down further without losing their meaning."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "MousePointer",
+          "title": "Button",
+          "description": "Primary, secondary, ghost, and destructive variants"
+        },
+        {
+          "icon": "Type",
+          "title": "Typography",
+          "description": "Heading, paragraph, label, and code text components"
+        },
+        {
+          "icon": "Square",
+          "title": "Input",
+          "description": "Text, email, password, number, and textarea fields"
+        },
+        {
+          "icon": "Image",
+          "title": "Icon",
+          "description": "SVG icon system with consistent sizing"
+        },
+        {
+          "icon": "Palette",
+          "title": "Badge",
+          "description": "Status indicators and tags"
+        },
+        {
+          "icon": "CheckSquare",
+          "title": "Checkbox",
+          "description": "Boolean selection with label support"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Button Atom Example",
+      "code": "import { Button } from '@/components/ui/button';\n\nexport function MyComponent() {\n  return (\n    <Button \n      variant=\"primary\" \n      size=\"md\"\n      onClick={() => console.log('clicked')}\n    >\n      Click Me\n    </Button>\n  );\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "molecules",
+      "title": "Molecules - Composed Components",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Molecules combine multiple atoms to create functional UI patterns. They solve specific UI problems by grouping atoms with a defined purpose."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "FormInput",
+          "title": "FormField",
+          "description": "Label + Input + Error message composition"
+        },
+        {
+          "icon": "Search",
+          "title": "SearchBar",
+          "description": "Input field with search icon and clear button"
+        },
+        {
+          "icon": "Card",
+          "title": "Card",
+          "description": "Container with header, content, and footer sections"
+        },
+        {
+          "icon": "Menu",
+          "title": "Dropdown",
+          "description": "Button trigger with menu items list"
+        },
+        {
+          "icon": "AlertCircle",
+          "title": "Alert",
+          "description": "Icon + Title + Description for notifications"
+        },
+        {
+          "icon": "Link",
+          "title": "Breadcrumb",
+          "description": "Navigation trail with separator icons"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "FormField Molecule Example",
+      "code": "import { FormField } from '@/components/molecules/form-field';\n\nexport function LoginForm() {\n  return (\n    <form>\n      <FormField\n        label=\"Email\"\n        name=\"email\"\n        type=\"email\"\n        placeholder=\"you@example.com\"\n        error={errors.email?.message}\n        required\n      />\n      <FormField\n        label=\"Password\"\n        name=\"password\"\n        type=\"password\"\n        error={errors.password?.message}\n        required\n      />\n    </form>\n  );\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Molecule Composition",
+      "content": "Molecules should be self-contained and reusable across different contexts. They shouldn't depend on specific page layouts."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "organisms",
+      "title": "Organisms - Complex Sections",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Organisms are complex UI sections built from molecules and atoms. They represent distinct sections of an interface with specific functionality."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Navigation",
+          "title": "Header",
+          "description": "Logo, navigation menu, search, and user actions"
+        },
+        {
+          "icon": "Layers",
+          "title": "Footer",
+          "description": "Site map, social links, legal, and newsletter signup"
+        },
+        {
+          "icon": "LayoutList",
+          "title": "ArticleList",
+          "description": "Grid of article cards with pagination"
+        },
+        {
+          "icon": "FormInput",
+          "title": "ContactForm",
+          "description": "Complete form with validation and submission"
+        },
+        {
+          "icon": "BarChart",
+          "title": "Dashboard",
+          "description": "Stats cards, charts, and data tables"
+        },
+        {
+          "icon": "MessageSquare",
+          "title": "CommentSection",
+          "description": "Comment list with reply threads and form"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Header Organism Example",
+      "code": "import { Logo } from '@/components/atoms/logo';\nimport { NavMenu } from '@/components/molecules/nav-menu';\nimport { SearchBar } from '@/components/molecules/search-bar';\nimport { UserMenu } from '@/components/molecules/user-menu';\n\nexport function Header() {\n  return (\n    <header className=\"border-b\">\n      <div className=\"container flex items-center justify-between py-4\">\n        <Logo />\n        <NavMenu items={navigationItems} />\n        <div className=\"flex items-center gap-4\">\n          <SearchBar />\n          <UserMenu />\n        </div>\n      </div>\n    </header>\n  );\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "templates",
+      "title": "Templates - Page Layouts",
+      "number": "05"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Templates define page-level layouts by composing organisms and molecules. They establish the overall structure and grid system for pages."
+    },
+    {
+      "type": "block.card",
+      "title": "Marketing Layout",
+      "content": "Header + Hero + Features + Testimonials + CTA + Footer",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Dashboard Layout",
+      "content": "Sidebar navigation + Top bar + Main content area + Footer",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Documentation Layout",
+      "content": "Header + Sidebar navigation + Content + Table of contents + Footer",
+      "variant": "default"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Documentation Template Example",
+      "code": "import { Header } from '@/components/organisms/header';\nimport { Sidebar } from '@/components/organisms/sidebar';\nimport { TableOfContents } from '@/components/molecules/toc';\nimport { Footer } from '@/components/organisms/footer';\n\nexport function DocumentationTemplate({ children, toc }: Props) {\n  return (\n    <div className=\"min-h-screen flex flex-col\">\n      <Header />\n      <div className=\"flex-1 container\">\n        <div className=\"grid grid-cols-12 gap-8\">\n          <aside className=\"col-span-3\">\n            <Sidebar />\n          </aside>\n          <main className=\"col-span-7\">\n            {children}\n          </main>\n          <aside className=\"col-span-2\">\n            <TableOfContents items={toc} />\n          </aside>\n        </div>\n      </div>\n      <Footer />\n    </div>\n  );\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Template Consistency",
+      "content": "Templates ensure consistent layouts across the application while allowing flexibility in content composition."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "component-patterns",
+      "title": "Component Patterns",
+      "number": "06"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Follow these best practices when creating and using components in the system."
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Keep components focused on a single responsibility",
+        "Use TypeScript interfaces for props with clear documentation",
+        "Implement proper error boundaries at organism level",
+        "Follow the atomic hierarchy when creating new components",
+        "Use composition over inheritance for component reuse",
+        "Implement proper accessibility (ARIA labels, keyboard navigation)",
+        "Keep styles scoped using Tailwind classes or CSS modules",
+        "Extract shared logic into custom hooks",
+        "Document component APIs with JSDoc comments",
+        "Write unit tests for complex component logic"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Anti-Pattern: Skip Levels",
+      "content": "Avoid having atoms directly import organisms or templates. Always follow the hierarchy: atoms → molecules → organisms → templates."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Code",
+          "title": "Type Safety",
+          "description": "Use TypeScript for all component props and state"
+        },
+        {
+          "icon": "TestTube",
+          "title": "Testing",
+          "description": "Write unit tests for logic, integration tests for pages"
+        },
+        {
+          "icon": "Accessibility",
+          "title": "Accessibility",
+          "description": "Ensure keyboard navigation and screen reader support"
+        },
+        {
+          "icon": "Zap",
+          "title": "Performance",
+          "description": "Use React.memo and lazy loading where appropriate"
         }
       ]
     }

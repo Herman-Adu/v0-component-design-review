@@ -7,39 +7,12 @@
     "audience": "All Roles",
     "publishedAt": "2026-01-15",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "strategic",
-      "overview",
-      "architecture",
-      "executive-summary"
-    ]
+    "tags": ["strategic", "overview", "architecture", "executive-summary"]
   },
   "seo": {
     "metaTitle": "Strategic Overview - Complete System Architecture",
     "metaDescription": "Executive summary covering system vision, technology stack, Strapi CMS decision, security architecture, and role-based documentation pathways."
   },
-  "toc": [
-    {
-      "id": "documentation-coverage",
-      "title": "Documentation Coverage",
-      "level": 2
-    },
-    {
-      "id": "audience-pathways",
-      "title": "Audience Pathways",
-      "level": 2
-    },
-    {
-      "id": "key-metrics",
-      "title": "Key System Metrics",
-      "level": 2
-    },
-    {
-      "id": "navigation",
-      "title": "Quick Navigation",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.sectionHeader",

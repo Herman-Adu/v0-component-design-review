@@ -7,38 +7,12 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "cms-reference",
-      "getting-started",
-      "documentation"
-    ]
+    "tags": ["cms-reference", "getting-started", "documentation"]
   },
   "seo": {
     "metaTitle": "Getting Started - CMS Reference",
     "metaDescription": "Strapi setup guide and first content type creation"
   },
-  "toc": [
-    {
-      "id": "local-development-setup",
-      "title": "Local Development Setup",
-      "level": 2
-    },
-    {
-      "id": "creating-your-first-content-type",
-      "title": "Creating Your First Content Type",
-      "level": 2
-    },
-    {
-      "id": "connecting-to-nextjs",
-      "title": "Connecting to Next.js",
-      "level": 2
-    },
-    {
-      "id": "api-access-configuration",
-      "title": "API Access Configuration",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.paragraph",

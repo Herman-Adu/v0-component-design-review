@@ -7,38 +7,12 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "infrastructure-ops",
-      "overview",
-      "documentation"
-    ]
+    "tags": ["infrastructure-ops", "overview", "documentation"]
   },
   "seo": {
     "metaTitle": "Infrastructure and Operations - Overview",
     "metaDescription": "Infrastructure architecture and operational patterns"
   },
-  "toc": [
-    {
-      "id": "infrastructure-stack",
-      "title": "Infrastructure Stack",
-      "level": 2
-    },
-    {
-      "id": "deployment-environments",
-      "title": "Deployment Environments",
-      "level": 2
-    },
-    {
-      "id": "operational-areas",
-      "title": "Operational Areas",
-      "level": 2
-    },
-    {
-      "id": "key-operational-metrics",
-      "title": "Key Operational Metrics",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.paragraph",

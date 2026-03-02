@@ -7,12 +7,7 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-15",
     "lastUpdated": "2024-01-20",
-    "tags": [
-      "strapi",
-      "backend",
-      "content-modeling",
-      "schema"
-    ]
+    "tags": ["strapi", "backend", "content-modeling", "schema"]
   },
   "seo": {
     "metaTitle": "Content Collections in Strapi | CMS Reference",
@@ -22,6 +17,26 @@
     {
       "id": "collection-strategy",
       "title": "Collection Strategy",
+      "level": 2
+    },
+    {
+      "id": "article-collections-schema",
+      "title": "Article Collections Schema",
+      "level": 2
+    },
+    {
+      "id": "dynamic-zones-usage",
+      "title": "Dynamic Zones Usage",
+      "level": 2
+    },
+    {
+      "id": "shared-components-pattern",
+      "title": "Shared Components Pattern",
+      "level": 2
+    },
+    {
+      "id": "content-hierarchy",
+      "title": "Content Hierarchy",
       "level": 2
     }
   ],
@@ -47,6 +62,170 @@
       "language": "json",
       "title": "Sample Collection Schema",
       "code": "{\n  \"collectionName\": \"articles\",\n  \"attributes\": {\n    \"title\": { \"type\": \"string\" },\n    \"slug\": { \"type\": \"uid\" }\n  }\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "article-collections-schema",
+      "title": "Article Collections Schema",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Article collections are the primary content type for blog posts, tutorials, and case studies. Each article has a comprehensive schema with metadata, SEO fields, and dynamic content blocks."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "FileText",
+          "title": "Core Fields",
+          "description": "Title, slug, excerpt, publishedAt, lastUpdated"
+        },
+        {
+          "icon": "Tag",
+          "title": "Taxonomy",
+          "description": "Category relations, tags array, and audience targeting"
+        },
+        {
+          "icon": "Search",
+          "title": "SEO Fields",
+          "description": "metaTitle, metaDescription, canonicalUrl, and social preview"
+        },
+        {
+          "icon": "Layout",
+          "title": "Dynamic Blocks",
+          "description": "Flexible content composition via dynamic zones"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Article Collection Type Definition",
+      "code": "export interface Article {\n  id: number;\n  documentId: string;\n  title: string;\n  slug: string;\n  excerpt: string;\n  category: {\n    slug: string;\n    name: string;\n  };\n  tags: string[];\n  publishedAt: string;\n  lastUpdated: string;\n  blocks: ContentBlock[];\n  seo: {\n    metaTitle: string;\n    metaDescription: string;\n    canonicalUrl?: string;\n  };\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "dynamic-zones-usage",
+      "title": "Dynamic Zones Usage",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Dynamic zones provide flexible content composition by allowing editors to add, remove, and reorder content blocks. This enables rich, structured content without rigid templates."
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "block.paragraph - Text content with markdown support",
+        "block.sectionHeader - Navigable section markers",
+        "block.codeBlock - Syntax-highlighted code samples",
+        "block.callout - Info/warning/tip/success boxes",
+        "block.list - Ordered or unordered lists",
+        "block.featureGrid - Icon-based feature displays",
+        "block.statsTable - Data tables and metrics",
+        "block.card - Content cards with optional links",
+        "block.collapsible - Expandable content sections",
+        "block.linkCard - Navigation and cross-reference cards"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Content Flexibility",
+      "content": "Dynamic zones enable content creators to compose rich articles without developer intervention for layout changes."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Dynamic Zone Configuration",
+      "code": "{\n  \"blocks\": {\n    \"type\": \"dynamiczone\",\n    \"components\": [\n      \"block.paragraph\",\n      \"block.section-header\",\n      \"block.code-block\",\n      \"block.callout\",\n      \"block.list\",\n      \"block.feature-grid\",\n      \"block.stats-table\",\n      \"block.card\",\n      \"block.collapsible\",\n      \"block.link-card\"\n    ]\n  }\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "shared-components-pattern",
+      "title": "Shared Components Pattern",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Shared components are reusable building blocks defined once and used across multiple collection types. This ensures consistency and reduces duplication in content schemas."
+    },
+    {
+      "type": "block.card",
+      "title": "Hero Component",
+      "content": "Standard hero section with title, subtitle, background image, and CTA buttons",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Feature Card",
+      "content": "Icon, title, description pattern used in feature grids",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Testimonial",
+      "content": "Quote, author, company, and optional avatar image",
+      "variant": "default"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Component Reusability",
+      "content": "Shared components defined in Strapi can be used in multiple collection types, ensuring consistent structure and reducing maintenance overhead."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "content-hierarchy",
+      "title": "Content Hierarchy",
+      "number": "05"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Content collections are organized hierarchically with categories, subcategories, and tags to enable flexible navigation and content discovery."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "FolderTree",
+          "title": "Categories",
+          "description": "Top-level content organization (e.g., strategic-overview, cms-reference)"
+        },
+        {
+          "icon": "Tags",
+          "title": "Tags",
+          "description": "Cross-cutting topics for content filtering and related content discovery"
+        },
+        {
+          "icon": "Users",
+          "title": "Audience",
+          "description": "Role-based content targeting (developers, architects, executives)"
+        },
+        {
+          "icon": "Link",
+          "title": "Relationships",
+          "description": "Explicit content relationships for navigation and recommendations"
+        }
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Category slugs map directly to URL structure",
+        "Tags enable cross-category content discovery",
+        "Audience field helps personalize documentation views",
+        "Related content is auto-suggested based on category and tags"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Best Practice",
+      "content": "Use consistent category slugs and tag patterns across all content collections to enable effective search and navigation."
     }
   ]
 }

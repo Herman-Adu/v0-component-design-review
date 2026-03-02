@@ -7,11 +7,7 @@
     "audience": "CTO / Project Lead",
     "publishedAt": "2026-01-15",
     "lastUpdated": "2026-03-01",
-    "tags": [
-      "architecture",
-      "strategy",
-      "principles"
-    ]
+    "tags": ["architecture", "strategy", "principles"]
   },
   "seo": {
     "metaTitle": "System Vision & Architectural Principles",
@@ -66,6 +62,30 @@
       "calloutType": "info",
       "title": "Architecture Philosophy",
       "content": "Every technical decision prioritizes long-term maintainability over short-term convenience."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "decisions",
+      "title": "Key Decisions",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Next.js 15 for server-side rendering and optimal performance",
+        "Strapi for content management with flexible dynamic zones",
+        "TypeScript throughout for type safety and developer experience",
+        "Atomic design methodology for consistent component architecture",
+        "Server Actions for type-safe data mutations",
+        "Tailwind CSS with shadcn/ui for rapid, maintainable styling"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Technology Selection",
+      "content": "Each technology choice was evaluated against criteria: community support, type safety, performance impact, and long-term maintenance burden."
     }
   ]
 }

@@ -7,38 +7,12 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "app-reference",
-      "overview",
-      "documentation"
-    ]
+    "tags": ["app-reference", "overview", "documentation"]
   },
   "seo": {
     "metaTitle": "App Reference - Overview",
     "metaDescription": "Next.js 15 frontend architecture with atomic design and guard architecture"
   },
-  "toc": [
-    {
-      "id": "frontend-architecture",
-      "title": "Frontend Architecture",
-      "level": 2
-    },
-    {
-      "id": "guard-architecture-hydration-protection",
-      "title": "Guard Architecture (Hydration Protection)",
-      "level": 2
-    },
-    {
-      "id": "security-architecture",
-      "title": "Security Architecture",
-      "level": 2
-    },
-    {
-      "id": "key-metrics",
-      "title": "Key Metrics",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.paragraph",

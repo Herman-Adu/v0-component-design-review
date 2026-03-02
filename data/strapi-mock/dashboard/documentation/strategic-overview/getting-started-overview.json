@@ -7,34 +7,12 @@
     "audience": "All Roles",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "getting-started",
-      "onboarding",
-      "guide",
-      "navigation"
-    ]
+    "tags": ["getting-started", "onboarding", "guide", "navigation"]
   },
   "seo": {
     "metaTitle": "Getting Started with the Documentation",
     "metaDescription": "Complete guide to navigating documentation based on your role - CMS Reference for data layer, App Reference for frontend, Infrastructure for DevOps."
   },
-  "toc": [
-    {
-      "id": "recommended-path",
-      "title": "Recommended Path",
-      "level": 2
-    },
-    {
-      "id": "section-starting-points",
-      "title": "Section Starting Points",
-      "level": 2
-    },
-    {
-      "id": "quick-links",
-      "title": "Quick Links",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.sectionHeader",

@@ -7,38 +7,12 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "cms-reference",
-      "overview",
-      "documentation"
-    ]
+    "tags": ["cms-reference", "overview", "documentation"]
   },
   "seo": {
     "metaTitle": "CMS Reference - Overview",
     "metaDescription": "Strapi CMS schema, content models, and API architecture"
   },
-  "toc": [
-    {
-      "id": "content-architecture",
-      "title": "Content Architecture",
-      "level": 2
-    },
-    {
-      "id": "shared-components-18-total",
-      "title": "Shared Components (18 total)",
-      "level": 2
-    },
-    {
-      "id": "type-system",
-      "title": "Type System",
-      "level": 2
-    },
-    {
-      "id": "api-configuration",
-      "title": "API Configuration",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.paragraph",

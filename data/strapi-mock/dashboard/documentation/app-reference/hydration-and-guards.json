@@ -7,12 +7,7 @@
     "audience": "Frontend Developer / Designer",
     "publishedAt": "2024-01-18",
     "lastUpdated": "2024-01-23",
-    "tags": [
-      "next.js",
-      "hydration",
-      "middleware",
-      "security"
-    ]
+    "tags": ["next.js", "hydration", "middleware", "security"]
   },
   "seo": {
     "metaTitle": "Hydration and Route Guards | App Reference",
@@ -54,6 +49,56 @@
         "Role-based access",
         "Session validation"
       ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Protection Layers",
+      "content": "Implement guards at multiple layers: middleware for routes, server components for data, and client components for UI."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "common-hydration-patterns",
+      "title": "Common Hydration Patterns",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Use these patterns to avoid hydration mismatches while maintaining optimal user experience."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Safe Client-Only Code Pattern",
+      "code": "'use client';\\n\\nimport { useEffect, useState } from 'react';\\n\\nexport function ClientOnlyComponent() {\\n  const [mounted, setMounted] = useState(false);\\n\\n  useEffect(() => {\\n    setMounted(true);\\n  }, []);\\n\\n  if (!mounted) {\\n    return <div>Loading...</div>;\\n  }\\n\\n  return (\\n    <div>\\n      <p>Current time: {new Date().toLocaleString()}</p>\\n      <p>Window width: {window.innerWidth}px</p>\\n    </div>\\n  );\\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Hydration-Safe Approach",
+      "content": "Always render a placeholder on the server that matches the initial client render, then update after mounting."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "middleware-authentication",
+      "title": "Middleware Authentication",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Next.js middleware provides edge-level route protection, running before page rendering."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Middleware Route Guard Example",
+      "code": "import { NextResponse } from 'next/server';\\nimport type { NextRequest } from 'next/server';\\n\\nexport function middleware(request: NextRequest) {\\n  const token = request.cookies.get('auth-token')?.value;\\n\\n  // Protected routes\\n  if (request.nextUrl.pathname.startsWith('/dashboard')) {\\n    if (!token) {\\n      return NextResponse.redirect(\\n        new URL('/login', request.url)\\n      );\\n    }\\n  }\\n\\n  return NextResponse.next();\\n}\\n\\nexport const config = {\\n  matcher: ['/dashboard/:path*', '/admin/:path*']\\n};"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Edge Runtime Limitations",
+      "content": "Middleware runs on edge runtime with limited Node.js APIs. Use server components for complex authentication logic."
     }
   ],
   "toc": [
@@ -65,6 +110,16 @@
     {
       "id": "implementing-route-guards",
       "title": "Implementing Route Guards",
+      "level": 2
+    },
+    {
+      "id": "common-hydration-patterns",
+      "title": "Common Hydration Patterns",
+      "level": 2
+    },
+    {
+      "id": "middleware-authentication",
+      "title": "Middleware Authentication",
       "level": 2
     }
   ]
