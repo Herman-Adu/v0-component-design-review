@@ -1,0 +1,86 @@
+import "server-only";
+import {
+  InfrastructureOpsDocumentSchema,
+  type InfrastructureOpsDocument,
+} from "./infrastructure-ops-schema";
+import { dataLogger } from "@/lib/utils/arch-logger";
+
+// Import all infrastructure ops JSON files
+import testingStrategyDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/testing-strategy.json";
+import deploymentPipelinesDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/deployment-pipelines.json";
+import troubleshootingDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/troubleshooting.json";
+
+/**
+ * Infrastructure & Ops Content Builder
+ *
+ * Loads infrastructure and operations documentation from JSON files at module initialization.
+ * This follows the content-library pattern established by article-content-builder.ts
+ */
+
+const rawDocuments = [
+  testingStrategyDoc,
+  deploymentPipelinesDoc,
+  troubleshootingDoc,
+] as const;
+
+// Validate and load all infrastructure ops documents at module init
+const infrastructureOpsDocuments = ((): InfrastructureOpsDocument[] => {
+  const results: InfrastructureOpsDocument[] = [];
+  const source =
+    "data/strapi-mock/dashboard/documentation/infrastructure-ops/*.json";
+
+  dataLogger.loadStart("infrastructure-ops", source);
+
+  for (const doc of rawDocuments) {
+    try {
+      const validated = InfrastructureOpsDocumentSchema.parse(doc);
+      results.push(validated);
+    } catch (e) {
+      const errorMsg = e instanceof Error ? e.message : String(e);
+      dataLogger.validationError(
+        "infrastructure-ops",
+        (doc as any).meta?.slug || "unknown",
+        [errorMsg],
+      );
+      throw new Error(
+        `Infrastructure ops validation failed for ${(doc as any).meta?.slug}: ${errorMsg}`,
+      );
+    }
+  }
+
+  dataLogger.loadComplete("infrastructure-ops", results.length, source);
+  dataLogger.validationSuccess("infrastructure-ops", results.length);
+  return results;
+})();
+
+/**
+ * Get all infrastructure ops documents
+ */
+export function getInfrastructureOpsList(): InfrastructureOpsDocument[] {
+  return infrastructureOpsDocuments;
+}
+
+/**
+ * Get a single infrastructure ops document by slug
+ */
+export function getInfrastructureOpsDocument(
+  slug: string,
+): InfrastructureOpsDocument | null {
+  return infrastructureOpsDocuments.find((d) => d.meta.slug === slug) ?? null;
+}
+
+/**
+ * Get all infrastructure ops slugs for static generation
+ */
+export function getAllInfrastructureOpsSlugs(): string[] {
+  return infrastructureOpsDocuments.map((d) => d.meta.slug);
+}
+
+/**
+ * Get infrastructure ops documents filtered by audience
+ */
+export function getInfrastructureOpsByAudience(
+  audience: string,
+): InfrastructureOpsDocument[] {
+  return infrastructureOpsDocuments.filter((d) => d.meta.audience === audience);
+}

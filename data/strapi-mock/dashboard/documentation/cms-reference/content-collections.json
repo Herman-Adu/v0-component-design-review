@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "slug": "content-collections",
+    "title": "Content Collections - Architecture",
+    "excerpt": "How content collections are structured for articles, tutorials, and case studies in Strapi.",
+    "category": "cms-reference",
+    "audience": "Backend Developer / Architect",
+    "publishedAt": "2024-01-15",
+    "lastUpdated": "2024-01-20",
+    "tags": ["strapi", "backend", "content-modeling", "schema"]
+  },
+  "seo": {
+    "metaTitle": "Content Collections in Strapi | CMS Reference",
+    "metaDescription": "Learn how to model and structure content collections for scalable CMS architecture."
+  },
+  "toc": [
+    { "id": "collection-strategy", "title": "Collection Strategy", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Content collections define structured, repeatable content entities for your CMS-backed frontend application."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "collection-strategy",
+      "title": "Collection Strategy",
+      "number": "01"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Best Practice",
+      "content": "Keep collection schemas focused and avoid overloading single entities with too many responsibilities."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Sample Collection Schema",
+      "code": "{\n  \"collectionName\": \"articles\",\n  \"attributes\": {\n    \"title\": { \"type\": \"string\" },\n    \"slug\": { \"type\": \"uid\" }\n  }\n}"
+    }
+  ]
+}

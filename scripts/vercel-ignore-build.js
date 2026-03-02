@@ -2,37 +2,37 @@
 
 /**
  * Vercel Ignore Build Script
- * 
+ *
  * Controls when Vercel should build the project to optimize build minutes.
- * 
- * Skip builds for:
- * - v0/* branches (work-in-progress)
- * - Draft PRs (validation in progress)
- * 
- * Build for:
+ *
+ * ONLY build for:
  * - main branch (production)
- * - Ready PRs (validated and approved)
+ *
+ * Skip builds for:
+ * - All other branches (review, staging, develop, etc.)
+ * - Draft PRs
+ * - v0/* branches (work-in-progress)
  */
 
-const branch = process.env.VERCEL_GIT_COMMIT_REF || '';
-const isDraft = process.env.VERCEL_GIT_PR_DRAFT === '1';
+const branch = process.env.VERCEL_GIT_COMMIT_REF || "";
+const isDraft = process.env.VERCEL_GIT_PR_DRAFT === "1";
 
-console.log('[Vercel Build Check]');
+console.log("[Vercel Build Check]");
 console.log(`Branch: ${branch}`);
 console.log(`Is Draft PR: ${isDraft}`);
 
-// Skip builds for v0/* branches
-if (branch.startsWith('v0/')) {
-  console.log('❌ Skipping build: v0 work-in-progress branch');
-  process.exit(0);
+// ONLY build for main branch
+if (branch === "main") {
+  console.log("✅ Proceeding with build (main branch - production)");
+  process.exit(1);
 }
 
-// Skip builds for draft PRs
+// Skip everything else
+console.log(`❌ Skipping build: "${branch}" is not main branch`);
 if (isDraft) {
-  console.log('❌ Skipping build: Draft PR (not ready for review)');
-  process.exit(0);
+  console.log("   (Also: Draft PR detected)");
 }
-
-// Build for main and ready PRs
-console.log('✅ Proceeding with build');
-process.exit(1);
+if (branch.startsWith("v0/")) {
+  console.log("   (Also: v0 work-in-progress branch)");
+}
+process.exit(0);

@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "slug": "server-vs-client",
+    "title": "Server vs Client Components",
+    "excerpt": "Understanding the differences between server and client components in Next.js and when to use each.",
+    "category": "app-reference",
+    "audience": "Frontend Developer / Designer",
+    "publishedAt": "2024-01-17",
+    "lastUpdated": "2024-01-22",
+    "tags": ["next.js", "components", "server", "client"]
+  },
+  "seo": {
+    "metaTitle": "Server vs Client Components | App Reference",
+    "metaDescription": "Learn when to use server vs client components in Next.js applications."
+  },
+  "blocks": [
+    { "type": "block.paragraph", "content": "Next.js defaults to server components for performance, with opt-in client components for interactivity." },
+    { "type": "block.sectionHeader", "id": "server-components", "title": "Server Components", "number": "01" },
+    { "type": "block.list", "ordered": false, "items": ["Execute on server only", "Direct data access", "Keep secrets secure", "Better SEO", "Reduced JavaScript"] },
+    { "type": "block.sectionHeader", "id": "client-components", "title": "Client Components", "number": "02" },
+    { "type": "block.list", "ordered": false, "items": ["Interactivity", "Event handlers", "State hooks", "Browser APIs", "Context providers"] }
+  ]
+}

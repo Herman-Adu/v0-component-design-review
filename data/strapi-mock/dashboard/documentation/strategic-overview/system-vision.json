@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "slug": "system-vision",
+    "title": "System Vision & Principles",
+    "excerpt": "Core architectural principles and design philosophy guiding this application. Understanding the 'why' behind technical decisions.",
+    "category": "strategic-overview",
+    "audience": "CTO / Project Lead",
+    "publishedAt": "2026-01-15",
+    "lastUpdated": "2026-03-01",
+    "tags": ["architecture", "strategy", "principles"]
+  },
+  "seo": {
+    "metaTitle": "System Vision & Architectural Principles",
+    "metaDescription": "Learn the core principles and architectural decisions that shape this modern web application."
+  },
+  "toc": [
+    { "id": "vision", "title": "Vision", "level": 2 },
+    { "id": "principles", "title": "Core Principles", "level": 2 },
+    { "id": "decisions", "title": "Key Decisions", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "vision",
+      "title": "Vision",
+      "number": "01"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "This application demonstrates modern web development best practices with a focus on maintainability, performance, and developer experience."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "principles",
+      "title": "Core Principles",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Server-first architecture with minimal client JavaScript",
+        "Atomic design for component reusability",
+        "Type safety from API to UI",
+        "Content as data with dynamic zones"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Architecture Philosophy",
+      "content": "Every technical decision prioritizes long-term maintainability over short-term convenience."
+    }
+  ]
+}

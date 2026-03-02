@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "slug": "testing-strategy",
+    "title": "Testing Strategy - Quality Gates",
+    "excerpt": "A comprehensive strategy for unit, integration, and end-to-end testing across the platform.",
+    "category": "infrastructure-ops",
+    "audience": "QA Engineer / DevOps",
+    "publishedAt": "2024-01-17",
+    "lastUpdated": "2024-01-23",
+    "tags": ["testing", "quality", "ci", "devops"]
+  },
+  "seo": {
+    "metaTitle": "Testing Strategy | Infrastructure & Ops",
+    "metaDescription": "Build confidence with a layered testing strategy for modern applications."
+  },
+  "toc": [
+    { "id": "testing-pyramid", "title": "Testing Pyramid", "level": 2 }
+  ],
+  "blocks": [
+    { "type": "block.paragraph", "content": "Quality engineering relies on balancing test speed, reliability, and coverage across multiple test layers." },
+    { "type": "block.sectionHeader", "id": "testing-pyramid", "title": "Testing Pyramid", "number": "01" },
+    {
+      "type": "block.statsTable",
+      "title": "Coverage Targets",
+      "stats": [
+        { "label": "Unit Tests", "value": "70%", "change": "Primary", "changeType": "positive" },
+        { "label": "Integration Tests", "value": "20%", "change": "Critical paths", "changeType": "neutral" },
+        { "label": "E2E Tests", "value": "10%", "change": "User journeys", "changeType": "neutral" }
+      ]
+    },
+    { "type": "block.callout", "calloutType": "warning", "title": "Execution Discipline", "content": "Keep E2E tests focused on high-value flows to avoid slow and brittle pipelines." }
+  ]
+}

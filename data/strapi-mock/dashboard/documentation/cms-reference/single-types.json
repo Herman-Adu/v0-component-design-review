@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "slug": "single-types",
+    "title": "Single Types - Global Configuration",
+    "excerpt": "Creating single-type collections for global settings, site configuration, and one-off content management.",
+    "category": "cms-reference",
+    "audience": "Backend Developer / Architect",
+    "publishedAt": "2024-01-16",
+    "lastUpdated": "2024-01-21",
+    "tags": ["strapi", "backend", "single-types", "configuration"]
+  },
+  "seo": {
+    "metaTitle": "Single Types in Strapi | CMS Reference",
+    "metaDescription": "Master single-type collections for global content management."
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Single types are perfect for managing global configuration options and site-wide settings that don't require multiple entries."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "common-single-type-patterns",
+      "title": "Common Single Type Patterns",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": ["Site settings", "Contact information", "Theme configuration", "API configuration", "SEO defaults", "Feature flags"]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Sample Single Type Schema",
+      "code": "{\n  \"name\": \"SiteSettings\",\n  \"kind\": \"singleType\",\n  \"attributes\": {\n    \"siteName\": { \"type\": \"string\" },\n    \"siteDescription\": { \"type\": \"text\" },\n    \"contactEmail\": { \"type\": \"email\" }\n  }\n}"
+    }
+  ]
+}

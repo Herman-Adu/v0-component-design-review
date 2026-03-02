@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "slug": "form-collections",
+    "title": "Form Collections - Backend Schema",
+    "excerpt": "Understanding form validation, field types, and dynamic form collection patterns in Strapi.",
+    "category": "cms-reference",
+    "audience": "Backend Developer / Architect",
+    "publishedAt": "2024-01-15",
+    "lastUpdated": "2024-01-20",
+    "tags": ["strapi", "backend", "forms", "schema"]
+  },
+  "seo": {
+    "metaTitle": "Form Collections in Strapi | CMS Reference",
+    "metaDescription": "Learn how to create and manage form collections with validation patterns."
+  },
+  "toc": [
+    { "id": "form-field-types", "title": "Form Field Types", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Form collections in Strapi enable developers to create structured form data with validation rules and field dependencies."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "form-field-types",
+      "title": "Form Field Types",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": ["Text fields", "Email validation", "Number formatting", "Date pickers", "Rich text editors", "File uploads"]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Form Validation",
+      "content": "Always validate input on both client and server sides to ensure data integrity."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "slug": "component-system",
+    "title": "Component System - Frontend Architecture",
+    "excerpt": "A structured overview of atoms, molecules, organisms, and templates in the frontend architecture.",
+    "category": "app-reference",
+    "audience": "Frontend Developer / Designer",
+    "publishedAt": "2024-01-16",
+    "lastUpdated": "2024-01-22",
+    "tags": ["frontend", "components", "atomic-design", "architecture"]
+  },
+  "seo": {
+    "metaTitle": "Component System Overview | App Reference",
+    "metaDescription": "Understand the frontend component hierarchy and design patterns."
+  },
+  "toc": [
+    { "id": "component-hierarchy", "title": "Component Hierarchy", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "The component system uses atomic design to maximize reuse and consistency across pages."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "component-hierarchy",
+      "title": "Component Hierarchy",
+      "number": "01"
+    },
+    {
+      "type": "block.featureGrid",
+      "title": "Layered Design",
+      "features": [
+        { "icon": "Circle", "title": "Atoms", "description": "Smallest UI primitives like buttons, labels, and inputs." },
+        { "icon": "Puzzle", "title": "Molecules", "description": "Composed groups of atoms solving focused UI tasks." },
+        { "icon": "LayoutGrid", "title": "Organisms", "description": "Complex, reusable interface sections built from molecules." }
+      ]
+    }
+  ]
+}

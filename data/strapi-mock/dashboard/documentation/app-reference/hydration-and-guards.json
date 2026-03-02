@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "slug": "hydration-and-guards",
+    "title": "Hydration and Route Guards",
+    "excerpt": "Preventing hydration mismatches and implementing secure route protection patterns.",
+    "category": "app-reference",
+    "audience": "Frontend Developer / Designer",
+    "publishedAt": "2024-01-18",
+    "lastUpdated": "2024-01-23",
+    "tags": ["next.js", "hydration", "middleware", "security"]
+  },
+  "seo": {
+    "metaTitle": "Hydration and Route Guards | App Reference",
+    "metaDescription": "Avoid hydration issues and secure your routes with proper guards."
+  },
+  "blocks": [
+    { "type": "block.paragraph", "content": "Hydration mismatches occur when server-rendered HTML differs from client-rendered output. Route guards protect sensitive pages." },
+    { "type": "block.sectionHeader", "id": "preventing-hydration-mismatches", "title": "Preventing Hydration Mismatches", "number": "01" },
+    { "type": "block.list", "ordered": false, "items": ["Use useEffect for browser-only code", "Guard against window usage", "Prefer stable render output", "Use dynamic imports selectively"] },
+    { "type": "block.sectionHeader", "id": "implementing-route-guards", "title": "Implementing Route Guards", "number": "02" },
+    { "type": "block.list", "ordered": false, "items": ["Middleware authentication", "Permission checks", "Role-based access", "Session validation"] }
+  ]
+}

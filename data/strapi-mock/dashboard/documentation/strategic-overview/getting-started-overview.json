@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "slug": "getting-started-overview",
+    "title": "Getting Started Guide",
+    "excerpt": "New to the documentation? Start here to understand the structure and navigate to the sections most relevant to your role.",
+    "category": "strategic-overview",
+    "audience": "Developer / Architect",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-01",
+    "tags": ["getting-started", "onboarding", "guide"]
+  },
+  "seo": {
+    "metaTitle": "Getting Started with the Documentation",
+    "metaDescription": "Complete guide to navigating documentation based on your role as developer, architect, or CTO."
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "This documentation is organized into strategic, CMS, app, and infrastructure sections. Each serves a different audience and purpose."
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Role-Based Navigation",
+      "content": "Jump directly to the section most relevant to your role: CMS Reference for backend developers, App Reference for frontend developers, Infrastructure for DevOps."
+    }
+  ]
+}

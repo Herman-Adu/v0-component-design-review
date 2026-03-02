@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "slug": "strapi-decision",
+    "title": "Why Strapi CMS",
+    "excerpt": "Technical and business rationale for choosing Strapi as the headless CMS. ROI analysis and comparison with alternatives.",
+    "category": "strategic-overview",
+    "audience": "CTO / Project Lead",
+    "publishedAt": "2026-01-20",
+    "lastUpdated": "2026-02-28",
+    "tags": ["strapi", "cms", "technology-selection"]
+  },
+  "seo": {
+    "metaTitle": "Why We Chose Strapi CMS - Technical Decision Record",
+    "metaDescription": "Comprehensive analysis of why Strapi was selected as our headless CMS over alternatives like Contentful and Sanity."
+  },
+  "toc": [
+    { "id": "context", "title": "Decision Context", "level": 2 },
+    { "id": "evaluation", "title": "Evaluation Criteria", "level": 2 },
+    { "id": "comparison", "title": "Comparison", "level": 2 },
+    { "id": "conclusion", "title": "Conclusion", "level": 2 }
+  ],
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "context",
+      "title": "Decision Context",
+      "number": "01"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "We needed a headless CMS that could handle both form submissions and content library requirements while maintaining type safety."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "evaluation",
+      "title": "Evaluation Criteria",
+      "number": "02"
+    },
+    {
+      "type": "block.featureGrid",
+      "title": "Key Requirements",
+      "features": [
+        {
+          "icon": "Database",
+          "title": "Self-hosted Option",
+          "description": "Full control over data and deployment"
+        },
+        {
+          "icon": "Code",
+          "title": "TypeScript Support",
+          "description": "End-to-end type safety from CMS to frontend"
+        },
+        {
+          "icon": "DollarSign",
+          "title": "Cost Effective",
+          "description": "No per-seat or API call pricing"
+        }
+      ]
+    }
+  ]
+}

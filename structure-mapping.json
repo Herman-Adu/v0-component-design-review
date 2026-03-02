@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-02-25T13:58:41.355Z",
-  "totalFiles": 36,
-  "uniqueStructures": 27,
+  "timestamp": "2026-03-02T09:52:59.610Z",
+  "totalFiles": 124,
+  "uniqueStructures": 39,
   "structures": {
     "cta|header|quickStats|sections|securityNotice|upcomingFeatures": [
       {
@@ -52,6 +52,2620 @@
           }
         ],
         "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\admin-overview.json"
+      }
+    ],
+    "badges|header|sections": [
+      {
+        "fields": [
+          "badges",
+          "header",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "badges",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\app-reference-overview.json"
+      },
+      {
+        "fields": [
+          "badges",
+          "header",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "badges",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\cms-reference-overview.json"
+      }
+    ],
+    "documentationSections": [
+      {
+        "fields": [
+          "documentationSections"
+        ],
+        "types": [
+          {
+            "field": "documentationSections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\app-reference-pages.json"
+      },
+      {
+        "fields": [
+          "documentationSections"
+        ],
+        "types": [
+          {
+            "field": "documentationSections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\cms-reference-pages.json"
+      },
+      {
+        "fields": [
+          "documentationSections"
+        ],
+        "types": [
+          {
+            "field": "documentationSections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\infrastructure-ops-pages.json"
+      },
+      {
+        "fields": [
+          "documentationSections"
+        ],
+        "types": [
+          {
+            "field": "documentationSections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\strategic-overview-pages.json"
+      }
+    ],
+    "blocks|layout|meta|toc": [
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\ai-tooling\\ai-session-management-quality-gates.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\atomic-design-principles.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\duplicate-providers-architectural-cost.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\email-system-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\hydration-mismatches-use-client-layouts.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\managing-content-in-strapi.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\planning-full-stack-application.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\server-client-boundaries.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\service-request-lifecycle.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\architecture\\why-react-hydration-breaks.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\best-practices\\building-accessible-web-applications.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\best-practices\\documentation-as-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\best-practices\\guard-pattern-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\best-practices\\refactoring-for-maintainability.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\best-practices\\three-axis-quality-review-system.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\business\\roi-modern-web-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\business\\tech-stack-decision-framework.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\devops\\cicd-deployment-pipelines.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\forms\\multi-step-form-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\forms\\typescript-zod-validation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\forms\\zustand-form-state-management.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\performance\\performance-budgets-for-nextjs.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\rendering\\incremental-static-regeneration-isr.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\rendering\\partial-prerendering-ppr.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\rendering\\server-side-rendering-ssr.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\rendering\\static-site-generation-ssg.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\security\\security-architecture-deep-dive.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\security\\server-actions-deep-dive.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\testing\\testing-strategy-modern-applications.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\architecture\\documentation-evolution.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\architecture\\email-system-consolidation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\architecture\\hydration-guard-pattern.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\architecture\\state-management-evolution.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\business\\cost-reduction-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\business\\developer-productivity-gains.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\business\\enterprise-cms-migration.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\cms\\strapi-multi-site-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\forms\\multi-step-form-prototype-to-production.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\forms\\multi-step-form.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\infrastructure\\email-consolidation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\infrastructure\\tarball-duplicate-entry-build-failure.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\performance\\client-to-server-components.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\refactoring\\sidebar-refactor-430-lines-to-data-driven.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\rendering\\choosing-rendering-strategy-per-page.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\rendering\\edge-cache-rollout.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\security\\form-validation-refactor.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\security\\rate-limiting-bypass-to-production.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\security\\security-layer-implementation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\security\\security-layer.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\guides\\deployment-guide.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\guides\\security-architecture.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\guides\\testing-strategy.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\cms\\connecting-nextjs-to-strapi.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\cms\\your-first-strapi-collection.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\components\\building-atomic-component.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\components\\building-hydration-safe-sidebar.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\devops\\deploying-nextjs-to-vercel.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\email\\building-email-templates-react-email.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\forms\\building-multi-step-forms-with-server-actions.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\getting-started\\error-boundaries-and-loading-states.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\getting-started\\understanding-react-hydration.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\getting-started\\your-first-nextjs-app.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\security\\rate-limiting-implementation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\security\\server-side-validation.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\state-management\\zustand-form-store.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\testing\\e2e-testing-playwright-nextjs.json"
+      },
+      {
+        "fields": [
+          "blocks",
+          "layout",
+          "meta",
+          "toc"
+        ],
+        "types": [
+          {
+            "field": "meta",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "layout",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          },
+          {
+            "field": "toc",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "blocks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\testing\\writing-your-first-tests.json"
+      }
+    ],
+    "categories|header|stats": [
+      {
+        "fields": [
+          "categories",
+          "header",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "categories",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\articles\\articles-list.json"
+      },
+      {
+        "fields": [
+          "categories",
+          "header",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "categories",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\case-studies\\case-studies-list.json"
+      },
+      {
+        "fields": [
+          "categories",
+          "header",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "categories",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\guides\\guides-list.json"
+      },
+      {
+        "fields": [
+          "categories",
+          "header",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "categories",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library\\tutorials\\tutorials-list.json"
+      }
+    ],
+    "audienceSections|contentTypes|header|stats": [
+      {
+        "fields": [
+          "audienceSections",
+          "contentTypes",
+          "header",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "contentTypes",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "audienceSections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\content-library-overview.json"
       }
     ],
     "callout|features|header|helpCallout|quickStartGuides|startingPoints|topicsOverview": [
@@ -156,6 +2770,182 @@
         "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\digital-marketing-overview.json"
       }
     ],
+    "header|highlights|quickLinks|sections": [
+      {
+        "fields": [
+          "header",
+          "highlights",
+          "quickLinks",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "highlights",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\document-administration-overview.json"
+      },
+      {
+        "fields": [
+          "header",
+          "highlights",
+          "quickLinks",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "highlights",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\email-administration-overview.json"
+      }
+    ],
+    "badges|header|sections|stats": [
+      {
+        "fields": [
+          "badges",
+          "header",
+          "sections",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "badges",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\infrastructure-ops-overview.json"
+      }
+    ],
+    "header|platforms|stats": [
+      {
+        "fields": [
+          "header",
+          "platforms",
+          "stats"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "stats",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "platforms",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\social-list.json"
+      }
+    ],
+    "audiences|badges|header|sections": [
+      {
+        "fields": [
+          "audiences",
+          "badges",
+          "header",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "audiences",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "badges",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\dashboard\\strategic-overview.json"
+      }
+    ],
     "contentCalendar": [
       {
         "fields": [
@@ -220,6 +3010,115 @@
         "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy\\editorial-guidelines.json"
       }
     ],
+    "description|sections": [
+      {
+        "fields": [
+          "description",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "description",
+            "type": "string",
+            "isArray": false,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\content-strategy-overview.json"
+      }
+    ],
+    "header|quickLinks|sections": [
+      {
+        "fields": [
+          "header",
+          "quickLinks",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\dm-getting-started.json"
+      },
+      {
+        "fields": [
+          "header",
+          "quickLinks",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\doc-admin-getting-started.json"
+      },
+      {
+        "fields": [
+          "header",
+          "quickLinks",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "quickLinks",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\email-administration\\email-admin-getting-started.json"
+      }
+    ],
     "journeys": [
       {
         "fields": [
@@ -250,6 +3149,36 @@
           }
         ],
         "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\digital-marketing\\getting-started\\quick-checklist.json"
+      }
+    ],
+    "header|highlights|sections": [
+      {
+        "fields": [
+          "header",
+          "highlights",
+          "sections"
+        ],
+        "types": [
+          {
+            "field": "header",
+            "type": "object",
+            "isArray": false,
+            "isObject": true
+          },
+          {
+            "field": "sections",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          },
+          {
+            "field": "highlights",
+            "type": "object",
+            "isArray": true,
+            "isObject": false
+          }
+        ],
+        "filePath": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\data\\strapi-mock\\document-administration\\documentation-health-overview.json"
       }
     ],
     "0|1": [
@@ -892,8 +3821,8 @@
     ]
   },
   "summary": {
-    "filesScanned": 36,
-    "uniqueTypes": 27,
-    "reusableInterfaces": 27
+    "filesScanned": 124,
+    "uniqueTypes": 39,
+    "reusableInterfaces": 39
   }
 }

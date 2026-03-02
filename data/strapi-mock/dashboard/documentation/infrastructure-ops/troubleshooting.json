@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "slug": "troubleshooting",
+    "title": "Troubleshooting Guide",
+    "excerpt": "Common issues, debugging techniques, and resolution strategies for production systems.",
+    "category": "infrastructure-ops",
+    "audience": "QA Engineer / DevOps",
+    "publishedAt": "2024-01-20",
+    "lastUpdated": "2024-01-25",
+    "tags": ["devops", "troubleshooting", "debugging", "monitoring"]
+  },
+  "seo": {
+    "metaTitle": "Troubleshooting Guide | Infrastructure & Ops",
+    "metaDescription": "Debug and resolve common production issues quickly."
+  },
+  "blocks": [
+    { "type": "block.paragraph", "content": "Systematic troubleshooting requires understanding your system's logs, metrics, and error patterns." },
+    { "type": "block.sectionHeader", "id": "common-issues", "title": "Common Issues", "number": "01" },
+    { "type": "block.collapsible", "title": "High CPU Usage", "defaultOpen": false, "content": "Check for runaway loops, memory pressure, and expensive database queries." },
+    { "type": "block.sectionHeader", "id": "monitoring-tools", "title": "Monitoring Tools", "number": "02" },
+    { "type": "block.list", "ordered": false, "items": ["Application logs", "System metrics", "Database performance", "Error tracking", "Real user monitoring"] },
+    { "type": "block.callout", "calloutType": "warning", "title": "Production Debugging", "content": "Test remediations in staging before rolling changes to production." }
+  ]
+}
