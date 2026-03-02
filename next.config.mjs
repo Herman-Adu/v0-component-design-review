@@ -22,7 +22,8 @@ const nextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+            value:
+              "camera=(), microphone=(), geolocation=(), browsing-topics=()",
           },
           {
             key: "X-DNS-Prefetch-Control",
@@ -34,8 +35,21 @@ const nextConfig = {
           },
         ],
       },
-    ]
+      {
+        source: "/dashboard/documentation/:category/:slug",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Vary",
+            value: "Accept-Encoding",
+          },
+        ],
+      },
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

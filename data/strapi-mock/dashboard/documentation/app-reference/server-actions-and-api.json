@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "slug": "server-actions-and-api",
+    "title": "Server Actions and API Integration",
+    "excerpt": "Type-safe server actions and Strapi API integration patterns",
+    "category": "app-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "app-reference",
+      "server-actions-and-api",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Server Actions and API Integration",
+    "metaDescription": "Type-safe server actions and Strapi API integration patterns"
+  },
+  "toc": [
+    {
+      "id": "server-actions-fundamentals",
+      "title": "Server Actions Fundamentals",
+      "level": 2
+    },
+    {
+      "id": "zod-validation",
+      "title": "Zod Validation",
+      "level": 2
+    },
+    {
+      "id": "rest-api-integration",
+      "title": "REST API Integration",
+      "level": 2
+    },
+    {
+      "id": "graphql-integration",
+      "title": "GraphQL Integration",
+      "level": 2
+    },
+    {
+      "id": "error-handling",
+      "title": "Error Handling",
+      "level": 2
+    },
+    {
+      "id": "form-handling-pattern",
+      "title": "Form Handling Pattern",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Documentation of Next.js server actions for secure data mutations, Zod validation, and integration patterns with Strapi API for both REST and GraphQL endpoints."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "server-actions-fundamentals",
+      "title": "Server Actions Fundamentals",
+      "number": "01"
+    },
+    {
+      "type": "block.card",
+      "title": "What Are Server Actions?",
+      "content": "Async functions defined in 'use server' files that run only on the server and can be called from client components.",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "No API routes needed",
+        "Secure access to databases and secrets",
+        "Type-safe client-server communication",
+        "Reduced network latency",
+        "Automatic CSRF protection"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Creating a Server Action",
+      "code": "// lib/actions/submit-contact.ts\n'use server';\nimport { z } from 'zod';\n\nconst contactSchema = z.object({\n  name: z.string(),\n  email: z.string().email()\n});\n\nexport async function submitContact(formData: FormData) {\n  const data = Object.fromEntries(formData);\n  const validated = contactSchema.parse(data);\n  // Call Strapi API\n  const response = await fetch(`${STRAPI_URL}/api/contacts`, {\n    method: 'POST',\n    body: JSON.stringify(validated)\n  });\n  return response.json();\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "zod-validation",
+      "title": "Zod Validation",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Define validation schemas for all form inputs",
+        "Use type inference: type FormData = z.infer<typeof schema>",
+        "Support custom validation rules",
+        "Generate error messages",
+        "Support async validation (email uniqueness check)"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Example: Article Schema",
+      "code": "const articleSchema = z.object({\n  title: z.string().min(1).max(200),\n  content: z.string().min(10),\n  category: z.enum(['tech', 'business', 'design']),\n  published: z.boolean().default(false),\n  tags: z.array(z.string()).optional()\n});"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "rest-api-integration",
+      "title": "REST API Integration",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "GET /api/articles - Get all articles",
+        "GET /api/articles/:id - Get single article",
+        "GET /api/articles?filters[category][$eq]=tech - Filtered query",
+        "GET /api/articles?populate=* - Eager load relations",
+        "GET /api/articles?sort[0]=createdAt:desc - Sorting"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "POST /api/articles - Create article",
+        "PUT /api/articles/:id - Update article",
+        "DELETE /api/articles/:id - Delete article",
+        "Automatic validation on Strapi side",
+        "Error responses with validation messages"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "graphql-integration",
+      "title": "GraphQL Integration",
+      "number": "04"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Query Example",
+      "code": "query GetArticles {\n  articles {\n    id\n    title\n    content\n    category { name }\n  }\n}"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Mutation Example",
+      "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(data: $input) {\n    id\n    title\n  }\n}"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Only query needed fields (reduced payload)",
+        "Type-safe with generated TypeScript types",
+        "Single request for related data",
+        "Better developer experience"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "error-handling",
+      "title": "Error Handling",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Validation errors from Zod schema",
+        "API response errors from Strapi",
+        "Network timeouts and retries",
+        "User-friendly error messages",
+        "Server-side logging for debugging"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "form-handling-pattern",
+      "title": "Form Handling Pattern",
+      "number": "06"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Client Component",
+      "code": "<form action={submitContact}>\n  <input type='text' name='name' required />\n  <input type='email' name='email' required />\n  <button type='submit'>Submit</button>\n</form>"
+    },
+    {
+      "type": "block.card",
+      "title": "Server Action",
+      "content": "Receives FormData, validates, sends to Strapi, returns response",
+      "variant": "default"
+    }
+  ]
+}

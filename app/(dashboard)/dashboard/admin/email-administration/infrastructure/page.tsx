@@ -1,4 +1,3 @@
-import type { Features } from "@/types/strapi-mock";
 import Link from "next/link";
 import {
   Card,
@@ -240,4 +239,3 @@ export default function EmailInfrastructureOverviewPage() {
     </div>
   );
 }
-

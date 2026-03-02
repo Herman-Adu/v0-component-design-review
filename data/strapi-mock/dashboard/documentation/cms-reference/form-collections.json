@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "slug": "form-collections",
+    "title": "Form Collections - Backend Schema",
+    "excerpt": "Understanding form validation, field types, and dynamic form collection patterns in Strapi.",
+    "category": "cms-reference",
+    "audience": "Backend Developer / Architect",
+    "publishedAt": "2024-01-15",
+    "lastUpdated": "2024-01-20",
+    "tags": ["strapi", "backend", "forms", "schema"]
+  },
+  "seo": {
+    "metaTitle": "Form Collections in Strapi | CMS Reference",
+    "metaDescription": "Learn how to create and manage form collections with validation patterns."
+  },
+  "toc": [
+    {
+      "id": "form-field-types",
+      "title": "Form Field Types",
+      "level": 2
+    },
+    {
+      "id": "validation-patterns",
+      "title": "Validation Patterns",
+      "level": 2
+    },
+    {
+      "id": "schema-definition",
+      "title": "Schema Definition",
+      "level": 2
+    },
+    {
+      "id": "dynamic-forms",
+      "title": "Dynamic Forms",
+      "level": 2
+    },
+    {
+      "id": "best-practices",
+      "title": "Best Practices",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Form collections in Strapi enable developers to create structured form data with validation rules and field dependencies."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "form-field-types",
+      "title": "Form Field Types",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Text fields",
+        "Email validation",
+        "Number formatting",
+        "Date pickers",
+        "Rich text editors",
+        "File uploads"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Form Validation",
+      "content": "Always validate input on both client and server sides to ensure data integrity."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "validation-patterns",
+      "title": "Validation Patterns",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Robust form validation ensures data integrity and provides clear feedback to users. Strapi supports both built-in validators and custom validation logic."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "CheckCircle",
+          "title": "Required Fields",
+          "description": "Mark fields as required in content-type schema"
+        },
+        {
+          "icon": "Mail",
+          "title": "Email Validation",
+          "description": "Built-in email format validation"
+        },
+        {
+          "icon": "Hash",
+          "title": "Number Constraints",
+          "description": "Min/max values and decimal precision"
+        },
+        {
+          "icon": "Type",
+          "title": "String Patterns",
+          "description": "Regex patterns and length constraints"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Validation Schema Example",
+      "code": "import { z } from 'zod';\n\nexport const ContactFormSchema = z.object({\n  name: z.string()\n    .min(2, 'Name must be at least 2 characters')\n    .max(100, 'Name must be less than 100 characters'),\n  email: z.string()\n    .email('Invalid email address'),\n  company: z.string().optional(),\n  message: z.string()\n    .min(10, 'Message must be at least 10 characters')\n    .max(1000, 'Message is too long'),\n  phone: z.string()\n    .regex(/^\\+?[1-9]\\d{1,14}$/, 'Invalid phone number')\n    .optional(),\n});\n\nexport type ContactFormData = z.infer<typeof ContactFormSchema>;"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Client-Side Validation Only",
+      "content": "Never rely solely on client-side validation. Always validate on the server to prevent malicious submissions."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "schema-definition",
+      "title": "Schema Definition",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Form collection schemas in Strapi define the structure and validation rules for form submissions. Here's a complete example for a contact form collection."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Complete Form Collection Schema",
+      "code": "{\n  \"kind\": \"collectionType\",\n  \"collectionName\": \"contact_submissions\",\n  \"info\": {\n    \"singularName\": \"contact-submission\",\n    \"pluralName\": \"contact-submissions\",\n    \"displayName\": \"Contact Submission\"\n  },\n  \"options\": {\n    \"draftAndPublish\": false\n  },\n  \"attributes\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"required\": true,\n      \"minLength\": 2,\n      \"maxLength\": 100\n    },\n    \"email\": {\n      \"type\": \"email\",\n      \"required\": true\n    },\n    \"company\": {\n      \"type\": \"string\"\n    },\n    \"phone\": {\n      \"type\": \"string\",\n      \"regex\": \"^\\\\+?[1-9]\\\\d{1,14}$\"\n    },\n    \"subject\": {\n      \"type\": \"enumeration\",\n      \"enum\": [\"general\", \"support\", \"sales\", \"partnership\"],\n      \"default\": \"general\"\n    },\n    \"message\": {\n      \"type\": \"text\",\n      \"required\": true,\n      \"minLength\": 10,\n      \"maxLength\": 1000\n    },\n    \"consent\": {\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"default\": false\n    },\n    \"ipAddress\": {\n      \"type\": \"string\"\n    },\n    \"userAgent\": {\n      \"type\": \"text\"\n    },\n    \"status\": {\n      \"type\": \"enumeration\",\n      \"enum\": [\"new\", \"reviewing\", \"responded\", \"archived\"],\n      \"default\": \"new\"\n    }\n  }\n}"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Use appropriate field types (email, enumeration, boolean)",
+        "Set validation constraints (minLength, maxLength, required)",
+        "Include metadata fields (ipAddress, userAgent) for audit trails",
+        "Add status field for workflow management",
+        "Consider GDPR compliance with consent checkbox"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "dynamic-forms",
+      "title": "Dynamic Forms",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Dynamic forms can be built using Strapi components to create flexible form builders where field configurations are stored in the CMS."
+    },
+    {
+      "type": "block.card",
+      "title": "Form Field Component",
+      "content": "Define reusable field types with validation rules, labels, and placeholders",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Form Layout Component",
+      "content": "Configure multi-step forms, conditional fields, and field grouping",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Submission Handler",
+      "content": "Custom logic for email notifications, CRM integration, and data processing",
+      "variant": "default"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Dynamic Form Rendering",
+      "code": "export function DynamicForm({ config }: { config: FormConfig }) {\n  const schema = buildZodSchema(config.fields);\n  const form = useForm({\n    resolver: zodResolver(schema),\n  });\n\n  return (\n    <form onSubmit={form.handleSubmit(handleSubmit)}>\n      {config.fields.map((field) => (\n        <FormField\n          key={field.name}\n          field={field}\n          control={form.control}\n        />\n      ))}\n      <Button type=\"submit\">Submit</Button>\n    </form>\n  );\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Dynamic Form Benefits",
+      "content": "Dynamic forms allow non-technical users to create and modify forms without code changes, enabling rapid iteration and A/B testing."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "best-practices",
+      "title": "Best Practices",
+      "number": "05"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Follow these best practices to ensure secure, user-friendly, and GDPR-compliant form implementations."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Shield",
+          "title": "Security",
+          "description": "Rate limiting, CSRF protection, input sanitization"
+        },
+        {
+          "icon": "Lock",
+          "title": "Privacy",
+          "description": "GDPR consent, data retention policies, PII handling"
+        },
+        {
+          "icon": "Zap",
+          "title": "Performance",
+          "description": "Client-side validation, progressive enhancement, loading states"
+        },
+        {
+          "icon": "Users",
+          "title": "Accessibility",
+          "description": "ARIA labels, keyboard navigation, error announcements"
+        }
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Implement rate limiting to prevent spam (5 submissions per IP per hour)",
+        "Sanitize all user input before storing in database",
+        "Add honeypot fields for bot detection",
+        "Use HTTPS for all form submissions",
+        "Provide clear error messages with guidance",
+        "Include GDPR consent checkbox with link to privacy policy",
+        "Store IP address and timestamp for audit trails",
+        "Set up automated email notifications for new submissions",
+        "Archive old submissions after defined retention period",
+        "Test forms with screen readers for accessibility"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "GDPR Compliance",
+      "content": "Always obtain explicit consent before collecting personal data. Provide users with the ability to request data deletion and export."
+    }
+  ]
+}

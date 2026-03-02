@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "slug": "getting-started",
+    "title": "Getting Started - CMS Reference",
+    "excerpt": "Strapi setup guide and first content type creation",
+    "category": "cms-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": ["cms-reference", "getting-started", "documentation"]
+  },
+  "seo": {
+    "metaTitle": "Getting Started - CMS Reference",
+    "metaDescription": "Strapi setup guide and first content type creation"
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Step-by-step guide for setting up Strapi CMS, configuring the database, creating content types, and connecting to the Next.js frontend."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "local-development-setup",
+      "title": "Local Development Setup",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Node.js 18.x or higher",
+        "PostgreSQL 14+ (or SQLite for development)",
+        "npm or yarn package manager",
+        "Git for version control"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "1. Create Strapi project: npx create-strapi-app@latest my-strapi-project",
+        "2. Choose database (PostgreSQL recommended for production)",
+        "3. Configure database connection in .env",
+        "4. Run migrations: npm run develop",
+        "5. Access admin panel at http://localhost:1337/admin",
+        "6. Create admin user account"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "creating-your-first-content-type",
+      "title": "Creating Your First Content Type",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Go to Content-type Builder",
+        "2. Click 'Create new collection type'",
+        "3. Name it 'Article'",
+        "4. Add fields: title (String), slug (String), content (Rich Text), category (Enumeration)",
+        "5. Add metadata: publishedDate (Date), featured (Boolean)",
+        "6. Configure permissions in Settings > Roles",
+        "7. Save and generate API routes"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "REST endpoint: GET /api/articles",
+        "GraphQL query: { articles { title slug content } }",
+        "Automatic OpenAPI/Swagger documentation",
+        "Type safety via generated TypeScript types"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "connecting-to-nextjs",
+      "title": "Connecting to Next.js",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "1. Install Strapi SDK: npm install @strapi/sdk",
+        "2. Configure API URL in next.config.js",
+        "3. Create API client wrapper",
+        "4. Use SWR or TanStack Query for data fetching",
+        "5. Implement server actions for mutations",
+        "6. Add types from generated schemas"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "api-access-configuration",
+      "title": "API Access Configuration",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Set STRAPI_API_URL environment variable",
+        "Configure STRAPI_API_TOKEN for admin operations",
+        "Set up API_WEBHOOK_SECRET for webhooks",
+        "Enable CORS for frontend domain",
+        "Configure rate limiting in settings"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "slug": "server-vs-client",
+    "title": "Server vs Client Components",
+    "excerpt": "Understanding the differences between server and client components in Next.js and when to use each.",
+    "category": "app-reference",
+    "audience": "Frontend Developer / Designer",
+    "publishedAt": "2024-01-17",
+    "lastUpdated": "2024-01-22",
+    "tags": ["next.js", "components", "server", "client"]
+  },
+  "seo": {
+    "metaTitle": "Server vs Client Components | App Reference",
+    "metaDescription": "Learn when to use server vs client components in Next.js applications."
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Next.js defaults to server components for performance, with opt-in client components for interactivity."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "server-components",
+      "title": "Server Components",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Execute on server only",
+        "Direct data access",
+        "Keep secrets secure",
+        "Better SEO",
+        "Reduced JavaScript"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "client-components",
+      "title": "Client Components",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Interactivity",
+        "Event handlers",
+        "State hooks",
+        "Browser APIs",
+        "Context providers"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Use Client Directive",
+      "content": "Mark a component with 'use client' at the top of the file to opt into client-side rendering and enable interactivity."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "when-to-use-each",
+      "title": "When to Use Each",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Choose server components by default for better performance. Use client components only when you need interactivity or browser APIs."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Server",
+          "title": "Use Server For",
+          "description": "Data fetching, API calls, database access, large dependencies"
+        },
+        {
+          "icon": "Monitor",
+          "title": "Use Client For",
+          "description": "Event handlers, useState, useEffect, browser APIs"
+        },
+        {
+          "icon": "Layers",
+          "title": "Hybrid Approach",
+          "description": "Server component wrapping client components for data"
+        },
+        {
+          "icon": "Zap",
+          "title": "Performance",
+          "description": "Server components reduce JavaScript bundle size"
+        }
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Decision Matrix",
+      "code": "// \u2705 Server Component (default)\\nasync function ArticleList() {\\n  const articles = await fetchArticles(); // Direct data access\\n  return <div>{articles.map(a => <ArticleCard {...a} />)}</div>;\\n}\\n\\n// \u2705 Client Component (interactivity needed)\\n'use client';\\nfunction SearchBar() {\\n  const [query, setQuery] = useState(''); // State needed\\n  return (\\n    <input \\n      value={query} \\n      onChange={(e) => setQuery(e.target.value)} // Events\\n    />\\n  );\\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Default to Server",
+      "content": "Always start with server components and only add 'use client' when you encounter an error or need interactivity."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "composition-patterns",
+      "title": "Composition Patterns",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Compose server and client components effectively to maximize performance while maintaining interactivity."
+    },
+    {
+      "type": "block.card",
+      "title": "Server Wrapper Pattern",
+      "content": "Server component fetches data and passes to client component as props",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Children Composition",
+      "content": "Pass server components as children to client components",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Shared Components",
+      "content": "Pure presentational components can be used in both contexts",
+      "variant": "default"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "typescript",
+      "title": "Server Wrapper Pattern Example",
+      "code": "// app/articles/page.tsx (Server Component)\\nimport { ArticleListClient } from './article-list-client';\\n\\nexport default async function ArticlesPage() {\\n  const articles = await fetchArticles(); // Server-side data fetch\\n  \\n  return (\\n    <div>\\n      <h1>Articles</h1>\\n      <ArticleListClient initialArticles={articles} />\\n    </div>\\n  );\\n}\\n\\n// app/articles/article-list-client.tsx (Client Component)\\n'use client';\\nimport { useState } from 'react';\\n\\nexport function ArticleListClient({ initialArticles }) {\\n  const [articles, setArticles] = useState(initialArticles);\\n  const [filter, setFilter] = useState('');\\n\\n  // Client-side filtering\\n  const filtered = articles.filter(a => \\n    a.title.includes(filter)\\n  );\\n\\n  return (\\n    <>\\n      <input \\n        value={filter} \\n        onChange={(e) => setFilter(e.target.value)}\\n        placeholder=\\\"Filter articles\\\"\\n      />\\n      {filtered.map(article => (\\n        <ArticleCard key={article.id} {...article} />\\n      ))}\\n    </>\\n  );\\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Best Practice",
+      "content": "Keep client components small and focused. Let server components handle data fetching and pass serializable props to client components."
+    }
+  ],
+  "toc": [
+    {
+      "id": "server-components",
+      "title": "Server Components",
+      "level": 2
+    },
+    {
+      "id": "client-components",
+      "title": "Client Components",
+      "level": 2
+    },
+    {
+      "id": "when-to-use-each",
+      "title": "When to Use Each",
+      "level": 2
+    },
+    {
+      "id": "composition-patterns",
+      "title": "Composition Patterns",
+      "level": 2
+    }
+  ]
+}

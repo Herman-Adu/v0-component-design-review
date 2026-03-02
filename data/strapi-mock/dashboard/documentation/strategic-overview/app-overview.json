@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "slug": "app-overview",
+    "title": "App Overview",
+    "excerpt": "Production-ready Next.js 15 architecture with atomic design and 7-layer security",
+    "category": "strategic-overview",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "strategic-overview",
+      "app-overview",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "App Overview",
+    "metaDescription": "Production-ready Next.js 15 architecture with atomic design and 7-layer security"
+  },
+  "toc": [
+    {
+      "id": "4-layer-architecture",
+      "title": "4-Layer Architecture",
+      "level": 2
+    },
+    {
+      "id": "component-system-metrics",
+      "title": "Component System Metrics",
+      "level": 2
+    },
+    {
+      "id": "performance-optimization",
+      "title": "Performance Optimization",
+      "level": 2
+    },
+    {
+      "id": "security-layers",
+      "title": "Security Layers",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Complete application architecture overview featuring atomic design components, guard architecture for hydration protection, and enterprise-grade security implementation."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "4-layer-architecture",
+      "title": "4-Layer Architecture",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "10 atomic design atoms (inputs, buttons, icons)",
+        "14 molecules (forms, cards, navigation items)",
+        "10 organisms (complex containers, multi-step forms)",
+        "Responsive design with TailwindCSS",
+        "Dark mode support"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "TanStack Query for server state",
+        "React Context for UI state",
+        "Zod schemas for type safety",
+        "Form state with React Hook Form"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "7-layer defense strategy",
+        "CSRF token validation",
+        "Input sanitization with DOMPurify",
+        "Hydration guard protection",
+        "Server action validation"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Strapi REST API integration",
+        "GraphQL support",
+        "Server actions for data mutations",
+        "Webhook handling"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "component-system-metrics",
+      "title": "Component System Metrics",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "52 custom components total",
+        "94% test coverage",
+        "Zero hydration mismatches (guard protected)",
+        "TypeScript strict mode enabled",
+        "Accessibility audit: WCAG 2.1 AA compliant"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "performance-optimization",
+      "title": "Performance Optimization",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1",
+        "Image optimization with Next Image",
+        "Code splitting and lazy loading",
+        "Bundle analysis with @next/bundle-analyzer",
+        "Caching strategy with stale-while-revalidate"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "security-layers",
+      "title": "Security Layers",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Layer 1: IP-based rate limiting",
+        "Layer 2: CSRF token validation",
+        "Layer 3: Input sanitization",
+        "Layer 4: Hydration guard protection",
+        "Layer 5: Server action validation with Zod",
+        "Layer 6: SQL injection prevention in queries",
+        "Layer 7: XSS protection with DOMPurify"
+      ]
+    }
+  ]
+}

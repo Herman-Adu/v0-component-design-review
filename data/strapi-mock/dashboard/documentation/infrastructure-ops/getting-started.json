@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "slug": "getting-started",
+    "title": "Getting Started - Infrastructure & Operations",
+    "excerpt": "Complete guide to infrastructure setup, environment configuration, database operations, and deployment to Vercel.",
+    "category": "infrastructure-ops",
+    "audience": "DevOps Engineers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": ["getting-started", "infrastructure", "devops", "deployment"]
+  },
+  "seo": {
+    "metaTitle": "Infrastructure & Operations - Getting Started Guide",
+    "metaDescription": "Complete infrastructure setup guide covering environment variables, PostgreSQL configuration, Vercel deployment, and operational workflows."
+  },
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "overview",
+      "title": "Infrastructure Overview",
+      "number": "01"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "The application infrastructure consists of two main components: Next.js frontend (deployed on Vercel) and Strapi CMS (self-hosted or cloud). Both connect to a PostgreSQL database."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Globe",
+          "title": "Next.js on Vercel",
+          "description": "Static site generation with ISR, edge functions, and automatic deployments from Git."
+        },
+        {
+          "icon": "Database",
+          "title": "Strapi CMS",
+          "description": "Self-hosted on DigitalOcean/AWS or Strapi Cloud with PostgreSQL database."
+        },
+        {
+          "icon": "Server",
+          "title": "PostgreSQL Database",
+          "description": "Managed database service (Supabase, Railway, or self-hosted) with automated backups."
+        }
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "environment",
+      "title": "Environment Configuration",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Proper environment configuration is critical for security and functionality. Here are the required environment variables:"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "bash",
+      "title": ".env.local (Next.js)",
+      "code": "# Strapi API\nNEXT_PUBLIC_API_URL=http://localhost:1337\nSTRAPI_API_TOKEN=your_api_token_here\n\n# Database\nDATABASE_URL=postgresql://user:pass@localhost:5432/db\n\n# Email (Resend)\nRESEND_API_KEY=re_xxxxx\nEMAIL_FROM=noreply@example.com\n\n# Environment\nNODE_ENV=development"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "database",
+      "title": "Database Configuration",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Setting up PostgreSQL for local development:"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "Install PostgreSQL locally or use Docker",
+        "Create database: CREATE DATABASE dev_db;",
+        "Connect: \\c dev_db",
+        "Configure in .env.local: DATABASE_URL=postgresql://user:pass@localhost/dev_db"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "deployment",
+      "title": "Deployment",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Deploy the Next.js application to Vercel with automated CI/CD from your Git repository. Configure production environment variables in the Vercel dashboard."
+    }
+  ]
+}

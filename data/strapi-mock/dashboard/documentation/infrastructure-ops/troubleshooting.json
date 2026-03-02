@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "slug": "troubleshooting",
+    "title": "Troubleshooting Guide",
+    "excerpt": "Common issues, debugging techniques, and resolution strategies for production systems.",
+    "category": "infrastructure-ops",
+    "audience": "QA Engineer / DevOps",
+    "publishedAt": "2024-01-20",
+    "lastUpdated": "2024-01-25",
+    "tags": ["devops", "troubleshooting", "debugging", "monitoring"]
+  },
+  "seo": {
+    "metaTitle": "Troubleshooting Guide | Infrastructure & Ops",
+    "metaDescription": "Debug and resolve common production issues quickly."
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Systematic troubleshooting requires understanding your system's logs, metrics, and error patterns."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "common-issues",
+      "title": "Common Issues",
+      "number": "01"
+    },
+    {
+      "type": "block.collapsible",
+      "title": "High CPU Usage",
+      "defaultOpen": false,
+      "content": "Check for runaway loops, memory pressure, and expensive database queries."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "monitoring-tools",
+      "title": "Monitoring Tools",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Application logs",
+        "System metrics",
+        "Database performance",
+        "Error tracking",
+        "Real user monitoring"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Production Debugging",
+      "content": "Test remediations in staging before rolling changes to production."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "debugging-workflow",
+      "title": "Debugging Workflow",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Follow a systematic debugging workflow to identify and resolve issues efficiently."
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "Reproduce the issue in a controlled environment",
+        "Check recent deployments and code changes",
+        "Review application logs for errors and warnings",
+        "Examine system metrics (CPU, memory, disk, network)",
+        "Verify external service availability and latency",
+        "Test fix in staging environment",
+        "Deploy fix with monitoring",
+        "Document root cause and resolution"
+      ]
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Bug",
+          "title": "Reproduce",
+          "description": "Isolate the issue in a controlled environment"
+        },
+        {
+          "icon": "Search",
+          "title": "Investigate",
+          "description": "Gather logs, metrics, and error traces"
+        },
+        {
+          "icon": "Wrench",
+          "title": "Fix",
+          "description": "Implement and test the solution"
+        },
+        {
+          "icon": "FileText",
+          "title": "Document",
+          "description": "Record findings for future reference"
+        }
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "log-analysis",
+      "title": "Log Analysis",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Effective log analysis helps quickly identify root causes and patterns in production issues."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "bash",
+      "title": "Common Log Analysis Commands",
+      "code": "# View recent errors in Vercel logs\\nvercel logs --follow\\n\\n# Filter for specific error patterns\\nvercel logs | grep \\\"ERROR\\\"\\n\\n# Search for specific request ID\\nvercel logs | grep \\\"request-id: abc123\\\"\\n\\n# Count error occurrences\\nvercel logs | grep \\\"ERROR\\\" | wc -l\\n\\n# View application logs with timestamps\\npnpm run dev | bunyan -o short"
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Terminal",
+          "title": "Application Logs",
+          "description": "console.log, console.error in Next.js"
+        },
+        {
+          "icon": "Activity",
+          "title": "System Logs",
+          "description": "Platform logs from Vercel/hosting"
+        },
+        {
+          "icon": "Database",
+          "title": "Database Logs",
+          "description": "Query performance and errors"
+        },
+        {
+          "icon": "AlertTriangle",
+          "title": "Error Tracking",
+          "description": "Sentry for structured error logs"
+        }
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Structured Logging",
+      "content": "Use structured logging with consistent fields (timestamp, level, requestId, userId) to enable powerful log queries and aggregations."
+    },
+    {
+      "type": "block.collapsible",
+      "title": "Build Failures",
+      "defaultOpen": false,
+      "content": "Check for TypeScript errors, missing dependencies, or environment variable issues. Review build logs in CI/CD pipeline."
+    },
+    {
+      "type": "block.collapsible",
+      "title": "API Timeout Issues",
+      "defaultOpen": false,
+      "content": "Increase timeout limits, optimize slow queries, implement caching, or add request retry logic with exponential backoff."
+    },
+    {
+      "type": "block.collapsible",
+      "title": "Memory Leaks",
+      "defaultOpen": false,
+      "content": "Use Node.js heap snapshots, check for unclosed connections, review event listener cleanup, and monitor memory metrics over time."
+    }
+  ],
+  "toc": [
+    {
+      "id": "common-issues",
+      "title": "Common Issues",
+      "level": 2
+    },
+    {
+      "id": "monitoring-tools",
+      "title": "Monitoring Tools",
+      "level": 2
+    },
+    {
+      "id": "debugging-workflow",
+      "title": "Debugging Workflow",
+      "level": 2
+    },
+    {
+      "id": "log-analysis",
+      "title": "Log Analysis",
+      "level": 2
+    }
+  ]
+}

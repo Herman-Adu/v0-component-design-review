@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "slug": "cms-operations",
+    "title": "CMS Operations",
+    "excerpt": "Strapi CMS operational management and maintenance",
+    "category": "infrastructure-ops",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "infrastructure-ops",
+      "cms-operations",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "CMS Operations",
+    "metaDescription": "Strapi CMS operational management and maintenance"
+  },
+  "toc": [
+    {
+      "id": "admin-dashboard-access",
+      "title": "Admin Dashboard Access",
+      "level": 2
+    },
+    {
+      "id": "content-management",
+      "title": "Content Management",
+      "level": 2
+    },
+    {
+      "id": "user-management",
+      "title": "User Management",
+      "level": 2
+    },
+    {
+      "id": "backup-recovery",
+      "title": "Backup & Recovery",
+      "level": 2
+    },
+    {
+      "id": "plugin-management",
+      "title": "Plugin Management",
+      "level": 2
+    },
+    {
+      "id": "content-type-configuration",
+      "title": "Content Type Configuration",
+      "level": 2
+    },
+    {
+      "id": "database-maintenance",
+      "title": "Database Maintenance",
+      "level": 2
+    },
+    {
+      "id": "monitoring-alerts",
+      "title": "Monitoring & Alerts",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Complete operational guide for managing Strapi CMS including content management, user administration, role configuration, plugin setup, and data maintenance."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "admin-dashboard-access",
+      "title": "Admin Dashboard Access",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "URL: https://<strapi-domain>/admin",
+        "Username: Email from initial setup",
+        "Password: Set during first login"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Visit /admin on new Strapi instance",
+        "2. Fill out admin user form (email, password)",
+        "3. Click 'Register'",
+        "4. Dashboard now accessible"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "content-management",
+      "title": "Content Management",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Navigate to Content Manager",
+        "2. Select collection type (Articles, Tutorials, etc)",
+        "3. Click 'Create new entry'",
+        "4. Fill in required fields",
+        "5. Click 'Save' or 'Publish'"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Draft - Saved but not published",
+        "Published - Available in API",
+        "Scheduled - Will publish at future date",
+        "Archived - Hidden from API but not deleted"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "All changes tracked automatically",
+        "View Changes > History to see versions",
+        "Restore: Click 'Restore' on previous version"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "user-management",
+      "title": "User Management",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Admin > Users & Permissions > Users",
+        "2. Click 'Create new user'",
+        "3. Enter email",
+        "4. Assign role (Admin, Editor, Contributor, Author)",
+        "5. Send invitation link to user"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Admin - Full access, manage all content and settings",
+        "Editor - Can create, edit, delete all content",
+        "Contributor - Can create and edit own content",
+        "Author - Can only create content (needs editor approval)"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Go to Users & Permissions Plugin > Roles",
+        "Select role to customize",
+        "Toggle permissions for each content type",
+        "Can restrict by collection and action"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "backup-recovery",
+      "title": "Backup & Recovery",
+      "number": "04"
+    },
+    {
+      "type": "block.card",
+      "title": "Database Backups",
+      "content": "For PostgreSQL on Railway.app or similar",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Export via API: GET /api/articles?pagination[pageSize]=1000",
+        "2. Save JSON response to file",
+        "3. Keep in version control or secure storage",
+        "4. Can reimport if needed"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Contact hosting provider for database restore",
+        "2. Or manually recreate content from backup",
+        "3. Verify all content after recovery",
+        "4. Test API endpoints"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "plugin-management",
+      "title": "Plugin Management",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Content-Type Builder - Create/edit content types",
+        "Email - Email notifications (SendGrid integration)",
+        "Upload - Media library and file management",
+        "Users & Permissions - User roles and access control",
+        "GraphQL - GraphQL API endpoint"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Admin > Plugins",
+        "2. Click plugin to view details",
+        "3. Enable/Disable toggle",
+        "4. Restart Strapi if prompted"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Admin > Media Library",
+        "2. Drag and drop images/files",
+        "3. Organize in folders",
+        "4. Use in content type fields",
+        "5. Configure upload destination (local or AWS S3)"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "content-type-configuration",
+      "title": "Content Type Configuration",
+      "number": "06"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Admin > Content-Type Builder",
+        "2. Create new Collection Type or Single Type",
+        "3. Name and description",
+        "4. Add fields (String, Text, Date, Relation, etc)",
+        "5. Configure required fields",
+        "6. Save and deploy"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "String - Short text (title, email)",
+        "Text - Long text (description, slug)",
+        "Rich Text - Rich HTML editor",
+        "Date - Calendar date picker",
+        "Boolean - Checkbox",
+        "Number - Integer or decimal",
+        "Enumeration - Dropdown choices",
+        "Media - Image/file upload",
+        "Relation - Links to other content",
+        "Component - Reusable field groups",
+        "Dynamic Zone - Multiple block types"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "database-maintenance",
+      "title": "Database Maintenance",
+      "number": "07"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Monitor database size and disk usage",
+        "Check for unused media files",
+        "Archive old content periodically",
+        "Review and optimize database indexes",
+        "Update PostgreSQL version when available"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Paginate large queries (don't fetch all at once)",
+        "Index frequently filtered fields",
+        "Clean up draft versions regularly",
+        "Monitor slow queries in database logs"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "monitoring-alerts",
+      "title": "Monitoring & Alerts",
+      "number": "08"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Check logs: Strapi Admin > Logs (if available)",
+        "API errors: Monitor API response times",
+        "Database: Check hosting provider dashboard",
+        "Uptime monitoring: Use external service (Uptime Robot)",
+        "Content validation: Test API endpoints regularly"
+      ]
+    }
+  ]
+}

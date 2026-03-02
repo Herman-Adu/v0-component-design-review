@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "slug": "deployment-pipelines",
+    "title": "Deployment Pipelines and CI/CD",
+    "excerpt": "Setting up automated deployment pipelines, testing, and continuous integration for production deployments.",
+    "category": "infrastructure-ops",
+    "audience": "QA Engineer / DevOps",
+    "publishedAt": "2024-01-19",
+    "lastUpdated": "2024-01-24",
+    "tags": ["devops", "ci-cd", "deployment", "automation"]
+  },
+  "seo": {
+    "metaTitle": "Deployment Pipelines | Infrastructure & Ops",
+    "metaDescription": "Build reliable CI/CD pipelines for automated deployments."
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Automated deployment pipelines ensure consistent, reliable releases with built-in testing and security checks."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "pipeline-stages",
+      "title": "Pipeline Stages",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Build stage",
+        "Unit testing",
+        "Integration testing",
+        "Security scanning",
+        "Staging deployment",
+        "Production release"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Release Safety",
+      "content": "Require green checks on all critical jobs before promoting to production."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "github-actions-workflow",
+      "title": "GitHub Actions Workflow",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "GitHub Actions provides the CI/CD infrastructure for automated testing and deployment. The workflow is triggered on push to main and pull requests."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "yaml",
+      "title": "CI/CD Workflow Configuration",
+      "code": "name: CI/CD Pipeline\n\non:\n  push:\n    branches: [main, develop]\n  pull_request:\n    branches: [main]\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '20'\n          cache: 'pnpm'\n      \n      - name: Install dependencies\n        run: pnpm install --frozen-lockfile\n      \n      - name: Run linting\n        run: pnpm run lint\n      \n      - name: Run type checking\n        run: pnpm run type-check\n      \n      - name: Run unit tests\n        run: pnpm run test:unit\n      \n      - name: Run integration tests\n        run: pnpm run test:integration\n      \n      - name: Build application\n        run: pnpm run build\n\n  deploy-staging:\n    needs: test\n    if: github.ref == 'refs/heads/develop'\n    runs-on: ubuntu-latest\n    steps:\n      - name: Deploy to Staging\n        run: echo \"Deploy to staging Vercel\"\n\n  deploy-production:\n    needs: test\n    if: github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest\n    environment: production\n    steps:\n      - name: Deploy to Production\n        run: echo \"Deploy to production Vercel\""
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "GitBranch",
+          "title": "Branch Protection",
+          "description": "Require PR reviews and passing checks before merge"
+        },
+        {
+          "icon": "Shield",
+          "title": "Security Scanning",
+          "description": "Automated dependency and code vulnerability scanning"
+        },
+        {
+          "icon": "CheckCircle",
+          "title": "Quality Gates",
+          "description": "Lint, type-check, and test coverage thresholds"
+        },
+        {
+          "icon": "Zap",
+          "title": "Fast Feedback",
+          "description": "Parallel job execution for quick CI results"
+        }
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "environment-configuration",
+      "title": "Environment Configuration",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Environment-specific configuration is managed through environment variables and secrets stored in GitHub and Vercel."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Code",
+          "title": "Development",
+          "description": "Local environment with mock data and hot reload"
+        },
+        {
+          "icon": "TestTube",
+          "title": "Staging",
+          "description": "Pre-production environment with real CMS data"
+        },
+        {
+          "icon": "Globe",
+          "title": "Production",
+          "description": "Live environment with full monitoring and backups"
+        }
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "NEXT_PUBLIC_STRAPI_API_URL - Strapi API endpoint",
+        "STRAPI_API_TOKEN - Authentication token for API access",
+        "DATABASE_URL - PostgreSQL connection string (production)",
+        "VERCEL_TOKEN - Deployment authentication",
+        "SMTP_HOST, SMTP_USER, SMTP_PASS - Email service configuration",
+        "SENTRY_DSN - Error tracking endpoint"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Secret Management",
+      "content": "Never commit secrets to version control. Use GitHub Secrets for CI/CD and Vercel Environment Variables for runtime."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "deployment-strategies",
+      "title": "Deployment Strategies",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Different deployment strategies balance speed, safety, and rollback capability. Choose the strategy that matches your release requirements."
+    },
+    {
+      "type": "block.card",
+      "title": "Blue-Green Deployment",
+      "content": "Run two identical environments (blue and green), switch traffic instantly, enabling zero-downtime deployments",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Canary Deployment",
+      "content": "Gradually route a small percentage of traffic to new version, monitor metrics, then increase traffic if stable",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Rolling Deployment",
+      "content": "Update instances incrementally, maintaining partial availability during deployment, good for stateless apps",
+      "variant": "default"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "json",
+      "title": "Vercel Deployment Configuration",
+      "code": "{\n  \"version\": 2,\n  \"builds\": [\n    {\n      \"src\": \"package.json\",\n      \"use\": \"@vercel/next\"\n    }\n  ],\n  \"routes\": [\n    {\n      \"src\": \"/api/(.*)\",\n      \"dest\": \"/api/$1\"\n    }\n  ],\n  \"env\": {\n    \"NEXT_PUBLIC_STRAPI_API_URL\": \"@strapi-api-url\"\n  },\n  \"build\": {\n    \"env\": {\n      \"NEXT_TELEMETRY_DISABLED\": \"1\"\n    }\n  }\n}"
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Vercel Preview Deployments",
+      "content": "Every pull request automatically gets a preview URL for testing before merge, enabling safe code review."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "rollback-procedures",
+      "title": "Rollback Procedures",
+      "number": "05"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "When issues are detected in production, quick rollback procedures minimize downtime and user impact."
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "RotateCounterClockwise",
+          "title": "Instant Rollback",
+          "description": "Vercel allows instant rollback to previous deployment via dashboard"
+        },
+        {
+          "icon": "GitBranch",
+          "title": "Git Revert",
+          "description": "Revert problematic commit and trigger new deployment"
+        },
+        {
+          "icon": "Database",
+          "title": "Database Migrations",
+          "description": "Plan forward-compatible schemas to avoid migration rollbacks"
+        },
+        {
+          "icon": "AlertTriangle",
+          "title": "Monitoring",
+          "description": "Alert on error spikes to detect issues quickly"
+        }
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "Identify the issue and confirm rollback is necessary",
+        "Navigate to Vercel dashboard → Deployments",
+        "Locate the last known good deployment",
+        "Click 'Promote to Production' to instantly rollback",
+        "Verify the issue is resolved by checking monitoring",
+        "Create incident report and plan fix for next deployment"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "warning",
+      "title": "Database Schema Changes",
+      "content": "Rollback of database migrations requires careful planning. Always make schemas forward-compatible to avoid data loss."
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "bash",
+      "title": "Git Rollback via Revert",
+      "code": "# Revert the problematic commit\ngit revert <commit-hash>\n\n# Push to trigger new deployment\ngit push origin main\n\n# Or: Reset to previous commit (destructive)\ngit reset --hard <previous-commit>\ngit push origin main --force"
+    }
+  ],
+  "toc": [
+    {
+      "id": "pipeline-stages",
+      "title": "Pipeline Stages",
+      "level": 2
+    },
+    {
+      "id": "github-actions-workflow",
+      "title": "GitHub Actions Workflow",
+      "level": 2
+    },
+    {
+      "id": "environment-configuration",
+      "title": "Environment Configuration",
+      "level": 2
+    },
+    {
+      "id": "deployment-strategies",
+      "title": "Deployment Strategies",
+      "level": 2
+    },
+    {
+      "id": "rollback-procedures",
+      "title": "Rollback Procedures",
+      "level": 2
+    }
+  ]
+}

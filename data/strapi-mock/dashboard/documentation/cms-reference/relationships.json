@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "slug": "relationships",
+    "title": "Relationships",
+    "excerpt": "Entity relationships and content linking patterns in Strapi",
+    "category": "cms-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "cms-reference",
+      "relationships",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Relationships",
+    "metaDescription": "Entity relationships and content linking patterns in Strapi"
+  },
+  "toc": [
+    {
+      "id": "one-to-many-relationships",
+      "title": "One-to-Many Relationships",
+      "level": 2
+    },
+    {
+      "id": "many-to-many-relationships",
+      "title": "Many-to-Many Relationships",
+      "level": 2
+    },
+    {
+      "id": "content-hierarchy",
+      "title": "Content Hierarchy",
+      "level": 2
+    },
+    {
+      "id": "relationship-field-configuration",
+      "title": "Relationship Field Configuration",
+      "level": 2
+    },
+    {
+      "id": "querying-related-content",
+      "title": "Querying Related Content",
+      "level": 2
+    },
+    {
+      "id": "best-practices",
+      "title": "Best Practices",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Documentation of relationship types in Strapi, content modeling patterns, and strategies for creating complex content hierarchies."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "one-to-many-relationships",
+      "title": "One-to-Many Relationships",
+      "number": "01"
+    },
+    {
+      "type": "block.card",
+      "title": "Example: Articles and Categories",
+      "content": "One category can have many articles",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Example: Users and Comments",
+      "content": "One user can have many comments",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Organize content hierarchically",
+        "Query related content efficiently",
+        "Maintain referential integrity"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "many-to-many-relationships",
+      "title": "Many-to-Many Relationships",
+      "number": "02"
+    },
+    {
+      "type": "block.card",
+      "title": "Example: Articles and Tags",
+      "content": "Articles can have multiple tags, tags can be on multiple articles",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Example: Team Members and Projects",
+      "content": "Team members can work on multiple projects",
+      "variant": "default"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "content-hierarchy",
+      "title": "Content Hierarchy",
+      "number": "03"
+    },
+    {
+      "type": "block.card",
+      "title": "Self-Referencing Relationships",
+      "content": "Content that relates to other instances of itself",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Deep Hierarchies",
+      "content": "Multi-level content relationships",
+      "variant": "default"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "relationship-field-configuration",
+      "title": "Relationship Field Configuration",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Configuration > Advanced Settings",
+        "One-way vs Two-way relationships",
+        "Required vs Optional relationships",
+        "Cascading delete behavior",
+        "Custom sorting of related items",
+        "Display settings for relationship picker"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "querying-related-content",
+      "title": "Querying Related Content",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "GET /api/articles?populate=category - Single level",
+        "GET /api/articles?populate[category][populate]=articles - Nested",
+        "GET /api/articles?populate=* - Populate all relations",
+        "Performance: Use selective population to avoid N+1 queries"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "GET /api/articles?filters[category][slug][$eq]=tech",
+        "GET /api/articles?filters[tags][name][$containsi]=typescript",
+        "Multiple filters with AND/OR logic"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "best-practices",
+      "title": "Best Practices",
+      "number": "06"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Use meaningful relationship names",
+        "Plan hierarchy depth (avoid over-nesting)",
+        "Configure cascading deletes carefully",
+        "Use population wisely to prevent over-fetching",
+        "Index relationship fields for query performance",
+        "Document relationship expectations"
+      ]
+    }
+  ]
+}

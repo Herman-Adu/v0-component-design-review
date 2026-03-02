@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "slug": "overview",
+    "title": "CMS Reference - Overview",
+    "excerpt": "Strapi CMS schema, content models, and API architecture",
+    "category": "cms-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": ["cms-reference", "overview", "documentation"]
+  },
+  "seo": {
+    "metaTitle": "CMS Reference - Overview",
+    "metaDescription": "Strapi CMS schema, content models, and API architecture"
+  },
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Comprehensive overview of the Strapi CMS backend architecture, content type definitions, API configuration, and integration patterns with the Next.js frontend."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "content-architecture",
+      "title": "Content Architecture",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Articles - Technical articles and case studies",
+        "Tutorials - Step-by-step learning content",
+        "Case Studies - Real-world implementation examples",
+        "Testimonials - Client feedback and success stories",
+        "Form Submissions - Contact and inquiry forms",
+        "Content Library - General purpose content storage"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Site Settings - Global site configuration",
+        "Homepage Hero - Landing page hero section",
+        "Global Navigation - Sidebar and menu configuration",
+        "Footer Content - Footer sections and links"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "shared-components-18-total",
+      "title": "Shared Components (18 total)",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Hero Section - Large hero banners with CTAs",
+        "Call-to-Action Block - Prominent action blocks",
+        "Feature Cards - Feature showcase grid",
+        "Testimonial Block - Client testimonial cards",
+        "FAQ Accordion - Frequently asked questions",
+        "Code Block - Syntax-highlighted code snippets",
+        "Quote Block - Styled quotations",
+        "Image Gallery - Image grid and carousel",
+        "Video Embed - YouTube and Vimeo embeds",
+        "Text with Image - Content and image layouts",
+        "Three Column Grid - Three item layouts",
+        "Button Group - Multiple action buttons",
+        "Breadcrumb Navigation - Navigation breadcrumbs",
+        "Meta Tags - SEO metadata",
+        "Social Links - Social media integration",
+        "Author Info - Author bio and credits",
+        "Related Items - Related content links",
+        "Rich Text - Full rich text editing"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "type-system",
+      "title": "Type System",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "TypeScript code generation from Strapi schemas",
+        "Zod validation schemas for runtime safety",
+        "Type guards for content type discrimination",
+        "Polymorphic content support for dynamic zones",
+        "Strict null checks enabled"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "api-configuration",
+      "title": "API Configuration",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "REST API: Full CRUD operations",
+        "GraphQL: Optimized query interface",
+        "API Routes: Custom server actions",
+        "Webhooks: Event-driven integration",
+        "Rate Limiting: IP-based throttling",
+        "CORS: Configured for frontend access",
+        "Authentication: Token-based for admin APIs"
+      ]
+    }
+  ]
+}

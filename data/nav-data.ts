@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   BookOpen,
   Code,
@@ -58,35 +58,38 @@ import {
   Building2,
   PenSquare,
   LineChart,
-} from "lucide-react"
+} from "lucide-react";
 
-import { articles } from "@/data/content-library/articles"
-import { caseStudies } from "@/data/content-library/case-studies"
-import { tutorials } from "@/data/content-library/tutorials"
-import { guides } from "@/data/content-library/guides"
+import { articles } from "@/data/content-library/articles";
+import { caseStudies } from "@/data/content-library/case-studies";
+import { tutorials } from "@/data/content-library/tutorials";
+import { guides } from "@/data/content-library/guides";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
 export interface NavItem {
-  href: string
-  label: string
-  icon: React.ElementType
-  children?: NavItem[]
+  href: string;
+  label: string;
+  icon: React.ElementType;
+  children?: NavItem[];
 }
 
 export interface NavSection {
-  title: string
-  icon: React.ElementType
-  items: NavItem[]
+  title: string;
+  icon: React.ElementType;
+  items: NavItem[];
 }
 
 // ---------------------------------------------------------------------------
 // Category configuration for article grouping
 // ---------------------------------------------------------------------------
 
-const categoryConfig: Record<string, { label: string; icon: React.ElementType }> = {
+const categoryConfig: Record<
+  string,
+  { label: string; icon: React.ElementType }
+> = {
   rendering: { label: "Rendering Strategies", icon: Globe },
   architecture: { label: "Architecture", icon: Layers },
   forms: { label: "Forms & Validation", icon: FileText },
@@ -103,97 +106,112 @@ const categoryConfig: Record<string, { label: string; icon: React.ElementType }>
   "state-management": { label: "State Management", icon: Zap },
   components: { label: "Components", icon: Layers },
   email: { label: "Email Systems", icon: FileText },
-}
+};
 
 // ---------------------------------------------------------------------------
 // Dynamic content nav items (computed from data arrays)
 // ---------------------------------------------------------------------------
 
 const articlesByCategory = articles
-  .filter(article => categoryConfig[article.category]) // Only include articles with configured categories
+  .filter((article) => categoryConfig[article.category]) // Only include articles with configured categories
   .reduce(
     (acc, article) => {
-      const category = article.category
+      const category = article.category;
       if (!acc[category]) {
-        acc[category] = []
+        acc[category] = [];
       }
       acc[category].push({
         href: `/dashboard/content-library/articles/${article.category}/${article.slug}`,
         label: article.title,
         icon: Circle,
-      })
-      return acc
+      });
+      return acc;
     },
     {} as Record<string, NavItem[]>,
-  )
+  );
 
-const articleChildren: NavItem[] = Object.entries(articlesByCategory).map(([category, items]) => {
-  const config = categoryConfig[category] || { label: category, icon: Circle }
-  return {
-    href: `/dashboard/content-library/articles`,
-    label: config.label,
-    icon: config.icon,
-    children: items,
-  }
-})
+const articleChildren: NavItem[] = Object.entries(articlesByCategory).map(
+  ([category, items]) => {
+    const config = categoryConfig[category] || {
+      label: category,
+      icon: Circle,
+    };
+    return {
+      href: `/dashboard/content-library/articles`,
+      label: config.label,
+      icon: config.icon,
+      children: items,
+    };
+  },
+);
 
 const caseStudiesByCategory = caseStudies.reduce(
   (acc, cs) => {
-    const category = cs.category
+    const category = cs.category;
     if (!acc[category]) {
-      acc[category] = []
+      acc[category] = [];
     }
     acc[category].push({
       href: `/dashboard/content-library/case-studies/${cs.category}/${cs.slug}`,
       label: cs.title,
       icon: Circle,
-    })
-    return acc
+    });
+    return acc;
   },
   {} as Record<string, NavItem[]>,
-)
+);
 
-const caseStudyChildren: NavItem[] = Object.entries(caseStudiesByCategory).map(([category, items]) => {
-  const config = categoryConfig[category] || { label: category, icon: Circle }
-  return {
-    href: `/dashboard/content-library/case-studies`,
-    label: config.label,
-    icon: config.icon,
-    children: items,
-  }
-})
+const caseStudyChildren: NavItem[] = Object.entries(caseStudiesByCategory).map(
+  ([category, items]) => {
+    const config = categoryConfig[category] || {
+      label: category,
+      icon: Circle,
+    };
+    return {
+      href: `/dashboard/content-library/case-studies`,
+      label: config.label,
+      icon: config.icon,
+      children: items,
+    };
+  },
+);
 
 const tutorialsByCategory = tutorials.reduce(
   (acc, t) => {
-    const category = t.category
+    const category = t.category;
     if (!acc[category]) {
-      acc[category] = []
+      acc[category] = [];
     }
     acc[category].push({
       href: `/dashboard/content-library/tutorials/${t.category}/${t.slug}`,
       label: t.title,
       icon: Circle,
-    })
-    return acc
+    });
+    return acc;
   },
   {} as Record<string, NavItem[]>,
-)
+);
 
 const guideChildren: NavItem[] = guides.map((g) => ({
   href: `/dashboard/content-library/guides/${g.category}/${g.slug}`,
   label: g.title,
   icon: Circle,
-  }))
+}));
 
-const tutorialChildren: NavItem[] = Object.entries(tutorialsByCategory).map(([category, items]) => {
-  const config = categoryConfig[category] || { label: category, icon: Circle }
-  return {
-    href: `/dashboard/content-library/tutorials`,
-    label: config.label,
-    icon: config.icon,
-    children: items,
-  }
-})
+const tutorialChildren: NavItem[] = Object.entries(tutorialsByCategory).map(
+  ([category, items]) => {
+    const config = categoryConfig[category] || {
+      label: category,
+      icon: Circle,
+    };
+    return {
+      href: `/dashboard/content-library/tutorials`,
+      label: config.label,
+      icon: config.icon,
+      children: items,
+    };
+  },
+);
 
 // ---------------------------------------------------------------------------
 // Section definitions
@@ -202,10 +220,8 @@ const tutorialChildren: NavItem[] = Object.entries(tutorialsByCategory).map(([ca
 export const adminSection: NavSection = {
   title: "Admin",
   icon: ShieldCheck,
-  items: [
-    { href: "/dashboard/admin", label: "Overview", icon: ShieldCheck },
-  ],
-}
+  items: [{ href: "/dashboard/admin", label: "Overview", icon: ShieldCheck }],
+};
 
 // ---------------------------------------------------------------------------
 // Digital Marketing -- Platform Marketing & Content Distribution
@@ -213,44 +229,88 @@ export const adminSection: NavSection = {
 // Consolidates content tools, social media, and per-platform marketing.
 // Google subsection built out first; LinkedIn, Twitter/X, Facebook stubs.
 
-const DM = "/dashboard/admin/digital-marketing"
+const DM = "/dashboard/admin/digital-marketing";
 
 const dmGoogleItems: NavItem[] = [
   { href: `${DM}/google`, label: "Overview", icon: Search },
-  { href: `${DM}/google/business-profile`, label: "Business Profile & FAQs", icon: Building2 },
+  {
+    href: `${DM}/google/business-profile`,
+    label: "Business Profile & FAQs",
+    icon: Building2,
+  },
   { href: `${DM}/google/seo`, label: "SEO & Site Optimization", icon: Search },
   { href: `${DM}/google/tag-manager`, label: "Tag Manager", icon: Tag },
-  { href: `${DM}/google/ads-campaigns`, label: "Ads & Campaigns", icon: DollarSign },
-  { href: `${DM}/google/analytics`, label: "Analytics & Reporting", icon: LineChart },
+  {
+    href: `${DM}/google/ads-campaigns`,
+    label: "Ads & Campaigns",
+    icon: DollarSign,
+  },
+  {
+    href: `${DM}/google/analytics`,
+    label: "Analytics & Reporting",
+    icon: LineChart,
+  },
   { href: `${DM}/google/composer`, label: "Content Composer", icon: PenSquare },
-]
+];
 
 const dmLinkedInItems: NavItem[] = [
   { href: `${DM}/linkedin`, label: "Overview", icon: Share2 },
-  { href: `${DM}/linkedin/company-page`, label: "Company Page", icon: Building2 },
+  {
+    href: `${DM}/linkedin/company-page`,
+    label: "Company Page",
+    icon: Building2,
+  },
   { href: `${DM}/linkedin/composer`, label: "Post Composer", icon: PenSquare },
-  { href: `${DM}/linkedin/articles`, label: "Article Publisher", icon: FileText },
-  { href: `${DM}/linkedin/connection-strategy`, label: "Connection Strategy", icon: UsersRound },
+  {
+    href: `${DM}/linkedin/articles`,
+    label: "Article Publisher",
+    icon: FileText,
+  },
+  {
+    href: `${DM}/linkedin/connection-strategy`,
+    label: "Connection Strategy",
+    icon: UsersRound,
+  },
   { href: `${DM}/linkedin/analytics`, label: "Analytics", icon: LineChart },
-]
+];
 
 const dmTwitterItems: NavItem[] = [
   { href: `${DM}/twitter`, label: "Overview", icon: Globe },
   { href: `${DM}/twitter/composer`, label: "Tweet Composer", icon: PenSquare },
   { href: `${DM}/twitter/threads`, label: "Thread Builder", icon: FileText },
-  { href: `${DM}/twitter/hashtag-strategy`, label: "Hashtag Strategy", icon: Tag },
-  { href: `${DM}/twitter/engagement`, label: "Engagement Playbook", icon: UsersRound },
+  {
+    href: `${DM}/twitter/hashtag-strategy`,
+    label: "Hashtag Strategy",
+    icon: Tag,
+  },
+  {
+    href: `${DM}/twitter/engagement`,
+    label: "Engagement Playbook",
+    icon: UsersRound,
+  },
   { href: `${DM}/twitter/analytics`, label: "Analytics", icon: LineChart },
-]
+];
 
 const dmFacebookItems: NavItem[] = [
   { href: `${DM}/facebook`, label: "Overview", icon: Globe },
-  { href: `${DM}/facebook/page-management`, label: "Page Management", icon: Building2 },
+  {
+    href: `${DM}/facebook/page-management`,
+    label: "Page Management",
+    icon: Building2,
+  },
   { href: `${DM}/facebook/composer`, label: "Post Composer", icon: PenSquare },
-  { href: `${DM}/facebook/events`, label: "Events & Promotions", icon: Megaphone },
-  { href: `${DM}/facebook/messenger`, label: "Messenger Templates", icon: FileText },
+  {
+    href: `${DM}/facebook/events`,
+    label: "Events & Promotions",
+    icon: Megaphone,
+  },
+  {
+    href: `${DM}/facebook/messenger`,
+    label: "Messenger Templates",
+    icon: FileText,
+  },
   { href: `${DM}/facebook/analytics`, label: "Analytics", icon: LineChart },
-]
+];
 
 export const digitalMarketingSection: NavSection = {
   title: "Digital Marketing",
@@ -258,7 +318,11 @@ export const digitalMarketingSection: NavSection = {
   items: [
     { href: DM, label: "Overview", icon: Megaphone },
     { href: `${DM}/getting-started`, label: "Getting Started", icon: Rocket },
-    { href: `${DM}/content-strategy`, label: "Content Strategy", icon: TrendingUp },
+    {
+      href: `${DM}/content-strategy`,
+      label: "Content Strategy",
+      icon: TrendingUp,
+    },
     {
       href: `${DM}/google`,
       label: "Google",
@@ -284,7 +348,7 @@ export const digitalMarketingSection: NavSection = {
       children: dmFacebookItems,
     },
   ],
-}
+};
 
 // ---------------------------------------------------------------------------
 // Document Administration -- Unified Documentation Oversight
@@ -294,23 +358,47 @@ export const digitalMarketingSection: NavSection = {
 // Nested URL structure mirrors Email Administration pattern.
 // Roles: Project Lead, CTO, Web Administrator, DevOps.
 
-const DA = "/dashboard/admin/document-administration"
+const DA = "/dashboard/admin/document-administration";
 
 // Documentation Health subsection items
 const docAdminHealth: NavItem[] = [
   { href: `${DA}/documentation-health`, label: "Overview", icon: HeartPulse },
-  { href: `${DA}/documentation-health/gap-analysis`, label: "Gap Discovery Engine", icon: Compass },
-]
+  {
+    href: `${DA}/documentation-health/gap-analysis`,
+    label: "Gap Discovery Engine",
+    icon: Compass,
+  },
+];
 
 // Quality Engineering subsection items
 const docAdminQualityEngineering: NavItem[] = [
   { href: `${DA}/quality-engineering`, label: "Overview", icon: FlaskConical },
-  { href: `${DA}/quality-engineering/count-validation`, label: "Count Validation", icon: SearchCheck },
-  { href: `${DA}/quality-engineering/route-verification`, label: "Route Verification", icon: Link2 },
-  { href: `${DA}/quality-engineering/toc-integrity`, label: "TOC Integrity", icon: ClipboardCheck },
-  { href: `${DA}/quality-engineering/pattern-compliance`, label: "Pattern Compliance", icon: FileCheck },
-  { href: `${DA}/quality-engineering/fix-actions`, label: "Fix Actions", icon: Wrench },
-]
+  {
+    href: `${DA}/quality-engineering/count-validation`,
+    label: "Count Validation",
+    icon: SearchCheck,
+  },
+  {
+    href: `${DA}/quality-engineering/route-verification`,
+    label: "Route Verification",
+    icon: Link2,
+  },
+  {
+    href: `${DA}/quality-engineering/toc-integrity`,
+    label: "TOC Integrity",
+    icon: ClipboardCheck,
+  },
+  {
+    href: `${DA}/quality-engineering/pattern-compliance`,
+    label: "Pattern Compliance",
+    icon: FileCheck,
+  },
+  {
+    href: `${DA}/quality-engineering/fix-actions`,
+    label: "Fix Actions",
+    icon: Wrench,
+  },
+];
 
 export const documentAdministrationSection: NavSection = {
   title: "Document Administration",
@@ -331,11 +419,11 @@ export const documentAdministrationSection: NavSection = {
       children: docAdminQualityEngineering,
     },
   ],
-}
+};
 
 // Legacy aliases for backward compatibility
-export const docHealthSection = documentAdministrationSection
-export const docQASection = documentAdministrationSection
+export const docHealthSection = documentAdministrationSection;
+export const docQASection = documentAdministrationSection;
 
 // ---------------------------------------------------------------------------
 // Email Administration -- Consolidated All Email Operations
@@ -344,33 +432,77 @@ export const docQASection = documentAdministrationSection
 // Nested URL structure mirrors documentation pattern.
 // Roles: Business Administrator, Office Staff, Project Lead, DevOps.
 
-const EA = "/dashboard/admin/email-administration"
+const EA = "/dashboard/admin/email-administration";
 
 // Request Management subsection items
 const emailAdminRequestManagement: NavItem[] = [
   { href: `${EA}/request-management`, label: "Overview", icon: Inbox },
-  { href: `${EA}/request-management/email-dashboard`, label: "Email Dashboard", icon: Briefcase },
-  { href: `${EA}/request-management/testing-and-ops-guide`, label: "Testing & Ops Guide", icon: ClipboardCheck },
-]
+  {
+    href: `${EA}/request-management/email-dashboard`,
+    label: "Email Dashboard",
+    icon: Briefcase,
+  },
+  {
+    href: `${EA}/request-management/testing-and-ops-guide`,
+    label: "Testing & Ops Guide",
+    icon: ClipboardCheck,
+  },
+];
 
 // Configuration subsection items
 const emailAdminConfiguration: NavItem[] = [
   { href: `${EA}/configuration`, label: "Overview", icon: Mail },
-  { href: `${EA}/configuration/template-and-brand`, label: "Template & Brand", icon: Palette },
-  { href: `${EA}/configuration/email-preview`, label: "Email Preview", icon: Eye },
-  { href: `${EA}/configuration/ab-subject-lines`, label: "A/B Subject Lines", icon: Split },
-  { href: `${EA}/configuration/recipient-groups`, label: "Recipient Groups", icon: UsersRound },
-  { href: `${EA}/configuration/email-scheduling`, label: "Email Scheduling", icon: Timer },
-]
+  {
+    href: `${EA}/configuration/template-and-brand`,
+    label: "Template & Brand",
+    icon: Palette,
+  },
+  {
+    href: `${EA}/configuration/email-preview`,
+    label: "Email Preview",
+    icon: Eye,
+  },
+  {
+    href: `${EA}/configuration/ab-subject-lines`,
+    label: "A/B Subject Lines",
+    icon: Split,
+  },
+  {
+    href: `${EA}/configuration/recipient-groups`,
+    label: "Recipient Groups",
+    icon: UsersRound,
+  },
+  {
+    href: `${EA}/configuration/email-scheduling`,
+    label: "Email Scheduling",
+    icon: Timer,
+  },
+];
 
 // Infrastructure subsection items
 const emailAdminInfrastructure: NavItem[] = [
   { href: `${EA}/infrastructure`, label: "Overview", icon: HardDrive },
-  { href: `${EA}/infrastructure/send-configuration`, label: "Send Configuration", icon: Send },
-  { href: `${EA}/infrastructure/delivery-logs`, label: "Delivery Logs", icon: Activity },
-  { href: `${EA}/infrastructure/version-history`, label: "Version History", icon: History },
-  { href: `${EA}/infrastructure/security-audit`, label: "Security Audit", icon: ShieldCheck },
-]
+  {
+    href: `${EA}/infrastructure/send-configuration`,
+    label: "Send Configuration",
+    icon: Send,
+  },
+  {
+    href: `${EA}/infrastructure/delivery-logs`,
+    label: "Delivery Logs",
+    icon: Activity,
+  },
+  {
+    href: `${EA}/infrastructure/version-history`,
+    label: "Version History",
+    icon: History,
+  },
+  {
+    href: `${EA}/infrastructure/security-audit`,
+    label: "Security Audit",
+    icon: ShieldCheck,
+  },
+];
 
 export const emailAdministrationSection: NavSection = {
   title: "Email Administration",
@@ -397,10 +529,10 @@ export const emailAdministrationSection: NavSection = {
       children: emailAdminInfrastructure,
     },
   ],
-}
+};
 
 // Legacy aliases
-export const emailManagementSection = emailAdministrationSection
+export const emailManagementSection = emailAdministrationSection;
 
 // ---------------------------------------------------------------------------
 // Strategic Overview -- CTO / Project Lead / Business
@@ -412,13 +544,38 @@ export const strategicOverviewSection: NavSection = {
   title: "Strategic Overview",
   icon: BarChart3,
   items: [
-    { href: "/dashboard/documentation/strategic-overview/overview", label: "Overview", icon: Database },
-    { href: "/dashboard/documentation/strategic-overview/why-strapi", label: "Why Strapi (CTO)", icon: TrendingUp },
-    { href: "/dashboard/documentation/strategic-overview/app-overview", label: "App Overview", icon: Globe },
-    { href: "/dashboard/documentation/strategic-overview/getting-started", label: "Getting Started", icon: Rocket },
-    { href: "/dashboard/documentation/strategic-overview/code-review-log", label: "Code Review Log", icon: FileCheck },
+    {
+      href: "/dashboard/documentation/strategic-overview/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/system-vision",
+      label: "System Vision",
+      icon: Database,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/why-strapi",
+      label: "Why Strapi (CTO)",
+      icon: TrendingUp,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/getting-started-overview",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/app-overview",
+      label: "App Overview",
+      icon: LayoutGrid,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/code-review-log",
+      label: "Code Review Log",
+      icon: FileCheck,
+    },
   ],
-}
+};
 
 // ---------------------------------------------------------------------------
 // CMS Reference -- Developer / Architect
@@ -430,15 +587,43 @@ export const cmsReferenceSection: NavSection = {
   title: "CMS Reference",
   icon: Database,
   items: [
-    { href: "/dashboard/documentation/cms-reference/overview", label: "Overview", icon: Database },
-    { href: "/dashboard/documentation/cms-reference/getting-started", label: "Getting Started", icon: Rocket },
-    { href: "/dashboard/documentation/cms-reference/form-collections", label: "Form Collections", icon: FileText },
-    { href: "/dashboard/documentation/cms-reference/content-collections", label: "Content Collections", icon: BookOpen },
-    { href: "/dashboard/documentation/cms-reference/single-types", label: "Single Types", icon: FileCode },
-    { href: "/dashboard/documentation/cms-reference/shared-components", label: "Shared Components", icon: LayoutGrid },
-    { href: "/dashboard/documentation/cms-reference/relationships", label: "Relationships", icon: Share2 },
+    {
+      href: "/dashboard/documentation/cms-reference/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/form-collections",
+      label: "Form Collections",
+      icon: FileText,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/content-collections",
+      label: "Content Collections",
+      icon: BookOpen,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/single-types",
+      label: "Single Types",
+      icon: FileCode,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/shared-components",
+      label: "Shared Components",
+      icon: Layers,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/relationships",
+      label: "Relationships",
+      icon: Link2,
+    },
   ],
-}
+};
 
 // ---------------------------------------------------------------------------
 // App Reference -- Developer / Architect
@@ -450,17 +635,53 @@ export const appReferenceSection: NavSection = {
   title: "App Reference",
   icon: FolderCog,
   items: [
-    { href: "/dashboard/documentation/app-reference/overview", label: "Overview", icon: FolderCog },
-    { href: "/dashboard/documentation/app-reference/getting-started", label: "Getting Started", icon: Rocket },
-    { href: "/dashboard/documentation/app-reference/component-system", label: "Component System", icon: LayoutGrid },
-    { href: "/dashboard/documentation/app-reference/hydration-and-guards", label: "Hydration & Guards", icon: Shield },
-    { href: "/dashboard/documentation/app-reference/server-vs-client", label: "Server vs Client", icon: Layers },
-    { href: "/dashboard/documentation/app-reference/server-actions-and-api", label: "Server Actions & API", icon: Code },
-    { href: "/dashboard/documentation/app-reference/email-system", label: "Email System", icon: Mail },
-    { href: "/dashboard/documentation/app-reference/security-architecture", label: "Security Architecture", icon: ShieldCheck },
-    { href: "/dashboard/documentation/app-reference/performance-and-caching", label: "Performance & Caching", icon: Zap },
+    {
+      href: "/dashboard/documentation/app-reference/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/component-system",
+      label: "Component System",
+      icon: LayoutGrid,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/hydration-and-guards",
+      label: "Hydration & Guards",
+      icon: Shield,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/server-vs-client",
+      label: "Server vs Client",
+      icon: Layers,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/server-actions-and-api",
+      label: "Server Actions & API",
+      icon: Code,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/email-system",
+      label: "Email System",
+      icon: Mail,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/security-architecture",
+      label: "Security Architecture",
+      icon: Shield,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/performance-and-caching",
+      label: "Performance & Caching",
+      icon: Zap,
+    },
   ],
-}
+};
 
 // ---------------------------------------------------------------------------
 // Infrastructure & Ops -- DevOps / WebAdmin / QA
@@ -472,14 +693,43 @@ export const infrastructureOpsSection: NavSection = {
   title: "Infrastructure & Ops",
   icon: Cog,
   items: [
-    { href: "/dashboard/documentation/infrastructure-and-ops/overview", label: "Overview", icon: Cog },
-    { href: "/dashboard/documentation/infrastructure-and-ops/api-and-graphql", label: "API & GraphQL", icon: Code },
-    { href: "/dashboard/documentation/infrastructure-and-ops/cms-operations", label: "CMS Operations", icon: Settings },
-    { href: "/dashboard/documentation/infrastructure-and-ops/testing-strategy", label: "Testing Strategy", icon: TestTube },
-    { href: "/dashboard/documentation/infrastructure-and-ops/deployment", label: "Deployment", icon: Rocket },
-    { href: "/dashboard/documentation/infrastructure-and-ops/troubleshooting", label: "Troubleshooting", icon: AlertCircle },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/api-and-graphql",
+      label: "API & GraphQL",
+      icon: Code,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/cms-operations",
+      label: "CMS Operations",
+      icon: Settings,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/deployment-pipelines",
+      label: "Deployment Pipelines",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/testing-strategy",
+      label: "Testing Strategy",
+      icon: TestTube,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/troubleshooting",
+      label: "Troubleshooting",
+      icon: AlertCircle,
+    },
   ],
-}
+};
 
 export const learningHubSection: NavSection = {
   title: "Learning Hub",
@@ -491,7 +741,11 @@ export const learningHubSection: NavSection = {
       label: "Articles & Insights",
       icon: FileText,
       children: [
-        { href: "/dashboard/content-library/articles", label: "All Articles", icon: Library },
+        {
+          href: "/dashboard/content-library/articles",
+          label: "All Articles",
+          icon: Library,
+        },
         ...articleChildren,
       ],
     },
@@ -500,7 +754,11 @@ export const learningHubSection: NavSection = {
       label: "Case Studies",
       icon: TrendingUp,
       children: [
-        { href: "/dashboard/content-library/case-studies", label: "All Case Studies", icon: Library },
+        {
+          href: "/dashboard/content-library/case-studies",
+          label: "All Case Studies",
+          icon: Library,
+        },
         ...caseStudyChildren,
       ],
     },
@@ -509,7 +767,11 @@ export const learningHubSection: NavSection = {
       label: "Tutorials",
       icon: GraduationCap,
       children: [
-        { href: "/dashboard/content-library/tutorials", label: "All Tutorials", icon: Library },
+        {
+          href: "/dashboard/content-library/tutorials",
+          label: "All Tutorials",
+          icon: Library,
+        },
         ...tutorialChildren,
       ],
     },
@@ -518,9 +780,13 @@ export const learningHubSection: NavSection = {
       label: "Ops Guides",
       icon: BookOpen,
       children: [
-        { href: "/dashboard/content-library/guides", label: "All Guides", icon: Library },
+        {
+          href: "/dashboard/content-library/guides",
+          label: "All Guides",
+          icon: Library,
+        },
         ...guideChildren,
       ],
     },
   ],
-}
+};

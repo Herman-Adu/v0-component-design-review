@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-25T13:02:38.706Z",
+  "timestamp": "2026-03-02T09:53:04.459Z",
   "typesFileValid": {
     "valid": true
   },
@@ -49,9 +49,11 @@
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\getting-started\\page.tsx",
-      "hasTypeImports": false,
-      "imports": [],
-      "status": "needs-update"
+      "hasTypeImports": true,
+      "imports": [
+        "Journeys"
+      ],
+      "status": "ready"
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\google\\ads-campaigns\\page.tsx",
@@ -253,9 +255,12 @@
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\page.tsx",
-      "hasTypeImports": false,
-      "imports": [],
-      "status": "needs-update"
+      "hasTypeImports": true,
+      "imports": [
+        "Features",
+        "Highlights"
+      ],
+      "status": "ready"
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\recipient-groups\\page.tsx",
@@ -283,9 +288,11 @@
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\page.tsx",
-      "hasTypeImports": false,
-      "imports": [],
-      "status": "needs-update"
+      "hasTypeImports": true,
+      "imports": [
+        "Features"
+      ],
+      "status": "ready"
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\security-audit\\page.tsx",
@@ -319,9 +326,12 @@
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\page.tsx",
-      "hasTypeImports": false,
-      "imports": [],
-      "status": "needs-update"
+      "hasTypeImports": true,
+      "imports": [
+        "Capabilities",
+        "Features"
+      ],
+      "status": "ready"
     },
     {
       "path": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\testing-and-ops-guide\\page.tsx",
@@ -370,11 +380,6 @@
     {
       "type": "missing-types",
       "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\facebook\\page.tsx",
-      "message": "Page has no type imports"
-    },
-    {
-      "type": "missing-types",
-      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\digital-marketing\\getting-started\\page.tsx",
       "message": "Page has no type imports"
     },
     {
@@ -544,11 +549,6 @@
     },
     {
       "type": "missing-types",
-      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\page.tsx",
-      "message": "Page has no type imports"
-    },
-    {
-      "type": "missing-types",
       "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\configuration\\recipient-groups\\page.tsx",
       "message": "Page has no type imports"
     },
@@ -565,11 +565,6 @@
     {
       "type": "missing-types",
       "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\delivery-logs\\page.tsx",
-      "message": "Page has no type imports"
-    },
-    {
-      "type": "missing-types",
-      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\infrastructure\\page.tsx",
       "message": "Page has no type imports"
     },
     {
@@ -595,11 +590,6 @@
     {
       "type": "missing-types",
       "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\email-dashboard\\page.tsx",
-      "message": "Page has no type imports"
-    },
-    {
-      "type": "missing-types",
-      "page": "C:\\Users\\herma\\source\\repository\\v0-component-design-review\\app\\(dashboard)\\dashboard\\admin\\email-administration\\request-management\\page.tsx",
       "message": "Page has no type imports"
     },
     {

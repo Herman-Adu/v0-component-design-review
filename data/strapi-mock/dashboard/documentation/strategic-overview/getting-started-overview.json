@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "slug": "getting-started-overview",
+    "title": "Getting Started",
+    "excerpt": "New to the documentation? Start here to understand the structure and find the learning path most relevant to your role.",
+    "category": "strategic-overview",
+    "audience": "All Roles",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": ["getting-started", "onboarding", "guide", "navigation"]
+  },
+  "seo": {
+    "metaTitle": "Getting Started with the Documentation",
+    "metaDescription": "Complete guide to navigating documentation based on your role - CMS Reference for data layer, App Reference for frontend, Infrastructure for DevOps."
+  },
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "recommended-path",
+      "title": "Recommended Learning Path",
+      "number": "01"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "For the best understanding of the system, we recommend following this sequential learning path. Each section builds on knowledge from the previous one."
+    },
+    {
+      "type": "block.card",
+      "title": "3-Step Learning Journey",
+      "icon": "Lightbulb",
+      "variant": "accent",
+      "content": "**Step 1: CMS Reference** → Start with the data layer to understand content modeling and Strapi structure.\n\n**Step 2: App Reference** → Learn how the Next.js frontend consumes and renders CMS data.\n\n**Step 3: Infrastructure & Ops** → Master deployment, monitoring, and operational workflows."
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Why This Order?",
+      "content": "Understanding the data layer first helps you grasp why the frontend is architected the way it is. Infrastructure knowledge applies after you understand what you're deploying."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "section-starting-points",
+      "title": "Section Starting Points",
+      "number": "02"
+    },
+    {
+      "type": "block.featureGrid",
+      "features": [
+        {
+          "icon": "Database",
+          "title": "CMS Reference - Start with the Data Layer",
+          "description": "Learn how Strapi content types, dynamic zones, and GraphQL APIs power the entire system. Perfect for backend developers and data architects."
+        },
+        {
+          "icon": "Globe",
+          "title": "App Reference - Frontend Fundamentals",
+          "description": "Master the Next.js 15 application with server components, atomic design patterns, and component hydration. Essential for frontend developers."
+        },
+        {
+          "icon": "Cog",
+          "title": "Infrastructure & Ops - Deployment & Monitoring",
+          "description": "Understand CI/CD pipelines, PostgreSQL operations, environment configuration, and production troubleshooting. Critical for DevOps engineers."
+        }
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "quick-links",
+      "title": "Quick Links",
+      "number": "03"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/strategic-overview/why-strapi",
+      "icon": "TrendingUp",
+      "title": "Why Strapi?",
+      "description": "Business case and CMS selection rationale"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/strategic-overview/system-vision",
+      "icon": "Target",
+      "title": "System Vision",
+      "description": "Architecture principles and design goals"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/cms-reference/getting-started",
+      "icon": "BookOpen",
+      "title": "CMS Quick Start",
+      "description": "Set up Strapi and create your first content type"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/getting-started",
+      "icon": "Zap",
+      "title": "App Quick Start",
+      "description": "Clone, install, and run the Next.js application"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/infrastructure-ops/getting-started",
+      "icon": "Server",
+      "title": "Infrastructure Overview",
+      "description": "Deployment architecture and operational runbook"
+    }
+  ]
+}

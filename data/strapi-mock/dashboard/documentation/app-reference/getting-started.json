@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "slug": "getting-started",
+    "title": "Getting Started - App Reference",
+    "excerpt": "Quick-access hub to App Reference documentation with role-based learning paths for frontend developers, architects, and CTOs.",
+    "category": "app-reference",
+    "audience": "Frontend Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "getting-started",
+      "app-reference",
+      "frontend",
+      "navigation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "App Reference - Getting Started Guide",
+    "metaDescription": "Navigate Next.js 15 application documentation with role-based learning paths covering component system, hydration, server actions, and more."
+  },
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "intro",
+      "title": "Choose Your Learning Path",
+      "number": "01
+    },
+    {
+      "id": "all-docs",
+      "title": "Complete Documentation",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.sectionHeader",
+      "id": "intro",
+      "title": "Choose Your Learning Path",
+      "number": "01"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "The App Reference contains everything needed to understand, develop, and deploy the Next.js 15 application. Choose the path that matches your role and goals."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "learning-journey",
+      "title": "For Frontend Developers - Learning Journey",
+      "number": "02"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "If you're new to the codebase or Next.js 15, follow this path to understand frontend fundamentals:"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/server-vs-client",
+      "icon": "Layers",
+      "title": "Server vs Client Components",
+      "description": "Decision matrix and rendering strategies for Next.js 15 app router"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/component-system",
+      "icon": "LayoutGrid",
+      "title": "Component System",
+      "description": "Atomic design implementation with 52 reusable components"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/hydration-and-guards",
+      "icon": "Shield",
+      "title": "Hydration & Type Guards",
+      "description": "Client-side hydration patterns and runtime type safety"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "development-journey",
+      "title": "For Active Development - Quick Reference",
+      "number": "03"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Jump directly to implementation guides for specific features:"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/server-actions-and-api",
+      "icon": "Zap",
+      "title": "Server Actions & API Routes",
+      "description": "Form submissions, mutations, and API endpoint patterns"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/email-system",
+      "icon": "Mail",
+      "title": "Email System",
+      "description": "Transactional emails with Resend and React Email templates"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/security-architecture",
+      "icon": "Lock",
+      "title": "Security Architecture",
+      "description": "Defense-in-depth patterns, validation, and CSRF protection"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "cto-journey",
+      "title": "For Technical Leadership - Architecture Overview",
+      "number": "04"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "High-level architecture and cross-cutting concerns:"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/overview",
+      "icon": "Target",
+      "title": "App Reference Overview",
+      "description": "Complete feature inventory and technical decision log"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/performance-and-caching",
+      "icon": "Gauge",
+      "title": "Performance & Caching",
+      "description": "Static generation, ISR, route caching, and image optimization"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/security-architecture",
+      "icon": "Shield",
+      "title": "Security Architecture",
+      "description": "Security model overview and threat mitigation strategies"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "architecture",
+      "title": "Architecture Principles",
+      "number": "05"
+    },
+    {
+      "type": "block.card",
+      "icon": "Layers",
+      "title": "Server-First Pattern",
+      "variant": "accent",
+      "content": "The application follows a server-first pattern where rendering, data fetching, and security checks happen on the server by default. Client-side interactivity is added only where needed.\n\nThis approach improves performance, security, and SEO while reducing JavaScript bundle size."
+    },
+    {
+      "type": "block.card",
+      "icon": "Shield",
+      "title": "Defense-in-Depth Security",
+      "variant": "default",
+      "content": "Security is implemented at multiple layers: server-side validation, Zod schema validation, React Server Actions, CSRF protection, and runtime type guards.\n\nNo single point of failure - compromising one layer doesn't expose the system."
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "info",
+      "title": "Related Documentation",
+      "content": "For component implementation details, see the Component System guide. For backend integration patterns, see the CMS Reference section."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "all-docs",
+      "title": "Complete Documentation Index",
+      "number": "06"
+    },
+    {
+      "type": "block.paragraph",
+      "content": "Browse all available App Reference documentation:"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/overview",
+      "title": "Overview",
+      "description": "Complete feature inventory and architecture summary"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/component-system",
+      "title": "Component System",
+      "description": "Atomic design with atoms, molecules, and organisms"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/server-vs-client",
+      "title": "Server vs Client",
+      "description": "Rendering strategy decision matrix"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/hydration-and-guards",
+      "title": "Hydration & Guards",
+      "description": "Client-side patterns and type safety"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/server-actions-and-api",
+      "title": "Server Actions & API",
+      "description": "Form handling and data mutations"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/email-system",
+      "title": "Email System",
+      "description": "Transactional emails and templates"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/security-architecture",
+      "title": "Security Architecture",
+      "description": "Defense-in-depth implementation"
+    },
+    {
+      "type": "block.linkCard",
+      "href": "/dashboard/documentation/app-reference/performance-and-caching",
+      "title": "Performance & Caching",
+      "description": "Optimization strategies and ISR"
+    }
+  ]
+}

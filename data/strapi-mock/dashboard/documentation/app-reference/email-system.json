@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "slug": "email-system",
+    "title": "Email System",
+    "excerpt": "React Email templates and SMTP notification workflows",
+    "category": "app-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "app-reference",
+      "email-system",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Email System",
+    "metaDescription": "React Email templates and SMTP notification workflows"
+  },
+  "toc": [
+    {
+      "id": "email-system-architecture",
+      "title": "Email System Architecture",
+      "level": 2
+    },
+    {
+      "id": "react-email-templates",
+      "title": "React Email Templates",
+      "level": 2
+    },
+    {
+      "id": "smtp-configuration",
+      "title": "SMTP Configuration",
+      "level": 2
+    },
+    {
+      "id": "sending-emails",
+      "title": "Sending Emails",
+      "level": 2
+    },
+    {
+      "id": "email-queue-retry",
+      "title": "Email Queue & Retry",
+      "level": 2
+    },
+    {
+      "id": "email-templates-list",
+      "title": "Email Templates List",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Documentation of the email notification system using React Email for template rendering and SMTP configuration for sending transactional and marketing emails."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "email-system-architecture",
+      "title": "Email System Architecture",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "React Email templates (JSX/TSX)",
+        "SMTP client configuration",
+        "Email queue and retry logic",
+        "Template rendering engine",
+        "Delivery tracking and logging"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Transactional: contact form confirmations",
+        "Notifications: new comment alerts",
+        "Marketing: newsletter and campaigns",
+        "System: password reset, email verification"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "react-email-templates",
+      "title": "React Email Templates",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Folder: lib/email/templates/",
+        "Naming: PascalCase component names",
+        "Exports: Default function component",
+        "Props: Interface for template variables",
+        "Styling: Inline styles or Tailwind CSS"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Contact Confirmation Template",
+      "code": "interface ContactEmailProps {\n  name: string;\n  email: string;\n  message: string;\n}\n\nexport default function ContactEmail(props: ContactEmailProps) {\n  return (\n    <Email>\n      <h1>Thank you, {props.name}!</h1>\n      <p>We received your message and will respond soon.</p>\n      <p>{props.message}</p>\n    </Email>\n  );\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "smtp-configuration",
+      "title": "SMTP Configuration",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "SMTP_HOST - Email server hostname",
+        "SMTP_PORT - Port (typically 587 or 465)",
+        "SMTP_USER - Email account username",
+        "SMTP_PASSWORD - Email account password",
+        "SMTP_FROM - From address for all emails",
+        "SMTP_FROM_NAME - From display name"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "SMTP Client Setup",
+      "code": "// lib/email/mailer.ts\nimport nodemailer from 'nodemailer';\n\nexport const transporter = nodemailer.createTransport({\n  host: process.env.SMTP_HOST,\n  port: parseInt(process.env.SMTP_PORT || '587'),\n  secure: process.env.SMTP_PORT === '465',\n  auth: {\n    user: process.env.SMTP_USER,\n    pass: process.env.SMTP_PASSWORD\n  }\n});"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "sending-emails",
+      "title": "Sending Emails",
+      "number": "04"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Basic Send Function",
+      "code": "import { render } from '@react-email/render';\nimport ContactEmail from './templates/ContactEmail';\n\nexport async function sendContactEmail({\n  to,\n  name,\n  message\n}: ContactRequest) {\n  const html = render(ContactEmail({ name, message }));\n  return transporter.sendMail({\n    from: process.env.SMTP_FROM,\n    to,\n    subject: 'Contact Confirmation',\n    html\n  });\n}"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Usage in Server Action",
+      "code": "'use server';\nexport async function submitContact(formData: FormData) {\n  const { email, name, message } = Object.fromEntries(formData);\n  // Send confirmation email\n  await sendContactEmail({ to: email, name, message });\n  // Save to database via Strapi\n  const response = await fetch(`${STRAPI_URL}/api/contacts`, {\n    method: 'POST',\n    body: JSON.stringify({ email, name, message })\n  });\n  return response.json();\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "email-queue-retry",
+      "title": "Email Queue & Retry",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Bull Queue for background job processing",
+        "Retry logic with exponential backoff",
+        "Failed email logging",
+        "Manual retry dashboard"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Max attempts: 3",
+        "Initial delay: 5 minutes",
+        "Backoff multiplier: 2x",
+        "Max delay: 1 hour"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "email-templates-list",
+      "title": "Email Templates List",
+      "number": "06"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "ContactConfirmation - User submits contact form",
+        "NewsletterSubscription - User subscribes to newsletter",
+        "QuotationRequest - Service quotation request confirmation",
+        "NewsletterDigest - Weekly newsletter delivery",
+        "PasswordReset - Password reset link",
+        "EmailVerification - Email confirmation link",
+        "AdminAlert - New form submission alert"
+      ]
+    }
+  ]
+}
