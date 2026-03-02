@@ -6,8 +6,12 @@ import {
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all infrastructure ops JSON files
-import testingStrategyDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/testing-strategy.json";
+import apiAndGraphqlDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/api-and-graphql.json";
+import cmsOperationsDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/cms-operations.json";
 import deploymentPipelinesDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/deployment-pipelines.json";
+import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/getting-started.json";
+import overviewDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/overview.json";
+import testingStrategyDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/testing-strategy.json";
 import troubleshootingDoc from "@/data/strapi-mock/dashboard/documentation/infrastructure-ops/troubleshooting.json";
 
 /**
@@ -18,8 +22,12 @@ import troubleshootingDoc from "@/data/strapi-mock/dashboard/documentation/infra
  */
 
 const rawDocuments = [
-  testingStrategyDoc,
+  apiAndGraphqlDoc,
+  cmsOperationsDoc,
   deploymentPipelinesDoc,
+  gettingStartedDoc,
+  overviewDoc,
+  testingStrategyDoc,
   troubleshootingDoc,
 ] as const;
 

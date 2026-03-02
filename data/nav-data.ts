@@ -545,12 +545,17 @@ export const strategicOverviewSection: NavSection = {
   icon: BarChart3,
   items: [
     {
+      href: "/dashboard/documentation/strategic-overview/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
       href: "/dashboard/documentation/strategic-overview/system-vision",
       label: "System Vision",
       icon: Database,
     },
     {
-      href: "/dashboard/documentation/strategic-overview/strapi-decision",
+      href: "/dashboard/documentation/strategic-overview/why-strapi",
       label: "Why Strapi (CTO)",
       icon: TrendingUp,
     },
@@ -558,6 +563,16 @@ export const strategicOverviewSection: NavSection = {
       href: "/dashboard/documentation/strategic-overview/getting-started-overview",
       label: "Getting Started",
       icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/app-overview",
+      label: "App Overview",
+      icon: LayoutGrid,
+    },
+    {
+      href: "/dashboard/documentation/strategic-overview/code-review-log",
+      label: "Code Review Log",
+      icon: FileCheck,
     },
   ],
 };
@@ -573,6 +588,16 @@ export const cmsReferenceSection: NavSection = {
   icon: Database,
   items: [
     {
+      href: "/dashboard/documentation/cms-reference/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
       href: "/dashboard/documentation/cms-reference/form-collections",
       label: "Form Collections",
       icon: FileText,
@@ -586,6 +611,16 @@ export const cmsReferenceSection: NavSection = {
       href: "/dashboard/documentation/cms-reference/single-types",
       label: "Single Types",
       icon: FileCode,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/shared-components",
+      label: "Shared Components",
+      icon: Layers,
+    },
+    {
+      href: "/dashboard/documentation/cms-reference/relationships",
+      label: "Relationships",
+      icon: Link2,
     },
   ],
 };
@@ -601,6 +636,16 @@ export const appReferenceSection: NavSection = {
   icon: FolderCog,
   items: [
     {
+      href: "/dashboard/documentation/app-reference/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
       href: "/dashboard/documentation/app-reference/component-system",
       label: "Component System",
       icon: LayoutGrid,
@@ -615,6 +660,26 @@ export const appReferenceSection: NavSection = {
       label: "Server vs Client",
       icon: Layers,
     },
+    {
+      href: "/dashboard/documentation/app-reference/server-actions-and-api",
+      label: "Server Actions & API",
+      icon: Code,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/email-system",
+      label: "Email System",
+      icon: Mail,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/security-architecture",
+      label: "Security Architecture",
+      icon: Shield,
+    },
+    {
+      href: "/dashboard/documentation/app-reference/performance-and-caching",
+      label: "Performance & Caching",
+      icon: Zap,
+    },
   ],
 };
 
@@ -628,6 +693,26 @@ export const infrastructureOpsSection: NavSection = {
   title: "Infrastructure & Ops",
   icon: Cog,
   items: [
+    {
+      href: "/dashboard/documentation/infrastructure-ops/overview",
+      label: "Overview",
+      icon: Home,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/getting-started",
+      label: "Getting Started",
+      icon: Rocket,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/api-and-graphql",
+      label: "API & GraphQL",
+      icon: Code,
+    },
+    {
+      href: "/dashboard/documentation/infrastructure-ops/cms-operations",
+      label: "CMS Operations",
+      icon: Settings,
+    },
     {
       href: "/dashboard/documentation/infrastructure-ops/deployment-pipelines",
       label: "Deployment Pipelines",

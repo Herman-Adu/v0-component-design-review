@@ -8,6 +8,10 @@ import { dataLogger } from "@/lib/utils/arch-logger";
 // Import all CMS reference JSON files
 import contentCollectionsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/content-collections.json";
 import formCollectionsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/form-collections.json";
+import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/getting-started.json";
+import overviewDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/overview.json";
+import relationshipsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/relationships.json";
+import sharedComponentsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/shared-components.json";
 import singleTypesDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/single-types.json";
 
 /**
@@ -20,6 +24,10 @@ import singleTypesDoc from "@/data/strapi-mock/dashboard/documentation/cms-refer
 const rawDocuments = [
   contentCollectionsDoc,
   formCollectionsDoc,
+  gettingStartedDoc,
+  overviewDoc,
+  relationshipsDoc,
+  sharedComponentsDoc,
   singleTypesDoc,
 ] as const;
 

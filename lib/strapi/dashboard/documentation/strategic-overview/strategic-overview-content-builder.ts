@@ -7,8 +7,11 @@ import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all strategic overview JSON files
 import systemVisionDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/system-vision.json";
-import strapiDecisionDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/strapi-decision.json";
+import whyStrapiDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/why-strapi.json";
 import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/getting-started-overview.json";
+import overviewDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/overview.json";
+import appOverviewDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/app-overview.json";
+import codeReviewLogDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/code-review-log.json";
 
 /**
  * Strategic Overview Content Builder
@@ -20,8 +23,11 @@ import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/strate
 // Raw JSON imports that need validation
 const rawDocuments = [
   systemVisionDoc,
-  strapiDecisionDoc,
+  whyStrapiDoc,
   gettingStartedDoc,
+  overviewDoc,
+  appOverviewDoc,
+  codeReviewLogDoc,
 ] as const;
 
 // Validate and load all strategic overview documents at module init

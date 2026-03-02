@@ -7,8 +7,14 @@ import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all app reference JSON files
 import componentSystemDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/component-system.json";
-import serverVsClientDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/server-vs-client.json";
+import emailSystemDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/email-system.json";
+import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/getting-started.json";
 import hydrationAndGuardsDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/hydration-and-guards.json";
+import overviewDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/overview.json";
+import performanceAndCachingDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/performance-and-caching.json";
+import securityArchitectureDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/security-architecture.json";
+import serverActionsAndApiDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/server-actions-and-api.json";
+import serverVsClientDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/server-vs-client.json";
 
 /**
  * App Reference Content Builder
@@ -19,8 +25,14 @@ import hydrationAndGuardsDoc from "@/data/strapi-mock/dashboard/documentation/ap
 
 const rawDocuments = [
   componentSystemDoc,
-  serverVsClientDoc,
+  emailSystemDoc,
+  gettingStartedDoc,
   hydrationAndGuardsDoc,
+  overviewDoc,
+  performanceAndCachingDoc,
+  securityArchitectureDoc,
+  serverActionsAndApiDoc,
+  serverVsClientDoc,
 ] as const;
 
 // Validate and load all app reference documents at module init
