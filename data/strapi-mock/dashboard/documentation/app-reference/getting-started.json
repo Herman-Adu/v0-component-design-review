@@ -7,30 +7,12 @@
     "audience": "Frontend Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "getting-started",
-      "app-reference",
-      "frontend",
-      "navigation"
-    ]
+    "tags": ["getting-started", "app-reference", "frontend", "navigation"]
   },
   "seo": {
     "metaTitle": "App Reference - Getting Started Guide",
     "metaDescription": "Navigate Next.js 15 application documentation with role-based learning paths covering component system, hydration, server actions, and more."
   },
-  "blocks": [
-    {
-      "type": "block.sectionHeader",
-      "id": "intro",
-      "title": "Choose Your Learning Path",
-      "number": "01
-    },
-    {
-      "id": "all-docs",
-      "title": "Complete Documentation",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
       "type": "block.sectionHeader",
