@@ -5,7 +5,7 @@
 You are continuing work in `c:\Users\herma\source\repository\v0-component-design-review`.
 
 Current branch: `feature/import-refactor-2026-03-02`  
-Checkpoint commit: `LATEST` (extendable URL policy + documentation in sitemap)
+Checkpoint commit: `1293aa4` (extended URL policy + documentation sitemap)
 
 Primary objective:
 
