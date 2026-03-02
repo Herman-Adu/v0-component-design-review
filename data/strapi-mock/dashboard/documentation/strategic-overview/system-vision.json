@@ -7,16 +7,32 @@
     "audience": "CTO / Project Lead",
     "publishedAt": "2026-01-15",
     "lastUpdated": "2026-03-01",
-    "tags": ["architecture", "strategy", "principles"]
+    "tags": [
+      "architecture",
+      "strategy",
+      "principles"
+    ]
   },
   "seo": {
     "metaTitle": "System Vision & Architectural Principles",
     "metaDescription": "Learn the core principles and architectural decisions that shape this modern web application."
   },
   "toc": [
-    { "id": "vision", "title": "Vision", "level": 2 },
-    { "id": "principles", "title": "Core Principles", "level": 2 },
-    { "id": "decisions", "title": "Key Decisions", "level": 2 }
+    {
+      "id": "vision",
+      "title": "Vision",
+      "level": 2
+    },
+    {
+      "id": "principles",
+      "title": "Core Principles",
+      "level": 2
+    },
+    {
+      "id": "decisions",
+      "title": "Key Decisions",
+      "level": 2
+    }
   ],
   "blocks": [
     {

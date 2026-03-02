@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "slug": "overview",
+    "title": "Infrastructure and Operations - Overview",
+    "excerpt": "Infrastructure architecture and operational patterns",
+    "category": "infrastructure-ops",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "infrastructure-ops",
+      "overview",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Infrastructure and Operations - Overview",
+    "metaDescription": "Infrastructure architecture and operational patterns"
+  },
+  "toc": [
+    {
+      "id": "infrastructure-stack",
+      "title": "Infrastructure Stack",
+      "level": 2
+    },
+    {
+      "id": "deployment-environments",
+      "title": "Deployment Environments",
+      "level": 2
+    },
+    {
+      "id": "operational-areas",
+      "title": "Operational Areas",
+      "level": 2
+    },
+    {
+      "id": "key-operational-metrics",
+      "title": "Key Operational Metrics",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Comprehensive overview of infrastructure setup, deployment architecture, monitoring, operational procedures, and disaster recovery planning."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "infrastructure-stack",
+      "title": "Infrastructure Stack",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Vercel - Next.js frontend hosting (edge caching, automatic deployments)",
+        "Railway/Heroku - Strapi backend hosting (PostgreSQL database included)",
+        "Cloudflare - DNS, DDoS protection, CDN",
+        "AWS S3 - Media storage for images and files",
+        "SendGrid - Email delivery service"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Next.js 15 - Server Components, App Router",
+        "Strapi CMS - Headless CMS with REST/GraphQL APIs",
+        "PostgreSQL - Primary database",
+        "Redis - Caching layer (if needed for queues)",
+        "TanStack Query - Client-side caching"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "deployment-environments",
+      "title": "Deployment Environments",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "npm run dev - Start Next.js development server",
+        "npm run strapi-dev - Start Strapi development server",
+        "Database: SQLite or local PostgreSQL",
+        "Environment: .env.local for local overrides"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Automatic from pull requests on Vercel",
+        "Database: Staging PostgreSQL instance",
+        "Features: Full feature set with preview data"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Vercel deployment from main branch",
+        "Database: Production PostgreSQL",
+        "CDN edge locations globally (Vercel)",
+        "High availability and auto-scaling"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "operational-areas",
+      "title": "Operational Areas",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "API Configuration - REST/GraphQL endpoints, webhooks",
+        "CMS Operations - Content management, user roles, backups",
+        "Database Management - Migrations, backups, recovery",
+        "Deployment Pipelines - CI/CD, previews, production",
+        "Monitoring & Alerting - Error tracking, performance metrics",
+        "Security - Access control, secrets management, compliance",
+        "Scaling - Auto-scaling configuration, load testing"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "key-operational-metrics",
+      "title": "Key Operational Metrics",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Uptime target: 99.9% (43 minutes downtime/month allowed)",
+        "Response time: < 200ms median (P99 < 1s)",
+        "Database: 99.99% uptime SLA",
+        "Deployment frequency: Multiple deployments per day",
+        "Mean time to recovery (MTTR): < 15 minutes for critical issues",
+        "Monitoring: Real-time alerting for anomalies"
+      ]
+    }
+  ]
+}

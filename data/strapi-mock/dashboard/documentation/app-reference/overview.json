@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "slug": "overview",
+    "title": "App Reference - Overview",
+    "excerpt": "Next.js 15 frontend architecture with atomic design and guard architecture",
+    "category": "app-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "app-reference",
+      "overview",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "App Reference - Overview",
+    "metaDescription": "Next.js 15 frontend architecture with atomic design and guard architecture"
+  },
+  "toc": [
+    {
+      "id": "frontend-architecture",
+      "title": "Frontend Architecture",
+      "level": 2
+    },
+    {
+      "id": "guard-architecture-hydration-protection",
+      "title": "Guard Architecture (Hydration Protection)",
+      "level": 2
+    },
+    {
+      "id": "security-architecture",
+      "title": "Security Architecture",
+      "level": 2
+    },
+    {
+      "id": "key-metrics",
+      "title": "Key Metrics",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Comprehensive overview of the Next.js 15 application frontend architecture, featuring atomic design components, guard architecture for hydration protection, and 7-layer security implementation."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "frontend-architecture",
+      "title": "Frontend Architecture",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "10 Atoms: Form inputs, buttons, icons, badges, tags, spinners, tooltips, modals, dropdowns, loaders",
+        "14 Molecules: Form fields, cards, headers, footers, navigation items, lists, breadcrumbs, tabs, accordions, alerts, progress bars, chips, pagination, sidebars",
+        "10 Organisms: Complex containers, multi-step forms, data tables, search interfaces, filters, galleries, builders, carousels, feeds, widgets"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "components/atoms/ - Primitive building blocks",
+        "components/molecules/ - Composed atoms",
+        "components/organisms/ - Complex compositions",
+        "components/templates/ - Page-level layouts",
+        "components/ui/ - Third-party UI (Shadcn/ui)",
+        "Consistent naming: CamelCase for components",
+        "Index.ts files for clean exports"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "guard-architecture-hydration-protection",
+      "title": "Guard Architecture (Hydration Protection)",
+      "number": "02"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Radix UI components use aria-controls IDs",
+        "Server and client generate different IDs on first render",
+        "This causes hydration mismatch errors",
+        "User sees console warnings and potential UI glitches"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Custom hook that tracks hydration state",
+        "Returns boolean: isHydrated",
+        "Components render skeleton on server, content on client",
+        "SidebarSkeleton provides progressive enhancement"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Implementation Pattern",
+      "code": "const isHydrated = useHydration();\nreturn isHydrated ? <Component /> : <ComponentSkeleton />"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "security-architecture",
+      "title": "Security Architecture",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Layer 1: IP-based rate limiting (prevent brute force)",
+        "Layer 2: CSRF token validation (prevent cross-site attacks)",
+        "Layer 3: Input sanitization with DOMPurify (prevent XSS)",
+        "Layer 4: Hydration guard protection (prevent mismatch exploits)",
+        "Layer 5: Server action validation with Zod (prevent invalid mutations)",
+        "Layer 6: SQL injection prevention (parameterized queries)",
+        "Layer 7: XSS protection (content security policy)"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "key-metrics",
+      "title": "Key Metrics",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "52 custom frontend components",
+        "94% test coverage",
+        "Zero hydration mismatches (guard protected)",
+        "TypeScript strict mode: 100%",
+        "WCAG 2.1 AA accessibility compliant",
+        "Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1"
+      ]
+    }
+  ]
+}

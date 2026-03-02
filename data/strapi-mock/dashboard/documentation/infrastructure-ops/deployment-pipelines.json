@@ -7,16 +7,52 @@
     "audience": "QA Engineer / DevOps",
     "publishedAt": "2024-01-19",
     "lastUpdated": "2024-01-24",
-    "tags": ["devops", "ci-cd", "deployment", "automation"]
+    "tags": [
+      "devops",
+      "ci-cd",
+      "deployment",
+      "automation"
+    ]
   },
   "seo": {
     "metaTitle": "Deployment Pipelines | Infrastructure & Ops",
     "metaDescription": "Build reliable CI/CD pipelines for automated deployments."
   },
   "blocks": [
-    { "type": "block.paragraph", "content": "Automated deployment pipelines ensure consistent, reliable releases with built-in testing and security checks." },
-    { "type": "block.sectionHeader", "id": "pipeline-stages", "title": "Pipeline Stages", "number": "01" },
-    { "type": "block.list", "ordered": false, "items": ["Build stage", "Unit testing", "Integration testing", "Security scanning", "Staging deployment", "Production release"] },
-    { "type": "block.callout", "calloutType": "success", "title": "Release Safety", "content": "Require green checks on all critical jobs before promoting to production." }
+    {
+      "type": "block.paragraph",
+      "content": "Automated deployment pipelines ensure consistent, reliable releases with built-in testing and security checks."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "pipeline-stages",
+      "title": "Pipeline Stages",
+      "number": "01"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Build stage",
+        "Unit testing",
+        "Integration testing",
+        "Security scanning",
+        "Staging deployment",
+        "Production release"
+      ]
+    },
+    {
+      "type": "block.callout",
+      "calloutType": "success",
+      "title": "Release Safety",
+      "content": "Require green checks on all critical jobs before promoting to production."
+    }
+  ],
+  "toc": [
+    {
+      "id": "pipeline-stages",
+      "title": "Pipeline Stages",
+      "level": 2
+    }
   ]
 }

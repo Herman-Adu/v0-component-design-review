@@ -7,7 +7,12 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-16",
     "lastUpdated": "2024-01-21",
-    "tags": ["strapi", "backend", "single-types", "configuration"]
+    "tags": [
+      "strapi",
+      "backend",
+      "single-types",
+      "configuration"
+    ]
   },
   "seo": {
     "metaTitle": "Single Types in Strapi | CMS Reference",
@@ -27,13 +32,27 @@
     {
       "type": "block.list",
       "ordered": false,
-      "items": ["Site settings", "Contact information", "Theme configuration", "API configuration", "SEO defaults", "Feature flags"]
+      "items": [
+        "Site settings",
+        "Contact information",
+        "Theme configuration",
+        "API configuration",
+        "SEO defaults",
+        "Feature flags"
+      ]
     },
     {
       "type": "block.codeBlock",
       "language": "json",
       "title": "Sample Single Type Schema",
       "code": "{\n  \"name\": \"SiteSettings\",\n  \"kind\": \"singleType\",\n  \"attributes\": {\n    \"siteName\": { \"type\": \"string\" },\n    \"siteDescription\": { \"type\": \"text\" },\n    \"contactEmail\": { \"type\": \"email\" }\n  }\n}"
+    }
+  ],
+  "toc": [
+    {
+      "id": "common-single-type-patterns",
+      "title": "Common Single Type Patterns",
+      "level": 2
     }
   ]
 }

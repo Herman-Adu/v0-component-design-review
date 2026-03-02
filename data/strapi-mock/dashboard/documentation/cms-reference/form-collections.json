@@ -7,14 +7,23 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-15",
     "lastUpdated": "2024-01-20",
-    "tags": ["strapi", "backend", "forms", "schema"]
+    "tags": [
+      "strapi",
+      "backend",
+      "forms",
+      "schema"
+    ]
   },
   "seo": {
     "metaTitle": "Form Collections in Strapi | CMS Reference",
     "metaDescription": "Learn how to create and manage form collections with validation patterns."
   },
   "toc": [
-    { "id": "form-field-types", "title": "Form Field Types", "level": 2 }
+    {
+      "id": "form-field-types",
+      "title": "Form Field Types",
+      "level": 2
+    }
   ],
   "blocks": [
     {
@@ -30,7 +39,14 @@
     {
       "type": "block.list",
       "ordered": false,
-      "items": ["Text fields", "Email validation", "Number formatting", "Date pickers", "Rich text editors", "File uploads"]
+      "items": [
+        "Text fields",
+        "Email validation",
+        "Number formatting",
+        "Date pickers",
+        "Rich text editors",
+        "File uploads"
+      ]
     },
     {
       "type": "block.callout",

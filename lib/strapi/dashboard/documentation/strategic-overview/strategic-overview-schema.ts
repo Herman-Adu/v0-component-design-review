@@ -121,7 +121,7 @@ const CollapsibleBlockSchema = z.object({
  */
 const LinkCardBlockSchema = z.object({
   type: z.literal("block.linkCard"),
-  href: z.string().url(),
+  href: z.string().min(1),
   icon: z.string().optional(),
   title: z.string().min(1),
   description: z.string().min(1),

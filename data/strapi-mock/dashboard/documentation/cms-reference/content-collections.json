@@ -7,14 +7,23 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-15",
     "lastUpdated": "2024-01-20",
-    "tags": ["strapi", "backend", "content-modeling", "schema"]
+    "tags": [
+      "strapi",
+      "backend",
+      "content-modeling",
+      "schema"
+    ]
   },
   "seo": {
     "metaTitle": "Content Collections in Strapi | CMS Reference",
     "metaDescription": "Learn how to model and structure content collections for scalable CMS architecture."
   },
   "toc": [
-    { "id": "collection-strategy", "title": "Collection Strategy", "level": 2 }
+    {
+      "id": "collection-strategy",
+      "title": "Collection Strategy",
+      "level": 2
+    }
   ],
   "blocks": [
     {

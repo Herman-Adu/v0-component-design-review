@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "slug": "security-architecture",
+    "title": "Security Architecture",
+    "excerpt": "Defense-in-depth security with 7 protection layers",
+    "category": "app-reference",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "app-reference",
+      "security-architecture",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "Security Architecture",
+    "metaDescription": "Defense-in-depth security with 7 protection layers"
+  },
+  "toc": [
+    {
+      "id": "7-layer-defense-strategy",
+      "title": "7-Layer Defense Strategy",
+      "level": 2
+    },
+    {
+      "id": "owasp-top-10-coverage",
+      "title": "OWASP Top 10 Coverage",
+      "level": 2
+    },
+    {
+      "id": "security-best-practices",
+      "title": "Security Best Practices",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Comprehensive security architecture documentation covering 7 layers of defense, threat modeling, and implementation patterns protecting against OWASP top threats."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "7-layer-defense-strategy",
+      "title": "7-Layer Defense Strategy",
+      "number": "01"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 1: IP-Based Rate Limiting",
+      "content": "Prevent brute force attacks and DDoS",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 2: CSRF Token Validation",
+      "content": "Prevent cross-site request forgery",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 3: Input Sanitization",
+      "content": "Prevent XSS and injection attacks",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 4: Hydration Guard Protection",
+      "content": "Prevent hydration mismatch exploits",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 5: Server Action Validation",
+      "content": "Validate all mutations server-side",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 6: SQL Injection Prevention",
+      "content": "Protect database queries",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "Layer 7: XSS Protection",
+      "content": "Additional XSS prevention at multiple levels",
+      "variant": "default"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "owasp-top-10-coverage",
+      "title": "OWASP Top 10 Coverage",
+      "number": "02"
+    },
+    {
+      "type": "block.card",
+      "title": "A1: Broken Access Control",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A2: Cryptographic Failures",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A3: Injection",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A4: Insecure Design",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A5: Security Misconfiguration",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A6: Vulnerable Components",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A7: Authentication Failures",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A8: Data Integrity Failures",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A9: Logging & Monitoring Failures",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.card",
+      "title": "A10: SSRF",
+      "content": "Refer to the implementation notes for this subsection.",
+      "variant": "default"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "security-best-practices",
+      "title": "Security Best Practices",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Keep dependencies updated (npm audit, renovate)",
+        "Use environment variables for secrets (never commit to git)",
+        "Implement rate limiting on all endpoints",
+        "Use HTTPS everywhere (enforced in Next.js)",
+        "Enable security headers (CSP, X-Frame-Options, etc)",
+        "Regular security audits and penetration testing",
+        "Security training for development team",
+        "Incident response plan in place",
+        "Regular backup and disaster recovery testing"
+      ]
+    }
+  ]
+}

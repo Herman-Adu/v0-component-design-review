@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "slug": "performance-and-caching",
+    "title": "Performance and Caching",
+    "excerpt": "Core Web Vitals optimization, caching strategies, image optimization, and bundle analysis for the Next.js application.",
+    "category": "app-reference",
+    "audience": "Frontend Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": ["app-reference", "performance-and-caching", "documentation"]
+  },
+  "seo": {
+    "metaTitle": "Performance and Caching",
+    "metaDescription": "Core Web Vitals optimization and caching strategies"
+  },
+  "toc": [
+    {
+      "id": "core-web-vitals-targets",
+      "title": "Core Web Vitals Targets",
+      "level": 2
+    },
+    {
+      "id": "caching-strategies",
+      "title": "Caching Strategies",
+      "level": 2
+    },
+    {
+      "id": "image-optimization",
+      "title": "Image Optimization",
+      "level": 2
+    },
+    {
+      "id": "code-splitting-lazy-loading",
+      "title": "Code Splitting & Lazy Loading",
+      "level": 2
+    },
+    {
+      "id": "bundle-analysis",
+      "title": "Bundle Analysis",
+      "level": 2
+    },
+    {
+      "id": "monitoring-measurement",
+      "title": "Monitoring & Measurement",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Comprehensive performance optimization documentation covering Core Web Vitals targets, caching strategies, image optimization, code splitting, and bundle analysis."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "core-web-vitals-targets",
+      "title": "Core Web Vitals Targets",
+      "number": "01"
+    },
+    {
+      "type": "block.card",
+      "title": "Largest Contentful Paint (LCP)",
+      "content": "Target: < 2.5 seconds\n\nMeasures when the largest visible element loads.",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Optimize server response time (TTFB < 600ms)",
+        "Inline critical CSS",
+        "Preload largest images",
+        "Defer non-critical JavaScript",
+        "Use CDN for static assets"
+      ]
+    },
+    {
+      "type": "block.card",
+      "title": "First Input Delay (FID)",
+      "content": "Target: < 100 milliseconds\n\nMeasures responsiveness to user input.",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Reduce JavaScript execution time",
+        "Break up long tasks into smaller chunks",
+        "Use useTransition for non-blocking updates",
+        "Optimize main thread work",
+        "Progressive enhancement for slow networks"
+      ]
+    },
+    {
+      "type": "block.card",
+      "title": "Cumulative Layout Shift (CLS)",
+      "content": "Target: < 0.1\n\nMeasures visual stability during loading.",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Reserve space for dynamic content",
+        "Avoid inserting content above existing content",
+        "Use CSS transforms for animations",
+        "Specify image dimensions",
+        "Use font-display: swap for web fonts"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "caching-strategies",
+      "title": "Caching Strategies",
+      "number": "02"
+    },
+    {
+      "type": "block.card",
+      "title": "Next.js Built-in Caching",
+      "content": "Use Data Cache, Request Deduplication, Request Memoization, Router Cache, and Full Route Cache to reduce load time and API pressure.",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Data Cache for static and revalidated fetches",
+        "Request Deduplication for repeated server requests",
+        "Request Memoization during a single render pass",
+        "Router Cache for navigation speed",
+        "Full Route Cache for static routes"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "TanStack Query Cache Example",
+      "code": "const { data } = useQuery(['articles'], fetchArticles, {\n  staleTime: 5 * 60 * 1000,\n});"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "image-optimization",
+      "title": "Image Optimization",
+      "number": "03"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Use Next Image for responsive delivery and automatic optimization",
+        "Always specify width and height to prevent layout shift",
+        "Use priority for above-the-fold images",
+        "Compress images before upload",
+        "Lazy load below-the-fold images"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Next Image Example",
+      "code": "<Image\n  src=\"/article.jpg\"\n  alt=\"Article\"\n  width={600}\n  height={400}\n  priority\n/>"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "code-splitting-lazy-loading",
+      "title": "Code Splitting & Lazy Loading",
+      "number": "04"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Dynamic Import Pattern",
+      "code": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('./Heavy'), {\n  loading: () => <Skeleton />,\n  ssr: false,\n});"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Split code into separate bundles",
+        "Load heavy features only when needed",
+        "Show skeletons during async component loading",
+        "Use route-based splitting from Next.js app router"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "bundle-analysis",
+      "title": "Bundle Analysis",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Use @next/bundle-analyzer to inspect bundle composition",
+        "Track Lighthouse metrics in CI",
+        "Set performance budgets and alert on regressions",
+        "Keep main bundle under 50KB gzipped when possible"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "monitoring-measurement",
+      "title": "Monitoring & Measurement",
+      "number": "06"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Collect Web Vitals from real users",
+        "Track business-event latency metrics",
+        "Integrate error tracking and performance traces",
+        "Run regular PageSpeed and Lighthouse audits"
+      ]
+    }
+  ]
+}

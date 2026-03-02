@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "slug": "api-and-graphql",
+    "title": "API and GraphQL Configuration",
+    "excerpt": "Strapi API endpoints and GraphQL schema setup",
+    "category": "infrastructure-ops",
+    "audience": "Developers",
+    "publishedAt": "2026-02-01",
+    "lastUpdated": "2026-03-02",
+    "tags": [
+      "infrastructure-ops",
+      "api-and-graphql",
+      "documentation"
+    ]
+  },
+  "seo": {
+    "metaTitle": "API and GraphQL Configuration",
+    "metaDescription": "Strapi API endpoints and GraphQL schema setup"
+  },
+  "toc": [
+    {
+      "id": "rest-api-overview",
+      "title": "REST API Overview",
+      "level": 2
+    },
+    {
+      "id": "graphql-api",
+      "title": "GraphQL API",
+      "level": 2
+    },
+    {
+      "id": "authentication",
+      "title": "Authentication",
+      "level": 2
+    },
+    {
+      "id": "rate-limiting",
+      "title": "Rate Limiting",
+      "level": 2
+    },
+    {
+      "id": "webhooks",
+      "title": "Webhooks",
+      "level": 2
+    },
+    {
+      "id": "cors-configuration",
+      "title": "CORS Configuration",
+      "level": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block.paragraph",
+      "content": "Complete documentation of REST and GraphQL API configuration, endpoint documentation, authentication, webhooks, and API version management."
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "rest-api-overview",
+      "title": "REST API Overview",
+      "number": "01"
+    },
+    {
+      "type": "block.card",
+      "title": "Base URL",
+      "content": "All REST endpoints are prefixed with /api",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Query params: ?pagination[pageSize]=10&pagination[page]=2",
+        "Response includes: data, meta (pagination info)",
+        "Default page size: 25 items"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Basic: GET /api/articles?filters[slug][$eq]=my-article",
+        "Contains: GET /api/articles?filters[title][$containsi]=typescript",
+        "Range: GET /api/articles?filters[createdAt][$gte]=2026-01-01",
+        "Multiple: GET /api/articles?filters[status][$eq]=published&filters[featured][$eq]=true&_or=1"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Ascending: GET /api/articles?sort[0]=title:asc",
+        "Descending: GET /api/articles?sort[0]=createdAt:desc",
+        "Multiple: GET /api/articles?sort[0]=featured:desc&sort[1]=createdAt:desc"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "graphql-api",
+      "title": "GraphQL API",
+      "number": "02"
+    },
+    {
+      "type": "block.card",
+      "title": "Endpoint",
+      "content": "All GraphQL requests go to POST /graphql",
+      "variant": "default"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Query Example",
+      "code": "query GetArticles($first: Int) {\n  articles(first: $first) {\n    id\n    title\n    slug\n    content\n    category { name }\n    createdAt\n  }\n}"
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Mutation Example",
+      "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(input: $input) {\n    id\n    title\n    slug\n  }\n}"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Query only fields you need",
+        "Single request for related data",
+        "Strongly typed schema",
+        "Automatic schema documentation",
+        "Better performance for mobile/slow networks"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "authentication",
+      "title": "Authentication",
+      "number": "03"
+    },
+    {
+      "type": "block.card",
+      "title": "Public Access",
+      "content": "Default: all endpoints public for GET requests",
+      "variant": "default"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Go to Strapi Admin > Settings > API Tokens",
+        "2. Click 'Create new API token'",
+        "3. Name: Frontend Application",
+        "4. Type: Full access or custom",
+        "5. Copy token and store securely"
+      ]
+    },
+    {
+      "type": "block.card",
+      "title": "JWT Authentication",
+      "content": "For user login scenarios",
+      "variant": "default"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "rate-limiting",
+      "title": "Rate Limiting",
+      "number": "04"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Strapi Admin > Settings > API > Rate Limiting",
+        "Default: 100 requests per minute per IP",
+        "Can be customized per route"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "X-RateLimit-Limit - Max requests allowed",
+        "X-RateLimit-Remaining - Requests remaining",
+        "X-RateLimit-Reset - Time until limit resets",
+        "Status 429 Too Many Requests when limit exceeded"
+      ]
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "webhooks",
+      "title": "Webhooks",
+      "number": "05"
+    },
+    {
+      "type": "block.list",
+      "ordered": true,
+      "items": [
+        "1. Strapi Admin > Settings > Webhooks",
+        "2. Create new webhook",
+        "3. Enter URL: https://your-domain.com/api/webhooks",
+        "4. Select events (create, update, delete)",
+        "5. Test webhook with sample payload"
+      ]
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "article.created - New article published",
+        "article.updated - Article modified",
+        "article.deleted - Article removed",
+        "article.published - Article status changed"
+      ]
+    },
+    {
+      "type": "block.codeBlock",
+      "language": "tsx",
+      "title": "Webhook Payload",
+      "code": "{\n  \"event\": \"entry.create\",\n  \"createdAt\": \"2026-03-02T10:00:00Z\",\n  \"model\": \"article\",\n  \"entry\": { /* full article data */ }\n}"
+    },
+    {
+      "type": "block.sectionHeader",
+      "id": "cors-configuration",
+      "title": "CORS Configuration",
+      "number": "06"
+    },
+    {
+      "type": "block.list",
+      "ordered": false,
+      "items": [
+        "Strapi Admin > Settings > CORS",
+        "Set allowed origins (your Next.js domain)",
+        "Allowed methods: GET, POST, PUT, DELETE, PATCH, OPTIONS",
+        "Allow credentials: true for authenticated requests",
+        "Example: https://example.com, https://*.vercel.app"
+      ]
+    }
+  ]
+}
