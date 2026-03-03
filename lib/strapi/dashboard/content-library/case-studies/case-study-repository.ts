@@ -1,3 +1,12 @@
+/**
+ * Case Study Repository
+ *
+ * Data access layer for case studies content type with query logging.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import {
   getCaseStudyList,
   getCaseStudyContentDocument,
@@ -66,4 +75,14 @@ export function getCaseStudiesByCategory(
 
 export function getCaseStudiesByLevel(level: CaseStudy["level"]): CaseStudy[] {
   return listCaseStudies().filter((cs) => cs.level === level);
+}
+
+/**
+ * List case studies by audience (optional extension)
+ * Provided for consistency with documentation repositories
+ * Returns filtered array of case studies matching audience
+ */
+export function listCaseStudiesByAudience(audience: string): CaseStudy[] {
+  // Content-library doesn't currently use audience field; this is a no-op stub
+  return listCaseStudies();
 }

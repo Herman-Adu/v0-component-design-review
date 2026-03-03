@@ -1,3 +1,12 @@
+/**
+ * Tutorial Repository
+ *
+ * Data access layer for tutorials content type with query logging.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import {
   getTutorialList,
   getTutorialContentDocument,
@@ -62,4 +71,14 @@ export function getTutorialsByCategory(
 
 export function getTutorialsByLevel(level: Tutorial["level"]): Tutorial[] {
   return listTutorials().filter((tutorial) => tutorial.level === level);
+}
+
+/**
+ * List tutorials by audience (optional extension)
+ * Provided for consistency with documentation repositories
+ * Returns filtered array of tutorials matching audience
+ */
+export function listTutorialsByAudience(audience: string): Tutorial[] {
+  // Content-library doesn't currently use audience field; this is a no-op stub
+  return listTutorials();
 }

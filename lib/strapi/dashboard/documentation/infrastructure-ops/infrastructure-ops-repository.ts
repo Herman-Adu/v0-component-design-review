@@ -1,3 +1,12 @@
+/**
+ * Infrastructure & Ops Repository
+ *
+ * Data access layer with query logging for infrastructure and operations documentation.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import "server-only";
 import {
   getInfrastructureOpsList,
@@ -7,13 +16,6 @@ import {
 } from "./infrastructure-ops-content-builder";
 import { repoLogger } from "@/lib/utils/arch-logger";
 import type { InfrastructureOpsDocument } from "./infrastructure-ops-schema";
-
-/**
- * Infrastructure & Ops Repository
- *
- * Data access layer with query logging for infrastructure and operations documentation.
- * Follows the repository pattern established by article-repository.ts
- */
 
 export interface InfrastructureOpsRecord {
   document: InfrastructureOpsDocument;
@@ -108,4 +110,28 @@ export function listInfrastructureOpsByAudience(
     result.length,
   );
   return result;
+}
+
+/**
+ * List infrastructure ops by category (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of infrastructure ops matching category
+ */
+export function listInfrastructureOpsByCategory(
+  category: string,
+): InfrastructureOpsDocument[] {
+  // Documentation uses audience filtering; category is a no-op stub
+  return listInfrastructureOps();
+}
+
+/**
+ * List infrastructure ops by level (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of infrastructure ops matching level
+ */
+export function listInfrastructureOpsByLevel(
+  level: string,
+): InfrastructureOpsDocument[] {
+  // Documentation doesn't use level filtering; this is a no-op stub
+  return listInfrastructureOps();
 }

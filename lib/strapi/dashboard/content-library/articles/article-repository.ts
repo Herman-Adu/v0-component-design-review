@@ -1,3 +1,12 @@
+/**
+ * Article Repository
+ *
+ * Data access layer for articles content type with query logging.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import {
   getArticleList,
   getArticleContentDocument,
@@ -58,4 +67,14 @@ export function getArticlesByCategory(
 
 export function getArticlesByLevel(level: Article["level"]): Article[] {
   return listArticles().filter((article) => article.level === level);
+}
+
+/**
+ * List articles by audience (optional extension)
+ * Provided for consistency with documentation repositories
+ * Returns filtered array of articles matching audience
+ */
+export function listArticlesByAudience(audience: string): Article[] {
+  // Content-library doesn't currently use audience field; this is a no-op stub
+  return listArticles();
 }

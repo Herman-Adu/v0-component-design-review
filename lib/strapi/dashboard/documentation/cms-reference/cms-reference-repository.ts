@@ -1,3 +1,12 @@
+/**
+ * CMS Reference Repository
+ *
+ * Data access layer with query logging for CMS reference documentation.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import "server-only";
 import {
   getCmsReferenceList,
@@ -7,13 +16,6 @@ import {
 } from "./cms-reference-content-builder";
 import { repoLogger } from "@/lib/utils/arch-logger";
 import type { CmsReferenceDocument } from "./cms-reference-schema";
-
-/**
- * CMS Reference Repository
- *
- * Data access layer with query logging for CMS reference documentation.
- * Follows the repository pattern established by article-repository.ts
- */
 
 export interface CmsReferenceRecord {
   document: CmsReferenceDocument;
@@ -102,4 +104,26 @@ export function listCmsReferenceByAudience(
     result.length,
   );
   return result;
+}
+
+/**
+ * List CMS reference by category (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of CMS reference matching category
+ */
+export function listCmsReferenceByCategory(
+  category: string,
+): CmsReferenceDocument[] {
+  // Documentation uses audience filtering; category is a no-op stub
+  return listCmsReference();
+}
+
+/**
+ * List CMS reference by level (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of CMS reference matching level
+ */
+export function listCmsReferenceByLevel(level: string): CmsReferenceDocument[] {
+  // Documentation doesn't use level filtering; this is a no-op stub
+  return listCmsReference();
 }

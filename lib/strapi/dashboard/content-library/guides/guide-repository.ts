@@ -1,3 +1,12 @@
+/**
+ * Guide Repository
+ *
+ * Data access layer for guides content type with query logging.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import {
   getGuideList,
   getGuideContentDocument,
@@ -5,11 +14,6 @@ import {
   type GuideContentDocument,
 } from "@/lib/strapi/dashboard/content-library/guides/guide-content";
 import { repoLogger } from "@/lib/utils/arch-logger";
-
-/**
- * Guide Repository
- * Data access layer for guides with caching and error handling
- */
 
 export interface GuideRecord {
   guide: Guide;
@@ -71,4 +75,14 @@ export function getGuidesByCategory(category: Guide["category"]): Guide[] {
  */
 export function getGuidesByLevel(level: Guide["level"]): Guide[] {
   return listGuides().filter((guide) => guide.level === level);
+}
+
+/**
+ * List guides by audience (optional extension)
+ * Provided for consistency with documentation repositories
+ * Returns filtered array of guides matching audience
+ */
+export function listGuidesByAudience(audience: string): Guide[] {
+  // Content-library doesn't currently use audience field; this is a no-op stub
+  return listGuides();
 }
