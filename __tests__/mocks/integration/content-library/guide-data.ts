@@ -1,7 +1,5 @@
-import type {
-  Guide,
-  GuideContentDocument,
-} from "@/lib/strapi/dashboard/content-library/guides/guide-content-builder";
+import type { Guide } from "@/lib/strapi/dashboard/content-library/guides/guide-content-builder";
+import type { GuideContentDocument } from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
 
 export const mockGuides: Guide[] = [
   {

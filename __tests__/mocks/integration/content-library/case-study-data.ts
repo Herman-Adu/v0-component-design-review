@@ -1,7 +1,5 @@
-import type {
-  CaseStudy,
-  CaseStudyContentDocument,
-} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder";
+import type { CaseStudy } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder";
+import type { CaseStudyContentDocument } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
 
 export const mockCaseStudies: CaseStudy[] = [
   {

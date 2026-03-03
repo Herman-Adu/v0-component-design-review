@@ -14,17 +14,9 @@ export {
 
 export type {
   CmsReferenceDocument,
-  Block,
-  Meta,
-  TocItem,
+  CmsReferenceBlock,
+  CmsReferenceMeta,
+  CmsReferenceTocItem,
+  CmsReferenceCategory,
 } from "./cms-reference-schema";
 
-export {
-  toCmsReferenceDetailViewModel,
-  toCmsReferenceListItemViewModel,
-} from "./cms-reference-view-models";
-
-export type {
-  CmsReferenceDetailViewModel,
-  CmsReferenceListItemViewModel,
-} from "./cms-reference-view-models";

@@ -1,32 +1,30 @@
-import type { StrategicOverviewDocument } from "./strategic-overview-schema";
-
 /**
  * Strategic Overview View Models
  *
- * Transforms strategic overview documents into UI-optimized shapes.
- * Follows the pattern established by article-view-models.ts
+ * Transforms strategic overview documents into UI-ready view models.
+ * Implements documentation view model pattern with detail and list item variants.
+ *
+ * Authority: base-view-model.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
-export interface StrategicOverviewDetailViewModel {
-  slug: string;
-  title: string;
-  excerpt: string;
+import type { StrategicOverviewDocument } from "./strategic-overview-schema";
+import type {
+  DocumentationDetailViewModel,
+  DocumentationListItemViewModel,
+} from "@/lib/strapi/dashboard/_shared/base-view-model";
+
+export interface StrategicOverviewDetailViewModel extends Omit<
+  DocumentationDetailViewModel,
+  "id" | "category"
+> {
   category: "strategic-overview";
-  audience: string;
-  publishedAt: string;
-  lastUpdated: string;
-  tags: string[];
-  blocks: StrategicOverviewDocument["blocks"];
-  toc?: StrategicOverviewDocument["toc"];
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-    canonicalUrl?: string;
-  };
 }
+
+export interface StrategicOverviewListItemViewModel extends DocumentationListItemViewModel {}
 
 /**
  * Transform strategic overview document to detail view model
+ * Includes all fields for detail page rendering with SEO fallbacks
  */
 export function toStrategicOverviewDetailViewModel(
   document: StrategicOverviewDocument,
@@ -35,7 +33,7 @@ export function toStrategicOverviewDetailViewModel(
     slug: document.meta.slug,
     title: document.meta.title,
     excerpt: document.meta.excerpt,
-    category: document.meta.category,
+    category: document.meta.category as "strategic-overview",
     audience: document.meta.audience,
     publishedAt: document.meta.publishedAt,
     lastUpdated: document.meta.lastUpdated,
@@ -50,17 +48,9 @@ export function toStrategicOverviewDetailViewModel(
   };
 }
 
-export interface StrategicOverviewListItemViewModel {
-  slug: string;
-  title: string;
-  excerpt: string;
-  audience: string;
-  lastUpdated: string;
-  tags: string[];
-}
-
 /**
  * Transform strategic overview document to list item view model
+ * Minimal fields for list/archive rendering
  */
 export function toStrategicOverviewListItemViewModel(
   document: StrategicOverviewDocument,

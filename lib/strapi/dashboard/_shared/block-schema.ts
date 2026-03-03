@@ -92,9 +92,9 @@ const requireAny =
 const infoBoxPropsSchema = z
   .object({
     variant: z
-      .enum(["info", "warning", "tip", "important", "danger"])
+      .enum(["info", "warning", "tip", "important", "danger", "note", "success"])
       .optional(),
-    type: z.enum(["info", "warning", "tip", "important", "danger"]).optional(),
+    type: z.enum(["info", "warning", "tip", "important", "danger", "note", "success"]).optional(),
     title: z.string().nullable().optional(),
     heading: z.string().nullable().optional(),
     content: z.string().nullable().optional(),
@@ -146,20 +146,27 @@ const metricsGridPropsSchema = z.object({
     .min(1),
 });
 
+const featureGridItemSchema = z.object({
+  icon: z.string().optional(),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  items: z.array(z.string()).optional(),
+});
+
 const featureGridPropsSchema = z.object({
+  title: z.string().optional(),
   columns: z
     .union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)])
     .optional(),
-  features: z
-    .array(
-      z.object({
-        icon: z.string().optional(),
-        title: z.string().min(1),
-        description: z.string().min(1),
-        items: z.array(z.string()).optional(),
-      }),
-    )
-    .min(1),
+  features: z.array(featureGridItemSchema).min(1).optional(),
+  items: z.array(featureGridItemSchema).min(1).optional(),
+}).superRefine((data, ctx) => {
+  if (!data.features?.length && !data.items?.length) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "featureGrid requires either features or items array",
+    });
+  }
 });
 
 const comparisonCardsPropsSchema = z
@@ -194,11 +201,18 @@ const processFlowPropsSchema = z.object({
   title: z.string().nullable().optional(),
   steps: z
     .array(
-      z.object({
-        label: z.string().min(1),
-        sublabel: z.string().min(1),
-        color: z.string().optional(),
-      }),
+      z.union([
+        z.object({
+          label: z.string().min(1),
+          sublabel: z.string().min(1),
+          color: z.string().optional(),
+        }),
+        z.object({
+          title: z.string().min(1),
+          description: z.string().min(1),
+          duration: z.string().optional(),
+        }),
+      ]),
     )
     .min(1),
 });
@@ -219,11 +233,26 @@ const stepFlowPropsSchema = z.object({
     .min(1),
 });
 
-const statsTablePropsSchema = z.object({
-  title: z.string().nullable().optional(),
-  headers: z.array(z.string().min(1)).min(1),
-  rows: z.array(z.array(z.string().min(1))).min(1),
-});
+const statsTablePropsSchema = z.union([
+  z.object({
+    title: z.string().nullable().optional(),
+    headers: z.array(z.string().min(1)).min(1),
+    rows: z.array(z.array(z.string().min(1))).min(1),
+  }),
+  z.object({
+    title: z.string().nullable().optional(),
+    description: z.string().optional(),
+    stats: z
+      .array(
+        z.object({
+          metric: z.string().min(1),
+          value: z.string().min(1),
+          context: z.string().optional(),
+        }),
+      )
+      .min(1),
+  }),
+]);
 
 const relatedArticlesPropsSchema = z
   .object({
@@ -309,21 +338,36 @@ const decisionTreePropsSchema = z.object({
     .min(1),
 });
 
-const dataFlowDiagramPropsSchema = z.object({
-  title: z.string().nullable().optional(),
-  flow: z.enum(["horizontal", "vertical"]).optional(),
-  nodes: z
-    .array(
-      z.object({
-        id: z.string().optional(),
-        label: z.string().min(1),
-        description: z.string().optional(),
-        icon: z.string().optional(),
-        items: z.array(z.string()).optional(),
-      }),
-    )
-    .min(1),
-});
+const dataFlowDiagramPropsSchema = z.union([
+  z.object({
+    title: z.string().nullable().optional(),
+    flow: z.enum(["horizontal", "vertical"]).optional(),
+    nodes: z
+      .array(
+        z.object({
+          id: z.string().optional(),
+          label: z.string().min(1),
+          description: z.string().optional(),
+          icon: z.string().optional(),
+          items: z.array(z.string()).optional(),
+        }),
+      )
+      .min(1),
+  }),
+  z.object({
+    title: z.string().nullable().optional(),
+    description: z.string().optional(),
+    flow: z
+      .array(
+        z.object({
+          stage: z.string().min(1),
+          status: z.string().optional(),
+          detail: z.string().optional(),
+        }),
+      )
+      .min(1),
+  }),
+]);
 
 const verticalFlowPropsSchema = z.object({
   title: z.string().nullable().optional(),
@@ -333,6 +377,7 @@ const verticalFlowPropsSchema = z.object({
         title: z.string().min(1),
         description: z.string().min(1),
         icon: z.string().optional(),
+        number: z.union([z.string(), z.number()]).optional(),
       }),
     )
     .min(1),
@@ -391,7 +436,7 @@ const numberedListPropsSchema = z.object({
 const codeBlockPropsSchema = z.object({
   code: z.string().min(1),
   language: z.string().optional(),
-  filename: z.string().optional(),
+  filename: z.string().nullable().optional(),
   title: z.string().nullable().optional(),
   highlightLines: z.array(z.number().int().positive()).optional(),
 });
@@ -565,3 +610,15 @@ export const blockSchema = z.union([
 ]);
 
 export type Block = z.infer<typeof blockSchema>;
+
+/**
+ * ContentBlock — renderer-compatible block type used in view models and ContentBlockRenderer.
+ * Permissive shape with index signature for dynamic property access at render time.
+ * All validated Block values are assignable to this type.
+ */
+export type ContentBlock = {
+  type: string;
+  atomicLevel?: "atom" | "molecule" | "organism";
+  props?: Record<string, unknown>;
+  [key: string]: unknown;
+};

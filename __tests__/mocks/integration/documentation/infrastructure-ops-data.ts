@@ -26,78 +26,96 @@ export const mockInfrastructureOpsDocuments: InfrastructureOpsDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "overview",
-        title: "Pipeline Overview",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "overview",
+          title: "Pipeline Overview",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "Our CI/CD pipeline is fully automated using GitHub Actions. Every push triggers tests, builds, and deploys to appropriate environments based on branch.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "Our CI/CD pipeline is fully automated using GitHub Actions. Every push triggers tests, builds, and deploys to appropriate environments based on branch.",
+        },
       },
       {
-        type: "block.featureGrid",
-        title: "Pipeline Capabilities",
-        features: [
-          {
-            icon: "CheckCircle",
-            title: "Automated Testing",
-            description: "Unit, integration, and e2e tests run on every commit",
-          },
-          {
-            icon: "Package",
-            title: "Docker Builds",
-            description: "Containerized applications with registry push",
-          },
-          {
-            icon: "Rocket",
-            title: "Auto Deployment",
-            description: "Push to staging or production based on branch",
-          },
-        ],
+        type: "organism.featureGrid",
+        atomicLevel: "organism",
+        props: {
+          title: "Pipeline Capabilities",
+          features: [
+            {
+              icon: "CheckCircle",
+              title: "Automated Testing",
+              description: "Unit, integration, and e2e tests run on every commit",
+            },
+            {
+              icon: "Package",
+              title: "Docker Builds",
+              description: "Containerized applications with registry push",
+            },
+            {
+              icon: "Rocket",
+              title: "Auto Deployment",
+              description: "Push to staging or production based on branch",
+            },
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "stages",
-        title: "Pipeline Stages",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "stages",
+          title: "Pipeline Stages",
+          number: "02",
+        },
       },
       {
-        type: "block.statsTable",
-        title: "Stage Timeline",
-        stats: [
-          {
-            label: "Unit Tests",
-            value: "2-3 min",
-            change: "Fast",
-            changeType: "positive",
-          },
-          {
-            label: "Build",
-            value: "5-7 min",
-            change: "Optimized",
-            changeType: "positive",
-          },
-          {
-            label: "Deploy to Staging",
-            value: "3-5 min",
-            change: "Blue-green",
-            changeType: "positive",
-          },
-        ],
+        type: "organism.statsTable",
+        atomicLevel: "organism",
+        props: {
+          title: "Stage Timeline",
+          stats: [
+            {
+              metric: "Unit Tests",
+              value: "2-3 min",
+              context: "Fast",
+            },
+            {
+              metric: "Build",
+              value: "5-7 min",
+              context: "Optimized",
+            },
+            {
+              metric: "Deploy to Staging",
+              value: "3-5 min",
+              context: "Blue-green",
+            },
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "environment-promotion",
-        title: "Environment Promotion",
-        number: "03",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "environment-promotion",
+          title: "Environment Promotion",
+          number: "03",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "yaml",
-        code: "push:\n  branches:\n    - develop -> Deploy to Staging\n    - main -> Deploy to Production\n    - hotfix/* -> Deploy to Staging then Production",
-        title: "Branch Promotion Rules",
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "yaml",
+          code: "push:\n  branches:\n    - develop -> Deploy to Staging\n    - main -> Deploy to Production\n    - hotfix/* -> Deploy to Staging then Production",
+          title: "Branch Promotion Rules",
+        },
       },
     ],
   },
@@ -125,44 +143,61 @@ export const mockInfrastructureOpsDocuments: InfrastructureOpsDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "observability",
-        title: "Observability Stack",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "observability",
+          title: "Observability Stack",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "We use a comprehensive observability stack combining application metrics, infrastructure logs, and distributed tracing.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "We use a comprehensive observability stack combining application metrics, infrastructure logs, and distributed tracing.",
+        },
       },
       {
-        type: "block.list",
-        ordered: false,
-        items: [
-          "NewRelic APM for application performance monitoring",
-          "CloudWatch for infrastructure and system logs",
-          "Custom dashboards for real-time visibility",
-          "Distributed tracing for request flows",
-        ],
+        type: "molecule.keyTakeaway",
+        atomicLevel: "molecule",
+        props: {
+          points: [
+            "NewRelic APM for application performance monitoring",
+            "CloudWatch for infrastructure and system logs",
+            "Custom dashboards for real-time visibility",
+            "Distributed tracing for request flows",
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "metrics",
-        title: "Metrics Collection",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "metrics",
+          title: "Metrics Collection",
+          number: "02",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "info",
-        title: "Key Metrics to Monitor",
-        content:
-          "Response time, error rate, throughput, CPU usage, memory utilization, database query time, and cache hit rates.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "info",
+          title: "Key Metrics to Monitor",
+          content:
+            "Response time, error rate, throughput, CPU usage, memory utilization, database query time, and cache hit rates.",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "typescript",
-        code: "import { newrelic } from 'newrelic';\n\nnewrelic.recordCustomEvent('UserAction', {\n  action: 'document-view',\n  category: slug,\n  userId: user.id,\n});",
-        title: "Custom Metrics Example",
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "typescript",
+          code: "import { newrelic } from 'newrelic';\n\nnewrelic.recordCustomEvent('UserAction', {\n  action: 'document-view',\n  category: slug,\n  userId: user.id,\n});",
+          title: "Custom Metrics Example",
+        },
       },
     ],
   },
@@ -185,32 +220,43 @@ export const mockInfrastructureOpsDocuments: InfrastructureOpsDocument[] = [
     },
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "administration",
-        title: "Database Administration",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "administration",
+          title: "Database Administration",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "PostgreSQL administration requires careful attention to performance, security, and data integrity. Regular maintenance is essential.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "PostgreSQL administration requires careful attention to performance, security, and data integrity. Regular maintenance is essential.",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "warning",
-        title: "Backup Strategy",
-        content:
-          "Daily backups are stored in S3 with 30-day retention. Test restore procedures monthly.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "warning",
+          title: "Backup Strategy",
+          content:
+            "Daily backups are stored in S3 with 30-day retention. Test restore procedures monthly.",
+        },
       },
       {
-        type: "block.list",
-        ordered: true,
-        items: [
-          "Regular VACUUM and ANALYZE operations",
-          "Index maintenance and optimization",
-          "Query performance monitoring and tuning",
-          "Connection pooling configuration",
-        ],
+        type: "numbered-list",
+        atomicLevel: "molecule",
+        props: {
+          items: [
+            "Regular VACUUM and ANALYZE operations",
+            "Index maintenance and optimization",
+            "Query performance monitoring and tuning",
+            "Connection pooling configuration",
+          ],
+        },
       },
     ],
   },

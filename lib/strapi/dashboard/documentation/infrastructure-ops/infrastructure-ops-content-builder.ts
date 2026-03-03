@@ -40,20 +40,18 @@ const infrastructureOpsDocuments = ((): InfrastructureOpsDocument[] => {
   dataLogger.loadStart("infrastructure-ops", source);
 
   for (const doc of rawDocuments) {
-    try {
-      const validated = InfrastructureOpsDocumentSchema.parse(doc);
-      results.push(validated);
-    } catch (e) {
-      const errorMsg = e instanceof Error ? e.message : String(e);
-      dataLogger.validationError(
-        "infrastructure-ops",
-        (doc as any).meta?.slug || "unknown",
-        [errorMsg],
-      );
+    const result = InfrastructureOpsDocumentSchema.safeParse(doc);
+    if (!result.success) {
+      const slug = doc.meta.slug;
+      const issues = result.error.issues
+        .map((i) => `${i.path.join(".")}: ${i.message}`)
+        .join(" | ");
+      dataLogger.validationError("infrastructure-ops", slug, [issues]);
       throw new Error(
-        `Infrastructure ops validation failed for ${(doc as any).meta?.slug}: ${errorMsg}`,
+        `Infrastructure ops validation failed for "${slug}": ${issues}`,
       );
     }
+    results.push(result.data);
   }
 
   dataLogger.loadComplete("infrastructure-ops", results.length, source);

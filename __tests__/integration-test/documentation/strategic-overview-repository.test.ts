@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
+import { BLOCK_TYPE_ALIASES } from "@/lib/strapi/dashboard/_shared/block-schema";
 import {
   mockStrategicDocuments,
   mockStrategicDocument,
@@ -119,7 +120,7 @@ describe("Strategic Overview Repository", () => {
       blocks.forEach((block) => {
         expect(block).toHaveProperty("type");
         expect(typeof block.type).toBe("string");
-        expect(block.type).toMatch(/^block\./); // All block types start with "block."
+        expect(BLOCK_TYPE_ALIASES as readonly string[]).toContain(block.type); // All blocks use registered type
       });
     });
   });
@@ -193,7 +194,7 @@ describe("Strategic Overview Repository", () => {
         expect(doc.blocks.length).toBeGreaterThan(0);
         doc.blocks.forEach((block) => {
           expect(block).toHaveProperty("type");
-          expect(block.type).toMatch(/^block\./);
+          expect(BLOCK_TYPE_ALIASES as readonly string[]).toContain(block.type);
         });
       });
     });

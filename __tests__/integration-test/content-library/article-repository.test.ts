@@ -3,7 +3,7 @@ import { mockArticles, mockArticleContent } from "../../mocks/integration/conten
 
 // Mock the content builder layer
 vi.mock(
-  "@/lib/strapi/dashboard/content-library/articles/article-content",
+  "@/lib/strapi/dashboard/content-library/articles/article-content-builder",
   () => ({
     getArticleList: vi.fn(() => mockArticles),
     getArticleContentDocument: vi.fn((slug: string) => {

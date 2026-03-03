@@ -1,6 +1,13 @@
 import "server-only";
 
-import { tutorialContentDocumentSchema } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
+import {
+  TutorialContentDocumentSchema,
+  type TutorialLevel,
+  type TutorialCategory,
+  type TutorialContentBlock,
+  type TutorialContentDocument,
+} from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
+export type { TutorialContentMeta } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all tutorial JSON files
@@ -20,47 +27,8 @@ import buildingMultiStepForms from "@/data/strapi-mock/dashboard/content-library
 import buildingEmailTemplates from "@/data/strapi-mock/dashboard/content-library/tutorials/email/building-email-templates-react-email.json";
 import e2eTestingPlaywright from "@/data/strapi-mock/dashboard/content-library/tutorials/testing/e2e-testing-playwright-nextjs.json";
 
-export type TutorialLevel = "beginner" | "intermediate" | "advanced";
-export type TutorialCategory =
-  | "components"
-  | "forms"
-  | "security"
-  | "state-management"
-  | "performance"
-  | "getting-started"
-  | "cms"
-  | "testing"
-  | "devops"
-  | "email";
-
-export interface TutorialContentBlock {
-  type: string;
-  atomicLevel?: "atom" | "molecule" | "organism";
-  props?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-
-export interface TutorialContentMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  level: TutorialLevel;
-  category: TutorialCategory;
-  readTime: string;
-  publishedAt: string;
-  tags: string[];
-}
-
-export interface TutorialContentDocument {
-  meta: TutorialContentMeta;
-  layout: "content-with-toc" | "content-only";
-  toc?: Array<{ id: string; title: string; level: number }>;
-  blocks: TutorialContentBlock[];
-}
-
 /**
  * Tutorial list item generated from content metadata + blocks
- * This replaces the old data/content-library/tutorials exports
  */
 export interface Tutorial {
   id: string;
@@ -109,7 +77,7 @@ const tutorialContentRegistry: Record<string, TutorialContentDocument> = {
 dataLogger.loadStart("tutorials", "data/strapi-mock/.../tutorials/*.json");
 const validatedTutorialContentRegistry = Object.fromEntries(
   Object.entries(tutorialContentRegistry).map(([slug, document]) => {
-    const result = tutorialContentDocumentSchema.safeParse(document);
+    const result = TutorialContentDocumentSchema.safeParse(document);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)

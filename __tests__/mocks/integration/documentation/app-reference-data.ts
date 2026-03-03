@@ -30,55 +30,73 @@ export const mockAppReferenceDocuments: AppReferenceDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "atomic-design",
-        title: "Atomic Design Principles",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "atomic-design",
+          title: "Atomic Design Principles",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "Atomic Design is a methodology for creating design systems by breaking down interfaces into fundamental building blocks.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "Atomic Design is a methodology for creating design systems by breaking down interfaces into fundamental building blocks.",
+        },
       },
       {
-        type: "block.featureGrid",
-        title: "Design System Hierarchy",
-        features: [
-          {
-            icon: "Zap",
-            title: "Atoms",
-            description: "Basic UI elements: buttons, inputs, labels",
-          },
-          {
-            icon: "Package",
-            title: "Molecules",
-            description: "Groups of atoms: form fields, cards",
-          },
-          {
-            icon: "Grid",
-            title: "Organisms",
-            description: "Complex components: forms, layouts",
-          },
-        ],
+        type: "organism.featureGrid",
+        atomicLevel: "organism",
+        props: {
+          title: "Design System Hierarchy",
+          features: [
+            {
+              icon: "Zap",
+              title: "Atoms",
+              description: "Basic UI elements: buttons, inputs, labels",
+            },
+            {
+              icon: "Package",
+              title: "Molecules",
+              description: "Groups of atoms: form fields, cards",
+            },
+            {
+              icon: "Grid",
+              title: "Organisms",
+              description: "Complex components: forms, layouts",
+            },
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "directory-structure",
-        title: "Directory Organization",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "directory-structure",
+          title: "Directory Organization",
+          number: "02",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "bash",
-        code: "components/\n├── atoms/\n│   ├── Button.tsx\n│   ├── Input.tsx\n│   └── Badge.tsx\n├── molecules/\n│   ├── FormField.tsx\n│   └── Card.tsx\n└── organisms/\n    └── DocumentationLayout.tsx",
-        title: "Component Directory Structure",
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "bash",
+          code: "components/\n├── atoms/\n│   ├── Button.tsx\n│   ├── Input.tsx\n│   └── Badge.tsx\n├── molecules/\n│   ├── FormField.tsx\n│   └── Card.tsx\n└── organisms/\n    └── DocumentationLayout.tsx",
+          title: "Component Directory Structure",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "success",
-        title: "Naming Convention",
-        content:
-          "Use descriptive names that reflect the component's purpose, not its appearance. Prefer ButtonPrimary over ButtonBlue.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "success",
+          title: "Naming Convention",
+          content:
+            "Use descriptive names that reflect the component's purpose, not its appearance. Prefer ButtonPrimary over ButtonBlue.",
+        },
       },
     ],
   },
@@ -106,35 +124,49 @@ export const mockAppReferenceDocuments: AppReferenceDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "app-router-basics",
-        title: "App Router Basics",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "app-router-basics",
+          title: "App Router Basics",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "The Next.js App Router uses the file system to define routes. Each folder in app/ corresponds to a route segment.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "The Next.js App Router uses the file system to define routes. Each folder in app/ corresponds to a route segment.",
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "dynamic-routes",
-        title: "Dynamic Routes",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "dynamic-routes",
+          title: "Dynamic Routes",
+          number: "02",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "typescript",
-        code: "// app/documentation/[category]/[slug]/page.tsx\nexport default function Page({ params }) {\n  const { category, slug } = params;\n  return <DocumentationPage category={category} slug={slug} />;\n}",
-        title: "Dynamic Route Example",
-        showLineNumbers: true,
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "typescript",
+          code: "// app/documentation/[category]/[slug]/page.tsx\nexport default function Page({ params }) {\n  const { category, slug } = params;\n  return <DocumentationPage category={category} slug={slug} />;\n}",
+          title: "Dynamic Route Example",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "info",
-        title: "Route Groups",
-        content:
-          "Use parentheses in folder names to create route groups that don't affect the URL structure.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "info",
+          title: "Route Groups",
+          content:
+            "Use parentheses in folder names to create route groups that don't affect the URL structure.",
+        },
       },
     ],
   },
@@ -157,25 +189,33 @@ export const mockAppReferenceDocuments: AppReferenceDocument[] = [
     },
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "fundamentals",
-        title: "State Management Fundamentals",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "fundamentals",
+          title: "State Management Fundamentals",
+          number: "01",
+        },
       },
       {
-        type: "block.list",
-        ordered: false,
-        items: [
-          "Component state with useState for local UI state",
-          "Context API for shared application state",
-          "Server components for server state",
-          "React Query for data synchronization",
-        ],
+        type: "molecule.keyTakeaway",
+        atomicLevel: "molecule",
+        props: {
+          points: [
+            "Component state with useState for local UI state",
+            "Context API for shared application state",
+            "Server components for server state",
+            "React Query for data synchronization",
+          ],
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "Prefer keeping state as close to where it is used as possible. Only elevate state when multiple components need access.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "Prefer keeping state as close to where it is used as possible. Only elevate state when multiple components need access.",
+        },
       },
     ],
   },

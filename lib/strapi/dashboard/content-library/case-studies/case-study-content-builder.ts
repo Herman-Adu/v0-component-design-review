@@ -1,4 +1,12 @@
-import { caseStudyContentDocumentSchema } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
+import "server-only";
+import {
+  CaseStudyContentDocumentSchema,
+  type CaseStudyLevel,
+  type CaseStudyCategory,
+  type CaseStudyContentBlock,
+  type CaseStudyContentDocument,
+} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
+export type { CaseStudyContentMeta } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all case study JSON files
@@ -22,43 +30,6 @@ import strapiMultiSite from "@/data/strapi-mock/dashboard/content-library/case-s
 import sidebarRefactor from "@/data/strapi-mock/dashboard/content-library/case-studies/refactoring/sidebar-refactor-430-lines-to-data-driven.json";
 import tarballDuplicate from "@/data/strapi-mock/dashboard/content-library/case-studies/infrastructure/tarball-duplicate-entry-build-failure.json";
 import emailConsolidation from "@/data/strapi-mock/dashboard/content-library/case-studies/infrastructure/email-consolidation.json";
-
-export type CaseStudyLevel = "beginner" | "intermediate" | "advanced";
-export type CaseStudyCategory =
-  | "refactoring"
-  | "performance"
-  | "security"
-  | "architecture"
-  | "business"
-  | "cms"
-  | "infrastructure"
-  | "rendering"
-  | "forms";
-
-export interface CaseStudyContentBlock {
-  type: string;
-  atomicLevel?: "atom" | "molecule" | "organism";
-  props?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-
-export interface CaseStudyContentMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  level: CaseStudyLevel;
-  category: CaseStudyCategory;
-  readTime: string;
-  publishedAt: string;
-  tags: string[];
-}
-
-export interface CaseStudyContentDocument {
-  meta: CaseStudyContentMeta;
-  layout: "content-with-toc" | "content-only";
-  toc?: Array<{ id: string; title: string; level: number }>;
-  blocks: CaseStudyContentBlock[];
-}
 
 /**
  * Case Study list item generated from content metadata
@@ -119,7 +90,7 @@ dataLogger.loadStart(
 );
 const validatedCaseStudyContentRegistry = Object.fromEntries(
   Object.entries(caseStudyContentRegistry).map(([slug, document]) => {
-    const result = caseStudyContentDocumentSchema.safeParse(document);
+    const result = CaseStudyContentDocumentSchema.safeParse(document);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)

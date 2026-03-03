@@ -44,20 +44,18 @@ const appReferenceDocuments = ((): AppReferenceDocument[] => {
   dataLogger.loadStart("app-reference", source);
 
   for (const doc of rawDocuments) {
-    try {
-      const validated = AppReferenceDocumentSchema.parse(doc);
-      results.push(validated);
-    } catch (e) {
-      const errorMsg = e instanceof Error ? e.message : String(e);
-      dataLogger.validationError(
-        "app-reference",
-        (doc as any).meta?.slug || "unknown",
-        [errorMsg],
-      );
+    const result = AppReferenceDocumentSchema.safeParse(doc);
+    if (!result.success) {
+      const slug = doc.meta.slug;
+      const issues = result.error.issues
+        .map((i) => `${i.path.join(".")}: ${i.message}`)
+        .join(" | ");
+      dataLogger.validationError("app-reference", slug, [issues]);
       throw new Error(
-        `App reference validation failed for ${(doc as any).meta?.slug}: ${errorMsg}`,
+        `App reference validation failed for "${slug}": ${issues}`,
       );
     }
+    results.push(result.data);
   }
 
   dataLogger.loadComplete("app-reference", results.length, source);

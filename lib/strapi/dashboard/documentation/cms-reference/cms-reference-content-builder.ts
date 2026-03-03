@@ -40,20 +40,18 @@ const cmsReferenceDocuments = ((): CmsReferenceDocument[] => {
   dataLogger.loadStart("cms-reference", source);
 
   for (const doc of rawDocuments) {
-    try {
-      const validated = CmsReferenceDocumentSchema.parse(doc);
-      results.push(validated);
-    } catch (e) {
-      const errorMsg = e instanceof Error ? e.message : String(e);
-      dataLogger.validationError(
-        "cms-reference",
-        (doc as any).meta?.slug || "unknown",
-        [errorMsg],
-      );
+    const result = CmsReferenceDocumentSchema.safeParse(doc);
+    if (!result.success) {
+      const slug = doc.meta.slug;
+      const issues = result.error.issues
+        .map((i) => `${i.path.join(".")}: ${i.message}`)
+        .join(" | ");
+      dataLogger.validationError("cms-reference", slug, [issues]);
       throw new Error(
-        `CMS reference validation failed for ${(doc as any).meta?.slug}: ${errorMsg}`,
+        `CMS reference validation failed for "${slug}": ${issues}`,
       );
     }
+    results.push(result.data);
   }
 
   dataLogger.loadComplete("cms-reference", results.length, source);

@@ -6,7 +6,7 @@ import {
 
 // Mock the content builder layer
 vi.mock(
-  "@/lib/strapi/dashboard/content-library/case-studies/case-study-content",
+  "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder",
   () => ({
     getCaseStudyList: vi.fn(() => mockCaseStudies),
     getCaseStudyContentDocument: vi.fn((slug: string) => {

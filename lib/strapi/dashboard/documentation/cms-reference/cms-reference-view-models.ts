@@ -1,32 +1,30 @@
-import type { CmsReferenceDocument } from "./cms-reference-schema";
-
 /**
  * CMS Reference View Models
  *
- * Transforms CMS reference documents into UI-optimized shapes.
- * Follows the pattern established by article-view-models.ts
+ * Transforms CMS reference documents into UI-ready view models.
+ * Implements documentation view model pattern with detail and list item variants.
+ *
+ * Authority: base-view-model.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
-export interface CmsReferenceDetailViewModel {
-  slug: string;
-  title: string;
-  excerpt: string;
+import type { CmsReferenceDocument } from "./cms-reference-schema";
+import type {
+  DocumentationDetailViewModel,
+  DocumentationListItemViewModel,
+} from "@/lib/strapi/dashboard/_shared/base-view-model";
+
+export interface CmsReferenceDetailViewModel extends Omit<
+  DocumentationDetailViewModel,
+  "id" | "category"
+> {
   category: "cms-reference";
-  audience: string;
-  publishedAt: string;
-  lastUpdated: string;
-  tags: string[];
-  blocks: CmsReferenceDocument["blocks"];
-  toc?: CmsReferenceDocument["toc"];
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-    canonicalUrl?: string;
-  };
 }
+
+export interface CmsReferenceListItemViewModel extends DocumentationListItemViewModel {}
 
 /**
  * Transform CMS reference document to detail view model
+ * Includes all fields for detail page rendering with SEO fallbacks
  */
 export function toCmsReferenceDetailViewModel(
   document: CmsReferenceDocument,
@@ -35,7 +33,7 @@ export function toCmsReferenceDetailViewModel(
     slug: document.meta.slug,
     title: document.meta.title,
     excerpt: document.meta.excerpt,
-    category: document.meta.category,
+    category: document.meta.category as "cms-reference",
     audience: document.meta.audience,
     publishedAt: document.meta.publishedAt,
     lastUpdated: document.meta.lastUpdated,
@@ -50,17 +48,9 @@ export function toCmsReferenceDetailViewModel(
   };
 }
 
-export interface CmsReferenceListItemViewModel {
-  slug: string;
-  title: string;
-  excerpt: string;
-  audience: string;
-  lastUpdated: string;
-  tags: string[];
-}
-
 /**
  * Transform CMS reference document to list item view model
+ * Minimal fields for list/archive rendering
  */
 export function toCmsReferenceListItemViewModel(
   document: CmsReferenceDocument,

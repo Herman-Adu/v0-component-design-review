@@ -1,3 +1,12 @@
+/**
+ * App Reference Repository
+ *
+ * Data access layer with query logging for app reference documentation.
+ * Implements IBaseRepository pattern for consistent method signatures.
+ *
+ * Authority: ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ */
+
 import "server-only";
 import {
   getAppReferenceList,
@@ -7,13 +16,6 @@ import {
 } from "./app-reference-content-builder";
 import { repoLogger } from "@/lib/utils/arch-logger";
 import type { AppReferenceDocument } from "./app-reference-schema";
-
-/**
- * App Reference Repository
- *
- * Data access layer with query logging for app reference documentation.
- * Follows the repository pattern established by article-repository.ts
- */
 
 export interface AppReferenceRecord {
   document: AppReferenceDocument;
@@ -102,4 +104,26 @@ export function listAppReferenceByAudience(
     result.length,
   );
   return result;
+}
+
+/**
+ * List app reference by category (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of app reference matching category
+ */
+export function listAppReferenceByCategory(
+  category: string,
+): AppReferenceDocument[] {
+  // Documentation uses audience filtering; category is a no-op stub
+  return listAppReference();
+}
+
+/**
+ * List app reference by level (optional extension)
+ * Provided for consistency with content-library repositories
+ * Returns filtered array of app reference matching level
+ */
+export function listAppReferenceByLevel(level: string): AppReferenceDocument[] {
+  // Documentation doesn't use level filtering; this is a no-op stub
+  return listAppReference();
 }

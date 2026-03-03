@@ -1,11 +1,21 @@
 import { z } from "zod";
-import {
-  BLOCK_TYPE_ALIASES,
-  atomicLevelSchema,
-} from "../../_shared/block-schema";
+import { blockSchema } from "../../_shared/block-schema";
+import { ContentMetaSchema } from "../../_shared/content-meta-schema";
+import { TocItemSchema } from "../../_shared/toc-schema";
 
-const TUTORIAL_LEVELS = ["beginner", "intermediate", "advanced"] as const;
-const TUTORIAL_CATEGORIES = [
+/**
+ * Tutorial Content Schema
+ *
+ * Defines the structure and validation for tutorial documents.
+ * Uses atomic-format blocks (atom/molecule/organism) for consistency
+ * across all content types.
+ *
+ * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
+ * Shared schemas: _shared/block-schema.ts, _shared/toc-schema.ts, _shared/content-meta-schema.ts
+ */
+
+export const TUTORIAL_LEVELS = ["beginner", "intermediate", "advanced"] as const;
+export const TUTORIAL_CATEGORIES = [
   "components",
   "forms",
   "security",
@@ -18,35 +28,22 @@ const TUTORIAL_CATEGORIES = [
   "email",
 ] as const;
 
-const tocItemSchema = z.object({
-  id: z.string().min(1),
-  title: z.string().min(1),
-  level: z.number().int().positive(),
+const TutorialMetaSchema = ContentMetaSchema.extend({
+  level: z.enum(TUTORIAL_LEVELS),
+  category: z.enum(TUTORIAL_CATEGORIES),
+  readTime: z.string().min(1),
 });
 
-/**
- * Tutorial Block Schema
- * Uses shared BLOCK_TYPE_ALIASES and atomicLevelSchema for consistency,
- * but allows permissive prop validation for custom data structures
- */
-const blockSchema = z.object({
-  type: z.enum(BLOCK_TYPE_ALIASES),
-  atomicLevel: atomicLevelSchema,
-  props: z.record(z.unknown()),
-});
-
-export const tutorialContentDocumentSchema = z.object({
-  meta: z.object({
-    slug: z.string().min(1),
-    title: z.string().min(1),
-    excerpt: z.string().min(1),
-    level: z.enum(TUTORIAL_LEVELS),
-    category: z.enum(TUTORIAL_CATEGORIES),
-    readTime: z.string().min(1),
-    publishedAt: z.string().min(1),
-    tags: z.array(z.string()).min(1),
-  }),
-  layout: z.union([z.literal("content-with-toc"), z.literal("content-only")]),
-  toc: z.array(tocItemSchema).optional(),
+export const TutorialContentDocumentSchema = z.object({
+  meta: TutorialMetaSchema,
+  layout: z.enum(["content-with-toc", "content-only"]),
+  toc: z.array(TocItemSchema).optional(),
   blocks: z.array(blockSchema).min(1),
 });
+
+export type TutorialContentDocument = z.infer<typeof TutorialContentDocumentSchema>;
+export type TutorialContentMeta = z.infer<typeof TutorialMetaSchema>;
+export type TutorialContentBlock = z.infer<typeof blockSchema>;
+export type TutorialContentTocItem = z.infer<typeof TocItemSchema>;
+export type TutorialLevel = (typeof TUTORIAL_LEVELS)[number];
+export type TutorialCategory = (typeof TUTORIAL_CATEGORIES)[number];

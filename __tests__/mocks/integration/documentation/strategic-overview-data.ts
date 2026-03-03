@@ -25,38 +25,52 @@ export const mockStrategicDocuments: StrategicOverviewDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "vision",
-        title: "Vision",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "vision",
+          title: "Vision",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "This application demonstrates modern web development best practices with a focus on maintainability, performance, and developer experience.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "This application demonstrates modern web development best practices with a focus on maintainability, performance, and developer experience.",
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "principles",
-        title: "Core Principles",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "principles",
+          title: "Core Principles",
+          number: "02",
+        },
       },
       {
-        type: "block.list",
-        ordered: false,
-        items: [
-          "Server-first architecture with minimal client JavaScript",
-          "Atomic design for component reusability",
-          "Type safety from API to UI",
-          "Content as data with dynamic zones",
-        ],
+        type: "molecule.keyTakeaway",
+        atomicLevel: "molecule",
+        props: {
+          points: [
+            "Server-first architecture with minimal client JavaScript",
+            "Atomic design for component reusability",
+            "Type safety from API to UI",
+            "Content as data with dynamic zones",
+          ],
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "info",
-        title: "Architecture Philosophy",
-        content:
-          "Every technical decision prioritizes long-term maintainability over short-term convenience.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "info",
+          title: "Architecture Philosophy",
+          content:
+            "Every technical decision prioritizes long-term maintainability over short-term convenience.",
+        },
       },
     ],
   },
@@ -85,42 +99,54 @@ export const mockStrategicDocuments: StrategicOverviewDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "context",
-        title: "Decision Context",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "context",
+          title: "Decision Context",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "We needed a headless CMS that could handle both form submissions and content library requirements while maintaining type safety.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "We needed a headless CMS that could handle both form submissions and content library requirements while maintaining type safety.",
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "evaluation",
-        title: "Evaluation Criteria",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "evaluation",
+          title: "Evaluation Criteria",
+          number: "02",
+        },
       },
       {
-        type: "block.featureGrid",
-        title: "Key Requirements",
-        features: [
-          {
-            icon: "Database",
-            title: "Self-hosted Option",
-            description: "Full control over data and deployment",
-          },
-          {
-            icon: "Code",
-            title: "TypeScript Support",
-            description: "End-to-end type safety from CMS to frontend",
-          },
-          {
-            icon: "DollarSign",
-            title: "Cost Effective",
-            description: "No per-seat or API call pricing",
-          },
-        ],
+        type: "organism.featureGrid",
+        atomicLevel: "organism",
+        props: {
+          title: "Key Requirements",
+          features: [
+            {
+              icon: "Database",
+              title: "Self-hosted Option",
+              description: "Full control over data and deployment",
+            },
+            {
+              icon: "Code",
+              title: "TypeScript Support",
+              description: "End-to-end type safety from CMS to frontend",
+            },
+            {
+              icon: "DollarSign",
+              title: "Cost Effective",
+              description: "No per-seat or API call pricing",
+            },
+          ],
+        },
       },
     ],
   },
@@ -143,16 +169,22 @@ export const mockStrategicDocuments: StrategicOverviewDocument[] = [
     },
     blocks: [
       {
-        type: "block.paragraph",
-        content:
-          "This documentation is organized into strategic, CMS, app, and infrastructure sections. Each serves a different audience and purpose.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "This documentation is organized into strategic, CMS, app, and infrastructure sections. Each serves a different audience and purpose.",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "success",
-        title: "Role-Based Navigation",
-        content:
-          "Jump directly to the section most relevant to your role: CMS Reference for backend developers, App Reference for frontend developers, Infrastructure for DevOps.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "success",
+          title: "Role-Based Navigation",
+          content:
+            "Jump directly to the section most relevant to your role: CMS Reference for backend developers, App Reference for frontend developers, Infrastructure for DevOps.",
+        },
       },
     ],
   },
