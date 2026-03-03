@@ -11,8 +11,9 @@ export type GuideCategory = "security" | "devops" | "testing";
 
 export interface GuideContentBlock {
   type: string;
-  atomicLevel: "atom" | "molecule" | "organism";
-  props: Record<string, unknown>;
+  atomicLevel?: "atom" | "molecule" | "organism";
+  props?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 export interface GuideContentMeta {

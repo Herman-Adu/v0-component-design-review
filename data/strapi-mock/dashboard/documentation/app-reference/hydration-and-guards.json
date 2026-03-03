@@ -7,7 +7,12 @@
     "audience": "Frontend Developer / Designer",
     "publishedAt": "2024-01-18",
     "lastUpdated": "2024-01-23",
-    "tags": ["next.js", "hydration", "middleware", "security"]
+    "tags": [
+      "next.js",
+      "hydration",
+      "middleware",
+      "security"
+    ]
   },
   "seo": {
     "metaTitle": "Hydration and Route Guards | App Reference",
@@ -15,90 +20,126 @@
   },
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Hydration mismatches occur when server-rendered HTML differs from client-rendered output. Route guards protect sensitive pages."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Hydration mismatches occur when server-rendered HTML differs from client-rendered output. Route guards protect sensitive pages."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "preventing-hydration-mismatches",
-      "title": "Preventing Hydration Mismatches",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Preventing Hydration Mismatches",
+        "id": "preventing-hydration-mismatches"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Use useEffect for browser-only code",
-        "Guard against window usage",
-        "Prefer stable render output",
-        "Use dynamic imports selectively"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Use useEffect for browser-only code\n• Guard against window usage\n• Prefer stable render output\n• Use dynamic imports selectively"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "implementing-route-guards",
-      "title": "Implementing Route Guards",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Implementing Route Guards",
+        "id": "implementing-route-guards"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Middleware authentication",
-        "Permission checks",
-        "Role-based access",
-        "Session validation"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Middleware authentication\n• Permission checks\n• Role-based access\n• Session validation"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Protection Layers",
-      "content": "Implement guards at multiple layers: middleware for routes, server components for data, and client components for UI."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Protection Layers",
+        "body": "Implement guards at multiple layers: middleware for routes, server components for data, and client components for UI."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "common-hydration-patterns",
-      "title": "Common Hydration Patterns",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Common Hydration Patterns",
+        "id": "common-hydration-patterns"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Use these patterns to avoid hydration mismatches while maintaining optimal user experience."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Use these patterns to avoid hydration mismatches while maintaining optimal user experience."
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Safe Client-Only Code Pattern",
-      "code": "'use client';\\n\\nimport { useEffect, useState } from 'react';\\n\\nexport function ClientOnlyComponent() {\\n  const [mounted, setMounted] = useState(false);\\n\\n  useEffect(() => {\\n    setMounted(true);\\n  }, []);\\n\\n  if (!mounted) {\\n    return <div>Loading...</div>;\\n  }\\n\\n  return (\\n    <div>\\n      <p>Current time: {new Date().toLocaleString()}</p>\\n      <p>Window width: {window.innerWidth}px</p>\\n    </div>\\n  );\\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "'use client';\\n\\nimport { useEffect, useState } from 'react';\\n\\nexport function ClientOnlyComponent() {\\n  const [mounted, setMounted] = useState(false);\\n\\n  useEffect(() => {\\n    setMounted(true);\\n  }, []);\\n\\n  if (!mounted) {\\n    return <div>Loading...</div>;\\n  }\\n\\n  return (\\n    <div>\\n      <p>Current time: {new Date().toLocaleString()}</p>\\n      <p>Window width: {window.innerWidth}px</p>\\n    </div>\\n  );\\n}",
+        "title": "Safe Client-Only Code Pattern",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Hydration-Safe Approach",
-      "content": "Always render a placeholder on the server that matches the initial client render, then update after mounting."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Hydration-Safe Approach",
+        "body": "Always render a placeholder on the server that matches the initial client render, then update after mounting."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "middleware-authentication",
-      "title": "Middleware Authentication",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Middleware Authentication",
+        "id": "middleware-authentication"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Next.js middleware provides edge-level route protection, running before page rendering."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Next.js middleware provides edge-level route protection, running before page rendering."
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Middleware Route Guard Example",
-      "code": "import { NextResponse } from 'next/server';\\nimport type { NextRequest } from 'next/server';\\n\\nexport function middleware(request: NextRequest) {\\n  const token = request.cookies.get('auth-token')?.value;\\n\\n  // Protected routes\\n  if (request.nextUrl.pathname.startsWith('/dashboard')) {\\n    if (!token) {\\n      return NextResponse.redirect(\\n        new URL('/login', request.url)\\n      );\\n    }\\n  }\\n\\n  return NextResponse.next();\\n}\\n\\nexport const config = {\\n  matcher: ['/dashboard/:path*', '/admin/:path*']\\n};"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "import { NextResponse } from 'next/server';\\nimport type { NextRequest } from 'next/server';\\n\\nexport function middleware(request: NextRequest) {\\n  const token = request.cookies.get('auth-token')?.value;\\n\\n  // Protected routes\\n  if (request.nextUrl.pathname.startsWith('/dashboard')) {\\n    if (!token) {\\n      return NextResponse.redirect(\\n        new URL('/login', request.url)\\n      );\\n    }\\n  }\\n\\n  return NextResponse.next();\\n}\\n\\nexport const config = {\\n  matcher: ['/dashboard/:path*', '/admin/:path*']\\n};",
+        "title": "Middleware Route Guard Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "warning",
-      "title": "Edge Runtime Limitations",
-      "content": "Middleware runs on edge runtime with limited Node.js APIs. Use server components for complex authentication logic."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Edge Runtime Limitations",
+        "body": "Middleware runs on edge runtime with limited Node.js APIs. Use server components for complex authentication logic."
+      }
     }
   ],
   "toc": [

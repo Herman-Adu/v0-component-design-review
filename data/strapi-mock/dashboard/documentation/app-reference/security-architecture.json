@@ -36,143 +36,302 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Comprehensive security architecture documentation covering 7 layers of defense, threat modeling, and implementation patterns protecting against OWASP top threats."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Comprehensive security architecture documentation covering 7 layers of defense, threat modeling, and implementation patterns protecting against OWASP top threats."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "7-layer-defense-strategy",
-      "title": "7-Layer Defense Strategy",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "7-Layer Defense Strategy",
+        "id": "7-layer-defense-strategy"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 1: IP-Based Rate Limiting",
-      "content": "Prevent brute force attacks and DDoS",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 1: IP-Based Rate Limiting",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 1: IP-Based Rate Limiting",
+            "description": "Prevent brute force attacks and DDoS",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 2: CSRF Token Validation",
-      "content": "Prevent cross-site request forgery",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 2: CSRF Token Validation",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 2: CSRF Token Validation",
+            "description": "Prevent cross-site request forgery",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 3: Input Sanitization",
-      "content": "Prevent XSS and injection attacks",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 3: Input Sanitization",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 3: Input Sanitization",
+            "description": "Prevent XSS and injection attacks",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 4: Hydration Guard Protection",
-      "content": "Prevent hydration mismatch exploits",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 4: Hydration Guard Protection",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 4: Hydration Guard Protection",
+            "description": "Prevent hydration mismatch exploits",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 5: Server Action Validation",
-      "content": "Validate all mutations server-side",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 5: Server Action Validation",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 5: Server Action Validation",
+            "description": "Validate all mutations server-side",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 6: SQL Injection Prevention",
-      "content": "Protect database queries",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 6: SQL Injection Prevention",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 6: SQL Injection Prevention",
+            "description": "Protect database queries",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Layer 7: XSS Protection",
-      "content": "Additional XSS prevention at multiple levels",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Layer 7: XSS Protection",
+        "links": [
+          {
+            "href": "#",
+            "title": "Layer 7: XSS Protection",
+            "description": "Additional XSS prevention at multiple levels",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "owasp-top-10-coverage",
-      "title": "OWASP Top 10 Coverage",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "OWASP Top 10 Coverage",
+        "id": "owasp-top-10-coverage"
+      }
     },
     {
-      "type": "block.card",
-      "title": "A1: Broken Access Control",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A1: Broken Access Control",
+        "links": [
+          {
+            "href": "#",
+            "title": "A1: Broken Access Control",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A2: Cryptographic Failures",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A2: Cryptographic Failures",
+        "links": [
+          {
+            "href": "#",
+            "title": "A2: Cryptographic Failures",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A3: Injection",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A3: Injection",
+        "links": [
+          {
+            "href": "#",
+            "title": "A3: Injection",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A4: Insecure Design",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A4: Insecure Design",
+        "links": [
+          {
+            "href": "#",
+            "title": "A4: Insecure Design",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A5: Security Misconfiguration",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A5: Security Misconfiguration",
+        "links": [
+          {
+            "href": "#",
+            "title": "A5: Security Misconfiguration",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A6: Vulnerable Components",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A6: Vulnerable Components",
+        "links": [
+          {
+            "href": "#",
+            "title": "A6: Vulnerable Components",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A7: Authentication Failures",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A7: Authentication Failures",
+        "links": [
+          {
+            "href": "#",
+            "title": "A7: Authentication Failures",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A8: Data Integrity Failures",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A8: Data Integrity Failures",
+        "links": [
+          {
+            "href": "#",
+            "title": "A8: Data Integrity Failures",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A9: Logging & Monitoring Failures",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A9: Logging & Monitoring Failures",
+        "links": [
+          {
+            "href": "#",
+            "title": "A9: Logging & Monitoring Failures",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "A10: SSRF",
-      "content": "Refer to the implementation notes for this subsection.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "A10: SSRF",
+        "links": [
+          {
+            "href": "#",
+            "title": "A10: SSRF",
+            "description": "Refer to the implementation notes for this subsection.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "security-best-practices",
-      "title": "Security Best Practices",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Security Best Practices",
+        "id": "security-best-practices"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Keep dependencies updated (npm audit, renovate)",
-        "Use environment variables for secrets (never commit to git)",
-        "Implement rate limiting on all endpoints",
-        "Use HTTPS everywhere (enforced in Next.js)",
-        "Enable security headers (CSP, X-Frame-Options, etc)",
-        "Regular security audits and penetration testing",
-        "Security training for development team",
-        "Incident response plan in place",
-        "Regular backup and disaster recovery testing"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Keep dependencies updated (npm audit, renovate)\n• Use environment variables for secrets (never commit to git)\n• Implement rate limiting on all endpoints\n• Use HTTPS everywhere (enforced in Next.js)\n• Enable security headers (CSP, X-Frame-Options, etc)\n• Regular security audits and penetration testing\n• Security training for development team\n• Incident response plan in place\n• Regular backup and disaster recovery testing"
+      }
     }
   ]
 }

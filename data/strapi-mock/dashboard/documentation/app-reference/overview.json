@@ -7,7 +7,11 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": ["app-reference", "overview", "documentation"]
+    "tags": [
+      "app-reference",
+      "overview",
+      "documentation"
+    ]
   },
   "seo": {
     "metaTitle": "App Reference - Overview",
@@ -15,105 +19,111 @@
   },
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Comprehensive overview of the Next.js 15 application frontend architecture, featuring atomic design components, guard architecture for hydration protection, and 7-layer security implementation."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Comprehensive overview of the Next.js 15 application frontend architecture, featuring atomic design components, guard architecture for hydration protection, and 7-layer security implementation."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "frontend-architecture",
-      "title": "Frontend Architecture",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Frontend Architecture",
+        "id": "frontend-architecture"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "10 Atoms: Form inputs, buttons, icons, badges, tags, spinners, tooltips, modals, dropdowns, loaders",
-        "14 Molecules: Form fields, cards, headers, footers, navigation items, lists, breadcrumbs, tabs, accordions, alerts, progress bars, chips, pagination, sidebars",
-        "10 Organisms: Complex containers, multi-step forms, data tables, search interfaces, filters, galleries, builders, carousels, feeds, widgets"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "10 Atoms: Form inputs, buttons, icons, badges, tags, spinners, tooltips, modals, dropdowns, loaders\n• 14 Molecules: Form fields, cards, headers, footers, navigation items, lists, breadcrumbs, tabs, accordions, alerts, progress bars, chips, pagination, sidebars\n• 10 Organisms: Complex containers, multi-step forms, data tables, search interfaces, filters, galleries, builders, carousels, feeds, widgets"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "components/atoms/ - Primitive building blocks",
-        "components/molecules/ - Composed atoms",
-        "components/organisms/ - Complex compositions",
-        "components/templates/ - Page-level layouts",
-        "components/ui/ - Third-party UI (Shadcn/ui)",
-        "Consistent naming: CamelCase for components",
-        "Index.ts files for clean exports"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "components/atoms/ - Primitive building blocks\n• components/molecules/ - Composed atoms\n• components/organisms/ - Complex compositions\n• components/templates/ - Page-level layouts\n• components/ui/ - Third-party UI (Shadcn/ui)\n• Consistent naming: CamelCase for components\n• Index.ts files for clean exports"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "guard-architecture-hydration-protection",
-      "title": "Guard Architecture (Hydration Protection)",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Guard Architecture (Hydration Protection)",
+        "id": "guard-architecture-hydration-protection"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Radix UI components use aria-controls IDs",
-        "Server and client generate different IDs on first render",
-        "This causes hydration mismatch errors",
-        "User sees console warnings and potential UI glitches"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Radix UI components use aria-controls IDs\n• Server and client generate different IDs on first render\n• This causes hydration mismatch errors\n• User sees console warnings and potential UI glitches"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Custom hook that tracks hydration state",
-        "Returns boolean: isHydrated",
-        "Components render skeleton on server, content on client",
-        "SidebarSkeleton provides progressive enhancement"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Custom hook that tracks hydration state\n• Returns boolean: isHydrated\n• Components render skeleton on server, content on client\n• SidebarSkeleton provides progressive enhancement"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Implementation Pattern",
-      "code": "const isHydrated = useHydration();\nreturn isHydrated ? <Component /> : <ComponentSkeleton />"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "const isHydrated = useHydration();\nreturn isHydrated ? <Component /> : <ComponentSkeleton />",
+        "title": "Implementation Pattern",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "security-architecture",
-      "title": "Security Architecture",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Security Architecture",
+        "id": "security-architecture"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Layer 1: IP-based rate limiting (prevent brute force)",
-        "Layer 2: CSRF token validation (prevent cross-site attacks)",
-        "Layer 3: Input sanitization with DOMPurify (prevent XSS)",
-        "Layer 4: Hydration guard protection (prevent mismatch exploits)",
-        "Layer 5: Server action validation with Zod (prevent invalid mutations)",
-        "Layer 6: SQL injection prevention (parameterized queries)",
-        "Layer 7: XSS protection (content security policy)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Layer 1: IP-based rate limiting (prevent brute force)\n• Layer 2: CSRF token validation (prevent cross-site attacks)\n• Layer 3: Input sanitization with DOMPurify (prevent XSS)\n• Layer 4: Hydration guard protection (prevent mismatch exploits)\n• Layer 5: Server action validation with Zod (prevent invalid mutations)\n• Layer 6: SQL injection prevention (parameterized queries)\n• Layer 7: XSS protection (content security policy)"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "key-metrics",
-      "title": "Key Metrics",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Key Metrics",
+        "id": "key-metrics"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "52 custom frontend components",
-        "94% test coverage",
-        "Zero hydration mismatches (guard protected)",
-        "TypeScript strict mode: 100%",
-        "WCAG 2.1 AA accessibility compliant",
-        "Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "52 custom frontend components\n• 94% test coverage\n• Zero hydration mismatches (guard protected)\n• TypeScript strict mode: 100%\n• WCAG 2.1 AA accessibility compliant\n• Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1"
+      }
     }
   ]
 }

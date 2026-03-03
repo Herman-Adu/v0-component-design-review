@@ -13,79 +13,144 @@
     "metaTitle": "System Vision & Architectural Principles",
     "metaDescription": "Learn the core principles and architectural decisions that shape this modern web application."
   },
-  "toc": [
-    {
-      "id": "vision",
-      "title": "Vision",
-      "level": 2
-    },
-    {
-      "id": "principles",
-      "title": "Core Principles",
-      "level": 2
-    },
-    {
-      "id": "decisions",
-      "title": "Key Decisions",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
-      "type": "block.sectionHeader",
-      "id": "vision",
-      "title": "Vision",
-      "number": "01"
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": "Building Software for the Long Term",
+        "body": "This application was designed with a 10-year architectural horizon in mind. Every decision prioritizes clarity, type safety, and maintainability over short-term convenience."
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "This application demonstrates modern web development best practices with a focus on maintainability, performance, and developer experience."
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Core Architectural Principles",
+        "id": "core-principles"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "principles",
-      "title": "Core Principles",
-      "number": "02"
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "server",
+            "title": "Server-First Design",
+            "description": "Minimize client-side JavaScript, leverage server capabilities for performance and security"
+          },
+          {
+            "icon": "layers",
+            "title": "Atomic Components",
+            "description": "Reusable building blocks from atoms → molecules → organisms following atomic design"
+          },
+          {
+            "icon": "shield",
+            "title": "Type Safety End-to-End",
+            "description": "From API contracts to UI components - TypeScript everywhere prevents runtime surprises"
+          },
+          {
+            "icon": "database",
+            "title": "Content as Data",
+            "description": "Flexible dynamic zones in Strapi enable content without code changes"
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Server-first architecture with minimal client JavaScript",
-        "Atomic design for component reusability",
-        "Type safety from API to UI",
-        "Content as data with dynamic zones"
-      ]
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Technology Stack Decisions",
+        "id": "tech-stack"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Architecture Philosophy",
-      "content": "Every technical decision prioritizes long-term maintainability over short-term convenience."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Every framework and library choice was evaluated against four criteria: community support, type safety, performance impact, and long-term maintenance burden."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "decisions",
-      "title": "Key Decisions",
-      "number": "03"
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 1,
+        "features": [
+          {
+            "icon": "box",
+            "title": "Next.js 15 + React 19",
+            "description": "Server components for architectural clarity, App Router for intuitive routing, built-in optimization"
+          },
+          {
+            "icon": "database",
+            "title": "Strapi CMS",
+            "description": "Headless CMS with dynamic zones for flexible content modeling without schema migrations"
+          },
+          {
+            "icon": "code",
+            "title": "TypeScript Strict Mode",
+            "description": "Eliminates entire categories of bugs before runtime, forces explicitness in code"
+          },
+          {
+            "icon": "palette",
+            "title": "Tailwind + shadcn/ui",
+            "description": "Utility-first CSS for rapid iteration, unstyled components for brand customization"
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Next.js 15 for server-side rendering and optimal performance",
-        "Strapi for content management with flexible dynamic zones",
-        "TypeScript throughout for type safety and developer experience",
-        "Atomic design methodology for consistent component architecture",
-        "Server Actions for type-safe data mutations",
-        "Tailwind CSS with shadcn/ui for rapid, maintainable styling"
-      ]
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Architectural Decision Matrix",
+        "id": "decision-matrix"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Technology Selection",
-      "content": "Each technology choice was evaluated against criteria: community support, type safety, performance impact, and long-term maintenance burden."
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Decision", "Rationale", "Long-term Benefit"],
+        "rows": [
+          [
+            "Server Actions",
+            "Type-safe mutations without API routes",
+            "Reduced boilerplate, better DX, fewer bugs"
+          ],
+          [
+            "Guard Pattern",
+            "Prevent hydration mismatches",
+            "Zero runtime errors from SSR/Client divergence"
+          ],
+          [
+            "Zod Validation",
+            "Runtime schema validation",
+            "API contracts enforced, impossible states prevented"
+          ],
+          [
+            "Atomic Components",
+            "Reusable building blocks",
+            "Consistent UI, faster feature development"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Architecture for Growth",
+        "content": "This system is intentionally built to support 10 years of evolution. The atomic component system enables rapid feature development, while the server-first architecture ensures scalability and the type system prevents entire classes of bugs."
+      }
     }
   ]
 }

@@ -7,143 +7,250 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "strategic-overview",
-      "app-overview",
-      "documentation"
-    ]
+    "tags": ["strategic-overview", "app-overview", "documentation"]
   },
   "seo": {
     "metaTitle": "App Overview",
     "metaDescription": "Production-ready Next.js 15 architecture with atomic design and 7-layer security"
   },
-  "toc": [
-    {
-      "id": "4-layer-architecture",
-      "title": "4-Layer Architecture",
-      "level": 2
-    },
-    {
-      "id": "component-system-metrics",
-      "title": "Component System Metrics",
-      "level": 2
-    },
-    {
-      "id": "performance-optimization",
-      "title": "Performance Optimization",
-      "level": 2
-    },
-    {
-      "id": "security-layers",
-      "title": "Security Layers",
-      "level": 2
-    }
-  ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Complete application architecture overview featuring atomic design components, guard architecture for hydration protection, and enterprise-grade security implementation."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "important",
+        "title": "Next.js 15 Enterprise Architecture",
+        "body": "Production-ready application featuring atomic design components, guard pattern hydration protection, and a comprehensive 7-layer security stack. This is a complete, scalable foundation for modern applications."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "4-layer-architecture",
-      "title": "4-Layer Architecture",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Component Architecture",
+        "id": "component-architecture"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "10 atomic design atoms (inputs, buttons, icons)",
-        "14 molecules (forms, cards, navigation items)",
-        "10 organisms (complex containers, multi-step forms)",
-        "Responsive design with TailwindCSS",
-        "Dark mode support"
-      ]
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The application uses atomic design principles across 4 distinct layers, each serving a specific architectural purpose."
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "TanStack Query for server state",
-        "React Context for UI state",
-        "Zod schemas for type safety",
-        "Form state with React Hook Form"
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "layers",
+            "title": "Atoms (10)",
+            "description": "Foundational inputs, buttons, badges, icons - fully composed, zero dependencies on context"
+          },
+          {
+            "icon": "layer",
+            "title": "Molecules (14)",
+            "description": "Form controls, cards, navigation items - combine atoms into reusable patterns"
+          },
+          {
+            "icon": "box",
+            "title": "Organisms (10)",
+            "description": "Complex containers, multi-step forms, page layouts - compose molecules for full features"
+          },
+          {
+            "icon": "shield",
+            "title": "Guard Pattern",
+            "description": "Hydration protection layer preventing mismatches between server and client renders"
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "7-layer defense strategy",
-        "CSRF token validation",
-        "Input sanitization with DOMPurify",
-        "Hydration guard protection",
-        "Server action validation"
-      ]
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "State Management Stack",
+        "id": "state-management"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Strapi REST API integration",
-        "GraphQL support",
-        "Server actions for data mutations",
-        "Webhook handling"
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "database",
+            "title": "Server State - TanStack Query",
+            "description": "Automatic caching, invalidation, and synchronization of server data with stale-while-revalidate strategy"
+          },
+          {
+            "icon": "layers",
+            "title": "UI State - React Context",
+            "description": "Theme, modals, and UI preferences managed through Context API with zero prop drilling"
+          },
+          {
+            "icon": "shield",
+            "title": "Type Safety - Zod Schemas",
+            "description": "Runtime validation ensures data contracts between client and server are always met"
+          },
+          {
+            "icon": "form",
+            "title": "Form State - React Hook Form",
+            "description": "Performant form state management with minimal re-renders and built-in error handling"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "component-system-metrics",
-      "title": "Component System Metrics",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "System Metrics",
+        "id": "system-metrics"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "52 custom components total",
-        "94% test coverage",
-        "Zero hydration mismatches (guard protected)",
-        "TypeScript strict mode enabled",
-        "Accessibility audit: WCAG 2.1 AA compliant"
-      ]
+      "type": "organism.metricsGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "metrics": [
+          {
+            "label": "Components",
+            "value": "52",
+            "change": "custom components total",
+            "positive": true
+          },
+          {
+            "label": "Test Coverage",
+            "value": "94%",
+            "change": "unit and integration tests",
+            "positive": true
+          },
+          {
+            "label": "Hydration Safety",
+            "value": "100%",
+            "change": "guard-protected components",
+            "positive": true
+          },
+          {
+            "label": "Type Safety",
+            "value": "Strict",
+            "change": "TypeScript strict mode",
+            "positive": true
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "performance-optimization",
-      "title": "Performance Optimization",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Performance Optimization",
+        "id": "performance-optimization"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1",
-        "Image optimization with Next Image",
-        "Code splitting and lazy loading",
-        "Bundle analysis with @next/bundle-analyzer",
-        "Caching strategy with stale-while-revalidate"
-      ]
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Metric", "Target", "Strategy"],
+        "rows": [
+          [
+            "LCP (Largest Contentful Paint)",
+            "< 2.5s",
+            "Image optimization, CSS-in-JS elimination"
+          ],
+          [
+            "FID (First Input Delay)",
+            "< 100ms",
+            "Code splitting, lazy loading, work scheduling"
+          ],
+          [
+            "CLS (Cumulative Layout Shift)",
+            "< 0.1",
+            "Dimension declarations, animation transforms"
+          ],
+          [
+            "Bundle Size",
+            "< 200KB",
+            "Tree shaking, dynamic imports, minification"
+          ]
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "security-layers",
-      "title": "Security Layers",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "7-Layer Security Stack",
+        "id": "security-architecture"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Layer 1: IP-based rate limiting",
-        "Layer 2: CSRF token validation",
-        "Layer 3: Input sanitization",
-        "Layer 4: Hydration guard protection",
-        "Layer 5: Server action validation with Zod",
-        "Layer 6: SQL injection prevention in queries",
-        "Layer 7: XSS protection with DOMPurify"
-      ]
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Defense-in-depth architecture with 7 independent security layers, each protecting against different attack vectors."
+      }
+    },
+    {
+      "type": "organism.verticalFlow",
+      "atomicLevel": "organism",
+      "props": {
+        "steps": [
+          {
+            "number": 1,
+            "title": "IP-Based Rate Limiting",
+            "description": "Prevent brute force and denial-of-service attacks at network edge"
+          },
+          {
+            "number": 2,
+            "title": "CSRF Token Validation",
+            "description": "Verify request origin for state-changing operations using secure tokens"
+          },
+          {
+            "number": 3,
+            "title": "Input Sanitization",
+            "description": "Clean user input with DOMPurify before processing or storage"
+          },
+          {
+            "number": 4,
+            "title": "Hydration Guard Protection",
+            "description": "Prevent XSS and data leakage through hydration mismatch exploits"
+          },
+          {
+            "number": 5,
+            "title": "Server Action Validation",
+            "description": "Runtime validation of all server actions using Zod schemas"
+          },
+          {
+            "number": 6,
+            "title": "SQL Injection Prevention",
+            "description": "Parameterized queries and ORM-level protection in database layer"
+          },
+          {
+            "number": 7,
+            "title": "XSS Protection",
+            "description": "Content Security Policy headers and DOM sanitization"
+          }
+        ]
+      }
+    },
+    {
+      "type": "molecule.keyTakeaway",
+      "atomicLevel": "molecule",
+      "props": {
+        "title": "Enterprise-Ready Foundation",
+        "content": "This architecture provides production-grade reliability, security, and performance. The atomic component system enables rapid feature development while the 7-layer security stack protects against modern attack vectors."
+      }
     }
   ]
 }

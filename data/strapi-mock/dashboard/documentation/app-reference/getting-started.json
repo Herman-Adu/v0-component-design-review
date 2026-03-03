@@ -7,7 +7,12 @@
     "audience": "Frontend Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": ["getting-started", "app-reference", "frontend", "navigation"]
+    "tags": [
+      "getting-started",
+      "app-reference",
+      "frontend",
+      "navigation"
+    ]
   },
   "seo": {
     "metaTitle": "App Reference - Getting Started Guide",
@@ -15,191 +20,387 @@
   },
   "blocks": [
     {
-      "type": "block.sectionHeader",
-      "id": "intro",
-      "title": "Choose Your Learning Path",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Choose Your Learning Path",
+        "id": "intro"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "The App Reference contains everything needed to understand, develop, and deploy the Next.js 15 application. Choose the path that matches your role and goals."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The App Reference contains everything needed to understand, develop, and deploy the Next.js 15 application. Choose the path that matches your role and goals."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "learning-journey",
-      "title": "For Frontend Developers - Learning Journey",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "For Frontend Developers - Learning Journey",
+        "id": "learning-journey"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "If you're new to the codebase or Next.js 15, follow this path to understand frontend fundamentals:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "If you're new to the codebase or Next.js 15, follow this path to understand frontend fundamentals:"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/server-vs-client",
-      "icon": "Layers",
-      "title": "Server vs Client Components",
-      "description": "Decision matrix and rendering strategies for Next.js 15 app router"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server vs Client Components",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/server-vs-client",
+            "title": "Server vs Client Components",
+            "description": "Decision matrix and rendering strategies for Next.js 15 app router",
+            "icon": "Layers"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/component-system",
-      "icon": "LayoutGrid",
-      "title": "Component System",
-      "description": "Atomic design implementation with 52 reusable components"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Component System",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/component-system",
+            "title": "Component System",
+            "description": "Atomic design implementation with 52 reusable components",
+            "icon": "LayoutGrid"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/hydration-and-guards",
-      "icon": "Shield",
-      "title": "Hydration & Type Guards",
-      "description": "Client-side hydration patterns and runtime type safety"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Hydration & Type Guards",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/hydration-and-guards",
+            "title": "Hydration & Type Guards",
+            "description": "Client-side hydration patterns and runtime type safety",
+            "icon": "Shield"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "development-journey",
-      "title": "For Active Development - Quick Reference",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "For Active Development - Quick Reference",
+        "id": "development-journey"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Jump directly to implementation guides for specific features:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Jump directly to implementation guides for specific features:"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/server-actions-and-api",
-      "icon": "Zap",
-      "title": "Server Actions & API Routes",
-      "description": "Form submissions, mutations, and API endpoint patterns"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server Actions & API Routes",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/server-actions-and-api",
+            "title": "Server Actions & API Routes",
+            "description": "Form submissions, mutations, and API endpoint patterns",
+            "icon": "Zap"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/email-system",
-      "icon": "Mail",
-      "title": "Email System",
-      "description": "Transactional emails with Resend and React Email templates"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Email System",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/email-system",
+            "title": "Email System",
+            "description": "Transactional emails with Resend and React Email templates",
+            "icon": "Mail"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/security-architecture",
-      "icon": "Lock",
-      "title": "Security Architecture",
-      "description": "Defense-in-depth patterns, validation, and CSRF protection"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Architecture",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/security-architecture",
+            "title": "Security Architecture",
+            "description": "Defense-in-depth patterns, validation, and CSRF protection",
+            "icon": "Lock"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "cto-journey",
-      "title": "For Technical Leadership - Architecture Overview",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "For Technical Leadership - Architecture Overview",
+        "id": "cto-journey"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "High-level architecture and cross-cutting concerns:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "High-level architecture and cross-cutting concerns:"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/overview",
-      "icon": "Target",
-      "title": "App Reference Overview",
-      "description": "Complete feature inventory and technical decision log"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "App Reference Overview",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/overview",
+            "title": "App Reference Overview",
+            "description": "Complete feature inventory and technical decision log",
+            "icon": "Target"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/performance-and-caching",
-      "icon": "Gauge",
-      "title": "Performance & Caching",
-      "description": "Static generation, ISR, route caching, and image optimization"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Performance & Caching",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/performance-and-caching",
+            "title": "Performance & Caching",
+            "description": "Static generation, ISR, route caching, and image optimization",
+            "icon": "Gauge"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/security-architecture",
-      "icon": "Shield",
-      "title": "Security Architecture",
-      "description": "Security model overview and threat mitigation strategies"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Architecture",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/security-architecture",
+            "title": "Security Architecture",
+            "description": "Security model overview and threat mitigation strategies",
+            "icon": "Shield"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "architecture",
-      "title": "Architecture Principles",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Architecture Principles",
+        "id": "architecture"
+      }
     },
     {
-      "type": "block.card",
-      "icon": "Layers",
-      "title": "Server-First Pattern",
-      "variant": "accent",
-      "content": "The application follows a server-first pattern where rendering, data fetching, and security checks happen on the server by default. Client-side interactivity is added only where needed.\n\nThis approach improves performance, security, and SEO while reducing JavaScript bundle size."
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server-First Pattern",
+        "links": [
+          {
+            "href": "#",
+            "title": "Server-First Pattern",
+            "description": "The application follows a server-first pattern where rendering, data fetching, and security checks happen on the server by default. Client-side interactivity is added only where needed.\n\nThis approach improves performance, security, and SEO while reducing JavaScript bundle size.",
+            "icon": "Layers"
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "icon": "Shield",
-      "title": "Defense-in-Depth Security",
-      "variant": "default",
-      "content": "Security is implemented at multiple layers: server-side validation, Zod schema validation, React Server Actions, CSRF protection, and runtime type guards.\n\nNo single point of failure - compromising one layer doesn't expose the system."
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Defense-in-Depth Security",
+        "links": [
+          {
+            "href": "#",
+            "title": "Defense-in-Depth Security",
+            "description": "Security is implemented at multiple layers: server-side validation, Zod schema validation, React Server Actions, CSRF protection, and runtime type guards.\n\nNo single point of failure - compromising one layer doesn't expose the system.",
+            "icon": "Shield"
+          }
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Related Documentation",
-      "content": "For component implementation details, see the Component System guide. For backend integration patterns, see the CMS Reference section."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Related Documentation",
+        "body": "For component implementation details, see the Component System guide. For backend integration patterns, see the CMS Reference section."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "all-docs",
-      "title": "Complete Documentation Index",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Complete Documentation Index",
+        "id": "all-docs"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Browse all available App Reference documentation:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Browse all available App Reference documentation:"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/overview",
-      "title": "Overview",
-      "description": "Complete feature inventory and architecture summary"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Overview",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/overview",
+            "title": "Overview",
+            "description": "Complete feature inventory and architecture summary",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/component-system",
-      "title": "Component System",
-      "description": "Atomic design with atoms, molecules, and organisms"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Component System",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/component-system",
+            "title": "Component System",
+            "description": "Atomic design with atoms, molecules, and organisms",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/server-vs-client",
-      "title": "Server vs Client",
-      "description": "Rendering strategy decision matrix"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server vs Client",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/server-vs-client",
+            "title": "Server vs Client",
+            "description": "Rendering strategy decision matrix",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/hydration-and-guards",
-      "title": "Hydration & Guards",
-      "description": "Client-side patterns and type safety"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Hydration & Guards",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/hydration-and-guards",
+            "title": "Hydration & Guards",
+            "description": "Client-side patterns and type safety",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/server-actions-and-api",
-      "title": "Server Actions & API",
-      "description": "Form handling and data mutations"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server Actions & API",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/server-actions-and-api",
+            "title": "Server Actions & API",
+            "description": "Form handling and data mutations",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/email-system",
-      "title": "Email System",
-      "description": "Transactional emails and templates"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Email System",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/email-system",
+            "title": "Email System",
+            "description": "Transactional emails and templates",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/security-architecture",
-      "title": "Security Architecture",
-      "description": "Defense-in-depth implementation"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Security Architecture",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/security-architecture",
+            "title": "Security Architecture",
+            "description": "Defense-in-depth implementation",
+            "icon": "link"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/performance-and-caching",
-      "title": "Performance & Caching",
-      "description": "Optimization strategies and ISR"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Performance & Caching",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/performance-and-caching",
+            "title": "Performance & Caching",
+            "description": "Optimization strategies and ISR",
+            "icon": "link"
+          }
+        ]
+      }
     }
   ]
 }

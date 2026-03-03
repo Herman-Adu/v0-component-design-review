@@ -51,169 +51,164 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Documentation of 18 shared components in Strapi that provide reusable blocks for content composition across all collection types."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Documentation of 18 shared components in Strapi that provide reusable blocks for content composition across all collection types."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "hero-component",
-      "title": "Hero Component",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Hero Component",
+        "id": "hero-component"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "title: String (required)",
-        "subtitle: String (optional)",
-        "backgroundImage: Media",
-        "ctaButton: Component (Button Group)",
-        "alignment: Enumeration (left|center|right)",
-        "minHeight: String (CSS height)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "title: String (required)\n• subtitle: String (optional)\n• backgroundImage: Media\n• ctaButton: Component (Button Group)\n• alignment: Enumeration (left|center|right)\n• minHeight: String (CSS height)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Landing pages",
-        "Article headers",
-        "Homepage hero",
-        "Campaign pages"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Landing pages\n• Article headers\n• Homepage hero\n• Campaign pages"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "call-to-action-component",
-      "title": "Call-to-Action Component",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Call-to-Action Component",
+        "id": "call-to-action-component"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "title: String",
-        "description: Rich Text",
-        "buttons: Button Group (1-3 buttons)",
-        "backgroundColor: String (color)",
-        "layout: Enumeration (horizontal|vertical)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "title: String\n• description: Rich Text\n• buttons: Button Group (1-3 buttons)\n• backgroundColor: String (color)\n• layout: Enumeration (horizontal|vertical)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Promote premium features",
-        "Guide user actions",
-        "Newsletter signups",
-        "Contact form prompts"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Promote premium features\n• Guide user actions\n• Newsletter signups\n• Contact form prompts"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "feature-card-component",
-      "title": "Feature Card Component",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Feature Card Component",
+        "id": "feature-card-component"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "title: String",
-        "description: Text",
-        "icon: String (icon name)",
-        "image: Media",
-        "link: String (optional URL)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "title: String\n• description: Text\n• icon: String (icon name)\n• image: Media\n• link: String (optional URL)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Used in grid layouts (3-column)",
-        "Supports up to 12 feature cards",
-        "Responsive mobile stacking",
-        "Optional hover effects"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Used in grid layouts (3-column)\n• Supports up to 12 feature cards\n• Responsive mobile stacking\n• Optional hover effects"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "testimonial-component",
-      "title": "Testimonial Component",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Testimonial Component",
+        "id": "testimonial-component"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "quote: Rich Text",
-        "author: String",
-        "company: String (optional)",
-        "authorImage: Media",
-        "rating: Integer (1-5 stars)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "quote: Rich Text\n• author: String\n• company: String (optional)\n• authorImage: Media\n• rating: Integer (1-5 stars)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Card format with image",
-        "Star rating display",
-        "Company logo optional",
-        "Carousel support for multiple testimonials"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Card format with image\n• Star rating display\n• Company logo optional\n• Carousel support for multiple testimonials"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "code-block-component",
-      "title": "Code Block Component",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Code Block Component",
+        "id": "code-block-component"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "code: Text (required)",
-        "language: Enumeration (typescript|javascript|python|sql|bash|etc)",
-        "title: String (optional)",
-        "showLineNumbers: Boolean",
-        "highlightLines: String (comma-separated)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "code: Text (required)\n• language: Enumeration (typescript|javascript|python|sql|bash|etc)\n• title: String (optional)\n• showLineNumbers: Boolean\n• highlightLines: String (comma-separated)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Syntax highlighting with Prism",
-        "Copy button for code",
-        "Theme support (dark/light)",
-        "Line number support"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Syntax highlighting with Prism\n• Copy button for code\n• Theme support (dark/light)\n• Line number support"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "additional-components-13-more",
-      "title": "Additional Components (13 more)",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Additional Components (13 more)",
+        "id": "additional-components-13-more"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Quote Block - Styled quotations with attribution",
-        "Image Gallery - Image grid and lightbox",
-        "Video Embed - YouTube/Vimeo embedded videos",
-        "Text with Image - Content adjacent to image",
-        "Three Column Grid - Generic 3-column layout",
-        "Button Group - Multiple action buttons",
-        "Breadcrumb Navigation - Hierarchical navigation",
-        "Meta Tags - SEO metadata component",
-        "Social Links - Social media profile links",
-        "Author Info - Author bio with image",
-        "Related Items - Links to related content",
-        "Rich Text - Full rich text editor",
-        "Video Gallery - Multiple video carousel"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Quote Block - Styled quotations with attribution\n• Image Gallery - Image grid and lightbox\n• Video Embed - YouTube/Vimeo embedded videos\n• Text with Image - Content adjacent to image\n• Three Column Grid - Generic 3-column layout\n• Button Group - Multiple action buttons\n• Breadcrumb Navigation - Hierarchical navigation\n• Meta Tags - SEO metadata component\n• Social Links - Social media profile links\n• Author Info - Author bio with image\n• Related Items - Links to related content\n• Rich Text - Full rich text editor\n• Video Gallery - Multiple video carousel"
+      }
     }
   ]
 }

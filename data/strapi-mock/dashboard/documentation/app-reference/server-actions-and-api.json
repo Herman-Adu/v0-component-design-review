@@ -51,151 +51,199 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Documentation of Next.js server actions for secure data mutations, Zod validation, and integration patterns with Strapi API for both REST and GraphQL endpoints."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Documentation of Next.js server actions for secure data mutations, Zod validation, and integration patterns with Strapi API for both REST and GraphQL endpoints."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "server-actions-fundamentals",
-      "title": "Server Actions Fundamentals",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Server Actions Fundamentals",
+        "id": "server-actions-fundamentals"
+      }
     },
     {
-      "type": "block.card",
-      "title": "What Are Server Actions?",
-      "content": "Async functions defined in 'use server' files that run only on the server and can be called from client components.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "What Are Server Actions?",
+        "links": [
+          {
+            "href": "#",
+            "title": "What Are Server Actions?",
+            "description": "Async functions defined in 'use server' files that run only on the server and can be called from client components.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "No API routes needed",
-        "Secure access to databases and secrets",
-        "Type-safe client-server communication",
-        "Reduced network latency",
-        "Automatic CSRF protection"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "No API routes needed\n• Secure access to databases and secrets\n• Type-safe client-server communication\n• Reduced network latency\n• Automatic CSRF protection"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Creating a Server Action",
-      "code": "// lib/actions/submit-contact.ts\n'use server';\nimport { z } from 'zod';\n\nconst contactSchema = z.object({\n  name: z.string(),\n  email: z.string().email()\n});\n\nexport async function submitContact(formData: FormData) {\n  const data = Object.fromEntries(formData);\n  const validated = contactSchema.parse(data);\n  // Call Strapi API\n  const response = await fetch(`${STRAPI_URL}/api/contacts`, {\n    method: 'POST',\n    body: JSON.stringify(validated)\n  });\n  return response.json();\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "// lib/actions/submit-contact.ts\n'use server';\nimport { z } from 'zod';\n\nconst contactSchema = z.object({\n  name: z.string(),\n  email: z.string().email()\n});\n\nexport async function submitContact(formData: FormData) {\n  const data = Object.fromEntries(formData);\n  const validated = contactSchema.parse(data);\n  // Call Strapi API\n  const response = await fetch(`${STRAPI_URL}/api/contacts`, {\n    method: 'POST',\n    body: JSON.stringify(validated)\n  });\n  return response.json();\n}",
+        "title": "Creating a Server Action",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "zod-validation",
-      "title": "Zod Validation",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Zod Validation",
+        "id": "zod-validation"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Define validation schemas for all form inputs",
-        "Use type inference: type FormData = z.infer<typeof schema>",
-        "Support custom validation rules",
-        "Generate error messages",
-        "Support async validation (email uniqueness check)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Define validation schemas for all form inputs\n• Use type inference: type FormData = z.infer<typeof schema>\n• Support custom validation rules\n• Generate error messages\n• Support async validation (email uniqueness check)"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Example: Article Schema",
-      "code": "const articleSchema = z.object({\n  title: z.string().min(1).max(200),\n  content: z.string().min(10),\n  category: z.enum(['tech', 'business', 'design']),\n  published: z.boolean().default(false),\n  tags: z.array(z.string()).optional()\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "const articleSchema = z.object({\n  title: z.string().min(1).max(200),\n  content: z.string().min(10),\n  category: z.enum(['tech', 'business', 'design']),\n  published: z.boolean().default(false),\n  tags: z.array(z.string()).optional()\n});",
+        "title": "Example: Article Schema",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "rest-api-integration",
-      "title": "REST API Integration",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "REST API Integration",
+        "id": "rest-api-integration"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "GET /api/articles - Get all articles",
-        "GET /api/articles/:id - Get single article",
-        "GET /api/articles?filters[category][$eq]=tech - Filtered query",
-        "GET /api/articles?populate=* - Eager load relations",
-        "GET /api/articles?sort[0]=createdAt:desc - Sorting"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "GET /api/articles - Get all articles\n• GET /api/articles/:id - Get single article\n• GET /api/articles?filters[category][$eq]=tech - Filtered query\n• GET /api/articles?populate=* - Eager load relations\n• GET /api/articles?sort[0]=createdAt:desc - Sorting"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "POST /api/articles - Create article",
-        "PUT /api/articles/:id - Update article",
-        "DELETE /api/articles/:id - Delete article",
-        "Automatic validation on Strapi side",
-        "Error responses with validation messages"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "POST /api/articles - Create article\n• PUT /api/articles/:id - Update article\n• DELETE /api/articles/:id - Delete article\n• Automatic validation on Strapi side\n• Error responses with validation messages"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "graphql-integration",
-      "title": "GraphQL Integration",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "GraphQL Integration",
+        "id": "graphql-integration"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Query Example",
-      "code": "query GetArticles {\n  articles {\n    id\n    title\n    content\n    category { name }\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "query GetArticles {\n  articles {\n    id\n    title\n    content\n    category { name }\n  }\n}",
+        "title": "Query Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Mutation Example",
-      "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(data: $input) {\n    id\n    title\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(data: $input) {\n    id\n    title\n  }\n}",
+        "title": "Mutation Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Only query needed fields (reduced payload)",
-        "Type-safe with generated TypeScript types",
-        "Single request for related data",
-        "Better developer experience"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Only query needed fields (reduced payload)\n• Type-safe with generated TypeScript types\n• Single request for related data\n• Better developer experience"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "error-handling",
-      "title": "Error Handling",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Error Handling",
+        "id": "error-handling"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Validation errors from Zod schema",
-        "API response errors from Strapi",
-        "Network timeouts and retries",
-        "User-friendly error messages",
-        "Server-side logging for debugging"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Validation errors from Zod schema\n• API response errors from Strapi\n• Network timeouts and retries\n• User-friendly error messages\n• Server-side logging for debugging"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "form-handling-pattern",
-      "title": "Form Handling Pattern",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Form Handling Pattern",
+        "id": "form-handling-pattern"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Client Component",
-      "code": "<form action={submitContact}>\n  <input type='text' name='name' required />\n  <input type='email' name='email' required />\n  <button type='submit'>Submit</button>\n</form>"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "<form action={submitContact}>\n  <input type='text' name='name' required />\n  <input type='email' name='email' required />\n  <button type='submit'>Submit</button>\n</form>",
+        "title": "Client Component",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.card",
-      "title": "Server Action",
-      "content": "Receives FormData, validates, sends to Strapi, returns response",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server Action",
+        "links": [
+          {
+            "href": "#",
+            "title": "Server Action",
+            "description": "Receives FormData, validates, sends to Strapi, returns response",
+            "icon": ""
+          }
+        ]
+      }
     }
   ]
 }

@@ -7,7 +7,12 @@
     "audience": "Frontend Developer / Designer",
     "publishedAt": "2024-01-17",
     "lastUpdated": "2024-01-22",
-    "tags": ["next.js", "components", "server", "client"]
+    "tags": [
+      "next.js",
+      "components",
+      "server",
+      "client"
+    ]
   },
   "seo": {
     "metaTitle": "Server vs Client Components | App Reference",
@@ -15,135 +20,200 @@
   },
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Next.js defaults to server components for performance, with opt-in client components for interactivity."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Next.js defaults to server components for performance, with opt-in client components for interactivity."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "server-components",
-      "title": "Server Components",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Server Components",
+        "id": "server-components"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Execute on server only",
-        "Direct data access",
-        "Keep secrets secure",
-        "Better SEO",
-        "Reduced JavaScript"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Execute on server only\n• Direct data access\n• Keep secrets secure\n• Better SEO\n• Reduced JavaScript"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "client-components",
-      "title": "Client Components",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Client Components",
+        "id": "client-components"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Interactivity",
-        "Event handlers",
-        "State hooks",
-        "Browser APIs",
-        "Context providers"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Interactivity\n• Event handlers\n• State hooks\n• Browser APIs\n• Context providers"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Use Client Directive",
-      "content": "Mark a component with 'use client' at the top of the file to opt into client-side rendering and enable interactivity."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Use Client Directive",
+        "body": "Mark a component with 'use client' at the top of the file to opt into client-side rendering and enable interactivity."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "when-to-use-each",
-      "title": "When to Use Each",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "When to Use Each",
+        "id": "when-to-use-each"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Choose server components by default for better performance. Use client components only when you need interactivity or browser APIs."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Choose server components by default for better performance. Use client components only when you need interactivity or browser APIs."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Server",
-          "title": "Use Server For",
-          "description": "Data fetching, API calls, database access, large dependencies"
-        },
-        {
-          "icon": "Monitor",
-          "title": "Use Client For",
-          "description": "Event handlers, useState, useEffect, browser APIs"
-        },
-        {
-          "icon": "Layers",
-          "title": "Hybrid Approach",
-          "description": "Server component wrapping client components for data"
-        },
-        {
-          "icon": "Zap",
-          "title": "Performance",
-          "description": "Server components reduce JavaScript bundle size"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Server",
+            "title": "Use Server For",
+            "description": "Data fetching, API calls, database access, large dependencies"
+          },
+          {
+            "icon": "Monitor",
+            "title": "Use Client For",
+            "description": "Event handlers, useState, useEffect, browser APIs"
+          },
+          {
+            "icon": "Layers",
+            "title": "Hybrid Approach",
+            "description": "Server component wrapping client components for data"
+          },
+          {
+            "icon": "Zap",
+            "title": "Performance",
+            "description": "Server components reduce JavaScript bundle size"
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Decision Matrix",
-      "code": "// \u2705 Server Component (default)\\nasync function ArticleList() {\\n  const articles = await fetchArticles(); // Direct data access\\n  return <div>{articles.map(a => <ArticleCard {...a} />)}</div>;\\n}\\n\\n// \u2705 Client Component (interactivity needed)\\n'use client';\\nfunction SearchBar() {\\n  const [query, setQuery] = useState(''); // State needed\\n  return (\\n    <input \\n      value={query} \\n      onChange={(e) => setQuery(e.target.value)} // Events\\n    />\\n  );\\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "// ✅ Server Component (default)\\nasync function ArticleList() {\\n  const articles = await fetchArticles(); // Direct data access\\n  return <div>{articles.map(a => <ArticleCard {...a} />)}</div>;\\n}\\n\\n// ✅ Client Component (interactivity needed)\\n'use client';\\nfunction SearchBar() {\\n  const [query, setQuery] = useState(''); // State needed\\n  return (\\n    <input \\n      value={query} \\n      onChange={(e) => setQuery(e.target.value)} // Events\\n    />\\n  );\\n}",
+        "title": "Decision Matrix",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Default to Server",
-      "content": "Always start with server components and only add 'use client' when you encounter an error or need interactivity."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Default to Server",
+        "body": "Always start with server components and only add 'use client' when you encounter an error or need interactivity."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "composition-patterns",
-      "title": "Composition Patterns",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Composition Patterns",
+        "id": "composition-patterns"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Compose server and client components effectively to maximize performance while maintaining interactivity."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Compose server and client components effectively to maximize performance while maintaining interactivity."
+      }
     },
     {
-      "type": "block.card",
-      "title": "Server Wrapper Pattern",
-      "content": "Server component fetches data and passes to client component as props",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Server Wrapper Pattern",
+        "links": [
+          {
+            "href": "#",
+            "title": "Server Wrapper Pattern",
+            "description": "Server component fetches data and passes to client component as props",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Children Composition",
-      "content": "Pass server components as children to client components",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Children Composition",
+        "links": [
+          {
+            "href": "#",
+            "title": "Children Composition",
+            "description": "Pass server components as children to client components",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Shared Components",
-      "content": "Pure presentational components can be used in both contexts",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Shared Components",
+        "links": [
+          {
+            "href": "#",
+            "title": "Shared Components",
+            "description": "Pure presentational components can be used in both contexts",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Server Wrapper Pattern Example",
-      "code": "// app/articles/page.tsx (Server Component)\\nimport { ArticleListClient } from './article-list-client';\\n\\nexport default async function ArticlesPage() {\\n  const articles = await fetchArticles(); // Server-side data fetch\\n  \\n  return (\\n    <div>\\n      <h1>Articles</h1>\\n      <ArticleListClient initialArticles={articles} />\\n    </div>\\n  );\\n}\\n\\n// app/articles/article-list-client.tsx (Client Component)\\n'use client';\\nimport { useState } from 'react';\\n\\nexport function ArticleListClient({ initialArticles }) {\\n  const [articles, setArticles] = useState(initialArticles);\\n  const [filter, setFilter] = useState('');\\n\\n  // Client-side filtering\\n  const filtered = articles.filter(a => \\n    a.title.includes(filter)\\n  );\\n\\n  return (\\n    <>\\n      <input \\n        value={filter} \\n        onChange={(e) => setFilter(e.target.value)}\\n        placeholder=\\\"Filter articles\\\"\\n      />\\n      {filtered.map(article => (\\n        <ArticleCard key={article.id} {...article} />\\n      ))}\\n    </>\\n  );\\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "// app/articles/page.tsx (Server Component)\\nimport { ArticleListClient } from './article-list-client';\\n\\nexport default async function ArticlesPage() {\\n  const articles = await fetchArticles(); // Server-side data fetch\\n  \\n  return (\\n    <div>\\n      <h1>Articles</h1>\\n      <ArticleListClient initialArticles={articles} />\\n    </div>\\n  );\\n}\\n\\n// app/articles/article-list-client.tsx (Client Component)\\n'use client';\\nimport { useState } from 'react';\\n\\nexport function ArticleListClient({ initialArticles }) {\\n  const [articles, setArticles] = useState(initialArticles);\\n  const [filter, setFilter] = useState('');\\n\\n  // Client-side filtering\\n  const filtered = articles.filter(a => \\n    a.title.includes(filter)\\n  );\\n\\n  return (\\n    <>\\n      <input \\n        value={filter} \\n        onChange={(e) => setFilter(e.target.value)}\\n        placeholder=\\\"Filter articles\\\"\\n      />\\n      {filtered.map(article => (\\n        <ArticleCard key={article.id} {...article} />\\n      ))}\\n    </>\\n  );\\n}",
+        "title": "Server Wrapper Pattern Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "success",
-      "title": "Best Practice",
-      "content": "Keep client components small and focused. Let server components handle data fetching and pass serializable props to client components."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Best Practice",
+        "body": "Keep client components small and focused. Let server components handle data fetching and pass serializable props to client components."
+      }
     }
   ],
   "toc": [

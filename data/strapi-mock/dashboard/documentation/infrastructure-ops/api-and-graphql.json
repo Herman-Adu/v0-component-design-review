@@ -51,187 +51,245 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Complete documentation of REST and GraphQL API configuration, endpoint documentation, authentication, webhooks, and API version management."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Complete documentation of REST and GraphQL API configuration, endpoint documentation, authentication, webhooks, and API version management."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "rest-api-overview",
-      "title": "REST API Overview",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "REST API Overview",
+        "id": "rest-api-overview"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Base URL",
-      "content": "All REST endpoints are prefixed with /api",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Base URL",
+        "links": [
+          {
+            "href": "#",
+            "title": "Base URL",
+            "description": "All REST endpoints are prefixed with /api",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Query params: ?pagination[pageSize]=10&pagination[page]=2",
-        "Response includes: data, meta (pagination info)",
-        "Default page size: 25 items"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Query params: ?pagination[pageSize]=10&pagination[page]=2\n• Response includes: data, meta (pagination info)\n• Default page size: 25 items"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Basic: GET /api/articles?filters[slug][$eq]=my-article",
-        "Contains: GET /api/articles?filters[title][$containsi]=typescript",
-        "Range: GET /api/articles?filters[createdAt][$gte]=2026-01-01",
-        "Multiple: GET /api/articles?filters[status][$eq]=published&filters[featured][$eq]=true&_or=1"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Basic: GET /api/articles?filters[slug][$eq]=my-article\n• Contains: GET /api/articles?filters[title][$containsi]=typescript\n• Range: GET /api/articles?filters[createdAt][$gte]=2026-01-01\n• Multiple: GET /api/articles?filters[status][$eq]=published&filters[featured][$eq]=true&_or=1"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Ascending: GET /api/articles?sort[0]=title:asc",
-        "Descending: GET /api/articles?sort[0]=createdAt:desc",
-        "Multiple: GET /api/articles?sort[0]=featured:desc&sort[1]=createdAt:desc"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Ascending: GET /api/articles?sort[0]=title:asc\n• Descending: GET /api/articles?sort[0]=createdAt:desc\n• Multiple: GET /api/articles?sort[0]=featured:desc&sort[1]=createdAt:desc"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "graphql-api",
-      "title": "GraphQL API",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "GraphQL API",
+        "id": "graphql-api"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Endpoint",
-      "content": "All GraphQL requests go to POST /graphql",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Endpoint",
+        "links": [
+          {
+            "href": "#",
+            "title": "Endpoint",
+            "description": "All GraphQL requests go to POST /graphql",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Query Example",
-      "code": "query GetArticles($first: Int) {\n  articles(first: $first) {\n    id\n    title\n    slug\n    content\n    category { name }\n    createdAt\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "query GetArticles($first: Int) {\n  articles(first: $first) {\n    id\n    title\n    slug\n    content\n    category { name }\n    createdAt\n  }\n}",
+        "title": "Query Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Mutation Example",
-      "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(input: $input) {\n    id\n    title\n    slug\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "mutation CreateArticle($input: ArticleInput!) {\n  createArticle(input: $input) {\n    id\n    title\n    slug\n  }\n}",
+        "title": "Mutation Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Query only fields you need",
-        "Single request for related data",
-        "Strongly typed schema",
-        "Automatic schema documentation",
-        "Better performance for mobile/slow networks"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Query only fields you need\n• Single request for related data\n• Strongly typed schema\n• Automatic schema documentation\n• Better performance for mobile/slow networks"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "authentication",
-      "title": "Authentication",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Authentication",
+        "id": "authentication"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Public Access",
-      "content": "Default: all endpoints public for GET requests",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Public Access",
+        "links": [
+          {
+            "href": "#",
+            "title": "Public Access",
+            "description": "Default: all endpoints public for GET requests",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Go to Strapi Admin > Settings > API Tokens",
-        "2. Click 'Create new API token'",
-        "3. Name: Frontend Application",
-        "4. Type: Full access or custom",
-        "5. Copy token and store securely"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Go to Strapi Admin > Settings > API Tokens\n• 2. Click 'Create new API token'\n• 3. Name: Frontend Application\n• 4. Type: Full access or custom\n• 5. Copy token and store securely"
+      }
     },
     {
-      "type": "block.card",
-      "title": "JWT Authentication",
-      "content": "For user login scenarios",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "JWT Authentication",
+        "links": [
+          {
+            "href": "#",
+            "title": "JWT Authentication",
+            "description": "For user login scenarios",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "rate-limiting",
-      "title": "Rate Limiting",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Rate Limiting",
+        "id": "rate-limiting"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Strapi Admin > Settings > API > Rate Limiting",
-        "Default: 100 requests per minute per IP",
-        "Can be customized per route"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Strapi Admin > Settings > API > Rate Limiting\n• Default: 100 requests per minute per IP\n• Can be customized per route"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "X-RateLimit-Limit - Max requests allowed",
-        "X-RateLimit-Remaining - Requests remaining",
-        "X-RateLimit-Reset - Time until limit resets",
-        "Status 429 Too Many Requests when limit exceeded"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "X-RateLimit-Limit - Max requests allowed\n• X-RateLimit-Remaining - Requests remaining\n• X-RateLimit-Reset - Time until limit resets\n• Status 429 Too Many Requests when limit exceeded"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "webhooks",
-      "title": "Webhooks",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Webhooks",
+        "id": "webhooks"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Strapi Admin > Settings > Webhooks",
-        "2. Create new webhook",
-        "3. Enter URL: https://your-domain.com/api/webhooks",
-        "4. Select events (create, update, delete)",
-        "5. Test webhook with sample payload"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Strapi Admin > Settings > Webhooks\n• 2. Create new webhook\n• 3. Enter URL: https://your-domain.com/api/webhooks\n• 4. Select events (create, update, delete)\n• 5. Test webhook with sample payload"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "article.created - New article published",
-        "article.updated - Article modified",
-        "article.deleted - Article removed",
-        "article.published - Article status changed"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "article.created - New article published\n• article.updated - Article modified\n• article.deleted - Article removed\n• article.published - Article status changed"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Webhook Payload",
-      "code": "{\n  \"event\": \"entry.create\",\n  \"createdAt\": \"2026-03-02T10:00:00Z\",\n  \"model\": \"article\",\n  \"entry\": { /* full article data */ }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "{\n  \"event\": \"entry.create\",\n  \"createdAt\": \"2026-03-02T10:00:00Z\",\n  \"model\": \"article\",\n  \"entry\": { /* full article data */ }\n}",
+        "title": "Webhook Payload",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "cors-configuration",
-      "title": "CORS Configuration",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "CORS Configuration",
+        "id": "cors-configuration"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Strapi Admin > Settings > CORS",
-        "Set allowed origins (your Next.js domain)",
-        "Allowed methods: GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Allow credentials: true for authenticated requests",
-        "Example: https://example.com, https://*.vercel.app"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Strapi Admin > Settings > CORS\n• Set allowed origins (your Next.js domain)\n• Allowed methods: GET, POST, PUT, DELETE, PATCH, OPTIONS\n• Allow credentials: true for authenticated requests\n• Example: https://example.com, https://*.vercel.app"
+      }
     }
   ]
 }

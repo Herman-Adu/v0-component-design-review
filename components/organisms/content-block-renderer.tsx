@@ -1,6 +1,37 @@
+/**
+ * CONTENT BLOCK RENDERER - SINGLE SOURCE OF TRUTH
+ *
+ * This is the UNIFIED GENERIC RENDERER for ALL block content across the application.
+ * It handles block rendering for:
+ * - Documentation (strategic-overview, infrastructure-ops, cms-reference, app-reference)
+ * - Content Library (articles, guides, tutorials, case-studies)
+ *
+ * ARCHITECTURAL DECISION:
+ * Block rendering is a cross-cutting concern, not domain-specific. Any changes to block
+ * types, styling, or logic must be made in THIS FILE ONLY to avoid DRY violations.
+ *
+ * The renderer uses BLOCK_TYPE_ALIASES to normalize both documentation formats
+ * (block.paragraph, block.callout) and content-library formats (atom.paragraph,
+ * molecule.infoBox) to a unified set of switch cases.
+ *
+ * IMPORTANT:
+ * - Do NOT create duplicate renderers for new page types or domains
+ * - Do NOT import from documentation-block-renderer or article-block-renderer (deleted)
+ * - All pages must use ContentBlockRenderer directly
+ * - Content block type definitions (ArticleContentBlock, GuideContentBlock, etc.)
+ *   must include [key: string]: unknown index signature for type compatibility
+ *
+ * @see lib/strapi/dashboard/content-library/articles/article-content-builder.ts (ArticleContentBlock type)
+ * @see lib/strapi/dashboard/content-library/guides/guide-content-builder.ts (GuideContentBlock type)
+ * @see lib/strapi/dashboard/content-library/tutorials/tutorial-content-builder.ts (TutorialContentBlock type)
+ * @see lib/strapi/dashboard/content-library/case-studies/case-study-content-builder.ts (CaseStudyContentBlock type)
+ */
+
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { ChevronDown, ExternalLink } from "lucide-react";
 
 import type { ArticleContentBlock } from "@/lib/strapi/dashboard/content-library/articles/article-content";
 import {
@@ -25,11 +56,24 @@ import {
   SubSectionHeader,
   VerticalFlow,
 } from "@/components/molecules/article-components";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export type ContentBlock = {
   type: string;
-  atomicLevel: "atom" | "molecule" | "organism";
+  atomicLevel?: "atom" | "molecule" | "organism";
   props?: Record<string, unknown>;
+  [key: string]: unknown;
 };
 
 const BLOCK_TYPE_ALIASES: Record<string, string> = {
@@ -52,9 +96,34 @@ const BLOCK_TYPE_ALIASES: Record<string, string> = {
   "organism.dataFlowDiagram": "data-flow-diagram",
   "organism.verticalFlow": "vertical-flow",
   "organism.beforeAfterComparison": "before-after-comparison",
+  "block.paragraph": "paragraph",
+  "block.sectionHeader": "section-header",
+  "block.list": "list",
+  "block.callout": "info-box",
+  "block.codeBlock": "code-block",
+  "block.featureGrid": "feature-grid",
+  "block.statsTable": "stats-table",
+  "block.card": "card",
+  "block.collapsible": "collapsible",
+  "block.linkCard": "link-card",
 };
 
 const normalizeBlockType = (type: string) => BLOCK_TYPE_ALIASES[type] ?? type;
+
+const normalizeBlockProps = (
+  block: Record<string, unknown>,
+): Record<string, unknown> => {
+  if (
+    block.props &&
+    typeof block.props === "object" &&
+    !Array.isArray(block.props)
+  ) {
+    return block.props as Record<string, unknown>;
+  }
+
+  const { type: _type, atomicLevel: _atomicLevel, ...rest } = block;
+  return rest;
+};
 
 const getString = (
   props: Record<string, unknown> | undefined,
@@ -125,18 +194,31 @@ export function ContentBlockRenderer({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <>
       {blocks.map((block, index) => {
-        const normalizedType = normalizeBlockType(block.type);
-        const props = (block.props ?? {}) as Record<string, unknown>;
+        const rawBlock = block as Record<string, unknown>;
+        const normalizedType = normalizeBlockType(String(rawBlock.type ?? ""));
+        const props = normalizeBlockProps(rawBlock);
 
         switch (normalizedType) {
           case "info-box": {
-            const variant = (props.variant || props.type) as
-              | "info"
-              | "warning"
-              | "tip"
-              | "important"
-              | "danger"
-              | undefined;
+            const calloutType = getString(props, ["calloutType"], "");
+            const calloutToVariant: Record<
+              string,
+              "info" | "warning" | "tip" | "important" | "danger"
+            > = {
+              info: "info",
+              warning: "warning",
+              success: "tip",
+              error: "danger",
+            };
+            const variant =
+              calloutToVariant[calloutType] ??
+              ((props.variant || props.type) as
+                | "info"
+                | "warning"
+                | "tip"
+                | "important"
+                | "danger"
+                | undefined);
             const title = getString(props, ["title", "heading"], "");
             const content = getString(props, ["content", "body", "text"], "");
             return (
@@ -171,10 +253,32 @@ export function ContentBlockRenderer({ blocks }: { blocks: ContentBlock[] }) {
           }
           case "paragraph": {
             const content = getString(props, ["content", "text"], "");
+            const className = getString(
+              props,
+              ["className"],
+              "text-muted-foreground mb-4",
+            );
             return (
-              <p key={index} className="text-muted-foreground mb-4">
+              <p key={index} className={className}>
                 {content}
               </p>
+            );
+          }
+          case "list": {
+            const ordered = Boolean(props.ordered);
+            const items = getArray<string>(props.items);
+            const ListTag = ordered ? "ol" : "ul";
+            const listClass = ordered
+              ? "list-decimal list-inside space-y-2 text-foreground"
+              : "list-disc list-inside space-y-2 text-foreground";
+            return (
+              <ListTag key={index} className={listClass}>
+                {items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="leading-relaxed">
+                    {item}
+                  </li>
+                ))}
+              </ListTag>
             );
           }
           case "metrics-grid": {
@@ -274,8 +378,23 @@ export function ContentBlockRenderer({ blocks }: { blocks: ContentBlock[] }) {
           }
           case "stats-table": {
             const title = getString(props, ["title"], "");
-            const headers = getArray<string>(props.headers);
-            const rows = getArray<string[]>(props.rows);
+            const stats = getArray<{
+              label: string;
+              value: string;
+              change?: string;
+            }>(props.stats);
+            const headers =
+              stats.length > 0
+                ? ["Metric", "Value", "Change"]
+                : getArray<string>(props.headers);
+            const rows =
+              stats.length > 0
+                ? stats.map((stat) => [
+                    stat.label,
+                    stat.value,
+                    stat.change ?? "",
+                  ])
+                : getArray<string[]>(props.rows);
             return (
               <StatsTable
                 key={index}
@@ -471,6 +590,102 @@ export function ContentBlockRenderer({ blocks }: { blocks: ContentBlock[] }) {
                 title={title || undefined}
                 items={items}
               />
+            );
+          }
+          case "card": {
+            const variant = getString(props, ["variant"], "default");
+            const variantClass =
+              variant === "accent"
+                ? "border-accent/30 bg-accent/5"
+                : variant === "muted"
+                  ? "bg-muted/50"
+                  : "";
+            const title = getString(props, ["title"], "");
+            const description = getString(props, ["description"], "");
+            const content = getString(props, ["content", "text", "body"], "");
+            const icon = getString(props, ["icon"], "");
+            return (
+              <Card key={index} className={variantClass}>
+                <CardHeader>
+                  <div className="flex items-start gap-3">
+                    {icon ? (
+                      <div className="text-accent">
+                        {resolveArticleIcon(icon)}
+                      </div>
+                    ) : null}
+                    <div className="flex-1">
+                      <CardTitle>{title}</CardTitle>
+                      {description ? (
+                        <CardDescription>{description}</CardDescription>
+                      ) : null}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {content}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          }
+          case "collapsible": {
+            const title = getString(props, ["title"], "");
+            const content = getString(props, ["content", "text", "body"], "");
+            const defaultOpen = Boolean(props.defaultOpen);
+            return (
+              <Collapsible key={index} defaultOpen={defaultOpen}>
+                <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-muted/50 hover:bg-muted rounded-lg transition-colors group">
+                  <span className="font-medium text-foreground">{title}</span>
+                  <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="pt-4 px-4">
+                  <div className="prose prose-sm max-w-none text-foreground">
+                    {content}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            );
+          }
+          case "link-card": {
+            const href = getString(props, ["href"], "#");
+            const external = Boolean(props.external);
+            const title = getString(props, ["title"], "");
+            const description = getString(props, ["description"], "");
+            const icon = getString(props, ["icon"], "");
+            return (
+              <Link
+                key={index}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="block group"
+              >
+                <Card className="hover:border-accent/50 transition-all hover:shadow-md">
+                  <CardHeader>
+                    <div className="flex items-start gap-3">
+                      {icon ? (
+                        <div className="text-accent">
+                          {resolveArticleIcon(icon)}
+                        </div>
+                      ) : null}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <CardTitle className="group-hover:text-accent transition-colors">
+                            {title}
+                          </CardTitle>
+                          {external ? (
+                            <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                          ) : null}
+                        </div>
+                        {description ? (
+                          <CardDescription>{description}</CardDescription>
+                        ) : null}
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </Link>
             );
           }
           default:

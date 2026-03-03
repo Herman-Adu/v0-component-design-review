@@ -7,7 +7,11 @@
     "audience": "Frontend Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": ["app-reference", "performance-and-caching", "documentation"]
+    "tags": [
+      "app-reference",
+      "performance-and-caching",
+      "documentation"
+    ]
   },
   "seo": {
     "metaTitle": "Performance and Caching",
@@ -47,171 +51,227 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Comprehensive performance optimization documentation covering Core Web Vitals targets, caching strategies, image optimization, code splitting, and bundle analysis."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Comprehensive performance optimization documentation covering Core Web Vitals targets, caching strategies, image optimization, code splitting, and bundle analysis."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "core-web-vitals-targets",
-      "title": "Core Web Vitals Targets",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Core Web Vitals Targets",
+        "id": "core-web-vitals-targets"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Largest Contentful Paint (LCP)",
-      "content": "Target: < 2.5 seconds\n\nMeasures when the largest visible element loads.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Largest Contentful Paint (LCP)",
+        "links": [
+          {
+            "href": "#",
+            "title": "Largest Contentful Paint (LCP)",
+            "description": "Target: < 2.5 seconds\n\nMeasures when the largest visible element loads.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Optimize server response time (TTFB < 600ms)",
-        "Inline critical CSS",
-        "Preload largest images",
-        "Defer non-critical JavaScript",
-        "Use CDN for static assets"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Optimize server response time (TTFB < 600ms)\n• Inline critical CSS\n• Preload largest images\n• Defer non-critical JavaScript\n• Use CDN for static assets"
+      }
     },
     {
-      "type": "block.card",
-      "title": "First Input Delay (FID)",
-      "content": "Target: < 100 milliseconds\n\nMeasures responsiveness to user input.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "First Input Delay (FID)",
+        "links": [
+          {
+            "href": "#",
+            "title": "First Input Delay (FID)",
+            "description": "Target: < 100 milliseconds\n\nMeasures responsiveness to user input.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Reduce JavaScript execution time",
-        "Break up long tasks into smaller chunks",
-        "Use useTransition for non-blocking updates",
-        "Optimize main thread work",
-        "Progressive enhancement for slow networks"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Reduce JavaScript execution time\n• Break up long tasks into smaller chunks\n• Use useTransition for non-blocking updates\n• Optimize main thread work\n• Progressive enhancement for slow networks"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Cumulative Layout Shift (CLS)",
-      "content": "Target: < 0.1\n\nMeasures visual stability during loading.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Cumulative Layout Shift (CLS)",
+        "links": [
+          {
+            "href": "#",
+            "title": "Cumulative Layout Shift (CLS)",
+            "description": "Target: < 0.1\n\nMeasures visual stability during loading.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Reserve space for dynamic content",
-        "Avoid inserting content above existing content",
-        "Use CSS transforms for animations",
-        "Specify image dimensions",
-        "Use font-display: swap for web fonts"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Reserve space for dynamic content\n• Avoid inserting content above existing content\n• Use CSS transforms for animations\n• Specify image dimensions\n• Use font-display: swap for web fonts"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "caching-strategies",
-      "title": "Caching Strategies",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Caching Strategies",
+        "id": "caching-strategies"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Next.js Built-in Caching",
-      "content": "Use Data Cache, Request Deduplication, Request Memoization, Router Cache, and Full Route Cache to reduce load time and API pressure.",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Next.js Built-in Caching",
+        "links": [
+          {
+            "href": "#",
+            "title": "Next.js Built-in Caching",
+            "description": "Use Data Cache, Request Deduplication, Request Memoization, Router Cache, and Full Route Cache to reduce load time and API pressure.",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Data Cache for static and revalidated fetches",
-        "Request Deduplication for repeated server requests",
-        "Request Memoization during a single render pass",
-        "Router Cache for navigation speed",
-        "Full Route Cache for static routes"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Data Cache for static and revalidated fetches\n• Request Deduplication for repeated server requests\n• Request Memoization during a single render pass\n• Router Cache for navigation speed\n• Full Route Cache for static routes"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "TanStack Query Cache Example",
-      "code": "const { data } = useQuery(['articles'], fetchArticles, {\n  staleTime: 5 * 60 * 1000,\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "const { data } = useQuery(['articles'], fetchArticles, {\n  staleTime: 5 * 60 * 1000,\n});",
+        "title": "TanStack Query Cache Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "image-optimization",
-      "title": "Image Optimization",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Image Optimization",
+        "id": "image-optimization"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Use Next Image for responsive delivery and automatic optimization",
-        "Always specify width and height to prevent layout shift",
-        "Use priority for above-the-fold images",
-        "Compress images before upload",
-        "Lazy load below-the-fold images"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Use Next Image for responsive delivery and automatic optimization\n• Always specify width and height to prevent layout shift\n• Use priority for above-the-fold images\n• Compress images before upload\n• Lazy load below-the-fold images"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Next Image Example",
-      "code": "<Image\n  src=\"/article.jpg\"\n  alt=\"Article\"\n  width={600}\n  height={400}\n  priority\n/>"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "<Image\n  src=\"/article.jpg\"\n  alt=\"Article\"\n  width={600}\n  height={400}\n  priority\n/>",
+        "title": "Next Image Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "code-splitting-lazy-loading",
-      "title": "Code Splitting & Lazy Loading",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Code Splitting & Lazy Loading",
+        "id": "code-splitting-lazy-loading"
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "tsx",
-      "title": "Dynamic Import Pattern",
-      "code": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('./Heavy'), {\n  loading: () => <Skeleton />,\n  ssr: false,\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "tsx",
+        "code": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('./Heavy'), {\n  loading: () => <Skeleton />,\n  ssr: false,\n});",
+        "title": "Dynamic Import Pattern",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Split code into separate bundles",
-        "Load heavy features only when needed",
-        "Show skeletons during async component loading",
-        "Use route-based splitting from Next.js app router"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Split code into separate bundles\n• Load heavy features only when needed\n• Show skeletons during async component loading\n• Use route-based splitting from Next.js app router"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "bundle-analysis",
-      "title": "Bundle Analysis",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Bundle Analysis",
+        "id": "bundle-analysis"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Use @next/bundle-analyzer to inspect bundle composition",
-        "Track Lighthouse metrics in CI",
-        "Set performance budgets and alert on regressions",
-        "Keep main bundle under 50KB gzipped when possible"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Use @next/bundle-analyzer to inspect bundle composition\n• Track Lighthouse metrics in CI\n• Set performance budgets and alert on regressions\n• Keep main bundle under 50KB gzipped when possible"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "monitoring-measurement",
-      "title": "Monitoring & Measurement",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Monitoring & Measurement",
+        "id": "monitoring-measurement"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Collect Web Vitals from real users",
-        "Track business-event latency metrics",
-        "Integrate error tracking and performance traces",
-        "Run regular PageSpeed and Lighthouse audits"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Collect Web Vitals from real users\n• Track business-event latency metrics\n• Integrate error tracking and performance traces\n• Run regular PageSpeed and Lighthouse audits"
+      }
     }
   ]
 }

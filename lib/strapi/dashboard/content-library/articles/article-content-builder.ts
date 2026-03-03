@@ -48,8 +48,9 @@ export type ArticleCategory =
 
 export interface ArticleContentBlock {
   type: string;
-  atomicLevel: "atom" | "molecule" | "organism";
-  props: Record<string, unknown>;
+  atomicLevel?: "atom" | "molecule" | "organism";
+  props?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 export interface ArticleContentMeta {

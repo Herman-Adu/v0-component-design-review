@@ -7,7 +7,11 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": ["cms-reference", "overview", "documentation"]
+    "tags": [
+      "cms-reference",
+      "overview",
+      "documentation"
+    ]
   },
   "seo": {
     "metaTitle": "CMS Reference - Overview",
@@ -15,102 +19,92 @@
   },
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Comprehensive overview of the Strapi CMS backend architecture, content type definitions, API configuration, and integration patterns with the Next.js frontend."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Comprehensive overview of the Strapi CMS backend architecture, content type definitions, API configuration, and integration patterns with the Next.js frontend."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "content-architecture",
-      "title": "Content Architecture",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Content Architecture",
+        "id": "content-architecture"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Articles - Technical articles and case studies",
-        "Tutorials - Step-by-step learning content",
-        "Case Studies - Real-world implementation examples",
-        "Testimonials - Client feedback and success stories",
-        "Form Submissions - Contact and inquiry forms",
-        "Content Library - General purpose content storage"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Articles - Technical articles and case studies\n• Tutorials - Step-by-step learning content\n• Case Studies - Real-world implementation examples\n• Testimonials - Client feedback and success stories\n• Form Submissions - Contact and inquiry forms\n• Content Library - General purpose content storage"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Site Settings - Global site configuration",
-        "Homepage Hero - Landing page hero section",
-        "Global Navigation - Sidebar and menu configuration",
-        "Footer Content - Footer sections and links"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Site Settings - Global site configuration\n• Homepage Hero - Landing page hero section\n• Global Navigation - Sidebar and menu configuration\n• Footer Content - Footer sections and links"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "shared-components-18-total",
-      "title": "Shared Components (18 total)",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Shared Components (18 total)",
+        "id": "shared-components-18-total"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Hero Section - Large hero banners with CTAs",
-        "Call-to-Action Block - Prominent action blocks",
-        "Feature Cards - Feature showcase grid",
-        "Testimonial Block - Client testimonial cards",
-        "FAQ Accordion - Frequently asked questions",
-        "Code Block - Syntax-highlighted code snippets",
-        "Quote Block - Styled quotations",
-        "Image Gallery - Image grid and carousel",
-        "Video Embed - YouTube and Vimeo embeds",
-        "Text with Image - Content and image layouts",
-        "Three Column Grid - Three item layouts",
-        "Button Group - Multiple action buttons",
-        "Breadcrumb Navigation - Navigation breadcrumbs",
-        "Meta Tags - SEO metadata",
-        "Social Links - Social media integration",
-        "Author Info - Author bio and credits",
-        "Related Items - Related content links",
-        "Rich Text - Full rich text editing"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Hero Section - Large hero banners with CTAs\n• Call-to-Action Block - Prominent action blocks\n• Feature Cards - Feature showcase grid\n• Testimonial Block - Client testimonial cards\n• FAQ Accordion - Frequently asked questions\n• Code Block - Syntax-highlighted code snippets\n• Quote Block - Styled quotations\n• Image Gallery - Image grid and carousel\n• Video Embed - YouTube and Vimeo embeds\n• Text with Image - Content and image layouts\n• Three Column Grid - Three item layouts\n• Button Group - Multiple action buttons\n• Breadcrumb Navigation - Navigation breadcrumbs\n• Meta Tags - SEO metadata\n• Social Links - Social media integration\n• Author Info - Author bio and credits\n• Related Items - Related content links\n• Rich Text - Full rich text editing"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "type-system",
-      "title": "Type System",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Type System",
+        "id": "type-system"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "TypeScript code generation from Strapi schemas",
-        "Zod validation schemas for runtime safety",
-        "Type guards for content type discrimination",
-        "Polymorphic content support for dynamic zones",
-        "Strict null checks enabled"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "TypeScript code generation from Strapi schemas\n• Zod validation schemas for runtime safety\n• Type guards for content type discrimination\n• Polymorphic content support for dynamic zones\n• Strict null checks enabled"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "api-configuration",
-      "title": "API Configuration",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "API Configuration",
+        "id": "api-configuration"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "REST API: Full CRUD operations",
-        "GraphQL: Optimized query interface",
-        "API Routes: Custom server actions",
-        "Webhooks: Event-driven integration",
-        "Rate Limiting: IP-based throttling",
-        "CORS: Configured for frontend access",
-        "Authentication: Token-based for admin APIs"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "REST API: Full CRUD operations\n• GraphQL: Optimized query interface\n• API Routes: Custom server actions\n• Webhooks: Event-driven integration\n• Rate Limiting: IP-based throttling\n• CORS: Configured for frontend access\n• Authentication: Token-based for admin APIs"
+      }
     }
   ]
 }

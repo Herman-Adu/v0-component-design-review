@@ -15,168 +15,240 @@
   },
   "blocks": [
     {
-      "type": "block.sectionHeader",
-      "id": "documentation-coverage",
-      "title": "Documentation Coverage",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Documentation Coverage",
+        "id": "documentation-coverage"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "The Strategic Overview section provides high-level architecture documentation suitable for decision makers, technical leaders, and new team members seeking system-wide understanding."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "The Strategic Overview section provides high-level architecture documentation suitable for decision makers, technical leaders, and new team members seeking system-wide understanding."
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/strategic-overview/system-vision",
-      "icon": "Target",
-      "title": "System Vision & Principles",
-      "description": "Complete architecture philosophy, design principles, and strategic decisions"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "System Vision & Principles",
+        "links": [
+          {
+            "href": "/dashboard/documentation/strategic-overview/system-vision",
+            "title": "System Vision & Principles",
+            "description": "Complete architecture philosophy, design principles, and strategic decisions",
+            "icon": "Target"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/strategic-overview/why-strapi",
-      "icon": "TrendingUp",
-      "title": "Why Strapi CMS?",
-      "description": "Business case, ROI analysis, and technology selection rationale"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Why Strapi CMS?",
+        "links": [
+          {
+            "href": "/dashboard/documentation/strategic-overview/why-strapi",
+            "title": "Why Strapi CMS?",
+            "description": "Business case, ROI analysis, and technology selection rationale",
+            "icon": "TrendingUp"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/strategic-overview/getting-started-overview",
-      "icon": "BookOpen",
-      "title": "Getting Started Guide",
-      "description": "Navigation hub and role-based entry points for all documentation"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Getting Started Guide",
+        "links": [
+          {
+            "href": "/dashboard/documentation/strategic-overview/getting-started-overview",
+            "title": "Getting Started Guide",
+            "description": "Navigation hub and role-based entry points for all documentation",
+            "icon": "BookOpen"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/strategic-overview/app-overview",
-      "icon": "Layers",
-      "title": "App Overview",
-      "description": "Production-ready Next.js 15 architecture with atomic design and guards"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "App Overview",
+        "links": [
+          {
+            "href": "/dashboard/documentation/strategic-overview/app-overview",
+            "title": "App Overview",
+            "description": "Production-ready Next.js 15 architecture with atomic design and guards",
+            "icon": "Layers"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/strategic-overview/code-review-log",
-      "icon": "FileText",
-      "title": "Code Review Log",
-      "description": "Production code findings and architectural decisions"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Code Review Log",
+        "links": [
+          {
+            "href": "/dashboard/documentation/strategic-overview/code-review-log",
+            "title": "Code Review Log",
+            "description": "Production code findings and architectural decisions",
+            "icon": "FileText"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "audience-pathways",
-      "title": "Role-Based Learning Pathways",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Role-Based Learning Pathways",
+        "id": "audience-pathways"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Choose the documentation path that matches your role and responsibilities:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Choose the documentation path that matches your role and responsibilities:"
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Shield",
-          "title": "For CTOs & Technical Leaders",
-          "description": "Security architecture overview, defense-in-depth patterns, technology selection rationale, and executive summaries"
-        },
-        {
-          "icon": "Database",
-          "title": "For Backend Developers",
-          "description": "Strapi configuration, content type modeling, API design patterns, and database architecture"
-        },
-        {
-          "icon": "Code",
-          "title": "For Frontend Developers",
-          "description": "Component system, atomic design patterns, hydration guards, and Next.js 15 best practices"
-        },
-        {
-          "icon": "Users",
-          "title": "For Content Teams",
-          "description": "Content management workflows, dynamic zones usage, and publishing guidelines"
-        },
-        {
-          "icon": "Cog",
-          "title": "For DevOps Engineers",
-          "description": "Deployment architecture, CI/CD pipelines, monitoring, and operational procedures"
-        },
-        {
-          "icon": "TestTube",
-          "title": "For QA & Testing",
-          "description": "Testing strategy, integration tests, E2E patterns, and quality gates"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Shield",
+            "title": "For CTOs & Technical Leaders",
+            "description": "Security architecture overview, defense-in-depth patterns, technology selection rationale, and executive summaries"
+          },
+          {
+            "icon": "Database",
+            "title": "For Backend Developers",
+            "description": "Strapi configuration, content type modeling, API design patterns, and database architecture"
+          },
+          {
+            "icon": "Code",
+            "title": "For Frontend Developers",
+            "description": "Component system, atomic design patterns, hydration guards, and Next.js 15 best practices"
+          },
+          {
+            "icon": "Users",
+            "title": "For Content Teams",
+            "description": "Content management workflows, dynamic zones usage, and publishing guidelines"
+          },
+          {
+            "icon": "Cog",
+            "title": "For DevOps Engineers",
+            "description": "Deployment architecture, CI/CD pipelines, monitoring, and operational procedures"
+          },
+          {
+            "icon": "TestTube",
+            "title": "For QA & Testing",
+            "description": "Testing strategy, integration tests, E2E patterns, and quality gates"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "key-metrics",
-      "title": "Key System Metrics",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Key System Metrics",
+        "id": "key-metrics"
+      }
     },
     {
-      "type": "block.statsTable",
-      "stats": [
-        {
-          "label": "Custom Components",
-          "value": "52",
-          "change": "10 atoms, 14 molecules, 10 organisms",
-          "changeType": "neutral"
-        },
-        {
-          "label": "Content Architecture",
-          "value": "6 + 4",
-          "change": "6 collection types + 4 single types",
-          "changeType": "neutral"
-        },
-        {
-          "label": "Shared Components",
-          "value": "18",
-          "change": "Reusable Strapi components",
-          "changeType": "neutral"
-        },
-        {
-          "label": "Security Layers",
-          "value": "7",
-          "change": "Defense-in-depth architecture",
-          "changeType": "positive"
-        },
-        {
-          "label": "Test Coverage",
-          "value": "77 tests",
-          "change": "Unit + integration + E2E",
-          "changeType": "positive"
-        }
-      ]
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Metric", "Value", "Details"],
+        "rows": [
+          ["Custom Components", "52", "10 atoms, 14 molecules, 10 organisms"],
+          [
+            "Content Architecture",
+            "6 + 4",
+            "6 collection types + 4 single types"
+          ],
+          ["Shared Components", "18", "Reusable Strapi components"],
+          ["Security Layers", "7", "Defense-in-depth architecture"],
+          ["Test Coverage", "77 tests", "Unit + integration + E2E"]
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "success",
-      "title": "Production-Ready Architecture",
-      "content": "This system implements enterprise patterns including guard architecture for hydration protection, 7-layer security defense, atomic design component system, and complete test coverage."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Production-Ready Architecture",
+        "body": "This system implements enterprise patterns including guard architecture for hydration protection, 7-layer security defense, atomic design component system, and complete test coverage."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "navigation",
-      "title": "Quick Navigation by Topic",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Quick Navigation by Topic",
+        "id": "navigation"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/cms-reference/overview",
-      "icon": "Database",
-      "title": "CMS Reference",
-      "description": "Strapi content types, dynamic zones, and API configuration"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "CMS Reference",
+        "links": [
+          {
+            "href": "/dashboard/documentation/cms-reference/overview",
+            "title": "CMS Reference",
+            "description": "Strapi content types, dynamic zones, and API configuration",
+            "icon": "Database"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/app-reference/overview",
-      "icon": "Globe",
-      "title": "App Reference",
-      "description": "Next.js frontend architecture and component documentation"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "App Reference",
+        "links": [
+          {
+            "href": "/dashboard/documentation/app-reference/overview",
+            "title": "App Reference",
+            "description": "Next.js frontend architecture and component documentation",
+            "icon": "Globe"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/infrastructure-ops/overview",
-      "icon": "Server",
-      "title": "Infrastructure & Operations",
-      "description": "Deployment, monitoring, and operational runbook"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Infrastructure & Operations",
+        "links": [
+          {
+            "href": "/dashboard/documentation/infrastructure-ops/overview",
+            "title": "Infrastructure & Operations",
+            "description": "Deployment, monitoring, and operational runbook",
+            "icon": "Server"
+          }
+        ]
+      }
     }
   ]
 }

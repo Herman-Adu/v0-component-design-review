@@ -1,21 +1,24 @@
 import { z } from "zod";
-
-/**
- * Guide Block Schema
- * Represents a content block within a guide (matches article/tutorial block structure)
- */
-const atomicLevelSchema = z.enum(["atom", "molecule", "organism"]);
-
-const guideBlockSchema = z.object({
-  type: z.string().min(1),
-  atomicLevel: atomicLevelSchema,
-  props: z.record(z.unknown()),
-});
+import {
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 const tocItemSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   level: z.number().int().positive(),
+});
+
+/**
+ * Guide Block Schema
+ * Uses shared BLOCK_TYPE_ALIASES and atomicLevelSchema for consistency,
+ * but allows permissive prop validation for flexible data structures
+ */
+const blockSchema = z.object({
+  type: z.enum(BLOCK_TYPE_ALIASES),
+  atomicLevel: atomicLevelSchema,
+  props: z.record(z.unknown()).optional(),
 });
 
 /**
@@ -35,7 +38,7 @@ export const guideSchema = z.object({
   }),
   layout: z.union([z.literal("content-with-toc"), z.literal("content-only")]),
   toc: z.array(tocItemSchema).optional(),
-  blocks: z.array(guideBlockSchema).min(1),
+  blocks: z.array(blockSchema).min(1),
 });
 
 export type Guide = z.infer<typeof guideSchema>;

@@ -1,115 +1,30 @@
 import { z } from "zod";
+import {
+  blockSchema,
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 /**
  * CMS Reference Documentation Schema
  *
- * Defines the structure for CMS-focused documentation pages
- * using coarse-grained, section-level blocks for maintainability.
+ * Defines the structure for CMS-focused documentation pages.
+ * Uses atomic-format blocks (atom/molecule/organism) for consistency
+ * across all content types.
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
- * Pattern: Follows content-library article-schema.ts structure
+ * Pattern: Consolidated with content-library schemas via shared block-schema.ts
  */
 
 // ============================================================================
-// Block Schemas (Coarse-Grained, Section-Level)
+// Block Schema (Shared across all content types)
 // ============================================================================
-
-const ParagraphBlockSchema = z.object({
-  type: z.literal("block.paragraph"),
-  content: z.string().min(1),
-  className: z.string().optional(),
-});
-
-const SectionHeaderBlockSchema = z.object({
-  type: z.literal("block.sectionHeader"),
-  id: z.string().regex(/^[a-z0-9\-]+$/),
-  title: z.string().min(1),
-  number: z.string().optional(),
-});
-
-const ListBlockSchema = z.object({
-  type: z.literal("block.list"),
-  ordered: z.boolean(),
-  items: z.array(z.string().min(1)),
-});
-
-const CalloutBlockSchema = z.object({
-  type: z.literal("block.callout"),
-  calloutType: z.enum(["info", "warning", "success", "error"]),
-  title: z.string().min(1),
-  content: z.string().min(1),
-});
-
-const CodeBlockSchema = z.object({
-  type: z.literal("block.codeBlock"),
-  language: z.string(),
-  code: z.string().min(1),
-  title: z.string().optional(),
-  showLineNumbers: z.boolean().optional(),
-});
-
-const FeatureGridBlockSchema = z.object({
-  type: z.literal("block.featureGrid"),
-  title: z.string().optional(),
-  features: z.array(
-    z.object({
-      icon: z.string(),
-      title: z.string().min(1),
-      description: z.string().min(1),
-    }),
-  ),
-});
-
-const StatsTableBlockSchema = z.object({
-  type: z.literal("block.statsTable"),
-  title: z.string().optional(),
-  stats: z.array(
-    z.object({
-      label: z.string().min(1),
-      value: z.string().min(1),
-      change: z.string().optional(),
-      changeType: z.enum(["positive", "negative", "neutral"]).optional(),
-    }),
-  ),
-});
-
-const CardBlockSchema = z.object({
-  type: z.literal("block.card"),
-  icon: z.string().optional(),
-  title: z.string().min(1),
-  description: z.string().optional(),
-  content: z.string().min(1),
-  variant: z.enum(["default", "accent", "muted"]).optional(),
-});
-
-const CollapsibleBlockSchema = z.object({
-  type: z.literal("block.collapsible"),
-  title: z.string().min(1),
-  defaultOpen: z.boolean().optional(),
-  content: z.string().min(1),
-});
-
-const LinkCardBlockSchema = z.object({
-  type: z.literal("block.linkCard"),
-  href: z.string().min(1),
-  icon: z.string().optional(),
-  title: z.string().min(1),
-  description: z.string().min(1),
-  external: z.boolean().optional(),
-});
-
-const BlockSchema = z.discriminatedUnion("type", [
-  ParagraphBlockSchema,
-  SectionHeaderBlockSchema,
-  ListBlockSchema,
-  CalloutBlockSchema,
-  CodeBlockSchema,
-  FeatureGridBlockSchema,
-  StatsTableBlockSchema,
-  CardBlockSchema,
-  CollapsibleBlockSchema,
-  LinkCardBlockSchema,
-]);
+//
+// CMS Reference uses the same atomic-format block schema as content-library.
+// This ensures consistency in block structure and properties across all
+// content in the application.
+//
+// See: lib/strapi/dashboard/_shared/block-schema.ts
 
 // ============================================================================
 // Document Schema
@@ -148,12 +63,12 @@ const TocItemSchema = z.object({
 
 export const CmsReferenceDocumentSchema = z.object({
   meta: MetaSchema,
-  blocks: z.array(BlockSchema).min(1, "At least one block is required"),
+  blocks: z.array(blockSchema).min(1, "At least one block is required"),
   seo: SeoSchema.optional(),
   toc: z.array(TocItemSchema).optional(),
 });
 
 export type CmsReferenceDocument = z.infer<typeof CmsReferenceDocumentSchema>;
-export type Block = z.infer<typeof BlockSchema>;
+export type Block = z.infer<typeof blockSchema>;
 export type Meta = z.infer<typeof MetaSchema>;
 export type TocItem = z.infer<typeof TocItemSchema>;

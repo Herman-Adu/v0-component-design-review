@@ -1,4 +1,9 @@
 import { z } from "zod";
+import {
+  blockSchema,
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 /**
  * Infrastructure & Ops Documentation Schema
@@ -148,7 +153,7 @@ const TocItemSchema = z.object({
 
 export const InfrastructureOpsDocumentSchema = z.object({
   meta: MetaSchema,
-  blocks: z.array(BlockSchema).min(1, "At least one block is required"),
+  blocks: z.array(blockSchema).min(1, "At least one block is required"),
   seo: SeoSchema.optional(),
   toc: z.array(TocItemSchema).optional(),
 });
@@ -156,6 +161,6 @@ export const InfrastructureOpsDocumentSchema = z.object({
 export type InfrastructureOpsDocument = z.infer<
   typeof InfrastructureOpsDocumentSchema
 >;
-export type Block = z.infer<typeof BlockSchema>;
+export type Block = z.infer<typeof blockSchema>;
 export type Meta = z.infer<typeof MetaSchema>;
 export type TocItem = z.infer<typeof TocItemSchema>;

@@ -7,7 +7,12 @@
     "audience": "Backend Developer / Architect",
     "publishedAt": "2024-01-15",
     "lastUpdated": "2024-01-20",
-    "tags": ["strapi", "backend", "content-modeling", "schema"]
+    "tags": [
+      "strapi",
+      "backend",
+      "content-modeling",
+      "schema"
+    ]
   },
   "seo": {
     "metaTitle": "Content Collections in Strapi | CMS Reference",
@@ -42,190 +47,271 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Content collections define structured, repeatable content entities for your CMS-backed frontend application."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Content collections define structured, repeatable content entities for your CMS-backed frontend application."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "collection-strategy",
-      "title": "Collection Strategy",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Collection Strategy",
+        "id": "collection-strategy"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Best Practice",
-      "content": "Keep collection schemas focused and avoid overloading single entities with too many responsibilities."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Best Practice",
+        "body": "Keep collection schemas focused and avoid overloading single entities with too many responsibilities."
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "json",
-      "title": "Sample Collection Schema",
-      "code": "{\n  \"collectionName\": \"articles\",\n  \"attributes\": {\n    \"title\": { \"type\": \"string\" },\n    \"slug\": { \"type\": \"uid\" }\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "json",
+        "code": "{\n  \"collectionName\": \"articles\",\n  \"attributes\": {\n    \"title\": { \"type\": \"string\" },\n    \"slug\": { \"type\": \"uid\" }\n  }\n}",
+        "title": "Sample Collection Schema",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "article-collections-schema",
-      "title": "Article Collections Schema",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Article Collections Schema",
+        "id": "article-collections-schema"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Article collections are the primary content type for blog posts, tutorials, and case studies. Each article has a comprehensive schema with metadata, SEO fields, and dynamic content blocks."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Article collections are the primary content type for blog posts, tutorials, and case studies. Each article has a comprehensive schema with metadata, SEO fields, and dynamic content blocks."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "FileText",
-          "title": "Core Fields",
-          "description": "Title, slug, excerpt, publishedAt, lastUpdated"
-        },
-        {
-          "icon": "Tag",
-          "title": "Taxonomy",
-          "description": "Category relations, tags array, and audience targeting"
-        },
-        {
-          "icon": "Search",
-          "title": "SEO Fields",
-          "description": "metaTitle, metaDescription, canonicalUrl, and social preview"
-        },
-        {
-          "icon": "Layout",
-          "title": "Dynamic Blocks",
-          "description": "Flexible content composition via dynamic zones"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "FileText",
+            "title": "Core Fields",
+            "description": "Title, slug, excerpt, publishedAt, lastUpdated"
+          },
+          {
+            "icon": "Tag",
+            "title": "Taxonomy",
+            "description": "Category relations, tags array, and audience targeting"
+          },
+          {
+            "icon": "Search",
+            "title": "SEO Fields",
+            "description": "metaTitle, metaDescription, canonicalUrl, and social preview"
+          },
+          {
+            "icon": "Layout",
+            "title": "Dynamic Blocks",
+            "description": "Flexible content composition via dynamic zones"
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Article Collection Type Definition",
-      "code": "export interface Article {\n  id: number;\n  documentId: string;\n  title: string;\n  slug: string;\n  excerpt: string;\n  category: {\n    slug: string;\n    name: string;\n  };\n  tags: string[];\n  publishedAt: string;\n  lastUpdated: string;\n  blocks: ContentBlock[];\n  seo: {\n    metaTitle: string;\n    metaDescription: string;\n    canonicalUrl?: string;\n  };\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "export interface Article {\n  id: number;\n  documentId: string;\n  title: string;\n  slug: string;\n  excerpt: string;\n  category: {\n    slug: string;\n    name: string;\n  };\n  tags: string[];\n  publishedAt: string;\n  lastUpdated: string;\n  blocks: ContentBlock[];\n  seo: {\n    metaTitle: string;\n    metaDescription: string;\n    canonicalUrl?: string;\n  };\n}",
+        "title": "Article Collection Type Definition",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "dynamic-zones-usage",
-      "title": "Dynamic Zones Usage",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Dynamic Zones Usage",
+        "id": "dynamic-zones-usage"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Dynamic zones provide flexible content composition by allowing editors to add, remove, and reorder content blocks. This enables rich, structured content without rigid templates."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Dynamic zones provide flexible content composition by allowing editors to add, remove, and reorder content blocks. This enables rich, structured content without rigid templates."
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "block.paragraph - Text content with markdown support",
-        "block.sectionHeader - Navigable section markers",
-        "block.codeBlock - Syntax-highlighted code samples",
-        "block.callout - Info/warning/tip/success boxes",
-        "block.list - Ordered or unordered lists",
-        "block.featureGrid - Icon-based feature displays",
-        "block.statsTable - Data tables and metrics",
-        "block.card - Content cards with optional links",
-        "block.collapsible - Expandable content sections",
-        "block.linkCard - Navigation and cross-reference cards"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "block.paragraph - Text content with markdown support\n• block.sectionHeader - Navigable section markers\n• block.codeBlock - Syntax-highlighted code samples\n• block.callout - Info/warning/tip/success boxes\n• block.list - Ordered or unordered lists\n• block.featureGrid - Icon-based feature displays\n• block.statsTable - Data tables and metrics\n• block.card - Content cards with optional links\n• block.collapsible - Expandable content sections\n• block.linkCard - Navigation and cross-reference cards"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Content Flexibility",
-      "content": "Dynamic zones enable content creators to compose rich articles without developer intervention for layout changes."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Content Flexibility",
+        "body": "Dynamic zones enable content creators to compose rich articles without developer intervention for layout changes."
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "json",
-      "title": "Dynamic Zone Configuration",
-      "code": "{\n  \"blocks\": {\n    \"type\": \"dynamiczone\",\n    \"components\": [\n      \"block.paragraph\",\n      \"block.section-header\",\n      \"block.code-block\",\n      \"block.callout\",\n      \"block.list\",\n      \"block.feature-grid\",\n      \"block.stats-table\",\n      \"block.card\",\n      \"block.collapsible\",\n      \"block.link-card\"\n    ]\n  }\n}"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "json",
+        "code": "{\n  \"blocks\": {\n    \"type\": \"dynamiczone\",\n    \"components\": [\n      \"block.paragraph\",\n      \"block.section-header\",\n      \"block.code-block\",\n      \"block.callout\",\n      \"block.list\",\n      \"block.feature-grid\",\n      \"block.stats-table\",\n      \"block.card\",\n      \"block.collapsible\",\n      \"block.link-card\"\n    ]\n  }\n}",
+        "title": "Dynamic Zone Configuration",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "shared-components-pattern",
-      "title": "Shared Components Pattern",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Shared Components Pattern",
+        "id": "shared-components-pattern"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Shared components are reusable building blocks defined once and used across multiple collection types. This ensures consistency and reduces duplication in content schemas."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Shared components are reusable building blocks defined once and used across multiple collection types. This ensures consistency and reduces duplication in content schemas."
+      }
     },
     {
-      "type": "block.card",
-      "title": "Hero Component",
-      "content": "Standard hero section with title, subtitle, background image, and CTA buttons",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Hero Component",
+        "links": [
+          {
+            "href": "#",
+            "title": "Hero Component",
+            "description": "Standard hero section with title, subtitle, background image, and CTA buttons",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Feature Card",
-      "content": "Icon, title, description pattern used in feature grids",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Feature Card",
+        "links": [
+          {
+            "href": "#",
+            "title": "Feature Card",
+            "description": "Icon, title, description pattern used in feature grids",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "title": "Testimonial",
-      "content": "Quote, author, company, and optional avatar image",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Testimonial",
+        "links": [
+          {
+            "href": "#",
+            "title": "Testimonial",
+            "description": "Quote, author, company, and optional avatar image",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Component Reusability",
-      "content": "Shared components defined in Strapi can be used in multiple collection types, ensuring consistent structure and reducing maintenance overhead."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Component Reusability",
+        "body": "Shared components defined in Strapi can be used in multiple collection types, ensuring consistent structure and reducing maintenance overhead."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "content-hierarchy",
-      "title": "Content Hierarchy",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Content Hierarchy",
+        "id": "content-hierarchy"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Content collections are organized hierarchically with categories, subcategories, and tags to enable flexible navigation and content discovery."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Content collections are organized hierarchically with categories, subcategories, and tags to enable flexible navigation and content discovery."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "FolderTree",
-          "title": "Categories",
-          "description": "Top-level content organization (e.g., strategic-overview, cms-reference)"
-        },
-        {
-          "icon": "Tags",
-          "title": "Tags",
-          "description": "Cross-cutting topics for content filtering and related content discovery"
-        },
-        {
-          "icon": "Users",
-          "title": "Audience",
-          "description": "Role-based content targeting (developers, architects, executives)"
-        },
-        {
-          "icon": "Link",
-          "title": "Relationships",
-          "description": "Explicit content relationships for navigation and recommendations"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "FolderTree",
+            "title": "Categories",
+            "description": "Top-level content organization (e.g., strategic-overview, cms-reference)"
+          },
+          {
+            "icon": "Tags",
+            "title": "Tags",
+            "description": "Cross-cutting topics for content filtering and related content discovery"
+          },
+          {
+            "icon": "Users",
+            "title": "Audience",
+            "description": "Role-based content targeting (developers, architects, executives)"
+          },
+          {
+            "icon": "Link",
+            "title": "Relationships",
+            "description": "Explicit content relationships for navigation and recommendations"
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Category slugs map directly to URL structure",
-        "Tags enable cross-category content discovery",
-        "Audience field helps personalize documentation views",
-        "Related content is auto-suggested based on category and tags"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Category slugs map directly to URL structure\n• Tags enable cross-category content discovery\n• Audience field helps personalize documentation views\n• Related content is auto-suggested based on category and tags"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "success",
-      "title": "Best Practice",
-      "content": "Use consistent category slugs and tag patterns across all content collections to enable effective search and navigation."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Best Practice",
+        "body": "Use consistent category slugs and tag patterns across all content collections to enable effective search and navigation."
+      }
     }
   ]
 }

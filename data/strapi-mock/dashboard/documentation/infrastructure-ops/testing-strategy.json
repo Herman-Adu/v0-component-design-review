@@ -42,274 +42,324 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Quality engineering relies on balancing test speed, reliability, and coverage across multiple test layers."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Quality engineering relies on balancing test speed, reliability, and coverage across multiple test layers."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "testing-pyramid",
-      "title": "Testing Pyramid",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Testing Pyramid",
+        "id": "testing-pyramid"
+      }
     },
     {
-      "type": "block.statsTable",
-      "title": "Coverage Targets",
-      "stats": [
-        {
-          "label": "Unit Tests",
-          "value": "70%",
-          "change": "Primary",
-          "changeType": "positive"
-        },
-        {
-          "label": "Integration Tests",
-          "value": "20%",
-          "change": "Critical paths",
-          "changeType": "neutral"
-        },
-        {
-          "label": "E2E Tests",
-          "value": "10%",
-          "change": "User journeys",
-          "changeType": "neutral"
-        }
-      ]
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Metric", "Value", "Focus"],
+        "rows": [
+          ["Unit Tests", "70%", "Primary"],
+          ["Integration Tests", "20%", "Critical paths"],
+          ["E2E Tests", "10%", "User journeys"]
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "warning",
-      "title": "Execution Discipline",
-      "content": "Keep E2E tests focused on high-value flows to avoid slow and brittle pipelines."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "Execution Discipline",
+        "body": "Keep E2E tests focused on high-value flows to avoid slow and brittle pipelines."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "unit-testing",
-      "title": "Unit Testing Approach",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Unit Testing Approach",
+        "id": "unit-testing"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Unit tests form the foundation of the testing strategy, providing fast feedback on individual functions and components. We use Vitest for its speed and compatibility with Next.js."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Unit tests form the foundation of the testing strategy, providing fast feedback on individual functions and components. We use Vitest for its speed and compatibility with Next.js."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Zap",
-          "title": "Fast Execution",
-          "description": "Run hundreds of tests in seconds with Vitest"
-        },
-        {
-          "icon": "Target",
-          "title": "Isolated Tests",
-          "description": "Mock external dependencies for true unit isolation"
-        },
-        {
-          "icon": "FileCode",
-          "title": "Component Testing",
-          "description": "Test React components with React Testing Library"
-        },
-        {
-          "icon": "Functions",
-          "title": "Business Logic",
-          "description": "Test utility functions and data transformations"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Zap",
+            "title": "Fast Execution",
+            "description": "Run hundreds of tests in seconds with Vitest"
+          },
+          {
+            "icon": "Target",
+            "title": "Isolated Tests",
+            "description": "Mock external dependencies for true unit isolation"
+          },
+          {
+            "icon": "FileCode",
+            "title": "Component Testing",
+            "description": "Test React components with React Testing Library"
+          },
+          {
+            "icon": "Functions",
+            "title": "Business Logic",
+            "description": "Test utility functions and data transformations"
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Unit Test Example",
-      "code": "import { describe, it, expect } from 'vitest';\nimport { render, screen } from '@testing-library/react';\nimport { Button } from '@/components/ui/button';\n\ndescribe('Button Component', () => {\n  it('renders with correct text', () => {\n    render(<Button>Click Me</Button>);\n    expect(screen.getByText('Click Me')).toBeInTheDocument();\n  });\n\n  it('calls onClick handler when clicked', async () => {\n    const handleClick = vi.fn();\n    render(<Button onClick={handleClick}>Click</Button>);\n    \n    await userEvent.click(screen.getByText('Click'));\n    expect(handleClick).toHaveBeenCalledTimes(1);\n  });\n\n  it('applies variant styles correctly', () => {\n    const { container } = render(\n      <Button variant=\"primary\">Primary</Button>\n    );\n    expect(container.firstChild).toHaveClass('bg-primary');\n  });\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "import { describe, it, expect } from 'vitest';\nimport { render, screen } from '@testing-library/react';\nimport { Button } from '@/components/ui/button';\n\ndescribe('Button Component', () => {\n  it('renders with correct text', () => {\n    render(<Button>Click Me</Button>);\n    expect(screen.getByText('Click Me')).toBeInTheDocument();\n  });\n\n  it('calls onClick handler when clicked', async () => {\n    const handleClick = vi.fn();\n    render(<Button onClick={handleClick}>Click</Button>);\n    \n    await userEvent.click(screen.getByText('Click'));\n    expect(handleClick).toHaveBeenCalledTimes(1);\n  });\n\n  it('applies variant styles correctly', () => {\n    const { container } = render(\n      <Button variant=\"primary\">Primary</Button>\n    );\n    expect(container.firstChild).toHaveClass('bg-primary');\n  });\n});",
+        "title": "Unit Test Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Test file location: co-located with source files (*.test.ts)",
-        "Coverage target: 70% minimum for critical paths",
-        "Mock external dependencies (API calls, third-party libraries)",
-        "Focus on behavior, not implementation details",
-        "Use descriptive test names that explain expected behavior",
-        "Group related tests with describe blocks"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Test file location: co-located with source files (*.test.ts)\n• Coverage target: 70% minimum for critical paths\n• Mock external dependencies (API calls, third-party libraries)\n• Focus on behavior, not implementation details\n• Use descriptive test names that explain expected behavior\n• Group related tests with describe blocks"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "Testing Best Practice",
-      "content": "Write tests that describe what the code should do, not how it does it. This makes tests resilient to refactoring."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Testing Best Practice",
+        "body": "Write tests that describe what the code should do, not how it does it. This makes tests resilient to refactoring."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "integration-testing",
-      "title": "Integration Testing",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Integration Testing",
+        "id": "integration-testing"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Integration tests verify that multiple units work together correctly. They test API routes, data flows, and component interactions without mocking internal dependencies."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Integration tests verify that multiple units work together correctly. They test API routes, data flows, and component interactions without mocking internal dependencies."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Network",
-          "title": "API Routes",
-          "description": "Test Next.js API routes and server actions"
-        },
-        {
-          "icon": "Database",
-          "title": "Data Layer",
-          "description": "Verify repository and content-builder integration"
-        },
-        {
-          "icon": "Layers",
-          "title": "Feature Flows",
-          "description": "Test multi-step user workflows"
-        },
-        {
-          "icon": "Shield",
-          "title": "Auth & Guards",
-          "description": "Verify authentication and authorization flows"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Network",
+            "title": "API Routes",
+            "description": "Test Next.js API routes and server actions"
+          },
+          {
+            "icon": "Database",
+            "title": "Data Layer",
+            "description": "Verify repository and content-builder integration"
+          },
+          {
+            "icon": "Layers",
+            "title": "Feature Flows",
+            "description": "Test multi-step user workflows"
+          },
+          {
+            "icon": "Shield",
+            "title": "Auth & Guards",
+            "description": "Verify authentication and authorization flows"
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "Integration Test Example",
-      "code": "import { describe, it, expect } from 'vitest';\nimport { testApiHandler } from 'next-test-api-route-handler';\nimport * as appHandler from '@/app/api/contact/route';\n\ndescribe('POST /api/contact', () => {\n  it('creates contact submission with valid data', async () => {\n    await testApiHandler({\n      appHandler,\n      test: async ({ fetch }) => {\n        const response = await fetch({\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({\n            name: 'John Doe',\n            email: 'john@example.com',\n            message: 'Test message'\n          })\n        });\n\n        expect(response.status).toBe(201);\n        const data = await response.json();\n        expect(data.success).toBe(true);\n        expect(data.id).toBeDefined();\n      }\n    });\n  });\n\n  it('returns 400 for invalid email', async () => {\n    await testApiHandler({\n      appHandler,\n      test: async ({ fetch }) => {\n        const response = await fetch({\n          method: 'POST',\n          body: JSON.stringify({\n            name: 'John',\n            email: 'invalid-email',\n            message: 'Test'\n          })\n        });\n\n        expect(response.status).toBe(400);\n        const data = await response.json();\n        expect(data.errors.email).toBeDefined();\n      }\n    });\n  });\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "import { describe, it, expect } from 'vitest';\nimport { testApiHandler } from 'next-test-api-route-handler';\nimport * as appHandler from '@/app/api/contact/route';\n\ndescribe('POST /api/contact', () => {\n  it('creates contact submission with valid data', async () => {\n    await testApiHandler({\n      appHandler,\n      test: async ({ fetch }) => {\n        const response = await fetch({\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({\n            name: 'John Doe',\n            email: 'john@example.com',\n            message: 'Test message'\n          })\n        });\n\n        expect(response.status).toBe(201);\n        const data = await response.json();\n        expect(data.success).toBe(true);\n        expect(data.id).toBeDefined();\n      }\n    });\n  });\n\n  it('returns 400 for invalid email', async () => {\n    await testApiHandler({\n      appHandler,\n      test: async ({ fetch }) => {\n        const response = await fetch({\n          method: 'POST',\n          body: JSON.stringify({\n            name: 'John',\n            email: 'invalid-email',\n            message: 'Test'\n          })\n        });\n\n        expect(response.status).toBe(400);\n        const data = await response.json();\n        expect(data.errors.email).toBeDefined();\n      }\n    });\n  });\n});",
+        "title": "Integration Test Example",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Test file location: __tests__/integration-test/",
-        "Coverage target: 20% of total tests",
-        "Use test database or fixtures for data layer tests",
-        "Test actual API endpoint behavior with supertest or fetch",
-        "Verify error handling and validation logic",
-        "Test authentication and authorization middleware"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Test file location: __tests__/integration-test/\n• Coverage target: 20% of total tests\n• Use test database or fixtures for data layer tests\n• Test actual API endpoint behavior with supertest or fetch\n• Verify error handling and validation logic\n• Test authentication and authorization middleware"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "e2e-testing",
-      "title": "E2E Testing",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "E2E Testing",
+        "id": "e2e-testing"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "End-to-end tests validate complete user workflows in a browser environment. We use Playwright for reliable, cross-browser E2E testing."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "End-to-end tests validate complete user workflows in a browser environment. We use Playwright for reliable, cross-browser E2E testing."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Users",
-          "title": "User Journeys",
-          "description": "Test critical paths from user perspective"
-        },
-        {
-          "icon": "Globe",
-          "title": "Cross-Browser",
-          "description": "Verify functionality in Chrome, Firefox, Safari"
-        },
-        {
-          "icon": "Mobile",
-          "title": "Mobile Testing",
-          "description": "Test responsive behavior on mobile devices"
-        },
-        {
-          "icon": "Camera",
-          "title": "Visual Regression",
-          "description": "Screenshot comparison for UI consistency"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Users",
+            "title": "User Journeys",
+            "description": "Test critical paths from user perspective"
+          },
+          {
+            "icon": "Globe",
+            "title": "Cross-Browser",
+            "description": "Verify functionality in Chrome, Firefox, Safari"
+          },
+          {
+            "icon": "Mobile",
+            "title": "Mobile Testing",
+            "description": "Test responsive behavior on mobile devices"
+          },
+          {
+            "icon": "Camera",
+            "title": "Visual Regression",
+            "description": "Screenshot comparison for UI consistency"
+          }
+        ]
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "typescript",
-      "title": "E2E Test Example with Playwright",
-      "code": "import { test, expect } from '@playwright/test';\n\ntest.describe('Contact Form Submission', () => {\n  test('user can submit contact form successfully', async ({ page }) => {\n    // Navigate to contact page\n    await page.goto('/contact');\n\n    // Fill out form\n    await page.fill('input[name=\"name\"]', 'Jane Doe');\n    await page.fill('input[name=\"email\"]', 'jane@example.com');\n    await page.fill('input[name=\"company\"]', 'Acme Corp');\n    await page.fill('textarea[name=\"message\"]', 'Interested in your product');\n    await page.check('input[name=\"consent\"]');\n\n    // Submit form\n    await page.click('button[type=\"submit\"]');\n\n    // Verify success message\n    await expect(page.locator('.success-message')).toBeVisible();\n    await expect(page.locator('.success-message')).toContainText(\n      'Thank you for your message'\n    );\n\n    // Verify form is reset\n    await expect(page.locator('input[name=\"name\"]')).toHaveValue('');\n  });\n\n  test('shows validation errors for invalid input', async ({ page }) => {\n    await page.goto('/contact');\n\n    // Submit without filling form\n    await page.click('button[type=\"submit\"]');\n\n    // Verify error messages appear\n    await expect(page.locator('.error-message')).toHaveCount(3);\n    await expect(page.locator('.error-message').first()).toContainText(\n      'Name is required'\n    );\n  });\n});"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "typescript",
+        "code": "import { test, expect } from '@playwright/test';\n\ntest.describe('Contact Form Submission', () => {\n  test('user can submit contact form successfully', async ({ page }) => {\n    // Navigate to contact page\n    await page.goto('/contact');\n\n    // Fill out form\n    await page.fill('input[name=\"name\"]', 'Jane Doe');\n    await page.fill('input[name=\"email\"]', 'jane@example.com');\n    await page.fill('input[name=\"company\"]', 'Acme Corp');\n    await page.fill('textarea[name=\"message\"]', 'Interested in your product');\n    await page.check('input[name=\"consent\"]');\n\n    // Submit form\n    await page.click('button[type=\"submit\"]');\n\n    // Verify success message\n    await expect(page.locator('.success-message')).toBeVisible();\n    await expect(page.locator('.success-message')).toContainText(\n      'Thank you for your message'\n    );\n\n    // Verify form is reset\n    await expect(page.locator('input[name=\"name\"]')).toHaveValue('');\n  });\n\n  test('shows validation errors for invalid input', async ({ page }) => {\n    await page.goto('/contact');\n\n    // Submit without filling form\n    await page.click('button[type=\"submit\"]');\n\n    // Verify error messages appear\n    await expect(page.locator('.error-message')).toHaveCount(3);\n    await expect(page.locator('.error-message').first()).toContainText(\n      'Name is required'\n    );\n  });\n});",
+        "title": "E2E Test Example with Playwright",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Test file location: __tests__/e2e/",
-        "Coverage target: 10% of total tests (high-value journeys only)",
-        "Run E2E tests on staging environment before production",
-        "Use page object pattern for maintainable tests",
-        "Implement retry logic for flaky network operations",
-        "Capture screenshots and videos on test failure"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Test file location: __tests__/e2e/\n• Coverage target: 10% of total tests (high-value journeys only)\n• Run E2E tests on staging environment before production\n• Use page object pattern for maintainable tests\n• Implement retry logic for flaky network operations\n• Capture screenshots and videos on test failure"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "warning",
-      "title": "E2E Test Performance",
-      "content": "E2E tests are slow and expensive. Focus on critical user journeys only and run them on CI for main branch merges."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "warning",
+        "title": "E2E Test Performance",
+        "body": "E2E tests are slow and expensive. Focus on critical user journeys only and run them on CI for main branch merges."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "test-organization",
-      "title": "Test Organization",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Test Organization",
+        "id": "test-organization"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Proper test organization ensures tests are easy to find, maintain, and run selectively during development."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Proper test organization ensures tests are easy to find, maintain, and run selectively during development."
+      }
     },
     {
-      "type": "block.codeBlock",
-      "language": "bash",
-      "title": "Test Directory Structure",
-      "code": "__tests__/\n├── unit/\n│   ├── components/\n│   │   ├── atoms/\n│   │   ├── molecules/\n│   │   └── organisms/\n│   ├── lib/\n│   │   ├── utils/\n│   │   └── strapi/\n│   └── hooks/\n├── integration-test/\n│   ├── api/\n│   ├── repositories/\n│   └── features/\n├── e2e/\n│   ├── user-journeys/\n│   ├── critical-paths/\n│   └── smoke-tests/\n└── mocks/\n    ├── strapi/\n    ├── api/\n    └── fixtures/"
+      "type": "molecule.codeBlock",
+      "atomicLevel": "molecule",
+      "props": {
+        "language": "bash",
+        "code": "__tests__/\n├── unit/\n│   ├── components/\n│   │   ├── atoms/\n│   │   ├── molecules/\n│   │   └── organisms/\n│   ├── lib/\n│   │   ├── utils/\n│   │   └── strapi/\n│   └── hooks/\n├── integration-test/\n│   ├── api/\n│   ├── repositories/\n│   └── features/\n├── e2e/\n│   ├── user-journeys/\n│   ├── critical-paths/\n│   └── smoke-tests/\n└── mocks/\n    ├── strapi/\n    ├── api/\n    └── fixtures/",
+        "title": "Test Directory Structure",
+        "showLineNumbers": false
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Co-locate unit tests with source files when appropriate",
-        "Group integration tests by feature or domain",
-        "Organize E2E tests by user journey or workflow",
-        "Share mocks and fixtures in __tests__/mocks/",
-        "Use consistent naming: *.test.ts for unit, *.spec.ts for integration",
-        "Tag tests with @unit, @integration, @e2e for selective runs"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Co-locate unit tests with source files when appropriate\n• Group integration tests by feature or domain\n• Organize E2E tests by user journey or workflow\n• Share mocks and fixtures in __tests__/mocks/\n• Use consistent naming: *.test.ts for unit, *.spec.ts for integration\n• Tag tests with @unit, @integration, @e2e for selective runs"
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "success",
-      "title": "Running Tests Selectively",
-      "content": "Use 'pnpm test:unit' for quick feedback during development, and 'pnpm test:all' before committing changes."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Running Tests Selectively",
+        "body": "Use 'pnpm test:unit' for quick feedback during development, and 'pnpm test:all' before committing changes."
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Play",
-          "title": "Watch Mode",
-          "description": "Auto-run tests on file changes during development"
-        },
-        {
-          "icon": "Filter",
-          "title": "Selective Runs",
-          "description": "Run specific test suites or files with pattern matching"
-        },
-        {
-          "icon": "BarChart",
-          "title": "Coverage Reports",
-          "description": "Generate HTML coverage reports for gap analysis"
-        },
-        {
-          "icon": "GitBranch",
-          "title": "CI Integration",
-          "description": "Run full test suite on every PR and commit"
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Play",
+            "title": "Watch Mode",
+            "description": "Auto-run tests on file changes during development"
+          },
+          {
+            "icon": "Filter",
+            "title": "Selective Runs",
+            "description": "Run specific test suites or files with pattern matching"
+          },
+          {
+            "icon": "BarChart",
+            "title": "Coverage Reports",
+            "description": "Generate HTML coverage reports for gap analysis"
+          },
+          {
+            "icon": "GitBranch",
+            "title": "CI Integration",
+            "description": "Run full test suite on every PR and commit"
+          }
+        ]
+      }
     }
   ]
 }

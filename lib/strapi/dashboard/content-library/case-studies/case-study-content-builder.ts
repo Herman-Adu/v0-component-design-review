@@ -37,8 +37,9 @@ export type CaseStudyCategory =
 
 export interface CaseStudyContentBlock {
   type: string;
-  atomicLevel: "atom" | "molecule" | "organism";
-  props: Record<string, unknown>;
+  atomicLevel?: "atom" | "molecule" | "organism";
+  props?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 export interface CaseStudyContentMeta {

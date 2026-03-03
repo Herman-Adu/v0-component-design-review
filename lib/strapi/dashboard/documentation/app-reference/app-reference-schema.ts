@@ -1,4 +1,9 @@
 import { z } from "zod";
+import {
+  blockSchema,
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 /**
  * App Reference Documentation Schema
@@ -148,12 +153,12 @@ const TocItemSchema = z.object({
 
 export const AppReferenceDocumentSchema = z.object({
   meta: MetaSchema,
-  blocks: z.array(BlockSchema).min(1, "At least one block is required"),
+  blocks: z.array(blockSchema).min(1, "At least one block is required"),
   seo: SeoSchema.optional(),
   toc: z.array(TocItemSchema).optional(),
 });
 
 export type AppReferenceDocument = z.infer<typeof AppReferenceDocumentSchema>;
-export type Block = z.infer<typeof BlockSchema>;
+export type Block = z.infer<typeof blockSchema>;
 export type Meta = z.infer<typeof MetaSchema>;
 export type TocItem = z.infer<typeof TocItemSchema>;

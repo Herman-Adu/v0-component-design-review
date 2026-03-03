@@ -7,13 +7,7 @@
     "audience": "Decision Makers / CTOs",
     "publishedAt": "2026-01-20",
     "lastUpdated": "2026-03-02",
-    "tags": [
-      "strapi",
-      "cms",
-      "business-case",
-      "technology-selection",
-      "roi"
-    ]
+    "tags": ["strapi", "cms", "business-case", "technology-selection", "roi"]
   },
   "seo": {
     "metaTitle": "Why Strapi? Business Case & ROI Analysis",
@@ -53,215 +47,285 @@
   ],
   "blocks": [
     {
-      "type": "block.sectionHeader",
-      "id": "business-impact",
-      "title": "Business Impact",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Business Impact",
+        "id": "business-impact"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Strapi delivers measurable business value through cost reduction, faster time-to-market, and improved team productivity. Here are the key metrics from our implementation:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Strapi delivers measurable business value through cost reduction, faster time-to-market, and improved team productivity. Here are the key metrics from our implementation:"
+      }
     },
     {
-      "type": "block.statsTable",
-      "stats": [
-        {
-          "label": "Cost Reduction",
-          "value": "60%",
-          "change": "vs custom CMS development",
-          "changeType": "positive"
-        },
-        {
-          "label": "Time to Market",
-          "value": "8 weeks",
-          "change": "vs 6 months for custom build",
-          "changeType": "positive"
-        },
-        {
-          "label": "Team Productivity",
-          "value": "+40%",
-          "change": "content team velocity increase",
-          "changeType": "positive"
-        },
-        {
-          "label": "Developer Efficiency",
-          "value": "3x",
-          "change": "faster feature development",
-          "changeType": "positive"
-        }
-      ]
+      "type": "organism.statsTable",
+      "atomicLevel": "organism",
+      "props": {
+        "headers": ["Metric", "Value", "Change"],
+        "rows": [
+          ["Cost Reduction", "60%", "vs custom CMS development"],
+          ["Time to Market", "8 weeks", "vs 6 months for custom build"],
+          ["Team Productivity", "+40%", "content team velocity increase"],
+          ["Developer Efficiency", "3x", "faster feature development"]
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "success",
-      "title": "Real Cost Savings",
-      "content": "Compared to building a custom CMS from scratch, Strapi saved us $64,800 in development costs over 3 years (72% reduction) while delivering enterprise-grade features out of the box."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Real Cost Savings",
+        "body": "Compared to building a custom CMS from scratch, Strapi saved us $64,800 in development costs over 3 years (72% reduction) while delivering enterprise-grade features out of the box."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "roi-analysis",
-      "title": "Total Cost of Ownership (3-Year)",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Total Cost of Ownership (3-Year)",
+        "id": "roi-analysis"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "We analyzed the complete 3-year TCO including development, hosting, maintenance, and licensing costs across three options:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "We analyzed the complete 3-year TCO including development, hosting, maintenance, and licensing costs across three options:"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Cost Comparison Summary",
-      "variant": "default",
-      "content": "**Strapi (Self-Hosted): $24,600**\n- Initial Development: $15,000\n- Annual Hosting: $1,200/yr ($3,600 total)\n- Annual Maintenance: $2,000/yr ($6,000 total)\n- No licensing fees\n\n**Custom Backend: $89,400**\n- Initial Development: $60,000\n- Annual Hosting: $2,400/yr ($7,200 total)\n- Annual Maintenance: $7,400/yr ($22,200 total)\n- No licensing fees\n\n**SaaS CMS (e.g., Contentful): $46,800**\n- Initial Integration: $12,000\n- Annual License: $9,600/yr ($28,800 total)\n- Annual Maintenance: $2,000/yr ($6,000 total)"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Cost Comparison Summary",
+        "links": [
+          {
+            "href": "#",
+            "title": "Cost Comparison Summary",
+            "description": "**Strapi (Self-Hosted): $24,600**\n- Initial Development: $15,000\n- Annual Hosting: $1,200/yr ($3,600 total)\n- Annual Maintenance: $2,000/yr ($6,000 total)\n- No licensing fees\n\n**Custom Backend: $89,400**\n- Initial Development: $60,000\n- Annual Hosting: $2,400/yr ($7,200 total)\n- Annual Maintenance: $7,400/yr ($22,200 total)\n- No licensing fees\n\n**SaaS CMS (e.g., Contentful): $46,800**\n- Initial Integration: $12,000\n- Annual License: $9,600/yr ($28,800 total)\n- Annual Maintenance: $2,000/yr ($6,000 total)",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.callout",
-      "calloutType": "info",
-      "title": "TCO Breakdown Insight",
-      "content": "Strapi's self-hosted model eliminates licensing costs while providing full control over data and deployment. The $15K initial development investment is recovered in less than 6 months compared to custom build costs."
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "TCO Breakdown Insight",
+        "body": "Strapi's self-hosted model eliminates licensing costs while providing full control over data and deployment. The $15K initial development investment is recovered in less than 6 months compared to custom build costs."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "comparison",
-      "title": "Feature Comparison",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Feature Comparison",
+        "id": "comparison"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Here's how Strapi compares to alternative approaches across key features:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Here's how Strapi compares to alternative approaches across key features:"
+      }
     },
     {
-      "type": "block.collapsible",
-      "title": "Detailed Feature Comparison Table",
-      "defaultOpen": true,
-      "content": "| Feature | Strapi | Custom Build | SaaS CMS |\n|---------|--------|--------------|----------|\n| **Content Management UI** | ✅ Included (customizable) | ❌ Build from scratch | ⚠️ Limited customization |\n| **GraphQL API** | ✅ Auto-generated | ❌ Manual implementation | ✅ Included |\n| **REST API** | ✅ Auto-generated | ❌ Manual implementation | ✅ Included |\n| **TypeScript Support** | ✅ Full type generation | ✅ Custom types | ⚠️ Limited |\n| **Self-Hosted Option** | ✅ Yes | ✅ Yes | ❌ No |\n| **Plugin Ecosystem** | ✅ 200+ plugins | ❌ Build everything | ⚠️ Vendor-specific |\n| **Customization** | ✅ Full control | ✅ Full control | ❌ Limited |"
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": "Detailed Feature Comparison Table",
+        "body": "| Feature | Strapi | Custom Build | SaaS CMS |\n|---------|--------|--------------|----------|\n| **Content Management UI** | ✅ Included (customizable) | ❌ Build from scratch | ⚠️ Limited customization |\n| **GraphQL API** | ✅ Auto-generated | ❌ Manual implementation | ✅ Included |\n| **REST API** | ✅ Auto-generated | ❌ Manual implementation | ✅ Included |\n| **TypeScript Support** | ✅ Full type generation | ✅ Custom types | ⚠️ Limited |\n| **Self-Hosted Option** | ✅ Yes | ✅ Yes | ❌ No |\n| **Plugin Ecosystem** | ✅ 200+ plugins | ❌ Build everything | ⚠️ Vendor-specific |\n| **Customization** | ✅ Full control | ✅ Full control | ❌ Limited |"
+      }
     },
     {
-      "type": "block.featureGrid",
-      "title": "Strapi's Competitive Advantages",
-      "features": [
-        {
-          "icon": "Zap",
-          "title": "Auto-Generated APIs",
-          "description": "GraphQL and REST endpoints automatically generated from content types. No manual API development required."
-        },
-        {
-          "icon": "Database",
-          "title": "Flexible Data Modeling",
-          "description": "Dynamic zones, components, and relations give you WordPress flexibility with enterprise type safety."
-        },
-        {
-          "icon": "Code",
-          "title": "Developer Experience",
-          "description": "TypeScript code generation, hot reload, plugin system, and comprehensive documentation accelerate development."
-        },
-        {
-          "icon": "Users",
-          "title": "Content Team Friendly",
-          "description": "Intuitive admin panel requires minimal training. Content editors are productive from day one."
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Zap",
+            "title": "Auto-Generated APIs",
+            "description": "GraphQL and REST endpoints automatically generated from content types. No manual API development required."
+          },
+          {
+            "icon": "Database",
+            "title": "Flexible Data Modeling",
+            "description": "Dynamic zones, components, and relations give you WordPress flexibility with enterprise type safety."
+          },
+          {
+            "icon": "Code",
+            "title": "Developer Experience",
+            "description": "TypeScript code generation, hot reload, plugin system, and comprehensive documentation accelerate development."
+          },
+          {
+            "icon": "Users",
+            "title": "Content Team Friendly",
+            "description": "Intuitive admin panel requires minimal training. Content editors are productive from day one."
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "security",
-      "title": "Security & Compliance",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Security & Compliance",
+        "id": "security"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Strapi provides enterprise-grade security features essential for handling sensitive data:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Strapi provides enterprise-grade security features essential for handling sensitive data:"
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Shield",
-          "title": "Role-Based Access Control",
-          "description": "Granular permissions at content type, field, and API endpoint levels. Define custom roles with precise access policies."
-        },
-        {
-          "icon": "Lock",
-          "title": "Data Encryption",
-          "description": "PostgreSQL encryption at rest, TLS/HTTPS in transit, and secure environment variable management."
-        },
-        {
-          "icon": "Eye",
-          "title": "Audit Logging",
-          "description": "Track all admin actions, content changes, and API requests for compliance and forensic analysis."
-        },
-        {
-          "icon": "Shield",
-          "title": "GDPR Compliance",
-          "description": "Data export, deletion, and privacy features built-in. Self-hosting ensures data sovereignty."
-        },
-        {
-          "icon": "Key",
-          "title": "API Key Management",
-          "description": "Token-based authentication with configurable expiration, scopes, and rate limiting."
-        },
-        {
-          "icon": "AlertTriangle",
-          "title": "Security Updates",
-          "description": "Active community and Strapi Inc. provide regular security patches and vulnerability disclosure."
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Shield",
+            "title": "Role-Based Access Control",
+            "description": "Granular permissions at content type, field, and API endpoint levels. Define custom roles with precise access policies."
+          },
+          {
+            "icon": "Lock",
+            "title": "Data Encryption",
+            "description": "PostgreSQL encryption at rest, TLS/HTTPS in transit, and secure environment variable management."
+          },
+          {
+            "icon": "Eye",
+            "title": "Audit Logging",
+            "description": "Track all admin actions, content changes, and API requests for compliance and forensic analysis."
+          },
+          {
+            "icon": "Shield",
+            "title": "GDPR Compliance",
+            "description": "Data export, deletion, and privacy features built-in. Self-hosting ensures data sovereignty."
+          },
+          {
+            "icon": "Key",
+            "title": "API Key Management",
+            "description": "Token-based authentication with configurable expiration, scopes, and rate limiting."
+          },
+          {
+            "icon": "AlertTriangle",
+            "title": "Security Updates",
+            "description": "Active community and Strapi Inc. provide regular security patches and vulnerability disclosure."
+          }
+        ]
+      }
     },
     {
-      "type": "block.card",
-      "icon": "Lock",
-      "title": "Data Sovereignty",
-      "variant": "accent",
-      "content": "Self-hosted Strapi gives you complete control over data location, backup policies, and compliance requirements. Critical for regulated industries (healthcare, finance, legal) and international businesses with data residency requirements."
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Data Sovereignty",
+        "links": [
+          {
+            "href": "#",
+            "title": "Data Sovereignty",
+            "description": "Self-hosted Strapi gives you complete control over data location, backup policies, and compliance requirements. Critical for regulated industries (healthcare, finance, legal) and international businesses with data residency requirements.",
+            "icon": "Lock"
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "use-cases",
-      "title": "Ideal Use Cases",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Ideal Use Cases",
+        "id": "use-cases"
+      }
     },
     {
-      "type": "block.paragraph",
-      "content": "Strapi excels in these common business scenarios:"
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Strapi excels in these common business scenarios:"
+      }
     },
     {
-      "type": "block.featureGrid",
-      "features": [
-        {
-          "icon": "Globe",
-          "title": "Marketing Websites",
-          "description": "Power multi-page marketing sites with blog, case studies, and landing pages. Enable marketers to launch campaigns independently."
-        },
-        {
-          "icon": "Building",
-          "title": "Service Businesses",
-          "description": "Manage service offerings, testimonials, team profiles, and contact forms. Integrate with CRM and email marketing tools."
-        },
-        {
-          "icon": "Zap",
-          "title": "Mobile & Web Apps",
-          "description": "Serve content to React, React Native, Vue, or Next.js frontends via GraphQL or REST. Real-time updates via webhooks."
-        }
-      ]
+      "type": "organism.featureGrid",
+      "atomicLevel": "organism",
+      "props": {
+        "columns": 2,
+        "features": [
+          {
+            "icon": "Globe",
+            "title": "Marketing Websites",
+            "description": "Power multi-page marketing sites with blog, case studies, and landing pages. Enable marketers to launch campaigns independently."
+          },
+          {
+            "icon": "Building",
+            "title": "Service Businesses",
+            "description": "Manage service offerings, testimonials, team profiles, and contact forms. Integrate with CRM and email marketing tools."
+          },
+          {
+            "icon": "Zap",
+            "title": "Mobile & Web Apps",
+            "description": "Serve content to React, React Native, Vue, or Next.js frontends via GraphQL or REST. Real-time updates via webhooks."
+          }
+        ]
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "next-steps",
-      "title": "Next Steps",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Next Steps",
+        "id": "next-steps"
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/dashboard/documentation/cms-reference/getting-started",
-      "icon": "BookOpen",
-      "title": "For Technical Teams",
-      "description": "Dive into implementation details and start building with Strapi."
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "For Technical Teams",
+        "links": [
+          {
+            "href": "/dashboard/documentation/cms-reference/getting-started",
+            "title": "For Technical Teams",
+            "description": "Dive into implementation details and start building with Strapi.",
+            "icon": "BookOpen"
+          }
+        ]
+      }
     },
     {
-      "type": "block.linkCard",
-      "href": "/contact",
-      "icon": "MessageCircle",
-      "title": "Schedule Consultation",
-      "description": "Discuss your specific requirements and get expert guidance on Strapi implementation."
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Schedule Consultation",
+        "links": [
+          {
+            "href": "/contact",
+            "title": "Schedule Consultation",
+            "description": "Discuss your specific requirements and get expert guidance on Strapi implementation.",
+            "icon": "MessageCircle"
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 const TUTORIAL_LEVELS = ["beginner", "intermediate", "advanced"] as const;
 const TUTORIAL_CATEGORIES = [
@@ -14,19 +18,21 @@ const TUTORIAL_CATEGORIES = [
   "email",
 ] as const;
 
-const atomicLevelSchema = z.enum(["atom", "molecule", "organism"]);
-
-// Simplified block schema - allows any type/atomicLevel/props combination
-const tutorialBlockSchema = z.object({
-  type: z.string().min(1),
-  atomicLevel: atomicLevelSchema,
-  props: z.record(z.unknown()),
-});
-
 const tocItemSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   level: z.number().int().positive(),
+});
+
+/**
+ * Tutorial Block Schema
+ * Uses shared BLOCK_TYPE_ALIASES and atomicLevelSchema for consistency,
+ * but allows permissive prop validation for custom data structures
+ */
+const blockSchema = z.object({
+  type: z.enum(BLOCK_TYPE_ALIASES),
+  atomicLevel: atomicLevelSchema,
+  props: z.record(z.unknown()),
 });
 
 export const tutorialContentDocumentSchema = z.object({
@@ -42,5 +48,5 @@ export const tutorialContentDocumentSchema = z.object({
   }),
   layout: z.union([z.literal("content-with-toc"), z.literal("content-only")]),
   toc: z.array(tocItemSchema).optional(),
-  blocks: z.array(tutorialBlockSchema).min(1),
+  blocks: z.array(blockSchema).min(1),
 });

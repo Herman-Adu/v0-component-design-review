@@ -8,7 +8,7 @@ import { listCmsReference } from "@/lib/strapi/dashboard/documentation/cms-refer
 import { listAppReference } from "@/lib/strapi/dashboard/documentation/app-reference/app-reference-repository";
 import { listInfrastructureOps } from "@/lib/strapi/dashboard/documentation/infrastructure-ops/infrastructure-ops-repository";
 import { TableOfContents } from "@/components/molecules/article-components";
-import { DocumentationBlockRenderer } from "@/components/organisms/documentation-block-renderer";
+import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 import {
   getDocumentationViewModel,
   getCategoryColor,
@@ -178,7 +178,7 @@ export default async function DocumentationPage({
         {viewModel.toc && viewModel.toc.length > 0 ? (
           <div className="flex gap-8">
             <div className="flex-1 min-w-0">
-              <DocumentationBlockRenderer blocks={viewModel.blocks} />
+              <ContentBlockRenderer blocks={viewModel.blocks} />
             </div>
             <aside className="hidden lg:block w-64 shrink-0">
               <TableOfContents items={viewModel.toc} />
@@ -186,7 +186,7 @@ export default async function DocumentationPage({
           </div>
         ) : (
           <div className="space-y-6">
-            <DocumentationBlockRenderer blocks={viewModel.blocks} />
+            <ContentBlockRenderer blocks={viewModel.blocks} />
           </div>
         )}
       </article>

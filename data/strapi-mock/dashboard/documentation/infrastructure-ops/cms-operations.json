@@ -61,255 +61,260 @@
   ],
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Complete operational guide for managing Strapi CMS including content management, user administration, role configuration, plugin setup, and data maintenance."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Complete operational guide for managing Strapi CMS including content management, user administration, role configuration, plugin setup, and data maintenance."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "admin-dashboard-access",
-      "title": "Admin Dashboard Access",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Admin Dashboard Access",
+        "id": "admin-dashboard-access"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "URL: https://<strapi-domain>/admin",
-        "Username: Email from initial setup",
-        "Password: Set during first login"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "URL: https://<strapi-domain>/admin\n• Username: Email from initial setup\n• Password: Set during first login"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Visit /admin on new Strapi instance",
-        "2. Fill out admin user form (email, password)",
-        "3. Click 'Register'",
-        "4. Dashboard now accessible"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Visit /admin on new Strapi instance\n• 2. Fill out admin user form (email, password)\n• 3. Click 'Register'\n• 4. Dashboard now accessible"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "content-management",
-      "title": "Content Management",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Content Management",
+        "id": "content-management"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Navigate to Content Manager",
-        "2. Select collection type (Articles, Tutorials, etc)",
-        "3. Click 'Create new entry'",
-        "4. Fill in required fields",
-        "5. Click 'Save' or 'Publish'"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Navigate to Content Manager\n• 2. Select collection type (Articles, Tutorials, etc)\n• 3. Click 'Create new entry'\n• 4. Fill in required fields\n• 5. Click 'Save' or 'Publish'"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Draft - Saved but not published",
-        "Published - Available in API",
-        "Scheduled - Will publish at future date",
-        "Archived - Hidden from API but not deleted"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Draft - Saved but not published\n• Published - Available in API\n• Scheduled - Will publish at future date\n• Archived - Hidden from API but not deleted"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "All changes tracked automatically",
-        "View Changes > History to see versions",
-        "Restore: Click 'Restore' on previous version"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "All changes tracked automatically\n• View Changes > History to see versions\n• Restore: Click 'Restore' on previous version"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "user-management",
-      "title": "User Management",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "User Management",
+        "id": "user-management"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Admin > Users & Permissions > Users",
-        "2. Click 'Create new user'",
-        "3. Enter email",
-        "4. Assign role (Admin, Editor, Contributor, Author)",
-        "5. Send invitation link to user"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Admin > Users & Permissions > Users\n• 2. Click 'Create new user'\n• 3. Enter email\n• 4. Assign role (Admin, Editor, Contributor, Author)\n• 5. Send invitation link to user"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Admin - Full access, manage all content and settings",
-        "Editor - Can create, edit, delete all content",
-        "Contributor - Can create and edit own content",
-        "Author - Can only create content (needs editor approval)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Admin - Full access, manage all content and settings\n• Editor - Can create, edit, delete all content\n• Contributor - Can create and edit own content\n• Author - Can only create content (needs editor approval)"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Go to Users & Permissions Plugin > Roles",
-        "Select role to customize",
-        "Toggle permissions for each content type",
-        "Can restrict by collection and action"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Go to Users & Permissions Plugin > Roles\n• Select role to customize\n• Toggle permissions for each content type\n• Can restrict by collection and action"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "backup-recovery",
-      "title": "Backup & Recovery",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "Backup & Recovery",
+        "id": "backup-recovery"
+      }
     },
     {
-      "type": "block.card",
-      "title": "Database Backups",
-      "content": "For PostgreSQL on Railway.app or similar",
-      "variant": "default"
+      "type": "organism.relatedArticles",
+      "atomicLevel": "organism",
+      "props": {
+        "title": "Database Backups",
+        "links": [
+          {
+            "href": "#",
+            "title": "Database Backups",
+            "description": "For PostgreSQL on Railway.app or similar",
+            "icon": ""
+          }
+        ]
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Export via API: GET /api/articles?pagination[pageSize]=1000",
-        "2. Save JSON response to file",
-        "3. Keep in version control or secure storage",
-        "4. Can reimport if needed"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Export via API: GET /api/articles?pagination[pageSize]=1000\n• 2. Save JSON response to file\n• 3. Keep in version control or secure storage\n• 4. Can reimport if needed"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Contact hosting provider for database restore",
-        "2. Or manually recreate content from backup",
-        "3. Verify all content after recovery",
-        "4. Test API endpoints"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Contact hosting provider for database restore\n• 2. Or manually recreate content from backup\n• 3. Verify all content after recovery\n• 4. Test API endpoints"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "plugin-management",
-      "title": "Plugin Management",
-      "number": "05"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "05",
+        "title": "Plugin Management",
+        "id": "plugin-management"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Content-Type Builder - Create/edit content types",
-        "Email - Email notifications (SendGrid integration)",
-        "Upload - Media library and file management",
-        "Users & Permissions - User roles and access control",
-        "GraphQL - GraphQL API endpoint"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Content-Type Builder - Create/edit content types\n• Email - Email notifications (SendGrid integration)\n• Upload - Media library and file management\n• Users & Permissions - User roles and access control\n• GraphQL - GraphQL API endpoint"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Admin > Plugins",
-        "2. Click plugin to view details",
-        "3. Enable/Disable toggle",
-        "4. Restart Strapi if prompted"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Admin > Plugins\n• 2. Click plugin to view details\n• 3. Enable/Disable toggle\n• 4. Restart Strapi if prompted"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Admin > Media Library",
-        "2. Drag and drop images/files",
-        "3. Organize in folders",
-        "4. Use in content type fields",
-        "5. Configure upload destination (local or AWS S3)"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Admin > Media Library\n• 2. Drag and drop images/files\n• 3. Organize in folders\n• 4. Use in content type fields\n• 5. Configure upload destination (local or AWS S3)"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "content-type-configuration",
-      "title": "Content Type Configuration",
-      "number": "06"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "06",
+        "title": "Content Type Configuration",
+        "id": "content-type-configuration"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Admin > Content-Type Builder",
-        "2. Create new Collection Type or Single Type",
-        "3. Name and description",
-        "4. Add fields (String, Text, Date, Relation, etc)",
-        "5. Configure required fields",
-        "6. Save and deploy"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Admin > Content-Type Builder\n• 2. Create new Collection Type or Single Type\n• 3. Name and description\n• 4. Add fields (String, Text, Date, Relation, etc)\n• 5. Configure required fields\n• 6. Save and deploy"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "String - Short text (title, email)",
-        "Text - Long text (description, slug)",
-        "Rich Text - Rich HTML editor",
-        "Date - Calendar date picker",
-        "Boolean - Checkbox",
-        "Number - Integer or decimal",
-        "Enumeration - Dropdown choices",
-        "Media - Image/file upload",
-        "Relation - Links to other content",
-        "Component - Reusable field groups",
-        "Dynamic Zone - Multiple block types"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "String - Short text (title, email)\n• Text - Long text (description, slug)\n• Rich Text - Rich HTML editor\n• Date - Calendar date picker\n• Boolean - Checkbox\n• Number - Integer or decimal\n• Enumeration - Dropdown choices\n• Media - Image/file upload\n• Relation - Links to other content\n• Component - Reusable field groups\n• Dynamic Zone - Multiple block types"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "database-maintenance",
-      "title": "Database Maintenance",
-      "number": "07"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "07",
+        "title": "Database Maintenance",
+        "id": "database-maintenance"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Monitor database size and disk usage",
-        "Check for unused media files",
-        "Archive old content periodically",
-        "Review and optimize database indexes",
-        "Update PostgreSQL version when available"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Monitor database size and disk usage\n• Check for unused media files\n• Archive old content periodically\n• Review and optimize database indexes\n• Update PostgreSQL version when available"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Paginate large queries (don't fetch all at once)",
-        "Index frequently filtered fields",
-        "Clean up draft versions regularly",
-        "Monitor slow queries in database logs"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Paginate large queries (don't fetch all at once)\n• Index frequently filtered fields\n• Clean up draft versions regularly\n• Monitor slow queries in database logs"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "monitoring-alerts",
-      "title": "Monitoring & Alerts",
-      "number": "08"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "08",
+        "title": "Monitoring & Alerts",
+        "id": "monitoring-alerts"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Check logs: Strapi Admin > Logs (if available)",
-        "API errors: Monitor API response times",
-        "Database: Check hosting provider dashboard",
-        "Uptime monitoring: Use external service (Uptime Robot)",
-        "Content validation: Test API endpoints regularly"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Check logs: Strapi Admin > Logs (if available)\n• API errors: Monitor API response times\n• Database: Check hosting provider dashboard\n• Uptime monitoring: Use external service (Uptime Robot)\n• Content validation: Test API endpoints regularly"
+      }
     }
   ]
 }

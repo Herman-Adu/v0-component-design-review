@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  BLOCK_TYPE_ALIASES,
+  atomicLevelSchema,
+} from "../../_shared/block-schema";
 
 const CASE_STUDY_LEVELS = ["beginner", "intermediate", "advanced"] as const;
 const CASE_STUDY_CATEGORIES = [
@@ -13,57 +17,19 @@ const CASE_STUDY_CATEGORIES = [
   "forms",
 ] as const;
 
-const BLOCK_TYPE_ALIASES = [
-  "atom.paragraph",
-  "molecule.infoBox",
-  "molecule.sectionHeader",
-  "molecule.subSectionHeader",
-  "molecule.codeBlock",
-  "molecule.keyTakeaway",
-  "organism.metricsGrid",
-  "organism.featureGrid",
-  "organism.comparisonCards",
-  "organism.processFlow",
-  "organism.stepFlow",
-  "organism.statsTable",
-  "organism.relatedArticles",
-  "organism.architectureDiagram",
-  "organism.fileTree",
-  "organism.decisionTree",
-  "organism.dataFlowDiagram",
-  "organism.verticalFlow",
-  "paragraph",
-  "info-box",
-  "section-header",
-  "sub-section-header",
-  "code-block",
-  "key-takeaway",
-  "metrics-grid",
-  "feature-grid",
-  "comparison-cards",
-  "process-flow",
-  "step-flow",
-  "stats-table",
-  "related-articles",
-  "architecture-diagram",
-  "file-tree",
-  "decision-tree",
-  "data-flow-diagram",
-  "vertical-flow",
-  "before-after-comparison",
-  "numbered-list",
-] as const;
-
-const atomicLevelSchema = z.enum(["atom", "molecule", "organism"]);
-
 const tocItemSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   level: z.number().int().positive(),
 });
 
+/**
+ * Case Study Block Schema
+ * Uses shared BLOCK_TYPE_ALIASES and atomicLevelSchema for consistency,
+ * but allows permissive prop validation for custom data structures
+ */
 const blockSchema = z.object({
-  type: z.string(),
+  type: z.enum(BLOCK_TYPE_ALIASES),
   atomicLevel: atomicLevelSchema,
   props: z.record(z.unknown()).optional(),
 });

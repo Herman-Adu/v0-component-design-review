@@ -7,7 +7,11 @@
     "audience": "Developers",
     "publishedAt": "2026-02-01",
     "lastUpdated": "2026-03-02",
-    "tags": ["cms-reference", "getting-started", "documentation"]
+    "tags": [
+      "cms-reference",
+      "getting-started",
+      "documentation"
+    ]
   },
   "seo": {
     "metaTitle": "Getting Started - CMS Reference",
@@ -15,100 +19,101 @@
   },
   "blocks": [
     {
-      "type": "block.paragraph",
-      "content": "Step-by-step guide for setting up Strapi CMS, configuring the database, creating content types, and connecting to the Next.js frontend."
+      "type": "atom.paragraph",
+      "atomicLevel": "atom",
+      "props": {
+        "text": "Step-by-step guide for setting up Strapi CMS, configuring the database, creating content types, and connecting to the Next.js frontend."
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "local-development-setup",
-      "title": "Local Development Setup",
-      "number": "01"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "01",
+        "title": "Local Development Setup",
+        "id": "local-development-setup"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Node.js 18.x or higher",
-        "PostgreSQL 14+ (or SQLite for development)",
-        "npm or yarn package manager",
-        "Git for version control"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Node.js 18.x or higher\n• PostgreSQL 14+ (or SQLite for development)\n• npm or yarn package manager\n• Git for version control"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "1. Create Strapi project: npx create-strapi-app@latest my-strapi-project",
-        "2. Choose database (PostgreSQL recommended for production)",
-        "3. Configure database connection in .env",
-        "4. Run migrations: npm run develop",
-        "5. Access admin panel at http://localhost:1337/admin",
-        "6. Create admin user account"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Create Strapi project: npx create-strapi-app@latest my-strapi-project\n• 2. Choose database (PostgreSQL recommended for production)\n• 3. Configure database connection in .env\n• 4. Run migrations: npm run develop\n• 5. Access admin panel at http://localhost:1337/admin\n• 6. Create admin user account"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "creating-your-first-content-type",
-      "title": "Creating Your First Content Type",
-      "number": "02"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "02",
+        "title": "Creating Your First Content Type",
+        "id": "creating-your-first-content-type"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": true,
-      "items": [
-        "1. Go to Content-type Builder",
-        "2. Click 'Create new collection type'",
-        "3. Name it 'Article'",
-        "4. Add fields: title (String), slug (String), content (Rich Text), category (Enumeration)",
-        "5. Add metadata: publishedDate (Date), featured (Boolean)",
-        "6. Configure permissions in Settings > Roles",
-        "7. Save and generate API routes"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Go to Content-type Builder\n• 2. Click 'Create new collection type'\n• 3. Name it 'Article'\n• 4. Add fields: title (String), slug (String), content (Rich Text), category (Enumeration)\n• 5. Add metadata: publishedDate (Date), featured (Boolean)\n• 6. Configure permissions in Settings > Roles\n• 7. Save and generate API routes"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "REST endpoint: GET /api/articles",
-        "GraphQL query: { articles { title slug content } }",
-        "Automatic OpenAPI/Swagger documentation",
-        "Type safety via generated TypeScript types"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "REST endpoint: GET /api/articles\n• GraphQL query: { articles { title slug content } }\n• Automatic OpenAPI/Swagger documentation\n• Type safety via generated TypeScript types"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "connecting-to-nextjs",
-      "title": "Connecting to Next.js",
-      "number": "03"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "03",
+        "title": "Connecting to Next.js",
+        "id": "connecting-to-nextjs"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "1. Install Strapi SDK: npm install @strapi/sdk",
-        "2. Configure API URL in next.config.js",
-        "3. Create API client wrapper",
-        "4. Use SWR or TanStack Query for data fetching",
-        "5. Implement server actions for mutations",
-        "6. Add types from generated schemas"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "1. Install Strapi SDK: npm install @strapi/sdk\n• 2. Configure API URL in next.config.js\n• 3. Create API client wrapper\n• 4. Use SWR or TanStack Query for data fetching\n• 5. Implement server actions for mutations\n• 6. Add types from generated schemas"
+      }
     },
     {
-      "type": "block.sectionHeader",
-      "id": "api-access-configuration",
-      "title": "API Access Configuration",
-      "number": "04"
+      "type": "molecule.sectionHeader",
+      "atomicLevel": "molecule",
+      "props": {
+        "number": "04",
+        "title": "API Access Configuration",
+        "id": "api-access-configuration"
+      }
     },
     {
-      "type": "block.list",
-      "ordered": false,
-      "items": [
-        "Set STRAPI_API_URL environment variable",
-        "Configure STRAPI_API_TOKEN for admin operations",
-        "Set up API_WEBHOOK_SECRET for webhooks",
-        "Enable CORS for frontend domain",
-        "Configure rate limiting in settings"
-      ]
+      "type": "molecule.infoBox",
+      "atomicLevel": "molecule",
+      "props": {
+        "variant": "info",
+        "title": null,
+        "body": "Set STRAPI_API_URL environment variable\n• Configure STRAPI_API_TOKEN for admin operations\n• Set up API_WEBHOOK_SECRET for webhooks\n• Enable CORS for frontend domain\n• Configure rate limiting in settings"
+      }
     }
   ]
 }
