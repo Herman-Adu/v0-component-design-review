@@ -4,15 +4,16 @@
  * Data access layer for tutorials content type with query logging.
  * Implements IBaseRepository pattern for consistent method signatures.
  *
- * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ * Authority: ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
+import "server-only";
 import {
   getTutorialList,
   getTutorialContentDocument,
   type Tutorial,
-  type TutorialContentDocument,
-} from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-content";
+} from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-content-builder";
+import type { TutorialContentDocument } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
 import { repoLogger } from "@/lib/utils/arch-logger";
 
 export interface TutorialRecord {

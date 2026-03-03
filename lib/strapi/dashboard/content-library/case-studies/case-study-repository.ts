@@ -4,15 +4,16 @@
  * Data access layer for case studies content type with query logging.
  * Implements IBaseRepository pattern for consistent method signatures.
  *
- * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ * Authority: ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
+import "server-only";
 import {
   getCaseStudyList,
   getCaseStudyContentDocument,
   type CaseStudy,
-} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content";
-import type { CaseStudyContentDocument } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content";
+} from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder";
+import type { CaseStudyContentDocument } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
 import { repoLogger } from "@/lib/utils/arch-logger";
 
 export interface CaseStudyRecord {

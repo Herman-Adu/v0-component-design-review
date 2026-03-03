@@ -14,17 +14,9 @@ export {
 
 export type {
   AppReferenceDocument,
-  Block,
-  Meta,
-  TocItem,
+  AppReferenceBlock,
+  AppReferenceMeta,
+  AppReferenceTocItem,
+  AppReferenceCategory,
 } from "./app-reference-schema";
 
-export {
-  toAppReferenceDetailViewModel,
-  toAppReferenceListItemViewModel,
-} from "./app-reference-view-models";
-
-export type {
-  AppReferenceDetailViewModel,
-  AppReferenceListItemViewModel,
-} from "./app-reference-view-models";

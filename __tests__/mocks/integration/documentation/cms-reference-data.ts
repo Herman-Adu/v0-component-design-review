@@ -26,52 +26,71 @@ export const mockCmsReferenceDocuments: CmsReferenceDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "prerequisites",
-        title: "Prerequisites",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "prerequisites",
+          title: "Prerequisites",
+          number: "01",
+        },
       },
       {
-        type: "block.list",
-        ordered: true,
-        items: [
-          "Node.js 18.x or higher",
-          "npm or yarn package manager",
-          "PostgreSQL or MySQL database",
-          "Basic command-line knowledge",
-        ],
+        type: "numbered-list",
+        atomicLevel: "molecule",
+        props: {
+          items: [
+            "Node.js 18.x or higher",
+            "npm or yarn package manager",
+            "PostgreSQL or MySQL database",
+            "Basic command-line knowledge",
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "local-setup",
-        title: "Local Development Setup",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "local-setup",
+          title: "Local Development Setup",
+          number: "02",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "bash",
-        code: "npx create-strapi-app@latest my-strapi-project\ncd my-strapi-project\nnpm run develop",
-        title: "Quick Start Commands",
-        showLineNumbers: true,
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "bash",
+          code: "npx create-strapi-app@latest my-strapi-project\ncd my-strapi-project\nnpm run develop",
+          title: "Quick Start Commands",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "info",
-        title: "Default Admin Creation",
-        content:
-          "On first run, Strapi will prompt you to create an admin user. Save these credentials securely.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "info",
+          title: "Default Admin Creation",
+          content:
+            "On first run, Strapi will prompt you to create an admin user. Save these credentials securely.",
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "docker",
-        title: "Docker Setup",
-        number: "03",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "docker",
+          title: "Docker Setup",
+          number: "03",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "yaml",
-        code: 'version: "3.8"\nservices:\n  strapi:\n    image: strapi/base:latest\n    ports:\n      - "1337:1337"\n    environment:\n      - DATABASE_CLIENT=postgres\n      - DATABASE_HOST=db',
-        title: "Docker Compose Example",
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "yaml",
+          code: 'version: "3.8"\nservices:\n  strapi:\n    image: strapi/base:latest\n    ports:\n      - "1337:1337"\n    environment:\n      - DATABASE_CLIENT=postgres\n      - DATABASE_HOST=db',
+          title: "Docker Compose Example",
+        },
       },
     ],
   },
@@ -99,48 +118,63 @@ export const mockCmsReferenceDocuments: CmsReferenceDocument[] = [
     ],
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "plugin-overview",
-        title: "Plugin Architecture",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "plugin-overview",
+          title: "Plugin Architecture",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "Strapi plugins extend functionality through a well-defined architecture. Each plugin can have server-side logic, admin panel UI, and configuration.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "Strapi plugins extend functionality through a well-defined architecture. Each plugin can have server-side logic, admin panel UI, and configuration.",
+        },
       },
       {
-        type: "block.featureGrid",
-        title: "Plugin Capabilities",
-        features: [
-          {
-            icon: "Code",
-            title: "Server APIs",
-            description: "Create custom REST/GraphQL endpoints",
-          },
-          {
-            icon: "Palette",
-            title: "Admin UI",
-            description: "Custom admin panel components",
-          },
-          {
-            icon: "Settings",
-            title: "Configuration",
-            description: "Plugin-specific settings and options",
-          },
-        ],
+        type: "organism.featureGrid",
+        atomicLevel: "organism",
+        props: {
+          title: "Plugin Capabilities",
+          features: [
+            {
+              icon: "Code",
+              title: "Server APIs",
+              description: "Create custom REST/GraphQL endpoints",
+            },
+            {
+              icon: "Palette",
+              title: "Admin UI",
+              description: "Custom admin panel components",
+            },
+            {
+              icon: "Settings",
+              title: "Configuration",
+              description: "Plugin-specific settings and options",
+            },
+          ],
+        },
       },
       {
-        type: "block.sectionHeader",
-        id: "custom-fields",
-        title: "Creating Custom Fields",
-        number: "02",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "custom-fields",
+          title: "Creating Custom Fields",
+          number: "02",
+        },
       },
       {
-        type: "block.codeBlock",
-        language: "typescript",
-        code: "export default {\n  strapi: {\n    register() {\n      // Register custom field type\n    },\n    bootstrap() {\n      // Initialize field\n    },\n  },\n};",
-        title: "Basic Plugin Structure",
+        type: "molecule.codeBlock",
+        atomicLevel: "molecule",
+        props: {
+          language: "typescript",
+          code: "export default {\n  strapi: {\n    register() {\n      // Register custom field type\n    },\n    bootstrap() {\n      // Initialize field\n    },\n  },\n};",
+          title: "Basic Plugin Structure",
+        },
       },
     ],
   },
@@ -163,22 +197,31 @@ export const mockCmsReferenceDocuments: CmsReferenceDocument[] = [
     },
     blocks: [
       {
-        type: "block.sectionHeader",
-        id: "fundamentals",
-        title: "Content Type Fundamentals",
-        number: "01",
+        type: "molecule.sectionHeader",
+        atomicLevel: "molecule",
+        props: {
+          id: "fundamentals",
+          title: "Content Type Fundamentals",
+          number: "01",
+        },
       },
       {
-        type: "block.paragraph",
-        content:
-          "Content types in Strapi define the structure of your data. Each field can have attributes, validations, and behaviors.",
+        type: "atom.paragraph",
+        atomicLevel: "atom",
+        props: {
+          content:
+            "Content types in Strapi define the structure of your data. Each field can have attributes, validations, and behaviors.",
+        },
       },
       {
-        type: "block.callout",
-        calloutType: "warning",
-        title: "Schema Immutability",
-        content:
-          "Changing field types after creation requires database migration. Plan your schema carefully.",
+        type: "molecule.infoBox",
+        atomicLevel: "molecule",
+        props: {
+          type: "warning",
+          title: "Schema Immutability",
+          content:
+            "Changing field types after creation requires database migration. Plan your schema carefully.",
+        },
       },
     ],
   },

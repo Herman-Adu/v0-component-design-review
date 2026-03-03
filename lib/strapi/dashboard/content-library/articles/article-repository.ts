@@ -4,15 +4,16 @@
  * Data access layer for articles content type with query logging.
  * Implements IBaseRepository pattern for consistent method signatures.
  *
- * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ * Authority: ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
+import "server-only";
 import {
   getArticleList,
   getArticleContentDocument,
   type Article,
-} from "@/lib/strapi/dashboard/content-library/articles/article-content";
-import type { ArticleContentDocument } from "@/lib/strapi/dashboard/content-library/articles/article-content";
+} from "@/lib/strapi/dashboard/content-library/articles/article-content-builder";
+import type { ArticleContentDocument } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
 import { repoLogger } from "@/lib/utils/arch-logger";
 
 export interface ArticleRecord {

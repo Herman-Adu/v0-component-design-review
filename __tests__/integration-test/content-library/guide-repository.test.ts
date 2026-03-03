@@ -5,7 +5,7 @@ import {
 } from "../../mocks/integration/content-library/guide-data";
 
 // Mock the content builder layer
-vi.mock("@/lib/strapi/dashboard/content-library/guides/guide-content", () => ({
+vi.mock("@/lib/strapi/dashboard/content-library/guides/guide-content-builder", () => ({
   getGuideList: vi.fn(() => mockGuides),
   getGuideContentDocument: vi.fn((slug: string) => {
     const guide = mockGuides.find((g) => g.slug === slug);

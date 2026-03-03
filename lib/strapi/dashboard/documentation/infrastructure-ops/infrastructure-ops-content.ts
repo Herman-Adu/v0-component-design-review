@@ -14,17 +14,9 @@ export {
 
 export type {
   InfrastructureOpsDocument,
-  Block,
-  Meta,
-  TocItem,
+  InfrastructureOpsBlock,
+  InfrastructureOpsMeta,
+  InfrastructureOpsTocItem,
+  InfrastructureOpsCategory,
 } from "./infrastructure-ops-schema";
 
-export {
-  toInfrastructureOpsDetailViewModel,
-  toInfrastructureOpsListItemViewModel,
-} from "./infrastructure-ops-view-models";
-
-export type {
-  InfrastructureOpsDetailViewModel,
-  InfrastructureOpsListItemViewModel,
-} from "./infrastructure-ops-view-models";

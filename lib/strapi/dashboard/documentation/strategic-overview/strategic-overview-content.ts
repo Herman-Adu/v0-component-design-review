@@ -16,17 +16,9 @@ export {
 
 export type {
   StrategicOverviewDocument,
-  Block,
-  Meta,
-  TocItem,
+  StrategicOverviewBlock,
+  StrategicOverviewMeta,
+  StrategicOverviewTocItem,
+  StrategicOverviewCategory,
 } from "./strategic-overview-schema";
 
-export {
-  toStrategicOverviewDetailViewModel,
-  toStrategicOverviewListItemViewModel,
-} from "./strategic-overview-view-models";
-
-export type {
-  StrategicOverviewDetailViewModel,
-  StrategicOverviewListItemViewModel,
-} from "./strategic-overview-view-models";

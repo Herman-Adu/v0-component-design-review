@@ -1,7 +1,5 @@
-import type {
-  Article,
-  ArticleContentDocument,
-} from "@/lib/strapi/dashboard/content-library/articles/article-content-builder";
+import type { Article } from "@/lib/strapi/dashboard/content-library/articles/article-content-builder";
+import type { ArticleContentDocument } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
 
 export const mockArticles: Article[] = [
   {

@@ -1,7 +1,5 @@
-import type {
-  Tutorial,
-  TutorialContentDocument,
-} from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-content-builder";
+import type { Tutorial } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-content-builder";
+import type { TutorialContentDocument } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
 
 export const mockTutorials: Tutorial[] = [
   {

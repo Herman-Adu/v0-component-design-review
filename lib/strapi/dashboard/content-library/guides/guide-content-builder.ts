@@ -1,38 +1,18 @@
-import { guideSchema } from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
+import "server-only";
+import {
+  GuideContentDocumentSchema,
+  type GuideLevel,
+  type GuideCategory,
+  type GuideContentBlock,
+  type GuideContentDocument,
+} from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
+export type { GuideContentMeta } from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all guide JSON files
 import securityArchitectureData from "@/data/strapi-mock/dashboard/content-library/guides/security-architecture.json";
 import deploymentGuideData from "@/data/strapi-mock/dashboard/content-library/guides/deployment-guide.json";
 import testingStrategyData from "@/data/strapi-mock/dashboard/content-library/guides/testing-strategy.json";
-
-export type GuideLevel = "intermediate" | "advanced";
-export type GuideCategory = "security" | "devops" | "testing";
-
-export interface GuideContentBlock {
-  type: string;
-  atomicLevel?: "atom" | "molecule" | "organism";
-  props?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-
-export interface GuideContentMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  level: GuideLevel;
-  category: GuideCategory;
-  readTime: string;
-  publishedAt: string;
-  tags: string[];
-}
-
-export interface GuideContentDocument {
-  meta: GuideContentMeta;
-  layout: "content-with-toc" | "content-only";
-  toc?: Array<{ id: string; title: string; level: number }>;
-  blocks: GuideContentBlock[];
-}
 
 /**
  * Guide list item generated from content metadata + blocks
@@ -61,7 +41,7 @@ const guideContentRegistry: Record<string, GuideContentDocument> = {
 dataLogger.loadStart("guides", "data/strapi-mock/.../guides/*.json");
 const validatedGuideContentRegistry = Object.fromEntries(
   Object.entries(guideContentRegistry).map(([slug, document]) => {
-    const result = guideSchema.safeParse(document);
+    const result = GuideContentDocumentSchema.safeParse(document);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)

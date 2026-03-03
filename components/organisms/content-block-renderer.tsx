@@ -33,7 +33,7 @@ import React from "react";
 import Link from "next/link";
 import { ChevronDown, ExternalLink } from "lucide-react";
 
-import type { ArticleContentBlock } from "@/lib/strapi/dashboard/content-library/articles/article-content";
+import type { ContentBlock } from "@/lib/strapi/dashboard/_shared/block-schema";
 import {
   ArchitectureDiagram,
   ArticleIcons,
@@ -68,13 +68,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-
-export type ContentBlock = {
-  type: string;
-  atomicLevel?: "atom" | "molecule" | "organism";
-  props?: Record<string, unknown>;
-  [key: string]: unknown;
-};
 
 const BLOCK_TYPE_ALIASES: Record<string, string> = {
   "atom.paragraph": "paragraph",

@@ -1,4 +1,12 @@
-import { articleContentDocumentSchema } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
+import "server-only";
+import {
+  ArticleContentDocumentSchema,
+  type ArticleLevel,
+  type ArticleCategory,
+  type ArticleContentBlock,
+  type ArticleContentDocument,
+} from "@/lib/strapi/dashboard/content-library/articles/article-schema";
+export type { ArticleContentMeta } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // Import all article JSON files
@@ -31,45 +39,6 @@ import performanceBudgetsArticle from "@/data/strapi-mock/dashboard/content-libr
 import ssgArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/static-site-generation-ssg.json";
 import ssrArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/server-side-rendering-ssr.json";
 import pprArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/partial-prerendering-ppr.json";
-
-export type ArticleLevel = "beginner" | "intermediate" | "advanced";
-export type ArticleCategory =
-  | "architecture"
-  | "security"
-  | "forms"
-  | "performance"
-  | "best-practices"
-  | "rendering"
-  | "business"
-  | "accessibility"
-  | "testing"
-  | "devops"
-  | "ai-tooling";
-
-export interface ArticleContentBlock {
-  type: string;
-  atomicLevel?: "atom" | "molecule" | "organism";
-  props?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-
-export interface ArticleContentMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  level: ArticleLevel;
-  category: ArticleCategory;
-  readTime: string;
-  publishedAt: string;
-  tags: string[];
-}
-
-export interface ArticleContentDocument {
-  meta: ArticleContentMeta;
-  layout: "content-with-toc" | "content-only";
-  toc?: Array<{ id: string; title: string; level: number }>;
-  blocks: ArticleContentBlock[];
-}
 
 /**
  * Article list item generated from content metadata
@@ -137,7 +106,7 @@ const articleContentRegistry: Record<string, ArticleContentDocument> = {
 dataLogger.loadStart("articles", "data/strapi-mock/.../articles/*.json");
 const validatedArticleContentRegistry = Object.fromEntries(
   Object.entries(articleContentRegistry).map(([slug, document]) => {
-    const result = articleContentDocumentSchema.safeParse(document);
+    const result = ArticleContentDocumentSchema.safeParse(document);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)

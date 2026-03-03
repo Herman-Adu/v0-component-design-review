@@ -4,7 +4,7 @@
  * Data access layer with query logging for strategic overview documentation.
  * Implements IBaseRepository pattern for consistent method signatures.
  *
- * Authority: base-repository.ts, ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
+ * Authority: ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md
  */
 
 import "server-only";

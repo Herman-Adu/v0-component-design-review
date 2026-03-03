@@ -39,20 +39,18 @@ const strategicOverviewDocuments = ((): StrategicOverviewDocument[] => {
   dataLogger.loadStart("strategic-overview", source);
 
   for (const doc of rawDocuments) {
-    try {
-      const validated = StrategicOverviewDocumentSchema.parse(doc);
-      results.push(validated);
-    } catch (e) {
-      const errorMsg = e instanceof Error ? e.message : String(e);
-      dataLogger.validationError(
-        "strategic-overview",
-        (doc as any).meta?.slug || "unknown",
-        [errorMsg],
-      );
+    const result = StrategicOverviewDocumentSchema.safeParse(doc);
+    if (!result.success) {
+      const slug = doc.meta.slug;
+      const issues = result.error.issues
+        .map((i) => `${i.path.join(".")}: ${i.message}`)
+        .join(" | ");
+      dataLogger.validationError("strategic-overview", slug, [issues]);
       throw new Error(
-        `Strategic overview validation failed for ${(doc as any).meta?.slug}: ${errorMsg}`,
+        `Strategic overview validation failed for "${slug}": ${issues}`,
       );
     }
+    results.push(result.data);
   }
 
   dataLogger.loadComplete("strategic-overview", results.length, source);
