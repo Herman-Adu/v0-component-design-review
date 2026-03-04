@@ -43,9 +43,9 @@ function getLevelColor(level: string) {
   }
 }
 
-export default function GuidesPage() {
+export default async function GuidesPage() {
   pageLogger.render("/dashboard/content-library/guides");
-  const guides = listGuides();
+  const guides = await listGuides();
   pageLogger.dataFetch(
     "/dashboard/content-library/guides",
     "guides",

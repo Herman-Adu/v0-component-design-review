@@ -6,8 +6,8 @@ import {
 import { getContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest";
 import { getDocumentationRouteManifest } from "@/lib/strapi/dashboard/documentation/documentation-route-manifest";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const contentManifest = getContentRouteManifest();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const contentManifest = await getContentRouteManifest();
   const docManifest = getDocumentationRouteManifest();
   const now = new Date();
 

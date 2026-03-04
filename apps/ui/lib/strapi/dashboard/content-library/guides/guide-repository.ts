@@ -11,6 +11,7 @@ import "server-only";
 import {
   getGuideList,
   getGuideContentDocument,
+  getAllGuideContentSlugs,
   type Guide,
 } from "@/lib/strapi/dashboard/content-library/guides/guide-content-builder";
 import type { GuideContentDocument } from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
@@ -23,38 +24,47 @@ export interface GuideRecord {
 
 /**
  * Get all guides
- * Returns array of all guide records
  */
-export function listGuides(): Guide[] {
+export async function listGuides(): Promise<Guide[]> {
   repoLogger.queryStart("guides-repository", "listGuides");
-  const result = getGuideList();
+  const result = await getGuideList();
   repoLogger.queryComplete("guides-repository", "listGuides", result.length);
   return result;
 }
 
 /**
  * Get guide slugs for static generation
- * Returns array of all guide slugs
  */
-export function listGuideSlugs(): string[] {
-  return getGuideList().map((guide) => guide.slug);
+export async function listGuideSlugs(): Promise<string[]> {
+  const slugs = await getAllGuideContentSlugs();
+  return slugs;
 }
 
 /**
  * Get guide by slug
- * Returns guide record or null if not found
  */
-export function getGuideRecordBySlug(slug: string): GuideRecord | null {
+export async function getGuideRecordBySlug(
+  slug: string,
+): Promise<GuideRecord | null> {
   repoLogger.queryStart("guides-repository", "getGuideRecordBySlug", { slug });
-  const guide = getGuideList().find((item) => item.slug === slug);
+  const guides = await getGuideList();
+  const guide = guides.find((item) => item.slug === slug);
   if (!guide) {
-    repoLogger.queryComplete("guides-repository", "getGuideRecordBySlug", null);
+    repoLogger.queryComplete(
+      "guides-repository",
+      "getGuideRecordBySlug",
+      null,
+    );
     return null;
   }
 
-  const content = getGuideContentDocument(slug);
+  const content = await getGuideContentDocument(slug);
   if (!content) {
-    repoLogger.queryComplete("guides-repository", "getGuideRecordBySlug", null);
+    repoLogger.queryComplete(
+      "guides-repository",
+      "getGuideRecordBySlug",
+      null,
+    );
     return null;
   }
 
@@ -64,26 +74,27 @@ export function getGuideRecordBySlug(slug: string): GuideRecord | null {
 
 /**
  * Get guides by category
- * Returns filtered array of guides matching category
  */
-export function getGuidesByCategory(category: Guide["category"]): Guide[] {
-  return listGuides().filter((guide) => guide.category === category);
+export async function getGuidesByCategory(
+  category: Guide["category"],
+): Promise<Guide[]> {
+  const guides = await listGuides();
+  return guides.filter((guide) => guide.category === category);
 }
 
 /**
  * Get guides by level
- * Returns filtered array of guides matching level
  */
-export function getGuidesByLevel(level: Guide["level"]): Guide[] {
-  return listGuides().filter((guide) => guide.level === level);
+export async function getGuidesByLevel(
+  level: Guide["level"],
+): Promise<Guide[]> {
+  const guides = await listGuides();
+  return guides.filter((guide) => guide.level === level);
 }
 
 /**
- * List guides by audience (optional extension)
- * Provided for consistency with documentation repositories
- * Returns filtered array of guides matching audience
+ * List guides by audience (stub — content-library doesn't use audience)
  */
-export function listGuidesByAudience(audience: string): Guide[] {
-  // Content-library doesn't currently use audience field; this is a no-op stub
+export async function listGuidesByAudience(_audience: string): Promise<Guide[]> {
   return listGuides();
 }

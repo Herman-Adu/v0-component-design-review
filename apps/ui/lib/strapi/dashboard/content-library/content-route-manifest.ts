@@ -36,10 +36,10 @@ function mapEntries(
   }));
 }
 
-export function getContentRouteManifest(): ContentRouteManifest {
+export async function getContentRouteManifest(): Promise<ContentRouteManifest> {
   const articles = mapEntries("articles", listArticles());
   const tutorials = mapEntries("tutorials", listTutorials());
-  const guides = mapEntries("guides", listGuides());
+  const guides = mapEntries("guides", await listGuides());
   const caseStudies = mapEntries("case-studies", listCaseStudies());
 
   const all = [...articles, ...tutorials, ...guides, ...caseStudies].sort(

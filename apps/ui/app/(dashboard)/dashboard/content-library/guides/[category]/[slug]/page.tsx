@@ -13,13 +13,13 @@ import { TableOfContents } from "@/components/molecules/article-components";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  const guides = listGuides();
-  return guides.map((guide) => {
-    return {
-      category: guide.category,
-      slug: guide.slug,
-    };
-  });
+  try {
+    const guides = await listGuides();
+    return guides.map((guide) => ({ category: guide.category, slug: guide.slug }));
+  } catch {
+    // Strapi unavailable (e.g. CI) — skip SSG, render on demand
+    return [];
+  }
 }
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
   params: Promise<{ category: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const record = getGuideRecordBySlug(slug);
+  const record = await getGuideRecordBySlug(slug);
 
   if (!record) {
     return {
@@ -89,7 +89,7 @@ export default async function GuidePage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { slug, category } = await params;
-  const guideRecord = getGuideRecordBySlug(slug);
+  const guideRecord = await getGuideRecordBySlug(slug);
 
   if (!guideRecord) {
     notFound();
