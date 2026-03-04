@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_management_tool_items",
+  "info": {
+    "displayName": "Tool Item",
+    "description": "Link card to a tool or feature page within an admin section"
+  },
+  "options": {},
+  "attributes": {
+    "itemId": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": false,
+      "default": "Available"
+    },
+    "badge": {
+      "type": "string",
+      "required": false
+    },
+    "badgeColor": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

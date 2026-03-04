@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_management_cta_blocks",
+  "info": {
+    "displayName": "CTA Block",
+    "description": "Call-to-action card with a single navigation link"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "linkText": {
+      "type": "string",
+      "required": true
+    },
+    "linkHref": {
+      "type": "string",
+      "required": true
+    },
+    "linkIcon": {
+      "type": "string",
+      "required": false,
+      "default": "ArrowRight"
+    }
+  }
+}

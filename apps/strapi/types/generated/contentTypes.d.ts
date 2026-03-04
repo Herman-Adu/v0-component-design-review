@@ -769,6 +769,99 @@ export interface ApiInfrastructureOpsInfrastructureOps
   };
 }
 
+export interface ApiManagementPageManagementPage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'management_pages';
+  info: {
+    description: 'Overview landing pages for admin management sections (admin, document-health, email-management, digital-marketing)';
+    displayName: 'Management Page';
+    pluralName: 'management-pages';
+    singularName: 'management-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'management.cta-block', false>;
+    header: Schema.Attribute.Component<'management.section-header', false> &
+      Schema.Attribute.Required;
+    highlights: Schema.Attribute.Component<'management.highlight-item', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::management-page.management-page'
+    > &
+      Schema.Attribute.Private;
+    notice: Schema.Attribute.Component<'management.notice-block', false>;
+    pageSections: Schema.Attribute.Component<'management.page-section', true>;
+    platforms: Schema.Attribute.Component<'management.platform-card', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    quickLinks: Schema.Attribute.Component<'management.quick-link', true>;
+    quickStats: Schema.Attribute.Component<'management.quick-stat', true>;
+    section: Schema.Attribute.Enumeration<
+      ['admin', 'document-health', 'email-management', 'digital-marketing']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    toolSections: Schema.Attribute.Component<'management.tool-section', true>;
+    upcomingDescription: Schema.Attribute.Text;
+    upcomingFeatures: Schema.Attribute.Component<
+      'management.upcoming-feature',
+      true
+    >;
+    upcomingTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPlatformPagePlatformPage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'platform_pages';
+  info: {
+    description: 'Landing pages for digital marketing platforms (Google, Facebook, LinkedIn, Twitter)';
+    displayName: 'Platform Page';
+    pluralName: 'platform-pages';
+    singularName: 'platform-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ecosystemPhases: Schema.Attribute.Component<
+      'management.ecosystem-phase',
+      true
+    >;
+    header: Schema.Attribute.Component<'management.section-header', false> &
+      Schema.Attribute.Required;
+    introText: Schema.Attribute.Text;
+    introTitle: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::platform-page.platform-page'
+    > &
+      Schema.Attribute.Private;
+    platform: Schema.Attribute.Enumeration<
+      ['google', 'facebook', 'linkedin', 'twitter']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    tools: Schema.Attribute.Component<'management.tool-item', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStrategicOverviewStrategicOverview
   extends Struct.CollectionTypeSchema {
   collectionName: 'strategic_overviews';
@@ -1400,6 +1493,8 @@ declare module '@strapi/strapi' {
       'api::cms-reference.cms-reference': ApiCmsReferenceCmsReference;
       'api::guide.guide': ApiGuideGuide;
       'api::infrastructure-ops.infrastructure-ops': ApiInfrastructureOpsInfrastructureOps;
+      'api::management-page.management-page': ApiManagementPageManagementPage;
+      'api::platform-page.platform-page': ApiPlatformPagePlatformPage;
       'api::strategic-overview.strategic-overview': ApiStrategicOverviewStrategicOverview;
       'api::tutorial.tutorial': ApiTutorialTutorial;
       'plugin::content-releases.release': PluginContentReleasesRelease;

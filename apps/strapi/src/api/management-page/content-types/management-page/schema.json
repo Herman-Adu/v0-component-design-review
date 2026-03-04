@@ -1,0 +1,90 @@
+{
+  "kind": "collectionType",
+  "collectionName": "management_pages",
+  "info": {
+    "singularName": "management-page",
+    "pluralName": "management-pages",
+    "displayName": "Management Page",
+    "description": "Overview landing pages for admin management sections (admin, document-health, email-management, digital-marketing)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "section": {
+      "type": "enumeration",
+      "enum": ["admin", "document-health", "email-management", "digital-marketing"],
+      "required": true,
+      "unique": true
+    },
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "management.section-header",
+      "required": true
+    },
+    "notice": {
+      "type": "component",
+      "repeatable": false,
+      "component": "management.notice-block",
+      "required": false
+    },
+    "quickStats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.quick-stat",
+      "required": false
+    },
+    "toolSections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.tool-section",
+      "required": false
+    },
+    "upcomingTitle": {
+      "type": "string",
+      "required": false
+    },
+    "upcomingDescription": {
+      "type": "text",
+      "required": false
+    },
+    "upcomingFeatures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.upcoming-feature",
+      "required": false
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "management.cta-block",
+      "required": false
+    },
+    "pageSections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.page-section",
+      "required": false
+    },
+    "highlights": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.highlight-item",
+      "required": false
+    },
+    "quickLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.quick-link",
+      "required": false
+    },
+    "platforms": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.platform-card",
+      "required": false
+    }
+  }
+}

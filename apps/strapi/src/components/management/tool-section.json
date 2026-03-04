@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_management_tool_sections",
+  "info": {
+    "displayName": "Tool Section",
+    "description": "Grouped set of tool link cards with a section header"
+  },
+  "options": {},
+  "attributes": {
+    "sectionId": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "tools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.tool-item",
+      "required": false
+    }
+  }
+}

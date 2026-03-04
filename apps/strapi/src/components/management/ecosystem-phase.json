@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_management_ecosystem_phases",
+  "info": {
+    "displayName": "Ecosystem Phase",
+    "description": "A marketing funnel phase (Attract / Convert / Measure)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "items": {
+      "type": "json"
+    }
+  }
+}

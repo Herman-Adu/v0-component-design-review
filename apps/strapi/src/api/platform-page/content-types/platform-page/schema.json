@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "platform_pages",
+  "info": {
+    "singularName": "platform-page",
+    "pluralName": "platform-pages",
+    "displayName": "Platform Page",
+    "description": "Landing pages for digital marketing platforms (Google, Facebook, LinkedIn, Twitter)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": ["google", "facebook", "linkedin", "twitter"],
+      "required": true,
+      "unique": true
+    },
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "management.section-header",
+      "required": true
+    },
+    "introTitle": {
+      "type": "string",
+      "required": false
+    },
+    "introText": {
+      "type": "text",
+      "required": false
+    },
+    "ecosystemPhases": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.ecosystem-phase",
+      "required": false
+    },
+    "tools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "management.tool-item",
+      "required": false
+    }
+  }
+}

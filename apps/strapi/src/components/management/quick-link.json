@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_management_quick_links",
+  "info": {
+    "displayName": "Quick Link",
+    "description": "A quick navigation link for management overview pages"
+  },
+  "options": {},
+  "attributes": {
+    "linkId": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

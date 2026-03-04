@@ -3,6 +3,20 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/dashboard/admin/document-administration/:path*",
+        destination: "/dashboard/admin/document-health/:path*",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/admin/email-administration/:path*",
+        destination: "/dashboard/admin/email-management/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

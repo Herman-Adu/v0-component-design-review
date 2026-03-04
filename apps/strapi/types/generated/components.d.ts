@@ -19,6 +19,229 @@ export interface AtomParagraph extends Struct.ComponentSchema {
   };
 }
 
+export interface ManagementCtaBlock extends Struct.ComponentSchema {
+  collectionName: 'components_management_cta_blocks';
+  info: {
+    description: 'Call-to-action card with a single navigation link';
+    displayName: 'CTA Block';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    linkHref: Schema.Attribute.String & Schema.Attribute.Required;
+    linkIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'ArrowRight'>;
+    linkText: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementEcosystemPhase extends Struct.ComponentSchema {
+  collectionName: 'components_management_ecosystem_phases';
+  info: {
+    description: 'A marketing funnel phase (Attract / Convert / Measure)';
+    displayName: 'Ecosystem Phase';
+  };
+  attributes: {
+    description: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.JSON;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementHighlightItem extends Struct.ComponentSchema {
+  collectionName: 'components_management_highlight_items';
+  info: {
+    description: 'A key capability or highlight item for management overview pages';
+    displayName: 'Highlight Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    itemId: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementNoticeBlock extends Struct.ComponentSchema {
+  collectionName: 'components_management_notice_blocks';
+  info: {
+    description: 'Callout-style notice: warning, info, success, error';
+    displayName: 'Notice Block';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String;
+    noticeType: Schema.Attribute.Enumeration<
+      ['warning', 'info', 'success', 'error']
+    > &
+      Schema.Attribute.DefaultTo<'info'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementPageSection extends Struct.ComponentSchema {
+  collectionName: 'components_management_page_sections';
+  info: {
+    description: 'A navigable section card for management overview pages';
+    displayName: 'Page Section';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      [
+        'emerald',
+        'violet',
+        'amber',
+        'blue',
+        'red',
+        'green',
+        'indigo',
+        'orange',
+        'pink',
+        'slate',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'slate'>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    pages: Schema.Attribute.Integer;
+    role: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementPlatformCard extends Struct.ComponentSchema {
+  collectionName: 'components_management_platform_cards';
+  info: {
+    description: 'A marketing platform card (Google, LinkedIn, Twitter, Facebook)';
+    displayName: 'Platform Card';
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    badgeColor: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    iconColor: Schema.Attribute.String;
+    pageItems: Schema.Attribute.Component<
+      'management.platform-page-item',
+      true
+    >;
+    platformId: Schema.Attribute.String & Schema.Attribute.Required;
+    status: Schema.Attribute.Enumeration<['Active', 'Coming Soon', 'Beta']> &
+      Schema.Attribute.DefaultTo<'Coming Soon'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementPlatformPageItem extends Struct.ComponentSchema {
+  collectionName: 'components_management_platform_page_items';
+  info: {
+    description: 'A page label inside a platform card';
+    displayName: 'Platform Page Item';
+  };
+  attributes: {
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    itemLabel: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementQuickLink extends Struct.ComponentSchema {
+  collectionName: 'components_management_quick_links';
+  info: {
+    description: 'A quick navigation link for management overview pages';
+    displayName: 'Quick Link';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    linkId: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementQuickStat extends Struct.ComponentSchema {
+  collectionName: 'components_management_quick_stats';
+  info: {
+    description: "Dashboard stat card. Use source='content-library' for runtime-computed values.";
+    displayName: 'Quick Stat';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    source: Schema.Attribute.String;
+    statId: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.DefaultTo<'dynamic'>;
+  };
+}
+
+export interface ManagementSectionHeader extends Struct.ComponentSchema {
+  collectionName: 'components_management_section_headers';
+  info: {
+    description: 'Page header: icon name (Lucide), title, description';
+    displayName: 'Section Header';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ManagementToolItem extends Struct.ComponentSchema {
+  collectionName: 'components_management_tool_items';
+  info: {
+    description: 'Link card to a tool or feature page within an admin section';
+    displayName: 'Tool Item';
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    badgeColor: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    itemId: Schema.Attribute.String & Schema.Attribute.Required;
+    status: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Available'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ManagementToolSection extends Struct.ComponentSchema {
+  collectionName: 'components_management_tool_sections';
+  info: {
+    description: 'Grouped set of tool link cards with a section header';
+    displayName: 'Tool Section';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    sectionId: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    tools: Schema.Attribute.Component<'management.tool-item', true>;
+  };
+}
+
+export interface ManagementUpcomingFeature extends Struct.ComponentSchema {
+  collectionName: 'components_management_upcoming_features';
+  info: {
+    description: 'Dimmed feature preview card shown in the upcoming features section';
+    displayName: 'Upcoming Feature';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    featureId: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    status: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Coming Soon'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface MoleculeCodeBlock extends Struct.ComponentSchema {
   collectionName: 'components_molecule_code_blocks';
   info: {
@@ -462,6 +685,19 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'atom.paragraph': AtomParagraph;
+      'management.cta-block': ManagementCtaBlock;
+      'management.ecosystem-phase': ManagementEcosystemPhase;
+      'management.highlight-item': ManagementHighlightItem;
+      'management.notice-block': ManagementNoticeBlock;
+      'management.page-section': ManagementPageSection;
+      'management.platform-card': ManagementPlatformCard;
+      'management.platform-page-item': ManagementPlatformPageItem;
+      'management.quick-link': ManagementQuickLink;
+      'management.quick-stat': ManagementQuickStat;
+      'management.section-header': ManagementSectionHeader;
+      'management.tool-item': ManagementToolItem;
+      'management.tool-section': ManagementToolSection;
+      'management.upcoming-feature': ManagementUpcomingFeature;
       'molecule.code-block': MoleculeCodeBlock;
       'molecule.info-box': MoleculeInfoBox;
       'molecule.key-takeaway': MoleculeKeyTakeaway;
