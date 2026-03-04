@@ -136,7 +136,7 @@ async function patch() {
     console.log(`   Found ${records.length} records in Strapi`);
 
     for (const record of records) {
-      const strapiId = record.id;
+      const strapiId = record.documentId; // Strapi 5 uses documentId (string UID) for PUT
       const slug = record.meta?.slug;
 
       if (!slug) {
