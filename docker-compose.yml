@@ -73,6 +73,23 @@ services:
       postgres:
         condition: service_healthy
 
+  strapi-mcp:
+    # MCP bridge — runs @bschauer/strapi-mcp-server inside Docker
+    # Zero host surface: no ports exposed, internal network only
+    # MCP sessions connect via: docker exec -i v0_strapi_mcp strapi-mcp-server
+    profiles: ["cms"]
+    build:
+      context: ./apps/strapi-mcp
+      dockerfile: Dockerfile
+    container_name: v0_strapi_mcp
+    restart: unless-stopped
+    environment:
+      STRAPI_MCP_API_URL: http://v0_strapi:1337
+      STRAPI_MCP_API_KEY: ${STRAPI_MCP_API_KEY}
+    depends_on:
+      - strapi
+    # No ports: — API key and traffic stay on the Docker bridge, never touch the host
+
   # One-time Strapi initialiser — run manually before first `strapi` service start:
   # docker-compose run --rm strapi-init
   strapi-init:
