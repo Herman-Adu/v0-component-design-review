@@ -3,89 +3,85 @@ import {
   StrategicOverviewDocumentSchema,
   type StrategicOverviewDocument,
 } from "./strategic-overview-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
-// Import all strategic overview JSON files
-import systemVisionDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/system-vision.json";
-import whyStrapiDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/why-strapi.json";
-import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/getting-started-overview.json";
-import overviewDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/overview.json";
-import appOverviewDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/app-overview.json";
-import codeReviewLogDoc from "@/data/strapi-mock/dashboard/documentation/strategic-overview/code-review-log.json";
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-/**
- * Strategic Overview Content Builder
- *
- * Loads strategic overview documentation from JSON files at module initialization.
- * This follows the content-library pattern established by article-content-builder.ts
- */
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
 
-// Raw JSON imports that need validation
-const rawDocuments = [
-  systemVisionDoc,
-  whyStrapiDoc,
-  gettingStartedDoc,
-  overviewDoc,
-  appOverviewDoc,
-  codeReviewLogDoc,
-] as const;
+async function fetchStrategicOverviewsFromStrapi(): Promise<
+  StrategicOverviewDocument[]
+> {
+  const url = `${process.env.STRAPI_URL}/api/strategic-overviews?${POPULATE}&${PAGE_SIZE}`;
 
-// Validate and load all strategic overview documents at module init
-const strategicOverviewDocuments = ((): StrategicOverviewDocument[] => {
-  const results: StrategicOverviewDocument[] = [];
-  const source =
-    "data/strapi-mock/dashboard/documentation/strategic-overview/*.json";
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["strategic-overview"] },
+  });
 
-  dataLogger.loadStart("strategic-overview", source);
-
-  for (const doc of rawDocuments) {
-    const result = StrategicOverviewDocumentSchema.safeParse(doc);
-    if (!result.success) {
-      const slug = doc.meta.slug;
-      const issues = result.error.issues
-        .map((i) => `${i.path.join(".")}: ${i.message}`)
-        .join(" | ");
-      dataLogger.validationError("strategic-overview", slug, [issues]);
-      throw new Error(
-        `Strategic overview validation failed for "${slug}": ${issues}`,
-      );
-    }
-    results.push(result.data);
+  if (!res.ok) {
+    throw new Error(`Strapi strategic-overviews fetch failed: ${res.status}`);
   }
 
-  dataLogger.loadComplete("strategic-overview", results.length, source);
-  dataLogger.validationSuccess("strategic-overview", results.length);
-  return results;
-})();
+  const { data } = (await res.json()) as { data: unknown[] };
 
-/**
- * Get all strategic overview documents
- */
-export function getStrategicOverviewList(): StrategicOverviewDocument[] {
-  return strategicOverviewDocuments;
+  dataLogger.loadStart("strategic-overview", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = StrategicOverviewDocumentSchema.safeParse(transformed);
+    if (!result.success) {
+      const issues = result.error.issues
+        .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+        .join(" | ");
+      dataLogger.validationError(
+        "strategic-overview",
+        String(i),
+        issues.split(" | "),
+      );
+      throw new Error(
+        `Invalid strategic-overview content at index ${i}: ${issues}`,
+      );
+    }
+    return result.data as StrategicOverviewDocument;
+  });
+
+  dataLogger.loadComplete("strategic-overview", documents.length, url);
+  dataLogger.validationSuccess("strategic-overview", documents.length);
+
+  return documents;
 }
 
-/**
- * Get a single strategic overview document by slug
- */
-export function getStrategicOverviewDocument(
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
+
+export async function getStrategicOverviewList(): Promise<
+  StrategicOverviewDocument[]
+> {
+  return fetchStrategicOverviewsFromStrapi();
+}
+
+export async function getStrategicOverviewDocument(
   slug: string,
-): StrategicOverviewDocument | null {
-  return strategicOverviewDocuments.find((d) => d.meta.slug === slug) ?? null;
+): Promise<StrategicOverviewDocument | null> {
+  const documents = await fetchStrategicOverviewsFromStrapi();
+  return documents.find((d) => d.meta.slug === slug) ?? null;
 }
 
-/**
- * Get all strategic overview slugs for static generation
- */
-export function getAllStrategicOverviewSlugs(): string[] {
-  return strategicOverviewDocuments.map((d) => d.meta.slug);
+export async function getAllStrategicOverviewSlugs(): Promise<string[]> {
+  const documents = await fetchStrategicOverviewsFromStrapi();
+  return documents.map((d) => d.meta.slug);
 }
 
-/**
- * Get strategic overview documents filtered by audience
- */
-export function getStrategicOverviewByAudience(
+export async function getStrategicOverviewByAudience(
   audience: string,
-): StrategicOverviewDocument[] {
-  return strategicOverviewDocuments.filter((d) => d.meta.audience === audience);
+): Promise<StrategicOverviewDocument[]> {
+  const documents = await fetchStrategicOverviewsFromStrapi();
+  return documents.filter((d) => d.meta.audience === audience);
 }

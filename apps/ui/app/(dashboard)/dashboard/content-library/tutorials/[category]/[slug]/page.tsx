@@ -11,11 +11,15 @@ import { toTutorialDetailViewModel } from "@/lib/strapi/dashboard/content-librar
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  const tutorials = listTutorials();
-  return tutorials.map((tutorial) => ({
-    category: tutorial.category,
-    slug: tutorial.slug,
-  }));
+  try {
+    const tutorials = await listTutorials();
+    return tutorials.map((tutorial) => ({
+      category: tutorial.category,
+      slug: tutorial.slug,
+    }));
+  } catch {
+    return []; // Strapi unavailable in CI
+  }
 }
 
 export async function generateMetadata({
@@ -24,7 +28,7 @@ export async function generateMetadata({
   params: Promise<{ category: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const record = getTutorialRecordBySlug(slug);
+  const record = await getTutorialRecordBySlug(slug);
 
   if (!record) {
     return {
@@ -103,7 +107,7 @@ export default async function TutorialPage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { slug, category } = await params;
-  const record = getTutorialRecordBySlug(slug);
+  const record = await getTutorialRecordBySlug(slug);
 
   if (!record) {
     notFound();

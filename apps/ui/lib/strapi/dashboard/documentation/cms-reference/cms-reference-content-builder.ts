@@ -3,90 +3,81 @@ import {
   CmsReferenceDocumentSchema,
   type CmsReferenceDocument,
 } from "./cms-reference-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
-// Import all CMS reference JSON files
-import contentCollectionsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/content-collections.json";
-import formCollectionsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/form-collections.json";
-import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/getting-started.json";
-import overviewDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/overview.json";
-import relationshipsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/relationships.json";
-import sharedComponentsDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/shared-components.json";
-import singleTypesDoc from "@/data/strapi-mock/dashboard/documentation/cms-reference/single-types.json";
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-/**
- * CMS Reference Content Builder
- *
- * Loads CMS reference documentation from JSON files at module initialization.
- * This follows the content-library pattern established by article-content-builder.ts
- */
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
 
-const rawDocuments = [
-  contentCollectionsDoc,
-  formCollectionsDoc,
-  gettingStartedDoc,
-  overviewDoc,
-  relationshipsDoc,
-  sharedComponentsDoc,
-  singleTypesDoc,
-] as const;
+async function fetchCmsReferencesFromStrapi(): Promise<CmsReferenceDocument[]> {
+  const url = `${process.env.STRAPI_URL}/api/cms-references?${POPULATE}&${PAGE_SIZE}`;
 
-// Validate and load all CMS reference documents at module init
-const cmsReferenceDocuments = ((): CmsReferenceDocument[] => {
-  const results: CmsReferenceDocument[] = [];
-  const source =
-    "data/strapi-mock/dashboard/documentation/cms-reference/*.json";
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["cms-reference"] },
+  });
 
-  dataLogger.loadStart("cms-reference", source);
-
-  for (const doc of rawDocuments) {
-    const result = CmsReferenceDocumentSchema.safeParse(doc);
-    if (!result.success) {
-      const slug = doc.meta.slug;
-      const issues = result.error.issues
-        .map((i) => `${i.path.join(".")}: ${i.message}`)
-        .join(" | ");
-      dataLogger.validationError("cms-reference", slug, [issues]);
-      throw new Error(
-        `CMS reference validation failed for "${slug}": ${issues}`,
-      );
-    }
-    results.push(result.data);
+  if (!res.ok) {
+    throw new Error(`Strapi cms-references fetch failed: ${res.status}`);
   }
 
-  dataLogger.loadComplete("cms-reference", results.length, source);
-  dataLogger.validationSuccess("cms-reference", results.length);
-  return results;
-})();
+  const { data } = (await res.json()) as { data: unknown[] };
 
-/**
- * Get all CMS reference documents
- */
-export function getCmsReferenceList(): CmsReferenceDocument[] {
-  return cmsReferenceDocuments;
+  dataLogger.loadStart("cms-reference", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = CmsReferenceDocumentSchema.safeParse(transformed);
+    if (!result.success) {
+      const issues = result.error.issues
+        .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+        .join(" | ");
+      dataLogger.validationError(
+        "cms-reference",
+        String(i),
+        issues.split(" | "),
+      );
+      throw new Error(
+        `Invalid cms-reference content at index ${i}: ${issues}`,
+      );
+    }
+    return result.data as CmsReferenceDocument;
+  });
+
+  dataLogger.loadComplete("cms-reference", documents.length, url);
+  dataLogger.validationSuccess("cms-reference", documents.length);
+
+  return documents;
 }
 
-/**
- * Get a single CMS reference document by slug
- */
-export function getCmsReferenceDocument(
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
+
+export async function getCmsReferenceList(): Promise<CmsReferenceDocument[]> {
+  return fetchCmsReferencesFromStrapi();
+}
+
+export async function getCmsReferenceDocument(
   slug: string,
-): CmsReferenceDocument | null {
-  return cmsReferenceDocuments.find((d) => d.meta.slug === slug) ?? null;
+): Promise<CmsReferenceDocument | null> {
+  const documents = await fetchCmsReferencesFromStrapi();
+  return documents.find((d) => d.meta.slug === slug) ?? null;
 }
 
-/**
- * Get all CMS reference slugs for static generation
- */
-export function getAllCmsReferenceSlugs(): string[] {
-  return cmsReferenceDocuments.map((d) => d.meta.slug);
+export async function getAllCmsReferenceSlugs(): Promise<string[]> {
+  const documents = await fetchCmsReferencesFromStrapi();
+  return documents.map((d) => d.meta.slug);
 }
 
-/**
- * Get CMS reference documents filtered by audience
- */
-export function getCmsReferenceByAudience(
+export async function getCmsReferenceByAudience(
   audience: string,
-): CmsReferenceDocument[] {
-  return cmsReferenceDocuments.filter((d) => d.meta.audience === audience);
+): Promise<CmsReferenceDocument[]> {
+  const documents = await fetchCmsReferencesFromStrapi();
+  return documents.filter((d) => d.meta.audience === audience);
 }

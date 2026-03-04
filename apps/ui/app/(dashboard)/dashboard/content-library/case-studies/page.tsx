@@ -23,10 +23,10 @@ function getCategoryColor(category: CaseStudyCategory) {
   }
 }
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
   pageLogger.render("/dashboard/content-library/case-studies");
 
-  const caseStudies = listCaseStudies();
+  const caseStudies = await listCaseStudies();
   pageLogger.dataFetch(
     "/dashboard/content-library/case-studies",
     "case-studies",

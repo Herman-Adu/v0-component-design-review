@@ -80,11 +80,18 @@ function mapInfrastructureOps(
  * Get documentation route manifest for static generation
  * Includes all 4 categories: Strategic Overview, CMS Reference, App Reference, Infrastructure Ops
  */
-export function getDocumentationRouteManifest(): DocumentationRouteManifest {
-  const strategicOverview = mapStrategicOverview(listStrategicOverview());
-  const cmsReference = mapCmsReference(listCmsReference());
-  const appReference = mapAppReference(listAppReference());
-  const infrastructureOps = mapInfrastructureOps(listInfrastructureOps());
+export async function getDocumentationRouteManifest(): Promise<DocumentationRouteManifest> {
+  const [soData, cmsData, appData, opsData] = await Promise.all([
+    listStrategicOverview(),
+    listCmsReference(),
+    listAppReference(),
+    listInfrastructureOps(),
+  ]);
+
+  const strategicOverview = mapStrategicOverview(soData);
+  const cmsReference = mapCmsReference(cmsData);
+  const appReference = mapAppReference(appData);
+  const infrastructureOps = mapInfrastructureOps(opsData);
 
   const all = [
     ...strategicOverview,
@@ -108,11 +115,10 @@ export function getDocumentationRouteManifest(): DocumentationRouteManifest {
 /**
  * Get all documentation slugs grouped by category for generateStaticParams
  */
-export function getAllDocumentationParams(): Array<{
-  category: string;
-  slug: string;
-}> {
-  const manifest = getDocumentationRouteManifest();
+export async function getAllDocumentationParams(): Promise<
+  Array<{ category: string; slug: string }>
+> {
+  const manifest = await getDocumentationRouteManifest();
   return manifest.all.map((entry) => ({
     category: entry.category,
     slug: entry.slug,

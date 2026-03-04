@@ -3,94 +3,81 @@ import {
   AppReferenceDocumentSchema,
   type AppReferenceDocument,
 } from "./app-reference-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
-// Import all app reference JSON files
-import componentSystemDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/component-system.json";
-import emailSystemDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/email-system.json";
-import gettingStartedDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/getting-started.json";
-import hydrationAndGuardsDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/hydration-and-guards.json";
-import overviewDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/overview.json";
-import performanceAndCachingDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/performance-and-caching.json";
-import securityArchitectureDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/security-architecture.json";
-import serverActionsAndApiDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/server-actions-and-api.json";
-import serverVsClientDoc from "@/data/strapi-mock/dashboard/documentation/app-reference/server-vs-client.json";
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-/**
- * App Reference Content Builder
- *
- * Loads app reference documentation from JSON files at module initialization.
- * This follows the content-library pattern established by article-content-builder.ts
- */
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
 
-const rawDocuments = [
-  componentSystemDoc,
-  emailSystemDoc,
-  gettingStartedDoc,
-  hydrationAndGuardsDoc,
-  overviewDoc,
-  performanceAndCachingDoc,
-  securityArchitectureDoc,
-  serverActionsAndApiDoc,
-  serverVsClientDoc,
-] as const;
+async function fetchAppReferencesFromStrapi(): Promise<AppReferenceDocument[]> {
+  const url = `${process.env.STRAPI_URL}/api/app-references?${POPULATE}&${PAGE_SIZE}`;
 
-// Validate and load all app reference documents at module init
-const appReferenceDocuments = ((): AppReferenceDocument[] => {
-  const results: AppReferenceDocument[] = [];
-  const source =
-    "data/strapi-mock/dashboard/documentation/app-reference/*.json";
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["app-reference"] },
+  });
 
-  dataLogger.loadStart("app-reference", source);
-
-  for (const doc of rawDocuments) {
-    const result = AppReferenceDocumentSchema.safeParse(doc);
-    if (!result.success) {
-      const slug = doc.meta.slug;
-      const issues = result.error.issues
-        .map((i) => `${i.path.join(".")}: ${i.message}`)
-        .join(" | ");
-      dataLogger.validationError("app-reference", slug, [issues]);
-      throw new Error(
-        `App reference validation failed for "${slug}": ${issues}`,
-      );
-    }
-    results.push(result.data);
+  if (!res.ok) {
+    throw new Error(`Strapi app-references fetch failed: ${res.status}`);
   }
 
-  dataLogger.loadComplete("app-reference", results.length, source);
-  dataLogger.validationSuccess("app-reference", results.length);
-  return results;
-})();
+  const { data } = (await res.json()) as { data: unknown[] };
 
-/**
- * Get all app reference documents
- */
-export function getAppReferenceList(): AppReferenceDocument[] {
-  return appReferenceDocuments;
+  dataLogger.loadStart("app-reference", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = AppReferenceDocumentSchema.safeParse(transformed);
+    if (!result.success) {
+      const issues = result.error.issues
+        .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+        .join(" | ");
+      dataLogger.validationError(
+        "app-reference",
+        String(i),
+        issues.split(" | "),
+      );
+      throw new Error(
+        `Invalid app-reference content at index ${i}: ${issues}`,
+      );
+    }
+    return result.data as AppReferenceDocument;
+  });
+
+  dataLogger.loadComplete("app-reference", documents.length, url);
+  dataLogger.validationSuccess("app-reference", documents.length);
+
+  return documents;
 }
 
-/**
- * Get a single app reference document by slug
- */
-export function getAppReferenceDocument(
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
+
+export async function getAppReferenceList(): Promise<AppReferenceDocument[]> {
+  return fetchAppReferencesFromStrapi();
+}
+
+export async function getAppReferenceDocument(
   slug: string,
-): AppReferenceDocument | null {
-  return appReferenceDocuments.find((d) => d.meta.slug === slug) ?? null;
+): Promise<AppReferenceDocument | null> {
+  const documents = await fetchAppReferencesFromStrapi();
+  return documents.find((d) => d.meta.slug === slug) ?? null;
 }
 
-/**
- * Get all app reference slugs for static generation
- */
-export function getAllAppReferenceSlugs(): string[] {
-  return appReferenceDocuments.map((d) => d.meta.slug);
+export async function getAllAppReferenceSlugs(): Promise<string[]> {
+  const documents = await fetchAppReferencesFromStrapi();
+  return documents.map((d) => d.meta.slug);
 }
 
-/**
- * Get app reference documents filtered by audience
- */
-export function getAppReferenceByAudience(
+export async function getAppReferenceByAudience(
   audience: string,
-): AppReferenceDocument[] {
-  return appReferenceDocuments.filter((d) => d.meta.audience === audience);
+): Promise<AppReferenceDocument[]> {
+  const documents = await fetchAppReferencesFromStrapi();
+  return documents.filter((d) => d.meta.audience === audience);
 }

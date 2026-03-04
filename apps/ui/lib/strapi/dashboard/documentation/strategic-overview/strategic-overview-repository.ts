@@ -25,8 +25,10 @@ export interface StrategicOverviewRecord {
 /**
  * List all strategic overview documents
  */
-export function listStrategicOverview(): StrategicOverviewDocument[] {
-  const result = getStrategicOverviewList();
+export async function listStrategicOverview(): Promise<
+  StrategicOverviewDocument[]
+> {
+  const result = await getStrategicOverviewList();
   repoLogger.queryComplete(
     "StrategicOverviewRepository",
     "listStrategicOverview",
@@ -38,8 +40,8 @@ export function listStrategicOverview(): StrategicOverviewDocument[] {
 /**
  * Get all strategic overview slugs for static generation
  */
-export function listStrategicOverviewSlugs(): string[] {
-  const result = getAllStrategicOverviewSlugs();
+export async function listStrategicOverviewSlugs(): Promise<string[]> {
+  const result = await getAllStrategicOverviewSlugs();
   repoLogger.queryComplete(
     "StrategicOverviewRepository",
     "listStrategicOverviewSlugs",
@@ -52,16 +54,16 @@ export function listStrategicOverviewSlugs(): string[] {
  * Get a strategic overview document by slug
  * Returns null if not found
  */
-export function getStrategicOverviewRecordBySlug(
+export async function getStrategicOverviewRecordBySlug(
   slug: string,
-): StrategicOverviewRecord | null {
+): Promise<StrategicOverviewRecord | null> {
   repoLogger.queryStart(
     "StrategicOverviewRepository",
     "getStrategicOverviewRecordBySlug",
     { slug },
   );
 
-  const document = getStrategicOverviewDocument(slug);
+  const document = await getStrategicOverviewDocument(slug);
 
   if (!document) {
     repoLogger.queryComplete(
@@ -86,15 +88,15 @@ export function getStrategicOverviewRecordBySlug(
 /**
  * Filter strategic overview documents by audience
  */
-export function listStrategicOverviewByAudience(
+export async function listStrategicOverviewByAudience(
   audience: string,
-): StrategicOverviewDocument[] {
+): Promise<StrategicOverviewDocument[]> {
   repoLogger.queryStart(
     "StrategicOverviewRepository",
     "listStrategicOverviewByAudience",
     { audience },
   );
-  const result = getStrategicOverviewByAudience(audience);
+  const result = await getStrategicOverviewByAudience(audience);
   repoLogger.queryComplete(
     "StrategicOverviewRepository",
     "listStrategicOverviewByAudience",
@@ -104,25 +106,19 @@ export function listStrategicOverviewByAudience(
 }
 
 /**
- * List strategic overview by category (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of strategic overview matching category
+ * List strategic overview by category (stub — documentation uses audience filtering)
  */
-export function listStrategicOverviewByCategory(
-  category: string,
-): StrategicOverviewDocument[] {
-  // Documentation uses audience filtering; category is a no-op stub
+export async function listStrategicOverviewByCategory(
+  _category: string,
+): Promise<StrategicOverviewDocument[]> {
   return listStrategicOverview();
 }
 
 /**
- * List strategic overview by level (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of strategic overview matching level
+ * List strategic overview by level (stub — documentation does not use level filtering)
  */
-export function listStrategicOverviewByLevel(
-  level: string,
-): StrategicOverviewDocument[] {
-  // Documentation doesn't use level filtering; this is a no-op stub
+export async function listStrategicOverviewByLevel(
+  _level: string,
+): Promise<StrategicOverviewDocument[]> {
   return listStrategicOverview();
 }

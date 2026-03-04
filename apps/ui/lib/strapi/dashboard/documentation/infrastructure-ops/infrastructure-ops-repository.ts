@@ -25,12 +25,10 @@ export interface InfrastructureOpsRecord {
 /**
  * List all infrastructure ops documents
  */
-export function listInfrastructureOps(): InfrastructureOpsDocument[] {
-  repoLogger.queryStart(
-    "infrastructure-ops-repository",
-    "listInfrastructureOps",
-  );
-  const result = getInfrastructureOpsList();
+export async function listInfrastructureOps(): Promise<
+  InfrastructureOpsDocument[]
+> {
+  const result = await getInfrastructureOpsList();
   repoLogger.queryComplete(
     "infrastructure-ops-repository",
     "listInfrastructureOps",
@@ -42,12 +40,8 @@ export function listInfrastructureOps(): InfrastructureOpsDocument[] {
 /**
  * Get all infrastructure ops slugs for static generation
  */
-export function listInfrastructureOpsSlugs(): string[] {
-  repoLogger.queryStart(
-    "infrastructure-ops-repository",
-    "listInfrastructureOpsSlugs",
-  );
-  const result = getAllInfrastructureOpsSlugs();
+export async function listInfrastructureOpsSlugs(): Promise<string[]> {
+  const result = await getAllInfrastructureOpsSlugs();
   repoLogger.queryComplete(
     "infrastructure-ops-repository",
     "listInfrastructureOpsSlugs",
@@ -60,16 +54,16 @@ export function listInfrastructureOpsSlugs(): string[] {
  * Get an infrastructure ops document by slug
  * Returns null if not found
  */
-export function getInfrastructureOpsRecordBySlug(
+export async function getInfrastructureOpsRecordBySlug(
   slug: string,
-): InfrastructureOpsRecord | null {
+): Promise<InfrastructureOpsRecord | null> {
   repoLogger.queryStart(
     "infrastructure-ops-repository",
     "getInfrastructureOpsRecordBySlug",
     { slug },
   );
 
-  const document = getInfrastructureOpsDocument(slug);
+  const document = await getInfrastructureOpsDocument(slug);
 
   if (!document) {
     repoLogger.queryComplete(
@@ -95,15 +89,15 @@ export function getInfrastructureOpsRecordBySlug(
 /**
  * Filter infrastructure ops documents by audience
  */
-export function listInfrastructureOpsByAudience(
+export async function listInfrastructureOpsByAudience(
   audience: string,
-): InfrastructureOpsDocument[] {
+): Promise<InfrastructureOpsDocument[]> {
   repoLogger.queryStart(
     "infrastructure-ops-repository",
     "listInfrastructureOpsByAudience",
     { audience },
   );
-  const result = getInfrastructureOpsByAudience(audience);
+  const result = await getInfrastructureOpsByAudience(audience);
   repoLogger.queryComplete(
     "infrastructure-ops-repository",
     "listInfrastructureOpsByAudience",
@@ -113,25 +107,19 @@ export function listInfrastructureOpsByAudience(
 }
 
 /**
- * List infrastructure ops by category (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of infrastructure ops matching category
+ * List infrastructure ops by category (stub — documentation uses audience filtering)
  */
-export function listInfrastructureOpsByCategory(
-  category: string,
-): InfrastructureOpsDocument[] {
-  // Documentation uses audience filtering; category is a no-op stub
+export async function listInfrastructureOpsByCategory(
+  _category: string,
+): Promise<InfrastructureOpsDocument[]> {
   return listInfrastructureOps();
 }
 
 /**
- * List infrastructure ops by level (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of infrastructure ops matching level
+ * List infrastructure ops by level (stub — documentation does not use level filtering)
  */
-export function listInfrastructureOpsByLevel(
-  level: string,
-): InfrastructureOpsDocument[] {
-  // Documentation doesn't use level filtering; this is a no-op stub
+export async function listInfrastructureOpsByLevel(
+  _level: string,
+): Promise<InfrastructureOpsDocument[]> {
   return listInfrastructureOps();
 }

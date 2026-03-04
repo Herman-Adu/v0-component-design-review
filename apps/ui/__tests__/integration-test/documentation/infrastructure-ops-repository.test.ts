@@ -5,22 +5,27 @@ import {
   mockInfrastructureOpsDocument,
 } from "../../mocks/integration/documentation/infrastructure-ops-data";
 
-// Mock the content builder layer
+// Mock the content builder layer (async — mirrors real builder interface)
 vi.mock(
   "@/lib/strapi/dashboard/documentation/infrastructure-ops/infrastructure-ops-content-builder",
   () => ({
-    getInfrastructureOpsList: vi.fn(() => mockInfrastructureOpsDocuments),
-    getInfrastructureOpsDocument: vi.fn((slug: string) => {
-      return (
-        mockInfrastructureOpsDocuments.find((d) => d.meta.slug === slug) ?? null
-      );
-    }),
+    getInfrastructureOpsList: vi.fn(() =>
+      Promise.resolve(mockInfrastructureOpsDocuments),
+    ),
+    getInfrastructureOpsDocument: vi.fn((slug: string) =>
+      Promise.resolve(
+        mockInfrastructureOpsDocuments.find((d) => d.meta.slug === slug) ??
+          null,
+      ),
+    ),
     getAllInfrastructureOpsSlugs: vi.fn(() =>
-      mockInfrastructureOpsDocuments.map((d) => d.meta.slug),
+      Promise.resolve(mockInfrastructureOpsDocuments.map((d) => d.meta.slug)),
     ),
     getInfrastructureOpsByAudience: vi.fn((audience: string) =>
-      mockInfrastructureOpsDocuments.filter(
-        (d) => d.meta.audience === audience,
+      Promise.resolve(
+        mockInfrastructureOpsDocuments.filter(
+          (d) => d.meta.audience === audience,
+        ),
       ),
     ),
   }),
@@ -35,14 +40,14 @@ import {
 
 describe("Infrastructure & Ops Repository", () => {
   describe("listInfrastructureOps", () => {
-    it("returns an array of infrastructure ops documents", () => {
-      const documents = listInfrastructureOps();
+    it("returns an array of infrastructure ops documents", async () => {
+      const documents = await listInfrastructureOps();
       expect(Array.isArray(documents)).toBe(true);
       expect(documents.length).toBe(3); // Known mock data count
     });
 
-    it("returns documents with required metadata fields", () => {
-      const documents = listInfrastructureOps();
+    it("returns documents with required metadata fields", async () => {
+      const documents = await listInfrastructureOps();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("meta");
@@ -56,8 +61,8 @@ describe("Infrastructure & Ops Repository", () => {
       expect(doc.meta).toHaveProperty("tags");
     });
 
-    it("returns documents with blocks array", () => {
-      const documents = listInfrastructureOps();
+    it("returns documents with blocks array", async () => {
+      const documents = await listInfrastructureOps();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("blocks");
@@ -65,8 +70,8 @@ describe("Infrastructure & Ops Repository", () => {
       expect(doc.blocks.length).toBeGreaterThan(0);
     });
 
-    it("returns documents with unique slugs", () => {
-      const documents = listInfrastructureOps();
+    it("returns documents with unique slugs", async () => {
+      const documents = await listInfrastructureOps();
       const slugs = documents.map((d) => d.meta.slug);
       const uniqueSlugs = new Set(slugs);
       expect(uniqueSlugs.size).toBe(slugs.length);
@@ -74,23 +79,24 @@ describe("Infrastructure & Ops Repository", () => {
   });
 
   describe("listInfrastructureOpsSlugs", () => {
-    it("returns array of slug strings", () => {
-      const slugs = listInfrastructureOpsSlugs();
+    it("returns array of slug strings", async () => {
+      const slugs = await listInfrastructureOpsSlugs();
       expect(Array.isArray(slugs)).toBe(true);
       expect(slugs.length).toBe(3);
       expect(typeof slugs[0]).toBe("string");
     });
 
-    it("slugs match documents list count", () => {
-      const documents = listInfrastructureOps();
-      const slugs = listInfrastructureOpsSlugs();
+    it("slugs match documents list count", async () => {
+      const documents = await listInfrastructureOps();
+      const slugs = await listInfrastructureOpsSlugs();
       expect(slugs.length).toBe(documents.length);
     });
   });
 
   describe("getInfrastructureOpsRecordBySlug", () => {
-    it("returns document record for valid slug", () => {
-      const record = getInfrastructureOpsRecordBySlug("deployment-pipeline");
+    it("returns document record for valid slug", async () => {
+      const record =
+        await getInfrastructureOpsRecordBySlug("deployment-pipeline");
 
       expect(record).not.toBeNull();
       expect(record?.document.meta.slug).toBe("deployment-pipeline");
@@ -98,14 +104,16 @@ describe("Infrastructure & Ops Repository", () => {
       expect(record?.content.blocks).toBeDefined();
     });
 
-    it("returns null for non-existent slug", () => {
-      const record = getInfrastructureOpsRecordBySlug("nonexistent-slug-123");
+    it("returns null for non-existent slug", async () => {
+      const record = await getInfrastructureOpsRecordBySlug(
+        "nonexistent-slug-123",
+      );
       expect(record).toBeNull();
     });
 
-    it("content document has required structure", () => {
-      const slugs = listInfrastructureOpsSlugs();
-      const record = getInfrastructureOpsRecordBySlug(slugs[0]);
+    it("content document has required structure", async () => {
+      const slugs = await listInfrastructureOpsSlugs();
+      const record = await getInfrastructureOpsRecordBySlug(slugs[0]);
 
       expect(record).not.toBeNull();
       expect(record?.content.meta).toBeDefined();
@@ -113,8 +121,9 @@ describe("Infrastructure & Ops Repository", () => {
       expect(record?.content.meta.category).toBe("infrastructure-ops");
     });
 
-    it("blocks have correct structure with type discriminator", () => {
-      const record = getInfrastructureOpsRecordBySlug("deployment-pipeline");
+    it("blocks have correct structure with type discriminator", async () => {
+      const record =
+        await getInfrastructureOpsRecordBySlug("deployment-pipeline");
       expect(record).not.toBeNull();
 
       const blocks = record!.content.blocks;
@@ -130,8 +139,9 @@ describe("Infrastructure & Ops Repository", () => {
   });
 
   describe("listInfrastructureOpsByAudience", () => {
-    it("filters documents by DevOps Engineer audience", () => {
-      const filtered = listInfrastructureOpsByAudience("DevOps Engineer");
+    it("filters documents by DevOps Engineer audience", async () => {
+      const filtered =
+        await listInfrastructureOpsByAudience("DevOps Engineer");
 
       expect(filtered.length).toBeGreaterThan(0);
       expect(filtered.every((d) => d.meta.audience === "DevOps Engineer")).toBe(
@@ -139,16 +149,17 @@ describe("Infrastructure & Ops Repository", () => {
       );
     });
 
-    it("returns empty array for non-existent audience", () => {
-      const filtered = listInfrastructureOpsByAudience("NonExistent Audience");
+    it("returns empty array for non-existent audience", async () => {
+      const filtered =
+        await listInfrastructureOpsByAudience("NonExistent Audience");
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });
   });
 
   describe("Content Validation - Behavior Tests", () => {
-    it("all documents have valid ISO date format", () => {
-      const documents = listInfrastructureOps();
+    it("all documents have valid ISO date format", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         expect(() => new Date(doc.meta.publishedAt)).not.toThrow();
         expect(() => new Date(doc.meta.lastUpdated)).not.toThrow();
@@ -161,30 +172,30 @@ describe("Infrastructure & Ops Repository", () => {
       });
     });
 
-    it("all documents have non-empty excerpts", () => {
-      const documents = listInfrastructureOps();
+    it("all documents have non-empty excerpts", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         expect(doc.meta.excerpt.length).toBeGreaterThan(20);
       });
     });
 
-    it("all documents have at least one tag", () => {
-      const documents = listInfrastructureOps();
+    it("all documents have at least one tag", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         expect(Array.isArray(doc.meta.tags)).toBe(true);
         expect(doc.meta.tags.length).toBeGreaterThan(0);
       });
     });
 
-    it("all documents have category set to infrastructure-ops", () => {
-      const documents = listInfrastructureOps();
+    it("all documents have category set to infrastructure-ops", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         expect(doc.meta.category).toBe("infrastructure-ops");
       });
     });
 
-    it("document blocks are non-empty and valid", () => {
-      const documents = listInfrastructureOps();
+    it("document blocks are non-empty and valid", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         expect(doc.blocks.length).toBeGreaterThan(0);
         doc.blocks.forEach((block) => {
@@ -194,8 +205,8 @@ describe("Infrastructure & Ops Repository", () => {
       });
     });
 
-    it("SEO metadata is present and valid", () => {
-      const documents = listInfrastructureOps();
+    it("SEO metadata is present and valid", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         if (doc.seo) {
           // If SEO exists, validate structure
@@ -209,8 +220,8 @@ describe("Infrastructure & Ops Repository", () => {
   });
 
   describe("TOC (Table of Contents) Validation", () => {
-    it("documents with TOC have valid structure", () => {
-      const documents = listInfrastructureOps();
+    it("documents with TOC have valid structure", async () => {
+      const documents = await listInfrastructureOps();
       documents.forEach((doc) => {
         if (doc.toc) {
           expect(Array.isArray(doc.toc)).toBe(true);

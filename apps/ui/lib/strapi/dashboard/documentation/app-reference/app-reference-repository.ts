@@ -25,9 +25,8 @@ export interface AppReferenceRecord {
 /**
  * List all app reference documents
  */
-export function listAppReference(): AppReferenceDocument[] {
-  repoLogger.queryStart("app-reference-repository", "listAppReference");
-  const result = getAppReferenceList();
+export async function listAppReference(): Promise<AppReferenceDocument[]> {
+  const result = await getAppReferenceList();
   repoLogger.queryComplete(
     "app-reference-repository",
     "listAppReference",
@@ -39,9 +38,8 @@ export function listAppReference(): AppReferenceDocument[] {
 /**
  * Get all app reference slugs for static generation
  */
-export function listAppReferenceSlugs(): string[] {
-  repoLogger.queryStart("app-reference-repository", "listAppReferenceSlugs");
-  const result = getAllAppReferenceSlugs();
+export async function listAppReferenceSlugs(): Promise<string[]> {
+  const result = await getAllAppReferenceSlugs();
   repoLogger.queryComplete(
     "app-reference-repository",
     "listAppReferenceSlugs",
@@ -54,16 +52,16 @@ export function listAppReferenceSlugs(): string[] {
  * Get an app reference document by slug
  * Returns null if not found
  */
-export function getAppReferenceRecordBySlug(
+export async function getAppReferenceRecordBySlug(
   slug: string,
-): AppReferenceRecord | null {
+): Promise<AppReferenceRecord | null> {
   repoLogger.queryStart(
     "app-reference-repository",
     "getAppReferenceRecordBySlug",
     { slug },
   );
 
-  const document = getAppReferenceDocument(slug);
+  const document = await getAppReferenceDocument(slug);
 
   if (!document) {
     repoLogger.queryComplete(
@@ -89,15 +87,15 @@ export function getAppReferenceRecordBySlug(
 /**
  * Filter app reference documents by audience
  */
-export function listAppReferenceByAudience(
+export async function listAppReferenceByAudience(
   audience: string,
-): AppReferenceDocument[] {
+): Promise<AppReferenceDocument[]> {
   repoLogger.queryStart(
     "app-reference-repository",
     "listAppReferenceByAudience",
     { audience },
   );
-  const result = getAppReferenceByAudience(audience);
+  const result = await getAppReferenceByAudience(audience);
   repoLogger.queryComplete(
     "app-reference-repository",
     "listAppReferenceByAudience",
@@ -107,23 +105,19 @@ export function listAppReferenceByAudience(
 }
 
 /**
- * List app reference by category (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of app reference matching category
+ * List app reference by category (stub — documentation uses audience filtering)
  */
-export function listAppReferenceByCategory(
-  category: string,
-): AppReferenceDocument[] {
-  // Documentation uses audience filtering; category is a no-op stub
+export async function listAppReferenceByCategory(
+  _category: string,
+): Promise<AppReferenceDocument[]> {
   return listAppReference();
 }
 
 /**
- * List app reference by level (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of app reference matching level
+ * List app reference by level (stub — documentation does not use level filtering)
  */
-export function listAppReferenceByLevel(level: string): AppReferenceDocument[] {
-  // Documentation doesn't use level filtering; this is a no-op stub
+export async function listAppReferenceByLevel(
+  _level: string,
+): Promise<AppReferenceDocument[]> {
   return listAppReference();
 }

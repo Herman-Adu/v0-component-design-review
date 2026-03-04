@@ -25,9 +25,8 @@ export interface CmsReferenceRecord {
 /**
  * List all CMS reference documents
  */
-export function listCmsReference(): CmsReferenceDocument[] {
-  repoLogger.queryStart("cms-reference-repository", "listCmsReference");
-  const result = getCmsReferenceList();
+export async function listCmsReference(): Promise<CmsReferenceDocument[]> {
+  const result = await getCmsReferenceList();
   repoLogger.queryComplete(
     "cms-reference-repository",
     "listCmsReference",
@@ -39,9 +38,8 @@ export function listCmsReference(): CmsReferenceDocument[] {
 /**
  * Get all CMS reference slugs for static generation
  */
-export function listCmsReferenceSlugs(): string[] {
-  repoLogger.queryStart("cms-reference-repository", "listCmsReferenceSlugs");
-  const result = getAllCmsReferenceSlugs();
+export async function listCmsReferenceSlugs(): Promise<string[]> {
+  const result = await getAllCmsReferenceSlugs();
   repoLogger.queryComplete(
     "cms-reference-repository",
     "listCmsReferenceSlugs",
@@ -54,16 +52,16 @@ export function listCmsReferenceSlugs(): string[] {
  * Get a CMS reference document by slug
  * Returns null if not found
  */
-export function getCmsReferenceRecordBySlug(
+export async function getCmsReferenceRecordBySlug(
   slug: string,
-): CmsReferenceRecord | null {
+): Promise<CmsReferenceRecord | null> {
   repoLogger.queryStart(
     "cms-reference-repository",
     "getCmsReferenceRecordBySlug",
     { slug },
   );
 
-  const document = getCmsReferenceDocument(slug);
+  const document = await getCmsReferenceDocument(slug);
 
   if (!document) {
     repoLogger.queryComplete(
@@ -89,15 +87,15 @@ export function getCmsReferenceRecordBySlug(
 /**
  * Filter CMS reference documents by audience
  */
-export function listCmsReferenceByAudience(
+export async function listCmsReferenceByAudience(
   audience: string,
-): CmsReferenceDocument[] {
+): Promise<CmsReferenceDocument[]> {
   repoLogger.queryStart(
     "cms-reference-repository",
     "listCmsReferenceByAudience",
     { audience },
   );
-  const result = getCmsReferenceByAudience(audience);
+  const result = await getCmsReferenceByAudience(audience);
   repoLogger.queryComplete(
     "cms-reference-repository",
     "listCmsReferenceByAudience",
@@ -107,23 +105,19 @@ export function listCmsReferenceByAudience(
 }
 
 /**
- * List CMS reference by category (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of CMS reference matching category
+ * List CMS reference by category (stub — documentation uses audience filtering)
  */
-export function listCmsReferenceByCategory(
-  category: string,
-): CmsReferenceDocument[] {
-  // Documentation uses audience filtering; category is a no-op stub
+export async function listCmsReferenceByCategory(
+  _category: string,
+): Promise<CmsReferenceDocument[]> {
   return listCmsReference();
 }
 
 /**
- * List CMS reference by level (optional extension)
- * Provided for consistency with content-library repositories
- * Returns filtered array of CMS reference matching level
+ * List CMS reference by level (stub — documentation does not use level filtering)
  */
-export function listCmsReferenceByLevel(level: string): CmsReferenceDocument[] {
-  // Documentation doesn't use level filtering; this is a no-op stub
+export async function listCmsReferenceByLevel(
+  _level: string,
+): Promise<CmsReferenceDocument[]> {
   return listCmsReference();
 }

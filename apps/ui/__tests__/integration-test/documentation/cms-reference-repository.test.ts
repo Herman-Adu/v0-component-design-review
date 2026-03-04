@@ -5,21 +5,25 @@ import {
   mockCmsReferenceDocument,
 } from "../../mocks/integration/documentation/cms-reference-data";
 
-// Mock the content builder layer
+// Mock the content builder layer (async — mirrors real builder interface)
 vi.mock(
   "@/lib/strapi/dashboard/documentation/cms-reference/cms-reference-content-builder",
   () => ({
-    getCmsReferenceList: vi.fn(() => mockCmsReferenceDocuments),
-    getCmsReferenceDocument: vi.fn((slug: string) => {
-      return (
-        mockCmsReferenceDocuments.find((d) => d.meta.slug === slug) ?? null
-      );
-    }),
+    getCmsReferenceList: vi.fn(() =>
+      Promise.resolve(mockCmsReferenceDocuments),
+    ),
+    getCmsReferenceDocument: vi.fn((slug: string) =>
+      Promise.resolve(
+        mockCmsReferenceDocuments.find((d) => d.meta.slug === slug) ?? null,
+      ),
+    ),
     getAllCmsReferenceSlugs: vi.fn(() =>
-      mockCmsReferenceDocuments.map((d) => d.meta.slug),
+      Promise.resolve(mockCmsReferenceDocuments.map((d) => d.meta.slug)),
     ),
     getCmsReferenceByAudience: vi.fn((audience: string) =>
-      mockCmsReferenceDocuments.filter((d) => d.meta.audience === audience),
+      Promise.resolve(
+        mockCmsReferenceDocuments.filter((d) => d.meta.audience === audience),
+      ),
     ),
   }),
 );
@@ -33,14 +37,14 @@ import {
 
 describe("CMS Reference Repository", () => {
   describe("listCmsReference", () => {
-    it("returns an array of CMS reference documents", () => {
-      const documents = listCmsReference();
+    it("returns an array of CMS reference documents", async () => {
+      const documents = await listCmsReference();
       expect(Array.isArray(documents)).toBe(true);
       expect(documents.length).toBe(3); // Known mock data count
     });
 
-    it("returns documents with required metadata fields", () => {
-      const documents = listCmsReference();
+    it("returns documents with required metadata fields", async () => {
+      const documents = await listCmsReference();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("meta");
@@ -54,8 +58,8 @@ describe("CMS Reference Repository", () => {
       expect(doc.meta).toHaveProperty("tags");
     });
 
-    it("returns documents with blocks array", () => {
-      const documents = listCmsReference();
+    it("returns documents with blocks array", async () => {
+      const documents = await listCmsReference();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("blocks");
@@ -63,8 +67,8 @@ describe("CMS Reference Repository", () => {
       expect(doc.blocks.length).toBeGreaterThan(0);
     });
 
-    it("returns documents with unique slugs", () => {
-      const documents = listCmsReference();
+    it("returns documents with unique slugs", async () => {
+      const documents = await listCmsReference();
       const slugs = documents.map((d) => d.meta.slug);
       const uniqueSlugs = new Set(slugs);
       expect(uniqueSlugs.size).toBe(slugs.length);
@@ -72,23 +76,23 @@ describe("CMS Reference Repository", () => {
   });
 
   describe("listCmsReferenceSlugs", () => {
-    it("returns array of slug strings", () => {
-      const slugs = listCmsReferenceSlugs();
+    it("returns array of slug strings", async () => {
+      const slugs = await listCmsReferenceSlugs();
       expect(Array.isArray(slugs)).toBe(true);
       expect(slugs.length).toBe(3);
       expect(typeof slugs[0]).toBe("string");
     });
 
-    it("slugs match documents list count", () => {
-      const documents = listCmsReference();
-      const slugs = listCmsReferenceSlugs();
+    it("slugs match documents list count", async () => {
+      const documents = await listCmsReference();
+      const slugs = await listCmsReferenceSlugs();
       expect(slugs.length).toBe(documents.length);
     });
   });
 
   describe("getCmsReferenceRecordBySlug", () => {
-    it("returns document record for valid slug", () => {
-      const record = getCmsReferenceRecordBySlug("strapi-setup");
+    it("returns document record for valid slug", async () => {
+      const record = await getCmsReferenceRecordBySlug("strapi-setup");
 
       expect(record).not.toBeNull();
       expect(record?.document.meta.slug).toBe("strapi-setup");
@@ -96,14 +100,14 @@ describe("CMS Reference Repository", () => {
       expect(record?.content.blocks).toBeDefined();
     });
 
-    it("returns null for non-existent slug", () => {
-      const record = getCmsReferenceRecordBySlug("nonexistent-slug-123");
+    it("returns null for non-existent slug", async () => {
+      const record = await getCmsReferenceRecordBySlug("nonexistent-slug-123");
       expect(record).toBeNull();
     });
 
-    it("content document has required structure", () => {
-      const slugs = listCmsReferenceSlugs();
-      const record = getCmsReferenceRecordBySlug(slugs[0]);
+    it("content document has required structure", async () => {
+      const slugs = await listCmsReferenceSlugs();
+      const record = await getCmsReferenceRecordBySlug(slugs[0]);
 
       expect(record).not.toBeNull();
       expect(record?.content.meta).toBeDefined();
@@ -111,8 +115,8 @@ describe("CMS Reference Repository", () => {
       expect(record?.content.meta.category).toBe("cms-reference");
     });
 
-    it("blocks have correct structure with type discriminator", () => {
-      const record = getCmsReferenceRecordBySlug("strapi-setup");
+    it("blocks have correct structure with type discriminator", async () => {
+      const record = await getCmsReferenceRecordBySlug("strapi-setup");
       expect(record).not.toBeNull();
 
       const blocks = record!.content.blocks;
@@ -128,8 +132,8 @@ describe("CMS Reference Repository", () => {
   });
 
   describe("listCmsReferenceByAudience", () => {
-    it("filters documents by Backend Developer audience", () => {
-      const filtered = listCmsReferenceByAudience("Backend Developer");
+    it("filters documents by Backend Developer audience", async () => {
+      const filtered = await listCmsReferenceByAudience("Backend Developer");
 
       expect(filtered.length).toBeGreaterThan(0);
       expect(
@@ -137,16 +141,17 @@ describe("CMS Reference Repository", () => {
       ).toBe(true);
     });
 
-    it("returns empty array for non-existent audience", () => {
-      const filtered = listCmsReferenceByAudience("NonExistent Audience");
+    it("returns empty array for non-existent audience", async () => {
+      const filtered =
+        await listCmsReferenceByAudience("NonExistent Audience");
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });
   });
 
   describe("Content Validation - Behavior Tests", () => {
-    it("all documents have valid ISO date format", () => {
-      const documents = listCmsReference();
+    it("all documents have valid ISO date format", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         expect(() => new Date(doc.meta.publishedAt)).not.toThrow();
         expect(() => new Date(doc.meta.lastUpdated)).not.toThrow();
@@ -159,30 +164,30 @@ describe("CMS Reference Repository", () => {
       });
     });
 
-    it("all documents have non-empty excerpts", () => {
-      const documents = listCmsReference();
+    it("all documents have non-empty excerpts", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         expect(doc.meta.excerpt.length).toBeGreaterThan(20);
       });
     });
 
-    it("all documents have at least one tag", () => {
-      const documents = listCmsReference();
+    it("all documents have at least one tag", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         expect(Array.isArray(doc.meta.tags)).toBe(true);
         expect(doc.meta.tags.length).toBeGreaterThan(0);
       });
     });
 
-    it("all documents have category set to cms-reference", () => {
-      const documents = listCmsReference();
+    it("all documents have category set to cms-reference", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         expect(doc.meta.category).toBe("cms-reference");
       });
     });
 
-    it("document blocks are non-empty and valid", () => {
-      const documents = listCmsReference();
+    it("document blocks are non-empty and valid", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         expect(doc.blocks.length).toBeGreaterThan(0);
         doc.blocks.forEach((block) => {
@@ -192,8 +197,8 @@ describe("CMS Reference Repository", () => {
       });
     });
 
-    it("SEO metadata is present and valid", () => {
-      const documents = listCmsReference();
+    it("SEO metadata is present and valid", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         if (doc.seo) {
           // If SEO exists, validate structure
@@ -207,8 +212,8 @@ describe("CMS Reference Repository", () => {
   });
 
   describe("TOC (Table of Contents) Validation", () => {
-    it("documents with TOC have valid structure", () => {
-      const documents = listCmsReference();
+    it("documents with TOC have valid structure", async () => {
+      const documents = await listCmsReference();
       documents.forEach((doc) => {
         if (doc.toc) {
           expect(Array.isArray(doc.toc)).toBe(true);

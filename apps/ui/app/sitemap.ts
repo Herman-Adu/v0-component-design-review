@@ -8,7 +8,14 @@ import { getDocumentationRouteManifest } from "@/lib/strapi/dashboard/documentat
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const contentManifest = await getContentRouteManifest();
-  const docManifest = getDocumentationRouteManifest();
+  // Documentation manifest may fail if Strapi schema is incomplete (e.g. missing audience/lastUpdated fields)
+  const docManifest = await getDocumentationRouteManifest().catch(() => ({
+    strategicOverview: [],
+    cmsReference: [],
+    appReference: [],
+    infrastructureOps: [],
+    all: [],
+  }));
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [

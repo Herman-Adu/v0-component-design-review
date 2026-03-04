@@ -5,21 +5,25 @@ import {
   mockAppReferenceDocument,
 } from "../../mocks/integration/documentation/app-reference-data";
 
-// Mock the content builder layer
+// Mock the content builder layer (async — mirrors real builder interface)
 vi.mock(
   "@/lib/strapi/dashboard/documentation/app-reference/app-reference-content-builder",
   () => ({
-    getAppReferenceList: vi.fn(() => mockAppReferenceDocuments),
-    getAppReferenceDocument: vi.fn((slug: string) => {
-      return (
-        mockAppReferenceDocuments.find((d) => d.meta.slug === slug) ?? null
-      );
-    }),
+    getAppReferenceList: vi.fn(() =>
+      Promise.resolve(mockAppReferenceDocuments),
+    ),
+    getAppReferenceDocument: vi.fn((slug: string) =>
+      Promise.resolve(
+        mockAppReferenceDocuments.find((d) => d.meta.slug === slug) ?? null,
+      ),
+    ),
     getAllAppReferenceSlugs: vi.fn(() =>
-      mockAppReferenceDocuments.map((d) => d.meta.slug),
+      Promise.resolve(mockAppReferenceDocuments.map((d) => d.meta.slug)),
     ),
     getAppReferenceByAudience: vi.fn((audience: string) =>
-      mockAppReferenceDocuments.filter((d) => d.meta.audience === audience),
+      Promise.resolve(
+        mockAppReferenceDocuments.filter((d) => d.meta.audience === audience),
+      ),
     ),
   }),
 );
@@ -33,14 +37,14 @@ import {
 
 describe("App Reference Repository", () => {
   describe("listAppReference", () => {
-    it("returns an array of app reference documents", () => {
-      const documents = listAppReference();
+    it("returns an array of app reference documents", async () => {
+      const documents = await listAppReference();
       expect(Array.isArray(documents)).toBe(true);
       expect(documents.length).toBe(3); // Known mock data count
     });
 
-    it("returns documents with required metadata fields", () => {
-      const documents = listAppReference();
+    it("returns documents with required metadata fields", async () => {
+      const documents = await listAppReference();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("meta");
@@ -54,8 +58,8 @@ describe("App Reference Repository", () => {
       expect(doc.meta).toHaveProperty("tags");
     });
 
-    it("returns documents with blocks array", () => {
-      const documents = listAppReference();
+    it("returns documents with blocks array", async () => {
+      const documents = await listAppReference();
       const doc = documents[0];
 
       expect(doc).toHaveProperty("blocks");
@@ -63,8 +67,8 @@ describe("App Reference Repository", () => {
       expect(doc.blocks.length).toBeGreaterThan(0);
     });
 
-    it("returns documents with unique slugs", () => {
-      const documents = listAppReference();
+    it("returns documents with unique slugs", async () => {
+      const documents = await listAppReference();
       const slugs = documents.map((d) => d.meta.slug);
       const uniqueSlugs = new Set(slugs);
       expect(uniqueSlugs.size).toBe(slugs.length);
@@ -72,23 +76,23 @@ describe("App Reference Repository", () => {
   });
 
   describe("listAppReferenceSlugs", () => {
-    it("returns array of slug strings", () => {
-      const slugs = listAppReferenceSlugs();
+    it("returns array of slug strings", async () => {
+      const slugs = await listAppReferenceSlugs();
       expect(Array.isArray(slugs)).toBe(true);
       expect(slugs.length).toBe(3);
       expect(typeof slugs[0]).toBe("string");
     });
 
-    it("slugs match documents list count", () => {
-      const documents = listAppReference();
-      const slugs = listAppReferenceSlugs();
+    it("slugs match documents list count", async () => {
+      const documents = await listAppReference();
+      const slugs = await listAppReferenceSlugs();
       expect(slugs.length).toBe(documents.length);
     });
   });
 
   describe("getAppReferenceRecordBySlug", () => {
-    it("returns document record for valid slug", () => {
-      const record = getAppReferenceRecordBySlug("component-architecture");
+    it("returns document record for valid slug", async () => {
+      const record = await getAppReferenceRecordBySlug("component-architecture");
 
       expect(record).not.toBeNull();
       expect(record?.document.meta.slug).toBe("component-architecture");
@@ -96,14 +100,14 @@ describe("App Reference Repository", () => {
       expect(record?.content.blocks).toBeDefined();
     });
 
-    it("returns null for non-existent slug", () => {
-      const record = getAppReferenceRecordBySlug("nonexistent-slug-123");
+    it("returns null for non-existent slug", async () => {
+      const record = await getAppReferenceRecordBySlug("nonexistent-slug-123");
       expect(record).toBeNull();
     });
 
-    it("content document has required structure", () => {
-      const slugs = listAppReferenceSlugs();
-      const record = getAppReferenceRecordBySlug(slugs[0]);
+    it("content document has required structure", async () => {
+      const slugs = await listAppReferenceSlugs();
+      const record = await getAppReferenceRecordBySlug(slugs[0]);
 
       expect(record).not.toBeNull();
       expect(record?.content.meta).toBeDefined();
@@ -111,8 +115,8 @@ describe("App Reference Repository", () => {
       expect(record?.content.meta.category).toBe("app-reference");
     });
 
-    it("blocks have correct structure with type discriminator", () => {
-      const record = getAppReferenceRecordBySlug("component-architecture");
+    it("blocks have correct structure with type discriminator", async () => {
+      const record = await getAppReferenceRecordBySlug("component-architecture");
       expect(record).not.toBeNull();
 
       const blocks = record!.content.blocks;
@@ -128,8 +132,8 @@ describe("App Reference Repository", () => {
   });
 
   describe("listAppReferenceByAudience", () => {
-    it("filters documents by Frontend Developer audience", () => {
-      const filtered = listAppReferenceByAudience("Frontend Developer");
+    it("filters documents by Frontend Developer audience", async () => {
+      const filtered = await listAppReferenceByAudience("Frontend Developer");
 
       expect(filtered.length).toBeGreaterThan(0);
       expect(
@@ -137,16 +141,17 @@ describe("App Reference Repository", () => {
       ).toBe(true);
     });
 
-    it("returns empty array for non-existent audience", () => {
-      const filtered = listAppReferenceByAudience("NonExistent Audience");
+    it("returns empty array for non-existent audience", async () => {
+      const filtered =
+        await listAppReferenceByAudience("NonExistent Audience");
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });
   });
 
   describe("Content Validation - Behavior Tests", () => {
-    it("all documents have valid ISO date format", () => {
-      const documents = listAppReference();
+    it("all documents have valid ISO date format", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         expect(() => new Date(doc.meta.publishedAt)).not.toThrow();
         expect(() => new Date(doc.meta.lastUpdated)).not.toThrow();
@@ -159,30 +164,30 @@ describe("App Reference Repository", () => {
       });
     });
 
-    it("all documents have non-empty excerpts", () => {
-      const documents = listAppReference();
+    it("all documents have non-empty excerpts", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         expect(doc.meta.excerpt.length).toBeGreaterThan(20);
       });
     });
 
-    it("all documents have at least one tag", () => {
-      const documents = listAppReference();
+    it("all documents have at least one tag", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         expect(Array.isArray(doc.meta.tags)).toBe(true);
         expect(doc.meta.tags.length).toBeGreaterThan(0);
       });
     });
 
-    it("all documents have category set to app-reference", () => {
-      const documents = listAppReference();
+    it("all documents have category set to app-reference", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         expect(doc.meta.category).toBe("app-reference");
       });
     });
 
-    it("document blocks are non-empty and valid", () => {
-      const documents = listAppReference();
+    it("document blocks are non-empty and valid", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         expect(doc.blocks.length).toBeGreaterThan(0);
         doc.blocks.forEach((block) => {
@@ -192,8 +197,8 @@ describe("App Reference Repository", () => {
       });
     });
 
-    it("SEO metadata is present and valid", () => {
-      const documents = listAppReference();
+    it("SEO metadata is present and valid", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         if (doc.seo) {
           // If SEO exists, validate structure
@@ -207,8 +212,8 @@ describe("App Reference Repository", () => {
   });
 
   describe("TOC (Table of Contents) Validation", () => {
-    it("documents with TOC have valid structure", () => {
-      const documents = listAppReference();
+    it("documents with TOC have valid structure", async () => {
+      const documents = await listAppReference();
       documents.forEach((doc) => {
         if (doc.toc) {
           expect(Array.isArray(doc.toc)).toBe(true);

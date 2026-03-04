@@ -9,19 +9,23 @@ import {
 import { getContentDetailPath } from "@/lib/content-library/url-policy";
 import { toCaseStudyDetailViewModel } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-view-models";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
-import type { CaseStudy } from "@/data/content-library/case-studies";
+import type { CaseStudy } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder";
 
 export async function generateStaticParams() {
-  const slugs = listCaseStudySlugs();
-  const caseStudies = slugs
-    .map((slug) => {
-      const record = getCaseStudyRecordBySlug(slug);
-      return record
-        ? { slug: record.caseStudy.slug, category: record.caseStudy.category }
-        : null;
-    })
-    .filter(Boolean);
-  return caseStudies;
+  try {
+    const slugs = await listCaseStudySlugs();
+    const records = await Promise.all(
+      slugs.map((slug) => getCaseStudyRecordBySlug(slug)),
+    );
+    return records
+      .filter(Boolean)
+      .map((record) => ({
+        slug: record!.caseStudy.slug,
+        category: record!.caseStudy.category,
+      }));
+  } catch {
+    return []; // Strapi unavailable in CI
+  }
 }
 
 export async function generateMetadata({
@@ -30,7 +34,7 @@ export async function generateMetadata({
   params: Promise<{ category: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const record = getCaseStudyRecordBySlug(slug);
+  const record = await getCaseStudyRecordBySlug(slug);
 
   if (!record) {
     return {
@@ -99,7 +103,7 @@ export default async function CaseStudyPage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { slug, category } = await params;
-  const record = getCaseStudyRecordBySlug(slug);
+  const record = await getCaseStudyRecordBySlug(slug);
 
   if (!record) {
     notFound();
