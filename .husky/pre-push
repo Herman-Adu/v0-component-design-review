@@ -1,0 +1,2 @@
+echo "Health gate: typecheck → test → build"
+pnpm typecheck && pnpm test && pnpm build

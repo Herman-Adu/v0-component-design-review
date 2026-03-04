@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_toc_items",
+  "info": {
+    "displayName": "TOC Item",
+    "description": "Table of contents entry"
+  },
+  "options": {},
+  "attributes": {
+    "level": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 6
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "anchor": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

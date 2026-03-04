@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_routes",
+  "info": {
+    "displayName": "Route",
+    "description": "Dynamic route metadata for sitemap generation"
+  },
+  "options": {},
+  "attributes": {
+    "pattern": {
+      "type": "string",
+      "required": false
+    },
+    "params": {
+      "type": "json",
+      "required": false
+    }
+  }
+}

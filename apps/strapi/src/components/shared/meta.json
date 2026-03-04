@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_shared_metas",
+  "info": {
+    "displayName": "Meta",
+    "description": "Document metadata (title, slug, excerpt, category, level, publication)"
+  },
+  "options": {},
+  "attributes": {
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": false
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": ["beginner", "intermediate", "advanced"],
+      "required": false,
+      "default": "intermediate"
+    },
+    "readTime": {
+      "type": "string",
+      "required": false
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "required": false
+    },
+    "tags": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

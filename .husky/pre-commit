@@ -1,0 +1,1 @@
+pnpm --filter @v0/ui exec lint-staged

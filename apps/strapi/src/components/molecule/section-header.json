@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_molecule_section_headers",
+  "info": {
+    "displayName": "Section Header",
+    "description": "Molecule: numbered section heading"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "molecule.sectionHeader"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "molecule"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

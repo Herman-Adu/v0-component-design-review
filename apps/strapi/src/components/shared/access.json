@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_accesses",
+  "info": {
+    "displayName": "Access Control",
+    "description": "Authorization and visibility rules"
+  },
+  "options": {},
+  "attributes": {
+    "requiresAuth": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "requiredRoles": {
+      "type": "string",
+      "required": false
+    },
+    "visibleToPublic": {
+      "type": "boolean",
+      "required": false,
+      "default": true
+    }
+  }
+}

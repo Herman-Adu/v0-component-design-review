@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_related_articles",
+  "info": {
+    "displayName": "Related Articles",
+    "description": "Organism: links to related content"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.relatedArticles" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

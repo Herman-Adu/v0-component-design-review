@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_decision_trees",
+  "info": {
+    "displayName": "Decision Tree",
+    "description": "Organism: branching decision flowchart"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.decisionTree" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

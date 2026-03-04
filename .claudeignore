@@ -1,0 +1,19 @@
+# .claudeignore — prevents stale docs from polluting Claude Code context
+
+# Archived session artifacts (historical record, not active context)
+docs/archive/
+apps/ui/docs/archive/
+
+# Node modules
+node_modules/
+apps/ui/node_modules/
+apps/strapi/node_modules/
+
+# Build outputs
+apps/ui/.next/
+apps/ui/out/
+apps/strapi/build/
+apps/strapi/.cache/
+
+# Test snapshots
+apps/ui/__tests__/**/__snapshots__/

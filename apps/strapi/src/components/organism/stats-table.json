@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_stats_tables",
+  "info": {
+    "displayName": "Stats Table",
+    "description": "Organism: structured data table with statistics"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.statsTable" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_molecule_key_takeaways",
+  "info": {
+    "displayName": "Key Takeaway",
+    "description": "Molecule: highlighted key learning point"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "molecule.keyTakeaway"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "molecule"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}
