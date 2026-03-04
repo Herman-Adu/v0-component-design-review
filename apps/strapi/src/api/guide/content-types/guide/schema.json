@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guides",
+  "info": {
+    "singularName": "guide",
+    "pluralName": "guides",
+    "displayName": "Guide",
+    "description": "Content library guides with atomic blocks"
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "meta": { "type": "component", "repeatable": false, "component": "shared.meta", "required": true },
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": false },
+    "toc": { "type": "component", "repeatable": true, "component": "shared.toc-item", "required": false },
+    "blocks": { "type": "dynamiczone", "components": ["atom.paragraph","molecule.info-box","molecule.section-header","molecule.sub-section-header","molecule.code-block","molecule.key-takeaway","organism.metrics-grid","organism.feature-grid","organism.comparison-cards","organism.process-flow","organism.step-flow","organism.stats-table","organism.related-articles","organism.architecture-diagram","organism.file-tree","organism.decision-tree","organism.data-flow-diagram","organism.vertical-flow","organism.before-after-comparison"], "required": false }
+  }
+}

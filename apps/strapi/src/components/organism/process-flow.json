@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_process_flows",
+  "info": {
+    "displayName": "Process Flow",
+    "description": "Organism: sequential process steps diagram"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.processFlow" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

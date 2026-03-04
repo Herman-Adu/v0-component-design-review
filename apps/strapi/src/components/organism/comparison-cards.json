@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_comparison_cards",
+  "info": {
+    "displayName": "Comparison Cards",
+    "description": "Organism: ideal-for vs not-ideal-for comparison"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.comparisonCards" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

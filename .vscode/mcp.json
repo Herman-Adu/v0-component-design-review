@@ -1,0 +1,38 @@
+{
+  "inputs": [],
+  "servers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ]
+    },
+    "postgres": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://dev:dev_local_only@localhost:5432/v0_component_design"
+      ]
+    },
+    "git": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "--repository",
+        "${workspaceFolder}"
+      ]
+    },
+    "strapi": {
+      "type": "stdio",
+      "command": "docker",
+      "args": ["exec", "-i", "v0_strapi_mcp", "strapi-mcp-server"]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_step_flows",
+  "info": {
+    "displayName": "Step Flow",
+    "description": "Organism: numbered step-by-step guide"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.stepFlow" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

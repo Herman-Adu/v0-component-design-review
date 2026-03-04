@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_vertical_flows",
+  "info": {
+    "displayName": "Vertical Flow",
+    "description": "Organism: vertical sequence of connected steps"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.verticalFlow" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

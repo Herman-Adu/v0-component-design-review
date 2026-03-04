@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_molecule_info_boxes",
+  "info": {
+    "displayName": "Info Box",
+    "description": "Molecule: info/warning/tip/note callout box"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "molecule.infoBox"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "molecule"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}
