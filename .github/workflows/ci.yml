@@ -38,5 +38,5 @@ jobs:
       - name: Vitest (148 integration tests)
         run: pnpm test
 
-      - name: Next.js build (166/166 SSG pages)
+      - name: Next.js build
         run: pnpm build

@@ -36,6 +36,7 @@ const POPULATE =
 const PAGE_SIZE = "pagination[pageSize]=100";
 
 async function fetchTutorialsFromStrapi(): Promise<TutorialContentDocument[]> {
+  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
   const url = `${process.env.STRAPI_URL}/api/tutorials?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {

@@ -15,6 +15,7 @@ const POPULATE =
 const PAGE_SIZE = "pagination[pageSize]=100";
 
 async function fetchAppReferencesFromStrapi(): Promise<AppReferenceDocument[]> {
+  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
   const url = `${process.env.STRAPI_URL}/api/app-references?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {
