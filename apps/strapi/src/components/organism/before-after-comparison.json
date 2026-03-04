@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_before_after_comparisons",
+  "info": {
+    "displayName": "Before After Comparison",
+    "description": "Organism: side-by-side before/after contrast"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.beforeAfterComparison" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

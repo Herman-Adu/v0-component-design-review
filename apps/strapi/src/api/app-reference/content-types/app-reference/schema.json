@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "app_references",
+  "info": {
+    "singularName": "app-reference",
+    "pluralName": "app-references",
+    "displayName": "App Reference",
+    "description": "Documentation: application features, components, and API reference"
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "meta": { "type": "component", "repeatable": false, "component": "shared.meta", "required": true },
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": false },
+    "route": { "type": "component", "repeatable": false, "component": "shared.route", "required": false },
+    "access": { "type": "component", "repeatable": false, "component": "shared.access", "required": false },
+    "toc": { "type": "component", "repeatable": true, "component": "shared.toc-item", "required": false },
+    "blocks": { "type": "dynamiczone", "components": ["atom.paragraph","molecule.info-box","molecule.section-header","molecule.sub-section-header","molecule.code-block","molecule.key-takeaway","organism.metrics-grid","organism.feature-grid","organism.comparison-cards","organism.process-flow","organism.step-flow","organism.stats-table","organism.related-articles","organism.architecture-diagram","organism.file-tree","organism.decision-tree","organism.data-flow-diagram","organism.vertical-flow","organism.before-after-comparison"], "required": false },
+    "sourceMarkdown": { "type": "richtext", "required": false }
+  }
+}

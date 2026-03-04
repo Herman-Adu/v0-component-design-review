@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_molecule_code_blocks",
+  "info": {
+    "displayName": "Code Block",
+    "description": "Molecule: syntax-highlighted code snippet"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "molecule.codeBlock"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "molecule"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

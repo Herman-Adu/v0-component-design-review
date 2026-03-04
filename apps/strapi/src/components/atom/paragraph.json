@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_atom_paragraphs",
+  "info": {
+    "displayName": "Paragraph",
+    "description": "Atom: paragraph block with text content"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "atom.paragraph"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "atom"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

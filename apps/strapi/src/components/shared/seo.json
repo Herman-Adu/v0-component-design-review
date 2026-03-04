@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_shared_seos",
+  "info": {
+    "displayName": "SEO",
+    "description": "SEO metadata fields"
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 60,
+      "required": false
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 160,
+      "required": false
+    },
+    "keywords": {
+      "type": "string",
+      "required": false
+    },
+    "canonicalUrl": {
+      "type": "string",
+      "required": false
+    },
+    "robots": {
+      "type": "string",
+      "required": false
+    },
+    "preventIndexing": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_data_flow_diagrams",
+  "info": {
+    "displayName": "Data Flow Diagram",
+    "description": "Organism: data pipeline or flow visualization"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.dataFlowDiagram" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}

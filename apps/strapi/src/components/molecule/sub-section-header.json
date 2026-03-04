@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_molecule_sub_section_headers",
+  "info": {
+    "displayName": "Sub Section Header",
+    "description": "Molecule: sub-section heading"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": {
+      "type": "string",
+      "required": true,
+      "default": "molecule.subSectionHeader"
+    },
+    "atomicLevel": {
+      "type": "enumeration",
+      "enum": ["atom", "molecule", "organism"],
+      "required": true,
+      "default": "molecule"
+    },
+    "props": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

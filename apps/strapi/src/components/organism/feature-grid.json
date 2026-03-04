@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organism_feature_grids",
+  "info": {
+    "displayName": "Feature Grid",
+    "description": "Organism: grid of feature cards with icons and descriptions"
+  },
+  "options": {},
+  "attributes": {
+    "blockType": { "type": "string", "required": true, "default": "organism.featureGrid" },
+    "atomicLevel": { "type": "enumeration", "enum": ["atom", "molecule", "organism"], "required": true, "default": "organism" },
+    "props": { "type": "json", "required": true }
+  }
+}
