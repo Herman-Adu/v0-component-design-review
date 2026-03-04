@@ -5,6 +5,8 @@
  * and quick contact options with glassmorphic design
  */
 
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { ContactFormContainer } from "@/features/contact";
 import { OfficeHoursCard } from "@/components/molecules/office-hours-card";
