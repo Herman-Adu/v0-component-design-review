@@ -21,9 +21,9 @@ export interface TutorialRecord {
   content: TutorialContentDocument;
 }
 
-export function listTutorials(): Tutorial[] {
+export async function listTutorials(): Promise<Tutorial[]> {
   repoLogger.queryStart("tutorial-repository", "listTutorials");
-  const result = getTutorialList();
+  const result = await getTutorialList();
   repoLogger.queryComplete(
     "tutorial-repository",
     "listTutorials",
@@ -32,15 +32,19 @@ export function listTutorials(): Tutorial[] {
   return result;
 }
 
-export function listTutorialSlugs(): string[] {
-  return getTutorialList().map((tutorial) => tutorial.slug);
+export async function listTutorialSlugs(): Promise<string[]> {
+  const tutorials = await getTutorialList();
+  return tutorials.map((tutorial) => tutorial.slug);
 }
 
-export function getTutorialRecordBySlug(slug: string): TutorialRecord | null {
+export async function getTutorialRecordBySlug(
+  slug: string,
+): Promise<TutorialRecord | null> {
   repoLogger.queryStart("tutorial-repository", "getTutorialRecordBySlug", {
     slug,
   });
-  const tutorial = getTutorialList().find((item) => item.slug === slug);
+  const tutorials = await getTutorialList();
+  const tutorial = tutorials.find((item) => item.slug === slug);
   if (!tutorial) {
     repoLogger.queryComplete(
       "tutorial-repository",
@@ -50,7 +54,7 @@ export function getTutorialRecordBySlug(slug: string): TutorialRecord | null {
     return null;
   }
 
-  const content = getTutorialContentDocument(slug);
+  const content = await getTutorialContentDocument(slug);
   if (!content) {
     repoLogger.queryComplete(
       "tutorial-repository",
@@ -64,22 +68,25 @@ export function getTutorialRecordBySlug(slug: string): TutorialRecord | null {
   return { tutorial, content };
 }
 
-export function getTutorialsByCategory(
+export async function getTutorialsByCategory(
   category: Tutorial["category"],
-): Tutorial[] {
-  return listTutorials().filter((tutorial) => tutorial.category === category);
+): Promise<Tutorial[]> {
+  const tutorials = await listTutorials();
+  return tutorials.filter((tutorial) => tutorial.category === category);
 }
 
-export function getTutorialsByLevel(level: Tutorial["level"]): Tutorial[] {
-  return listTutorials().filter((tutorial) => tutorial.level === level);
+export async function getTutorialsByLevel(
+  level: Tutorial["level"],
+): Promise<Tutorial[]> {
+  const tutorials = await listTutorials();
+  return tutorials.filter((tutorial) => tutorial.level === level);
 }
 
 /**
- * List tutorials by audience (optional extension)
- * Provided for consistency with documentation repositories
- * Returns filtered array of tutorials matching audience
+ * List tutorials by audience (stub — content-library does not use audience field)
  */
-export function listTutorialsByAudience(audience: string): Tutorial[] {
-  // Content-library doesn't currently use audience field; this is a no-op stub
+export async function listTutorialsByAudience(
+  _audience: string,
+): Promise<Tutorial[]> {
   return listTutorials();
 }

@@ -4,15 +4,19 @@ import {
   mockCaseStudyContent,
 } from "../../mocks/integration/content-library/case-study-data";
 
-// Mock the content builder layer
+// Mock the content builder layer (async — mirrors real builder interface)
 vi.mock(
   "@/lib/strapi/dashboard/content-library/case-studies/case-study-content-builder",
   () => ({
-    getCaseStudyList: vi.fn(() => mockCaseStudies),
-    getCaseStudyContentDocument: vi.fn((slug: string) => {
-      const caseStudy = mockCaseStudies.find((cs) => cs.slug === slug);
-      return caseStudy ? mockCaseStudyContent : null;
-    }),
+    getCaseStudyList: vi.fn(() => Promise.resolve(mockCaseStudies)),
+    getCaseStudyContentDocument: vi.fn((slug: string) =>
+      Promise.resolve(
+        mockCaseStudies.find((cs) => cs.slug === slug) ? mockCaseStudyContent : null,
+      ),
+    ),
+    getAllCaseStudyContentSlugs: vi.fn(() =>
+      Promise.resolve(mockCaseStudies.map((cs) => cs.slug)),
+    ),
   }),
 );
 
@@ -26,14 +30,14 @@ import {
 
 describe("Case Study Repository", () => {
   describe("listCaseStudies", () => {
-    it("returns an array of case studies", () => {
-      const caseStudies = listCaseStudies();
+    it("returns an array of case studies", async () => {
+      const caseStudies = await listCaseStudies();
       expect(Array.isArray(caseStudies)).toBe(true);
       expect(caseStudies.length).toBe(3); // Known mock data count
     });
 
-    it("returns case studies with required fields", () => {
-      const caseStudies = listCaseStudies();
+    it("returns case studies with required fields", async () => {
+      const caseStudies = await listCaseStudies();
       const caseStudy = caseStudies[0];
 
       expect(caseStudy).toHaveProperty("id");
@@ -47,8 +51,8 @@ describe("Case Study Repository", () => {
       expect(caseStudy).toHaveProperty("tags");
     });
 
-    it("returns case studies with unique slugs", () => {
-      const caseStudies = listCaseStudies();
+    it("returns case studies with unique slugs", async () => {
+      const caseStudies = await listCaseStudies();
       const slugs = caseStudies.map((cs) => cs.slug);
       const uniqueSlugs = new Set(slugs);
       expect(uniqueSlugs.size).toBe(slugs.length);
@@ -56,23 +60,23 @@ describe("Case Study Repository", () => {
   });
 
   describe("listCaseStudySlugs", () => {
-    it("returns array of slug strings", () => {
-      const slugs = listCaseStudySlugs();
+    it("returns array of slug strings", async () => {
+      const slugs = await listCaseStudySlugs();
       expect(Array.isArray(slugs)).toBe(true);
       expect(slugs.length).toBe(3);
       expect(typeof slugs[0]).toBe("string");
     });
 
-    it("slugs match case studies list count", () => {
-      const caseStudies = listCaseStudies();
-      const slugs = listCaseStudySlugs();
+    it("slugs match case studies list count", async () => {
+      const caseStudies = await listCaseStudies();
+      const slugs = await listCaseStudySlugs();
       expect(slugs.length).toBe(caseStudies.length);
     });
   });
 
   describe("getCaseStudyRecordBySlug", () => {
-    it("returns case study record for valid slug", () => {
-      const record = getCaseStudyRecordBySlug("test-case-study-security");
+    it("returns case study record for valid slug", async () => {
+      const record = await getCaseStudyRecordBySlug("test-case-study-security");
 
       expect(record).not.toBeNull();
       expect(record?.caseStudy.slug).toBe("test-case-study-security");
@@ -80,14 +84,14 @@ describe("Case Study Repository", () => {
       expect(record?.content.blocks).toBeDefined();
     });
 
-    it("returns null for non-existent slug", () => {
-      const record = getCaseStudyRecordBySlug("nonexistent-slug-123");
+    it("returns null for non-existent slug", async () => {
+      const record = await getCaseStudyRecordBySlug("nonexistent-slug-123");
       expect(record).toBeNull();
     });
 
-    it("content document has required structure", () => {
-      const slugs = listCaseStudySlugs();
-      const record = getCaseStudyRecordBySlug(slugs[0]);
+    it("content document has required structure", async () => {
+      const slugs = await listCaseStudySlugs();
+      const record = await getCaseStudyRecordBySlug(slugs[0]);
 
       expect(record).not.toBeNull();
       expect(record?.content.meta).toBeDefined();
@@ -97,44 +101,44 @@ describe("Case Study Repository", () => {
   });
 
   describe("getCaseStudiesByCategory", () => {
-    it("filters case studies by security category", () => {
-      const filtered = getCaseStudiesByCategory("security");
+    it("filters case studies by security category", async () => {
+      const filtered = await getCaseStudiesByCategory("security");
 
       expect(filtered.length).toBe(1); // Mock has 1 security case study
       expect(filtered.every((cs) => cs.category === "security")).toBe(true);
     });
 
-    it("filters case studies by performance category", () => {
-      const filtered = getCaseStudiesByCategory("performance");
+    it("filters case studies by performance category", async () => {
+      const filtered = await getCaseStudiesByCategory("performance");
 
       expect(filtered.length).toBe(1); // Mock has 1 performance case study
       expect(filtered[0].slug).toBe("test-case-study-performance");
     });
 
-    it("returns empty array for non-existent category", () => {
-      const filtered = getCaseStudiesByCategory("nonexistent" as never);
+    it("returns empty array for non-existent category", async () => {
+      const filtered = await getCaseStudiesByCategory("nonexistent" as never);
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });
   });
 
   describe("getCaseStudiesByLevel", () => {
-    it("filters case studies by beginner level", () => {
-      const filtered = getCaseStudiesByLevel("beginner");
+    it("filters case studies by beginner level", async () => {
+      const filtered = await getCaseStudiesByLevel("beginner");
 
       expect(filtered.length).toBe(1); // Mock has 1 beginner case study
       expect(filtered[0].level).toBe("beginner");
     });
 
-    it("filters case studies by intermediate level", () => {
-      const filtered = getCaseStudiesByLevel("intermediate");
+    it("filters case studies by intermediate level", async () => {
+      const filtered = await getCaseStudiesByLevel("intermediate");
 
       expect(filtered.length).toBe(1); // Mock has 1 intermediate case study
       expect(filtered[0].slug).toBe("test-case-study-security");
     });
 
-    it("filters case studies by advanced level", () => {
-      const filtered = getCaseStudiesByLevel("advanced");
+    it("filters case studies by advanced level", async () => {
+      const filtered = await getCaseStudiesByLevel("advanced");
 
       expect(filtered.length).toBe(1); // Mock has 1 advanced case study
       expect(filtered[0].level).toBe("advanced");
@@ -142,8 +146,8 @@ describe("Case Study Repository", () => {
   });
 
   describe("Content Validation - Behavior Tests", () => {
-    it("all case studies have valid ISO date format", () => {
-      const caseStudies = listCaseStudies();
+    it("all case studies have valid ISO date format", async () => {
+      const caseStudies = await listCaseStudies();
       caseStudies.forEach((cs) => {
         const date = new Date(cs.publishedAt);
         expect(date.toString()).not.toBe("Invalid Date");
@@ -151,23 +155,23 @@ describe("Case Study Repository", () => {
       });
     });
 
-    it("all case studies have non-empty excerpts", () => {
-      const caseStudies = listCaseStudies();
+    it("all case studies have non-empty excerpts", async () => {
+      const caseStudies = await listCaseStudies();
       caseStudies.forEach((cs) => {
         expect(cs.excerpt.length).toBeGreaterThan(0);
       });
     });
 
-    it("all case studies have at least one tag", () => {
-      const caseStudies = listCaseStudies();
+    it("all case studies have at least one tag", async () => {
+      const caseStudies = await listCaseStudies();
       caseStudies.forEach((cs) => {
         expect(Array.isArray(cs.tags)).toBe(true);
         expect(cs.tags.length).toBeGreaterThan(0);
       });
     });
 
-    it("case study content document has required structure", () => {
-      const record = getCaseStudyRecordBySlug("test-case-study-security");
+    it("case study content document has required structure", async () => {
+      const record = await getCaseStudyRecordBySlug("test-case-study-security");
 
       expect(record).not.toBeNull();
       expect(record?.content).toHaveProperty("blocks");

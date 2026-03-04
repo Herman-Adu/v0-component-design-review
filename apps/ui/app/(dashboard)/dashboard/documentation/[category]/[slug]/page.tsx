@@ -21,32 +21,36 @@ import {
 } from "@/lib/content-library/url-policy";
 
 export async function generateStaticParams() {
-  const strategicOverviewParams = listStrategicOverview().map((doc) => ({
-    category: "strategic-overview",
-    slug: doc.meta.slug,
-  }));
+  try {
+    const [strategicOverviewDocs, cmsReferenceDocs, appReferenceDocs, infrastructureOpsDocs] =
+      await Promise.all([
+        listStrategicOverview(),
+        listCmsReference(),
+        listAppReference(),
+        listInfrastructureOps(),
+      ]);
 
-  const cmsReferenceParams = listCmsReference().map((doc) => ({
-    category: "cms-reference",
-    slug: doc.meta.slug,
-  }));
-
-  const appReferenceParams = listAppReference().map((doc) => ({
-    category: "app-reference",
-    slug: doc.meta.slug,
-  }));
-
-  const infrastructureOpsParams = listInfrastructureOps().map((doc) => ({
-    category: "infrastructure-ops",
-    slug: doc.meta.slug,
-  }));
-
-  return [
-    ...strategicOverviewParams,
-    ...cmsReferenceParams,
-    ...appReferenceParams,
-    ...infrastructureOpsParams,
-  ];
+    return [
+      ...strategicOverviewDocs.map((doc) => ({
+        category: "strategic-overview",
+        slug: doc.meta.slug,
+      })),
+      ...cmsReferenceDocs.map((doc) => ({
+        category: "cms-reference",
+        slug: doc.meta.slug,
+      })),
+      ...appReferenceDocs.map((doc) => ({
+        category: "app-reference",
+        slug: doc.meta.slug,
+      })),
+      ...infrastructureOpsDocs.map((doc) => ({
+        category: "infrastructure-ops",
+        slug: doc.meta.slug,
+      })),
+    ];
+  } catch {
+    return []; // Strapi unavailable in CI
+  }
 }
 
 export async function generateMetadata({
@@ -56,7 +60,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category, slug } = await params;
 
-  const viewModel = getDocumentationViewModel(category, slug);
+  const viewModel = await getDocumentationViewModel(category, slug).catch(
+    () => null,
+  );
 
   if (!viewModel) {
     return {
@@ -98,7 +104,9 @@ export default async function DocumentationPage({
 }) {
   const { category, slug } = await params;
 
-  const viewModel = getDocumentationViewModel(category, slug);
+  const viewModel = await getDocumentationViewModel(category, slug).catch(
+    () => null,
+  );
 
   if (!viewModel) {
     notFound();

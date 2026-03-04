@@ -7,41 +7,11 @@ import {
   type ArticleContentDocument,
 } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
 export type { ArticleContentMeta } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
-// Import all article JSON files
-import accessibilityArticle from "@/data/strapi-mock/dashboard/content-library/articles/best-practices/building-accessible-web-applications.json";
-import refactoringArticle from "@/data/strapi-mock/dashboard/content-library/articles/best-practices/refactoring-for-maintainability.json";
-import documentationArticle from "@/data/strapi-mock/dashboard/content-library/articles/best-practices/documentation-as-architecture.json";
-import guardPatternArticle from "@/data/strapi-mock/dashboard/content-library/articles/best-practices/guard-pattern-architecture.json";
-import threeAxisReviewArticle from "@/data/strapi-mock/dashboard/content-library/articles/best-practices/three-axis-quality-review-system.json";
-import atomicDesignArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/atomic-design-principles.json";
-import planningArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/planning-full-stack-application.json";
-import emailSystemArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/email-system-architecture.json";
-import hydrationArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/why-react-hydration-breaks.json";
-import hydrationMismatchesArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/hydration-mismatches-use-client-layouts.json";
-import serverClientBoundariesArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/server-client-boundaries.json";
-import serviceRequestLifecycleArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/service-request-lifecycle.json";
-import managingContentStrapiArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/managing-content-in-strapi.json";
-import duplicateProvidersArticle from "@/data/strapi-mock/dashboard/content-library/articles/architecture/duplicate-providers-architectural-cost.json";
-import zodValidationArticle from "@/data/strapi-mock/dashboard/content-library/articles/forms/typescript-zod-validation.json";
-import multiStepFormArticle from "@/data/strapi-mock/dashboard/content-library/articles/forms/multi-step-form-architecture.json";
-import zustandArticle from "@/data/strapi-mock/dashboard/content-library/articles/forms/zustand-form-state-management.json";
-import securityArticle from "@/data/strapi-mock/dashboard/content-library/articles/security/security-architecture-deep-dive.json";
-import serverActionsArticle from "@/data/strapi-mock/dashboard/content-library/articles/security/server-actions-deep-dive.json";
-import roiArticle from "@/data/strapi-mock/dashboard/content-library/articles/business/roi-modern-web-architecture.json";
-import techStackArticle from "@/data/strapi-mock/dashboard/content-library/articles/business/tech-stack-decision-framework.json";
-import testingArticle from "@/data/strapi-mock/dashboard/content-library/articles/testing/testing-strategy-modern-applications.json";
-import cicdArticle from "@/data/strapi-mock/dashboard/content-library/articles/devops/cicd-deployment-pipelines.json";
-import aiSessionArticle from "@/data/strapi-mock/dashboard/content-library/articles/ai-tooling/ai-session-management-quality-gates.json";
-import isrArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/incremental-static-regeneration-isr.json";
-import performanceBudgetsArticle from "@/data/strapi-mock/dashboard/content-library/articles/performance/performance-budgets-for-nextjs.json";
-import ssgArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/static-site-generation-ssg.json";
-import ssrArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/server-side-rendering-ssr.json";
-import pprArticle from "@/data/strapi-mock/dashboard/content-library/articles/rendering/partial-prerendering-ppr.json";
-
 /**
- * Article list item generated from content metadata
+ * Article list item generated from content metadata + blocks
  */
 export interface Article {
   id: string;
@@ -56,90 +26,79 @@ export interface Article {
   blocks: ArticleContentBlock[];
 }
 
-// Article content registry - maps slugs to JSON documents
-const articleContentRegistry: Record<string, ArticleContentDocument> = {
-  "building-accessible-web-applications":
-    accessibilityArticle as ArticleContentDocument,
-  "refactoring-for-maintainability":
-    refactoringArticle as ArticleContentDocument,
-  "documentation-as-architecture":
-    documentationArticle as ArticleContentDocument,
-  "guard-pattern-architecture": guardPatternArticle as ArticleContentDocument,
-  "three-axis-quality-review-system":
-    threeAxisReviewArticle as ArticleContentDocument,
-  "atomic-design-principles": atomicDesignArticle as ArticleContentDocument,
-  "planning-full-stack-application": planningArticle as ArticleContentDocument,
-  "email-system-architecture": emailSystemArticle as ArticleContentDocument,
-  "why-react-hydration-breaks": hydrationArticle as ArticleContentDocument,
-  "hydration-mismatches-use-client-layouts":
-    hydrationMismatchesArticle as ArticleContentDocument,
-  "server-client-boundaries":
-    serverClientBoundariesArticle as ArticleContentDocument,
-  "service-request-lifecycle":
-    serviceRequestLifecycleArticle as ArticleContentDocument,
-  "managing-content-in-strapi":
-    managingContentStrapiArticle as ArticleContentDocument,
-  "duplicate-providers-architectural-cost":
-    duplicateProvidersArticle as ArticleContentDocument,
-  "typescript-zod-validation": zodValidationArticle as ArticleContentDocument,
-  "multi-step-form-architecture":
-    multiStepFormArticle as ArticleContentDocument,
-  "zustand-form-state-management": zustandArticle as ArticleContentDocument,
-  "security-architecture-deep-dive": securityArticle as ArticleContentDocument,
-  "server-actions-deep-dive": serverActionsArticle as ArticleContentDocument,
-  "roi-modern-web-architecture": roiArticle as ArticleContentDocument,
-  "tech-stack-decision-framework": techStackArticle as ArticleContentDocument,
-  "testing-strategy-modern-applications":
-    testingArticle as ArticleContentDocument,
-  "cicd-deployment-pipelines": cicdArticle as ArticleContentDocument,
-  "ai-session-management-quality-gates":
-    aiSessionArticle as ArticleContentDocument,
-  "incremental-static-regeneration-isr": isrArticle as ArticleContentDocument,
-  "performance-budgets-for-nextjs":
-    performanceBudgetsArticle as ArticleContentDocument,
-  "static-site-generation-ssg": ssgArticle as ArticleContentDocument,
-  "server-side-rendering-ssr": ssrArticle as ArticleContentDocument,
-  "partial-prerendering-ppr": pprArticle as ArticleContentDocument,
-};
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-// Validate all articles on import
-dataLogger.loadStart("articles", "data/strapi-mock/.../articles/*.json");
-const validatedArticleContentRegistry = Object.fromEntries(
-  Object.entries(articleContentRegistry).map(([slug, document]) => {
-    const result = ArticleContentDocumentSchema.safeParse(document);
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
+
+async function fetchArticlesFromStrapi(): Promise<ArticleContentDocument[]> {
+  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  const url = `${process.env.STRAPI_URL}/api/articles?${POPULATE}&${PAGE_SIZE}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["articles"] },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Strapi articles fetch failed: ${res.status}`);
+  }
+
+  const { data } = (await res.json()) as { data: unknown[] };
+
+  dataLogger.loadStart("articles", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = ArticleContentDocumentSchema.safeParse(transformed);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
         .join(" | ");
-      dataLogger.validationError("article", slug, issues.split(" | "));
-      throw new Error(`Invalid article content for "${slug}": ${issues}`);
+      dataLogger.validationError("article", String(i), issues.split(" | "));
+      throw new Error(`Invalid article content at index ${i}: ${issues}`);
     }
-    return [slug, result.data as ArticleContentDocument];
-  }),
-) as Record<string, ArticleContentDocument>;
-dataLogger.loadComplete(
-  "articles",
-  Object.keys(validatedArticleContentRegistry).length,
-  "data/strapi-mock/.../articles/*.json",
-);
-dataLogger.validationSuccess(
-  "articles",
-  Object.keys(validatedArticleContentRegistry).length,
-);
+    return result.data as ArticleContentDocument;
+  });
+
+  dataLogger.loadComplete("articles", documents.length, url);
+  dataLogger.validationSuccess("articles", documents.length);
+
+  return documents;
+}
+
+// ============================================================================
+// Registry builder (keyed by slug for O(1) lookups)
+// ============================================================================
+
+async function buildArticleRegistry(): Promise<
+  Record<string, ArticleContentDocument>
+> {
+  const documents = await fetchArticlesFromStrapi();
+  return Object.fromEntries(documents.map((doc) => [doc.meta.slug, doc]));
+}
+
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
 
 /**
- * Generates the article list from content metadata
+ * Get all articles as a sorted list
  */
-function generateArticleList(): Article[] {
-  return Object.entries(validatedArticleContentRegistry)
-    .map(([slug, document], index) => ({
+export async function getArticleList(): Promise<Article[]> {
+  const registry = await buildArticleRegistry();
+  return Object.entries(registry)
+    .map(([, document], index) => ({
       id: String(index + 1),
       slug: document.meta.slug,
       title: document.meta.title,
       excerpt: document.meta.excerpt,
-      level: document.meta.level,
-      category: document.meta.category,
-      readTime: document.meta.readTime,
+      level: document.meta.level as ArticleLevel,
+      category: document.meta.category as ArticleCategory,
+      readTime: document.meta.readTime ?? "",
       publishedAt: document.meta.publishedAt,
       tags: document.meta.tags,
       blocks: document.blocks,
@@ -151,32 +110,19 @@ function generateArticleList(): Article[] {
 }
 
 /**
- * Cached article list - generated once on server startup
+ * Get article content document by slug
  */
-let cachedArticleList: Article[] | null = null;
-
-/**
- * Get all articles
- */
-export function getArticleList(): Article[] {
-  if (!cachedArticleList) {
-    cachedArticleList = generateArticleList();
-  }
-  return cachedArticleList;
-}
-
-/**
- * Get an article content document by slug
- */
-export function getArticleContentDocument(
+export async function getArticleContentDocument(
   slug: string,
-): ArticleContentDocument | null {
-  return validatedArticleContentRegistry[slug] ?? null;
+): Promise<ArticleContentDocument | null> {
+  const registry = await buildArticleRegistry();
+  return registry[slug] ?? null;
 }
 
 /**
- * Get all article content slugs
+ * Get all article slugs for static params generation
  */
-export function getAllArticleContentSlugs(): string[] {
-  return Object.keys(validatedArticleContentRegistry);
+export async function getAllArticleContentSlugs(): Promise<string[]> {
+  const registry = await buildArticleRegistry();
+  return Object.keys(registry);
 }

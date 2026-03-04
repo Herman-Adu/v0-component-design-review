@@ -6,9 +6,16 @@ import {
 import { getContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest";
 import { getDocumentationRouteManifest } from "@/lib/strapi/dashboard/documentation/documentation-route-manifest";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const contentManifest = getContentRouteManifest();
-  const docManifest = getDocumentationRouteManifest();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const contentManifest = await getContentRouteManifest();
+  // Documentation manifest may fail if Strapi schema is incomplete (e.g. missing audience/lastUpdated fields)
+  const docManifest = await getDocumentationRouteManifest().catch(() => ({
+    strategicOverview: [],
+    cmsReference: [],
+    appReference: [],
+    infrastructureOps: [],
+    all: [],
+  }));
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [

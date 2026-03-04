@@ -65,28 +65,28 @@ export type DocumentationDetailViewModel =
  * // viewModel is properly typed as AppReferenceDetailViewModel
  * ```
  */
-export function getDocumentationViewModel(
+export async function getDocumentationViewModel(
   category: string,
   slug: string,
-): DocumentationDetailViewModel | null {
+): Promise<DocumentationDetailViewModel | null> {
   switch (category) {
     case "strategic-overview": {
-      const record = getStrategicOverviewRecordBySlug(slug);
+      const record = await getStrategicOverviewRecordBySlug(slug);
       if (!record) return null;
       return toStrategicOverviewDetailViewModel(record.document);
     }
     case "cms-reference": {
-      const record = getCmsReferenceRecordBySlug(slug);
+      const record = await getCmsReferenceRecordBySlug(slug);
       if (!record) return null;
       return toCmsReferenceDetailViewModel(record.document);
     }
     case "app-reference": {
-      const record = getAppReferenceRecordBySlug(slug);
+      const record = await getAppReferenceRecordBySlug(slug);
       if (!record) return null;
       return toAppReferenceDetailViewModel(record.document);
     }
     case "infrastructure-ops": {
-      const record = getInfrastructureOpsRecordBySlug(slug);
+      const record = await getInfrastructureOpsRecordBySlug(slug);
       if (!record) return null;
       return toInfrastructureOpsDetailViewModel(record.document);
     }

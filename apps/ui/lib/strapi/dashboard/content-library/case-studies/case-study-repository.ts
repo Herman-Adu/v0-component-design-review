@@ -21,9 +21,9 @@ export interface CaseStudyRecord {
   content: CaseStudyContentDocument;
 }
 
-export function listCaseStudies(): CaseStudy[] {
+export async function listCaseStudies(): Promise<CaseStudy[]> {
   repoLogger.queryStart("case-study-repository", "listCaseStudies");
-  const result = getCaseStudyList();
+  const result = await getCaseStudyList();
   repoLogger.queryComplete(
     "case-study-repository",
     "listCaseStudies",
@@ -32,15 +32,19 @@ export function listCaseStudies(): CaseStudy[] {
   return result;
 }
 
-export function listCaseStudySlugs(): string[] {
-  return getCaseStudyList().map((cs) => cs.slug);
+export async function listCaseStudySlugs(): Promise<string[]> {
+  const caseStudies = await getCaseStudyList();
+  return caseStudies.map((cs) => cs.slug);
 }
 
-export function getCaseStudyRecordBySlug(slug: string): CaseStudyRecord | null {
+export async function getCaseStudyRecordBySlug(
+  slug: string,
+): Promise<CaseStudyRecord | null> {
   repoLogger.queryStart("case-study-repository", "getCaseStudyRecordBySlug", {
     slug,
   });
-  const caseStudy = getCaseStudyList().find((cs) => cs.slug === slug);
+  const caseStudies = await getCaseStudyList();
+  const caseStudy = caseStudies.find((cs) => cs.slug === slug);
   if (!caseStudy) {
     repoLogger.queryComplete(
       "case-study-repository",
@@ -50,7 +54,7 @@ export function getCaseStudyRecordBySlug(slug: string): CaseStudyRecord | null {
     return null;
   }
 
-  const content = getCaseStudyContentDocument(slug);
+  const content = await getCaseStudyContentDocument(slug);
   if (!content) {
     repoLogger.queryComplete(
       "case-study-repository",
@@ -68,22 +72,25 @@ export function getCaseStudyRecordBySlug(slug: string): CaseStudyRecord | null {
   return { caseStudy, content };
 }
 
-export function getCaseStudiesByCategory(
+export async function getCaseStudiesByCategory(
   category: CaseStudy["category"],
-): CaseStudy[] {
-  return listCaseStudies().filter((cs) => cs.category === category);
+): Promise<CaseStudy[]> {
+  const caseStudies = await listCaseStudies();
+  return caseStudies.filter((cs) => cs.category === category);
 }
 
-export function getCaseStudiesByLevel(level: CaseStudy["level"]): CaseStudy[] {
-  return listCaseStudies().filter((cs) => cs.level === level);
+export async function getCaseStudiesByLevel(
+  level: CaseStudy["level"],
+): Promise<CaseStudy[]> {
+  const caseStudies = await listCaseStudies();
+  return caseStudies.filter((cs) => cs.level === level);
 }
 
 /**
- * List case studies by audience (optional extension)
- * Provided for consistency with documentation repositories
- * Returns filtered array of case studies matching audience
+ * List case studies by audience (stub — content-library does not use audience field)
  */
-export function listCaseStudiesByAudience(audience: string): CaseStudy[] {
-  // Content-library doesn't currently use audience field; this is a no-op stub
+export async function listCaseStudiesByAudience(
+  _audience: string,
+): Promise<CaseStudy[]> {
   return listCaseStudies();
 }

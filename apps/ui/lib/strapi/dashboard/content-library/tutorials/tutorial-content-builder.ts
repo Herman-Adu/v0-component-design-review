@@ -8,24 +8,8 @@ import {
   type TutorialContentDocument,
 } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
 export type { TutorialContentMeta } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
-
-// Import all tutorial JSON files
-import buildingAtomicComponent from "@/data/strapi-mock/dashboard/content-library/tutorials/components/building-atomic-component.json";
-import serverSideValidation from "@/data/strapi-mock/dashboard/content-library/tutorials/security/server-side-validation.json";
-import zustandFormStore from "@/data/strapi-mock/dashboard/content-library/tutorials/state-management/zustand-form-store.json";
-import rateLimitingImplementation from "@/data/strapi-mock/dashboard/content-library/tutorials/security/rate-limiting-implementation.json";
-import yourFirstNextjsApp from "@/data/strapi-mock/dashboard/content-library/tutorials/getting-started/your-first-nextjs-app.json";
-import yourFirstStrapiCollection from "@/data/strapi-mock/dashboard/content-library/tutorials/cms/your-first-strapi-collection.json";
-import writingYourFirstTests from "@/data/strapi-mock/dashboard/content-library/tutorials/testing/writing-your-first-tests.json";
-import connectingNextjsToStrapi from "@/data/strapi-mock/dashboard/content-library/tutorials/cms/connecting-nextjs-to-strapi.json";
-import understandingReactHydration from "@/data/strapi-mock/dashboard/content-library/tutorials/getting-started/understanding-react-hydration.json";
-import buildingHydrationSafeSidebar from "@/data/strapi-mock/dashboard/content-library/tutorials/components/building-hydration-safe-sidebar.json";
-import errorBoundariesAndLoadingStates from "@/data/strapi-mock/dashboard/content-library/tutorials/getting-started/error-boundaries-and-loading-states.json";
-import deployingNextjsToVercel from "@/data/strapi-mock/dashboard/content-library/tutorials/devops/deploying-nextjs-to-vercel.json";
-import buildingMultiStepForms from "@/data/strapi-mock/dashboard/content-library/tutorials/forms/building-multi-step-forms-with-server-actions.json";
-import buildingEmailTemplates from "@/data/strapi-mock/dashboard/content-library/tutorials/email/building-email-templates-react-email.json";
-import e2eTestingPlaywright from "@/data/strapi-mock/dashboard/content-library/tutorials/testing/e2e-testing-playwright-nextjs.json";
 
 /**
  * Tutorial list item generated from content metadata + blocks
@@ -43,75 +27,77 @@ export interface Tutorial {
   blocks: TutorialContentBlock[];
 }
 
-// Tutorial content registry - maps slugs to JSON documents
-const tutorialContentRegistry: Record<string, TutorialContentDocument> = {
-  "building-atomic-component":
-    buildingAtomicComponent as TutorialContentDocument,
-  "server-side-validation": serverSideValidation as TutorialContentDocument,
-  "zustand-form-store": zustandFormStore as TutorialContentDocument,
-  "rate-limiting-implementation":
-    rateLimitingImplementation as TutorialContentDocument,
-  "your-first-nextjs-app": yourFirstNextjsApp as TutorialContentDocument,
-  "your-first-strapi-collection":
-    yourFirstStrapiCollection as TutorialContentDocument,
-  "writing-your-first-tests": writingYourFirstTests as TutorialContentDocument,
-  "connecting-nextjs-to-strapi":
-    connectingNextjsToStrapi as TutorialContentDocument,
-  "understanding-react-hydration":
-    understandingReactHydration as TutorialContentDocument,
-  "building-hydration-safe-sidebar":
-    buildingHydrationSafeSidebar as TutorialContentDocument,
-  "error-boundaries-and-loading-states":
-    errorBoundariesAndLoadingStates as TutorialContentDocument,
-  "deploying-nextjs-to-vercel":
-    deployingNextjsToVercel as TutorialContentDocument,
-  "building-multi-step-forms-with-server-actions":
-    buildingMultiStepForms as TutorialContentDocument,
-  "building-email-templates-react-email":
-    buildingEmailTemplates as TutorialContentDocument,
-  "e2e-testing-playwright-nextjs":
-    e2eTestingPlaywright as TutorialContentDocument,
-};
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-// Validate all tutorials on import
-dataLogger.loadStart("tutorials", "data/strapi-mock/.../tutorials/*.json");
-const validatedTutorialContentRegistry = Object.fromEntries(
-  Object.entries(tutorialContentRegistry).map(([slug, document]) => {
-    const result = TutorialContentDocumentSchema.safeParse(document);
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
+
+async function fetchTutorialsFromStrapi(): Promise<TutorialContentDocument[]> {
+  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  const url = `${process.env.STRAPI_URL}/api/tutorials?${POPULATE}&${PAGE_SIZE}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["tutorials"] },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Strapi tutorials fetch failed: ${res.status}`);
+  }
+
+  const { data } = (await res.json()) as { data: unknown[] };
+
+  dataLogger.loadStart("tutorials", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = TutorialContentDocumentSchema.safeParse(transformed);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
         .join(" | ");
-      dataLogger.validationError("tutorial", slug, issues.split(" | "));
-      throw new Error(`Invalid tutorial content for "${slug}": ${issues}`);
+      dataLogger.validationError("tutorial", String(i), issues.split(" | "));
+      throw new Error(`Invalid tutorial content at index ${i}: ${issues}`);
     }
-    return [slug, result.data as TutorialContentDocument];
-  }),
-) as Record<string, TutorialContentDocument>;
-dataLogger.loadComplete(
-  "tutorials",
-  Object.keys(validatedTutorialContentRegistry).length,
-  "data/strapi-mock/.../tutorials/*.json",
-);
-dataLogger.validationSuccess(
-  "tutorials",
-  Object.keys(validatedTutorialContentRegistry).length,
-);
+    return result.data as TutorialContentDocument;
+  });
+
+  dataLogger.loadComplete("tutorials", documents.length, url);
+  dataLogger.validationSuccess("tutorials", documents.length);
+
+  return documents;
+}
+
+// ============================================================================
+// Registry builder (keyed by slug for O(1) lookups)
+// ============================================================================
+
+async function buildTutorialRegistry(): Promise<Record<string, TutorialContentDocument>> {
+  const documents = await fetchTutorialsFromStrapi();
+  return Object.fromEntries(documents.map((doc) => [doc.meta.slug, doc]));
+}
+
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
 
 /**
- * Generates the tutorial list from content metadata
- * This function replaces the old hardcoded arrays in data/content-library/tutorials
+ * Get all tutorials as a sorted list
  */
-function generateTutorialList(): Tutorial[] {
-  return Object.entries(validatedTutorialContentRegistry)
-    .map(([slug, document], index) => ({
+export async function getTutorialList(): Promise<Tutorial[]> {
+  const registry = await buildTutorialRegistry();
+  return Object.entries(registry)
+    .map(([, document], index) => ({
       id: String(index + 1),
       slug: document.meta.slug,
       title: document.meta.title,
       excerpt: document.meta.excerpt,
-      level: document.meta.level,
-      category: document.meta.category,
-      readTime: document.meta.readTime,
+      level: document.meta.level as TutorialLevel,
+      category: document.meta.category as TutorialCategory,
+      readTime: document.meta.readTime ?? "",
       publishedAt: document.meta.publishedAt,
       tags: document.meta.tags,
       blocks: document.blocks,
@@ -123,33 +109,19 @@ function generateTutorialList(): Tutorial[] {
 }
 
 /**
- * Cached tutorial list - generated once on server startup
+ * Get tutorial content document by slug
  */
-let cachedTutorialList: Tutorial[] | null = null;
-
-/**
- * Get all tutorials
- * Replaces: import { tutorials } from "@/data/content-library/tutorials"
- */
-export function getTutorialList(): Tutorial[] {
-  if (!cachedTutorialList) {
-    cachedTutorialList = generateTutorialList();
-  }
-  return cachedTutorialList;
-}
-
-/**
- * Get a tutorial content document by slug
- */
-export function getTutorialContentDocument(
+export async function getTutorialContentDocument(
   slug: string,
-): TutorialContentDocument | null {
-  return validatedTutorialContentRegistry[slug] ?? null;
+): Promise<TutorialContentDocument | null> {
+  const registry = await buildTutorialRegistry();
+  return registry[slug] ?? null;
 }
 
 /**
- * Get all tutorial content slugs
+ * Get all tutorial slugs for static params generation
  */
-export function getAllTutorialContentSlugs(): string[] {
-  return Object.keys(validatedTutorialContentRegistry);
+export async function getAllTutorialContentSlugs(): Promise<string[]> {
+  const registry = await buildTutorialRegistry();
+  return Object.keys(registry);
 }

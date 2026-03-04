@@ -51,10 +51,10 @@ function getCategoryColor(category: ArticleCategory) {
   }
 }
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
   pageLogger.render("/dashboard/content-library/articles");
 
-  const articles = listArticles();
+  const articles = await listArticles();
   pageLogger.dataFetch(
     "/dashboard/content-library/articles",
     "articles",

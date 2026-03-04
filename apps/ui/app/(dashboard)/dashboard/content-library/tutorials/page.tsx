@@ -49,10 +49,10 @@ function getCategoryColor(category: TutorialCategory) {
   }
 }
 
-export default function TutorialsPage() {
+export default async function TutorialsPage() {
   pageLogger.render("/dashboard/content-library/tutorials");
 
-  const tutorials = listTutorials();
+  const tutorials = await listTutorials();
   pageLogger.dataFetch(
     "/dashboard/content-library/tutorials",
     "tutorials",

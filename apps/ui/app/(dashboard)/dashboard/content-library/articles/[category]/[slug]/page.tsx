@@ -15,10 +15,15 @@ import { TableOfContents } from "@/components/molecules/article-components";
 import { ContentBlockRenderer } from "@/components/organisms/content-block-renderer";
 
 export async function generateStaticParams() {
-  return listArticles().map((article) => ({
-    category: article.category,
-    slug: article.slug,
-  }));
+  try {
+    const articles = await listArticles();
+    return articles.map((article) => ({
+      category: article.category,
+      slug: article.slug,
+    }));
+  } catch {
+    return []; // Strapi unavailable in CI
+  }
 }
 
 export async function generateMetadata({
@@ -27,7 +32,7 @@ export async function generateMetadata({
   params: Promise<{ category: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const record = getArticleRecordBySlug(slug);
+  const record = await getArticleRecordBySlug(slug);
 
   if (!record || !canReadArticle(record.article)) {
     return {
@@ -108,7 +113,7 @@ export default async function ArticlePage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { category, slug } = await params;
-  const record = getArticleRecordBySlug(slug);
+  const record = await getArticleRecordBySlug(slug);
 
   if (!record) {
     notFound();

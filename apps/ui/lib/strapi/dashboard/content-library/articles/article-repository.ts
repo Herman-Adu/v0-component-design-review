@@ -21,22 +21,26 @@ export interface ArticleRecord {
   content: ArticleContentDocument;
 }
 
-export function listArticles(): Article[] {
+export async function listArticles(): Promise<Article[]> {
   repoLogger.queryStart("article-repository", "listArticles");
-  const result = getArticleList();
+  const result = await getArticleList();
   repoLogger.queryComplete("article-repository", "listArticles", result.length);
   return result;
 }
 
-export function listArticleSlugs(): string[] {
-  return getArticleList().map((article) => article.slug);
+export async function listArticleSlugs(): Promise<string[]> {
+  const articles = await getArticleList();
+  return articles.map((article) => article.slug);
 }
 
-export function getArticleRecordBySlug(slug: string): ArticleRecord | null {
+export async function getArticleRecordBySlug(
+  slug: string,
+): Promise<ArticleRecord | null> {
   repoLogger.queryStart("article-repository", "getArticleRecordBySlug", {
     slug,
   });
-  const article = getArticleList().find((a) => a.slug === slug);
+  const articles = await getArticleList();
+  const article = articles.find((a) => a.slug === slug);
   if (!article) {
     repoLogger.queryComplete(
       "article-repository",
@@ -46,7 +50,7 @@ export function getArticleRecordBySlug(slug: string): ArticleRecord | null {
     return null;
   }
 
-  const content = getArticleContentDocument(slug);
+  const content = await getArticleContentDocument(slug);
   if (!content) {
     repoLogger.queryComplete(
       "article-repository",
@@ -60,22 +64,25 @@ export function getArticleRecordBySlug(slug: string): ArticleRecord | null {
   return { article, content };
 }
 
-export function getArticlesByCategory(
+export async function getArticlesByCategory(
   category: Article["category"],
-): Article[] {
-  return listArticles().filter((article) => article.category === category);
+): Promise<Article[]> {
+  const articles = await listArticles();
+  return articles.filter((article) => article.category === category);
 }
 
-export function getArticlesByLevel(level: Article["level"]): Article[] {
-  return listArticles().filter((article) => article.level === level);
+export async function getArticlesByLevel(
+  level: Article["level"],
+): Promise<Article[]> {
+  const articles = await listArticles();
+  return articles.filter((article) => article.level === level);
 }
 
 /**
- * List articles by audience (optional extension)
- * Provided for consistency with documentation repositories
- * Returns filtered array of articles matching audience
+ * List articles by audience (stub — content-library does not use audience field)
  */
-export function listArticlesByAudience(audience: string): Article[] {
-  // Content-library doesn't currently use audience field; this is a no-op stub
+export async function listArticlesByAudience(
+  _audience: string,
+): Promise<Article[]> {
   return listArticles();
 }

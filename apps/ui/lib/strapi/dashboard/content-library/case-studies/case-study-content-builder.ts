@@ -7,32 +7,11 @@ import {
   type CaseStudyContentDocument,
 } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
 export type { CaseStudyContentMeta } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-schema";
+import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
-// Import all case study JSON files
-import clientToServerArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/performance/client-to-server-components.json";
-import formValidationArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/security/form-validation-refactor.json";
-import securityLayerCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/security/security-layer-implementation.json";
-import securityLayerCase from "@/data/strapi-mock/dashboard/content-library/case-studies/security/security-layer.json";
-import rateLimitingBypass from "@/data/strapi-mock/dashboard/content-library/case-studies/security/rate-limiting-bypass-to-production.json";
-import stateManagementArticle from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/state-management-evolution.json";
-import emailConsolidationCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/email-system-consolidation.json";
-import hydrationGuardPattern from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/hydration-guard-pattern.json";
-import documentationEvolution from "@/data/strapi-mock/dashboard/content-library/case-studies/architecture/documentation-evolution.json";
-import multiStepFormCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/forms/multi-step-form-prototype-to-production.json";
-import multiStepForm from "@/data/strapi-mock/dashboard/content-library/case-studies/forms/multi-step-form.json";
-import edgeCacheRolloutCaseStudy from "@/data/strapi-mock/dashboard/content-library/case-studies/rendering/choosing-rendering-strategy-per-page.json";
-import edgeCacheRollout from "@/data/strapi-mock/dashboard/content-library/case-studies/rendering/edge-cache-rollout.json";
-import enterpriseCmsMigration from "@/data/strapi-mock/dashboard/content-library/case-studies/business/enterprise-cms-migration.json";
-import costReductionArchitecture from "@/data/strapi-mock/dashboard/content-library/case-studies/business/cost-reduction-architecture.json";
-import developerProductivity from "@/data/strapi-mock/dashboard/content-library/case-studies/business/developer-productivity-gains.json";
-import strapiMultiSite from "@/data/strapi-mock/dashboard/content-library/case-studies/cms/strapi-multi-site-architecture.json";
-import sidebarRefactor from "@/data/strapi-mock/dashboard/content-library/case-studies/refactoring/sidebar-refactor-430-lines-to-data-driven.json";
-import tarballDuplicate from "@/data/strapi-mock/dashboard/content-library/case-studies/infrastructure/tarball-duplicate-entry-build-failure.json";
-import emailConsolidation from "@/data/strapi-mock/dashboard/content-library/case-studies/infrastructure/email-consolidation.json";
-
 /**
- * Case Study list item generated from content metadata
+ * Case Study list item generated from content metadata + blocks
  */
 export interface CaseStudy {
   id: string;
@@ -47,83 +26,77 @@ export interface CaseStudy {
   blocks: CaseStudyContentBlock[];
 }
 
-// Case study content registry - maps slugs to JSON documents
-const caseStudyContentRegistry: Record<string, CaseStudyContentDocument> = {
-  "client-to-server-components":
-    clientToServerArticle as CaseStudyContentDocument,
-  "form-validation-refactor": formValidationArticle as CaseStudyContentDocument,
-  "security-layer-implementation":
-    securityLayerCaseStudy as CaseStudyContentDocument,
-  "security-layer": securityLayerCase as CaseStudyContentDocument,
-  "rate-limiting-bypass-to-production":
-    rateLimitingBypass as CaseStudyContentDocument,
-  "state-management-evolution":
-    stateManagementArticle as CaseStudyContentDocument,
-  "email-system-consolidation":
-    emailConsolidationCaseStudy as CaseStudyContentDocument,
-  "hydration-guard-pattern": hydrationGuardPattern as CaseStudyContentDocument,
-  "documentation-evolution": documentationEvolution as CaseStudyContentDocument,
-  "multi-step-form-prototype-to-production":
-    multiStepFormCaseStudy as CaseStudyContentDocument,
-  "multi-step-form": multiStepForm as CaseStudyContentDocument,
-  "choosing-rendering-strategy-per-page":
-    edgeCacheRolloutCaseStudy as CaseStudyContentDocument,
-  "edge-cache-rollout": edgeCacheRollout as CaseStudyContentDocument,
-  "enterprise-cms-migration":
-    enterpriseCmsMigration as CaseStudyContentDocument,
-  "cost-reduction-architecture":
-    costReductionArchitecture as CaseStudyContentDocument,
-  "developer-productivity-gains":
-    developerProductivity as CaseStudyContentDocument,
-  "strapi-multi-site-architecture": strapiMultiSite as CaseStudyContentDocument,
-  "sidebar-refactor-430-lines-to-data-driven":
-    sidebarRefactor as CaseStudyContentDocument,
-  "tarball-duplicate-entry-build-failure":
-    tarballDuplicate as CaseStudyContentDocument,
-  "email-consolidation": emailConsolidation as CaseStudyContentDocument,
-};
+// ============================================================================
+// Strapi fetch
+// ============================================================================
 
-// Validate all case studies on import
-dataLogger.loadStart(
-  "case-studies",
-  "data/strapi-mock/.../case-studies/*.json",
-);
-const validatedCaseStudyContentRegistry = Object.fromEntries(
-  Object.entries(caseStudyContentRegistry).map(([slug, document]) => {
-    const result = CaseStudyContentDocumentSchema.safeParse(document);
+const POPULATE =
+  "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
+const PAGE_SIZE = "pagination[pageSize]=100";
+
+async function fetchCaseStudiesFromStrapi(): Promise<CaseStudyContentDocument[]> {
+  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  const url = `${process.env.STRAPI_URL}/api/case-studies?${POPULATE}&${PAGE_SIZE}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    next: { revalidate: 3600, tags: ["case-studies"] },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Strapi case-studies fetch failed: ${res.status}`);
+  }
+
+  const { data } = (await res.json()) as { data: unknown[] };
+
+  dataLogger.loadStart("case-studies", url);
+
+  const documents = data.map((dto, i) => {
+    const transformed = transformStrapiContentDTO(dto);
+    const result = CaseStudyContentDocumentSchema.safeParse(transformed);
     if (!result.success) {
       const issues = result.error.issues
         .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
         .join(" | ");
-      dataLogger.validationError("case-study", slug, issues.split(" | "));
-      throw new Error(`Invalid case study content for "${slug}": ${issues}`);
+      dataLogger.validationError("case-study", String(i), issues.split(" | "));
+      throw new Error(`Invalid case study content at index ${i}: ${issues}`);
     }
-    return [slug, result.data as CaseStudyContentDocument];
-  }),
-) as Record<string, CaseStudyContentDocument>;
-dataLogger.loadComplete(
-  "case-studies",
-  Object.keys(validatedCaseStudyContentRegistry).length,
-  "data/strapi-mock/.../case-studies/*.json",
-);
-dataLogger.validationSuccess(
-  "case-studies",
-  Object.keys(validatedCaseStudyContentRegistry).length,
-);
+    return result.data as CaseStudyContentDocument;
+  });
+
+  dataLogger.loadComplete("case-studies", documents.length, url);
+  dataLogger.validationSuccess("case-studies", documents.length);
+
+  return documents;
+}
+
+// ============================================================================
+// Registry builder (keyed by slug for O(1) lookups)
+// ============================================================================
+
+async function buildCaseStudyRegistry(): Promise<Record<string, CaseStudyContentDocument>> {
+  const documents = await fetchCaseStudiesFromStrapi();
+  return Object.fromEntries(documents.map((doc) => [doc.meta.slug, doc]));
+}
+
+// ============================================================================
+// Public API (async — repositories and pages must await these)
+// ============================================================================
 
 /**
- * Generates the case study list from content metadata
+ * Get all case studies as a sorted list
  */
-function generateCaseStudyList(): CaseStudy[] {
-  return Object.entries(validatedCaseStudyContentRegistry)
-    .map(([slug, document], index) => ({
+export async function getCaseStudyList(): Promise<CaseStudy[]> {
+  const registry = await buildCaseStudyRegistry();
+  return Object.entries(registry)
+    .map(([, document], index) => ({
       id: String(index + 1),
       slug: document.meta.slug,
       title: document.meta.title,
       excerpt: document.meta.excerpt,
-      level: document.meta.level,
-      category: document.meta.category,
-      readTime: document.meta.readTime,
+      level: document.meta.level as CaseStudyLevel,
+      category: document.meta.category as CaseStudyCategory,
+      readTime: document.meta.readTime ?? "",
       publishedAt: document.meta.publishedAt,
       tags: document.meta.tags,
       blocks: document.blocks,
@@ -135,32 +108,19 @@ function generateCaseStudyList(): CaseStudy[] {
 }
 
 /**
- * Cached case study list - generated once on server startup
+ * Get case study content document by slug
  */
-let cachedCaseStudyList: CaseStudy[] | null = null;
-
-/**
- * Get all case studies
- */
-export function getCaseStudyList(): CaseStudy[] {
-  if (!cachedCaseStudyList) {
-    cachedCaseStudyList = generateCaseStudyList();
-  }
-  return cachedCaseStudyList;
-}
-
-/**
- * Get a case study content document by slug
- */
-export function getCaseStudyContentDocument(
+export async function getCaseStudyContentDocument(
   slug: string,
-): CaseStudyContentDocument | null {
-  return validatedCaseStudyContentRegistry[slug] ?? null;
+): Promise<CaseStudyContentDocument | null> {
+  const registry = await buildCaseStudyRegistry();
+  return registry[slug] ?? null;
 }
 
 /**
- * Get all case study content slugs
+ * Get all case study slugs for static params generation
  */
-export function getAllCaseStudyContentSlugs(): string[] {
-  return Object.keys(validatedCaseStudyContentRegistry);
+export async function getAllCaseStudyContentSlugs(): Promise<string[]> {
+  const registry = await buildCaseStudyRegistry();
+  return Object.keys(registry);
 }
