@@ -63,6 +63,7 @@ services:
       APP_KEYS: ${STRAPI_APP_KEYS:-key1,key2,key3,key4}
       API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT:-local-api-token-salt-replace-in-prod}
       TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT:-local-transfer-token-salt}
+    command: npm run develop
     volumes:
       - ./apps/strapi:/app
       - /app/node_modules
@@ -79,8 +80,9 @@ services:
     image: node:20-alpine
     working_dir: /workspace
     command: >
-      sh -c "npx create-strapi-app@latest strapi-cms
+      sh -c "yes '' | npx create-strapi-app@latest strapi-cms
       --no-run
+      --skip-cloud
       --dbclient=postgres
       --dbhost=postgres
       --dbport=5432
