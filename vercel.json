@@ -1,0 +1,7 @@
+{
+  "buildCommand": "pnpm --filter @v0/ui build",
+  "outputDirectory": "apps/ui/.next",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "ignoreCommand": "node apps/ui/scripts/vercel-ignore-build.js",
+  "framework": "nextjs"
+}
