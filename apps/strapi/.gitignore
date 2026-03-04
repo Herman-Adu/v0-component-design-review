@@ -1,0 +1,8 @@
+# Strapi build artifacts — change on every restart, not source-controlled
+.strapi/
+.strapi-updater.json
+
+# Backups — never commit data files
+backups/*.tar.gz
+backups/*.dump
+backups/*.sql

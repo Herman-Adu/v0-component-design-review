@@ -382,8 +382,10 @@ export interface SharedMeta extends Struct.ComponentSchema {
     displayName: 'Meta';
   };
   attributes: {
+    audience: Schema.Attribute.String;
     category: Schema.Attribute.String;
     excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
+    lastUpdated: Schema.Attribute.DateTime;
     level: Schema.Attribute.Enumeration<
       ['beginner', 'intermediate', 'advanced']
     > &

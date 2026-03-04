@@ -83,7 +83,7 @@ export interface TransformedContentDocument {
 export function transformStrapiContentDTO(dto: unknown): TransformedContentDocument {
   const d = dto as StrapiContentDTO;
 
-  const { id: _metaId, tags: rawTags, ...metaRest } = d.meta;
+  const { id: _metaId, tags: rawTags, audience: rawAudience, lastUpdated: rawLastUpdated, ...metaRest } = d.meta;
 
   // Strapi stores tags as a comma-separated string; schema expects string[]
   const tags: string[] =
@@ -91,8 +91,13 @@ export function transformStrapiContentDTO(dto: unknown): TransformedContentDocum
       ? rawTags.split(",").map((t) => t.trim()).filter(Boolean)
       : (rawTags as string[]) ?? [];
 
+  // Strapi returns null for optional fields not set on content-library types;
+  // Zod .optional() accepts undefined but not null — normalize here.
+  const audience = rawAudience ?? undefined;
+  const lastUpdated = rawLastUpdated ?? undefined;
+
   return {
-    meta: { ...metaRest, tags },
+    meta: { ...metaRest, tags, audience, lastUpdated },
     layout: d.toc && d.toc.length > 0 ? "content-with-toc" : "content-only",
     toc: (d.toc ?? []).map(({ anchor, title, level }) => ({
       id: anchor,

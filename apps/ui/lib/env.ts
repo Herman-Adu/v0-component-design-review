@@ -12,6 +12,10 @@ import { z } from "zod"
  * These are only available on the server
  */
 const serverEnvSchema = z.object({
+  // Strapi CMS
+  STRAPI_URL: z.string().url().optional(),
+  STRAPI_API_TOKEN: z.string().min(1).optional(),
+
   // Email Configuration (Required for email functionality)
   RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required for email functionality"),
   
