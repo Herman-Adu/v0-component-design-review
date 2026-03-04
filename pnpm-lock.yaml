@@ -15,8 +15,6 @@ importers:
         specifier: ^15.0.0
         version: 15.5.2
 
-  apps/strapi: {}
-
   apps/ui:
     dependencies:
       '@emotion/is-prop-valid':
@@ -203,9 +201,6 @@ importers:
         specifier: 5.0.11
         version: 5.0.11(@types/react@19.2.14)(immer@11.1.4)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
     devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3.0.0
-        version: 3.3.4
       '@tailwindcss/postcss':
         specifier: ^4.1.13
         version: 4.2.1
