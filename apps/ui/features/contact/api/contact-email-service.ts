@@ -12,7 +12,9 @@ import { generateContactBusinessEmail } from "./templates/contact-business-html"
 import type { ServerContactFormInput } from "../schemas/contact-schemas"
 import { logDelivery } from "@/lib/email/services/delivery-log"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResendClient() {
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 interface ContactEmailData extends ServerContactFormInput {
   referenceId: string
@@ -25,6 +27,7 @@ interface EmailResult {
 
 export async function sendContactEmails(data: ContactEmailData): Promise<EmailResult> {
   try {
+    const resend = getResendClient()
     const customerEmail = data.contactInfo.email
     const customerName = data.contactInfo.fullName
 

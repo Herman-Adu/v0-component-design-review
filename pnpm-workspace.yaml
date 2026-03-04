@@ -1,2 +1,3 @@
 packages:
-  - 'apps/*'
+  - 'apps/ui'
+  # apps/strapi is Docker-only — managed by its own Dockerfile, not the pnpm workspace
