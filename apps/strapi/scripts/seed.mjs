@@ -176,6 +176,8 @@ function transformDoc(json) {
     readTime: meta.readTime ?? null,
     publishedAt: meta.publishedAt ?? null,
     tags: Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags ?? ''),
+    audience: meta.audience ?? null,
+    lastUpdated: meta.lastUpdated ?? null,
   } : undefined;
 
   const strapiToc = Array.isArray(toc)

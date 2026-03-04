@@ -41,6 +41,14 @@
     "tags": {
       "type": "text",
       "required": false
+    },
+    "audience": {
+      "type": "string",
+      "required": false
+    },
+    "lastUpdated": {
+      "type": "datetime",
+      "required": false
     }
   }
 }
