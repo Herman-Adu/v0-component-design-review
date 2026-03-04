@@ -109,7 +109,7 @@ describe("Guide Repository", () => {
     });
 
     it("returns empty array for non-existent category", () => {
-      const filtered = getGuidesByCategory("nonexistent" as any);
+      const filtered = getGuidesByCategory("nonexistent" as never);
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });

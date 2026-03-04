@@ -1,13 +1,23 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+# Monorepo — workspace roots
+node_modules/
+apps/ui/node_modules/
+apps/strapi/node_modules/
 
-# next.js
+# Next.js build output
+apps/ui/.next/
+apps/ui/out/
+
+# Strapi build output
+apps/strapi/build/
+apps/strapi/.cache/
+apps/strapi/dist/
+
+# Legacy paths (pre-monorepo — safe to keep for old clones)
+/node_modules
 /.next/
 /out/
-
-# production
 /build
 
 # debug

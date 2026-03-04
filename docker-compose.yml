@@ -1,0 +1,100 @@
+# docker-compose.yml
+# Local dev stack: Postgres + Redis always on, Strapi via --profile cms
+#
+# Usage:
+#   docker-compose up -d                    # Start Postgres + Redis only
+#   docker-compose --profile cms up -d      # Start full stack including Strapi
+#   docker-compose down                     # Stop all
+#   docker-compose down -v                  # Stop + delete volumes (destructive)
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: v0_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: v0_component_design
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev_local_only
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/seeds:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: v0_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  strapi:
+    # Strapi 5 — requires ./apps/strapi/ to exist (see scripts/init-strapi.sh)
+    # Init once: docker-compose run --rm strapi-init
+    profiles: ["cms"]
+    build:
+      context: ./apps/strapi
+      dockerfile: Dockerfile
+    container_name: v0_strapi
+    restart: unless-stopped
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: v0_component_design
+      DATABASE_USERNAME: dev
+      DATABASE_PASSWORD: dev_local_only
+      NODE_ENV: development
+      JWT_SECRET: ${STRAPI_JWT_SECRET:-local-jwt-secret-replace-in-prod}
+      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET:-local-admin-jwt-secret-replace-in-prod}
+      APP_KEYS: ${STRAPI_APP_KEYS:-key1,key2,key3,key4}
+      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT:-local-api-token-salt-replace-in-prod}
+      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT:-local-transfer-token-salt}
+    volumes:
+      - ./apps/strapi:/app
+      - /app/node_modules
+    ports:
+      - "1337:1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # One-time Strapi initialiser — run manually before first `strapi` service start:
+  # docker-compose run --rm strapi-init
+  strapi-init:
+    profiles: ["cms-init"]
+    image: node:20-alpine
+    working_dir: /workspace
+    command: >
+      sh -c "npx create-strapi-app@latest strapi-cms
+      --no-run
+      --dbclient=postgres
+      --dbhost=postgres
+      --dbport=5432
+      --dbname=v0_component_design
+      --dbusername=dev
+      --dbpassword=dev_local_only
+      && mv /workspace/strapi-cms/* /app/ && mv /workspace/strapi-cms/.[!.]* /app/ 2>/dev/null || true"
+    volumes:
+      - ./apps/strapi:/app
+      - /workspace/strapi-cms
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:

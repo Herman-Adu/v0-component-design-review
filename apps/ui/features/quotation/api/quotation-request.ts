@@ -89,6 +89,7 @@ function sanitizeQuotationFormData(data: unknown): unknown {
     return data
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formData = data as Record<string, any>
 
   return {

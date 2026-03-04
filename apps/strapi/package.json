@@ -1,0 +1,11 @@
+{
+  "name": "@v0/strapi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "develop": "strapi develop",
+    "start":   "strapi start",
+    "build":   "strapi build",
+    "strapi":  "strapi"
+  }
+}

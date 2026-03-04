@@ -1,4 +1,3 @@
 {
-  "buildCommand": "npm run build",
   "ignoreCommand": "node scripts/vercel-ignore-build.js"
 }

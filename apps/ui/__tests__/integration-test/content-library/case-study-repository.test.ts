@@ -112,7 +112,7 @@ describe("Case Study Repository", () => {
     });
 
     it("returns empty array for non-existent category", () => {
-      const filtered = getCaseStudiesByCategory("nonexistent" as any);
+      const filtered = getCaseStudiesByCategory("nonexistent" as never);
       expect(Array.isArray(filtered)).toBe(true);
       expect(filtered.length).toBe(0);
     });
