@@ -1,5 +1,5 @@
-import quickChecklistData from "@/data/strapi-mock/digital-marketing/getting-started/quick-checklist.json";
-import journeysData from "@/data/strapi-mock/digital-marketing/getting-started/journeys.json";
+import quickChecklistData from "@/data/strapi-mock/dashboard/admin/digital-marketing/getting-started/quick-checklist.json";
+import journeysData from "@/data/strapi-mock/dashboard/admin/digital-marketing/getting-started/journeys.json";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

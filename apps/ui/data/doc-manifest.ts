@@ -22,9 +22,6 @@
  * - Changing the architecture layers or security model
  */
 
-import { articles } from "@/data/content-library/articles";
-import { caseStudies } from "@/data/content-library/case-studies";
-import { tutorials } from "@/data/content-library/tutorials";
 
 // ---------------------------------------------------------------------------
 // COMPONENT COUNTS - Update when adding/removing component files
@@ -133,18 +130,25 @@ const _componentsTotal =
 
 const _componentsBreakdown = `${COMPONENT_COUNTS.atoms.count} Atoms, ${COMPONENT_COUNTS.molecules.count} Molecules, ${COMPONENT_COUNTS.organisms.count} Organisms, ${COMPONENT_COUNTS.contactSteps.count + COMPONENT_COUNTS.sharedSteps.count} Steps, ${COMPONENT_COUNTS.animations.count} Animations, ${COMPONENT_COUNTS.hooks.count} Hooks`;
 
-const _contentArticles = articles.length;
-const _contentCaseStudies = caseStudies.length;
-const _contentTutorials = tutorials.length;
+// Content counts — derived from data/strapi-mock/dashboard/content-library/
+// Update when adding/removing JSON files in the strapi-mock content folders.
+const _contentArticles = 29;
+const _contentCaseStudies = 20;
+const _contentTutorials = 15;
 const _contentTotal =
   _contentArticles + _contentCaseStudies + _contentTutorials;
-const _articleCategories = [...new Set(articles.map((a) => a.category))].sort();
+const _articleCategories = [
+  "ai-tooling", "architecture", "best-practices", "business",
+  "devops", "forms", "performance", "rendering", "security", "testing",
+];
 const _caseStudyCategories = [
-  ...new Set(caseStudies.map((c) => c.category)),
-].sort();
+  "architecture", "business", "cms", "forms",
+  "infrastructure", "performance", "refactoring", "rendering", "security",
+];
 const _tutorialCategories = [
-  ...new Set(tutorials.map((t) => t.category)),
-].sort();
+  "cms", "components", "devops", "email", "forms",
+  "getting-started", "security", "state-management", "testing",
+];
 
 // ---------------------------------------------------------------------------
 // STATS - The single source of truth for all numbers in the doc system

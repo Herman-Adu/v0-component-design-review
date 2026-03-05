@@ -23,7 +23,7 @@ let cached: EmailManagementDocument | null | undefined;
 
 function loadFromJson(): EmailManagementDocument | null {
   try {
-    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "email-management.json");
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "email-management.json");
     const raw = JSON.parse(readFileSync(filePath, "utf-8"));
     const result = EmailManagementDocumentSchema.safeParse(raw);
     if (!result.success) {

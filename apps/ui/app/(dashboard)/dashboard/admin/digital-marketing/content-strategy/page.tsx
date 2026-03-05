@@ -1,7 +1,7 @@
-import editorialGuidelinesData from "@/data/strapi-mock/digital-marketing/content-strategy/editorial-guidelines.json";
-import contentMetricsData from "@/data/strapi-mock/digital-marketing/content-strategy/content-metrics.json";
-import distributionChannelsData from "@/data/strapi-mock/digital-marketing/content-strategy/distribution-channels.json";
-import contentCalendarData from "@/data/strapi-mock/digital-marketing/content-strategy/content-calendar.json";
+import editorialGuidelinesData from "@/data/strapi-mock/dashboard/admin/digital-marketing/content-strategy/editorial-guidelines.json";
+import contentMetricsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/content-strategy/content-metrics.json";
+import distributionChannelsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/content-strategy/distribution-channels.json";
+import contentCalendarData from "@/data/strapi-mock/dashboard/admin/digital-marketing/content-strategy/content-calendar.json";
 
 import {
   Card,

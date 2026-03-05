@@ -7,10 +7,8 @@ import { IconContainer } from "@/components/atoms/icon-container";
 import { SectionHeading } from "@/components/atoms/section-heading";
 import { ToolGrid } from "@/components/organisms/tool-grid";
 import { getAdminOverview } from "@/lib/strapi/dashboard/management/admin-overview/admin-overview";
-import { articles } from "@/data/content-library/articles";
-import { caseStudies } from "@/data/content-library/case-studies";
-import { tutorials } from "@/data/content-library/tutorials";
-import adminOverviewData from "@/data/strapi-mock/dashboard/admin-overview.json";
+import { getContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest";
+import adminOverviewData from "@/data/strapi-mock/dashboard/admin/admin-overview.json";
 import type { AdminOverviewContent } from "@/types/dashboard";
 
 // ─── Icon resolution ──────────────────────────────────────────────────────────
@@ -22,14 +20,14 @@ function resolveIcon(name: string): LucideIcon {
 // ─── Fallback data (Strapi unavailable / CI) ──────────────────────────────────
 
 const fallback = adminOverviewData as AdminOverviewContent;
-const totalContent = articles.length + caseStudies.length + tutorials.length;
 
 // ─── Page (Server Component) ──────────────────────────────────────────────────
 
 export default async function AdminOverviewPage() {
+  const manifest = await getContentRouteManifest();
   const dynamicCounts = {
-    contentLibrary: totalContent,
-    contentDetail: `${articles.length} articles, ${caseStudies.length} case studies, ${tutorials.length} tutorials`,
+    contentLibrary: manifest.all.length,
+    contentDetail: `${manifest.articles.length} articles, ${manifest.caseStudies.length} case studies, ${manifest.tutorials.length} tutorials`,
   };
 
   const vm = await getAdminOverview(dynamicCounts);
@@ -151,11 +149,11 @@ export default async function AdminOverviewPage() {
 
   const resolvedStats = fallback.quickStats.map((stat) => ({
     ...stat,
-    displayValue: stat.source === "content-library" ? totalContent : stat.value,
+    displayValue: stat.source === "content-library" ? dynamicCounts.contentLibrary : (stat.value ?? "—"),
     displayDescription:
       stat.source === "content-library"
         ? dynamicCounts.contentDetail
-        : stat.description,
+        : (stat.description ?? ""),
   }));
 
   const HeaderIcon = resolveIcon(fallback.header.icon);

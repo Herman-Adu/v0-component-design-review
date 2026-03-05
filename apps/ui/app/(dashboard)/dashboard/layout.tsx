@@ -1,23 +1,23 @@
 import type React from "react"
 import { DashboardShell } from "@/components/molecules/dashboard-shell"
 import { Navbar } from "@/components/molecules/navbar"
+import { getContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest"
 
 /**
  * Dashboard Layout -- Server Component
  *
- * Uses fullWidth Navbar so the nav spans edge-to-edge, matching the
- * sidebar + content area below. Marketing pages use the (marketing)
- * route group with a container-constrained Navbar instead.
- *
- * This layout is deliberately a Server Component. All client-side interactivity
- * (sidebar state, mobile detection, collapsible sections) is encapsulated in
- * the DashboardShell client component.
+ * Fetches the content route manifest server-side and builds the dynamic
+ * Learning Hub nav section before passing it down to the client sidebar.
+ * When Strapi goes live, admin and documentation nav sections follow the
+ * same pattern — fetch here, pass as props, zero changes to the sidebar.
  */
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const manifest = await getContentRouteManifest()
+
   return (
     <>
       <Navbar fullWidth />
-      <DashboardShell>{children}</DashboardShell>
+      <DashboardShell manifest={manifest}>{children}</DashboardShell>
     </>
   )
 }

@@ -29,9 +29,9 @@ import {
   Building2,
   Settings,
 } from "lucide-react";
-import featuresData from "@/data/strapi-mock/email-administration/configuration/features.json";
-import emailTypesData from "@/data/strapi-mock/email-administration/configuration/email-types.json";
-import configHighlightsData from "@/data/strapi-mock/email-administration/configuration/config-highlights.json";
+import featuresData from "@/data/strapi-mock/dashboard/admin/email-management/configuration/features.json";
+import emailTypesData from "@/data/strapi-mock/dashboard/admin/email-management/configuration/email-types.json";
+import configHighlightsData from "@/data/strapi-mock/dashboard/admin/email-management/configuration/config-highlights.json";
 
 const iconMap = {
   Palette,

@@ -4,7 +4,7 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getDigitalMarketing } from "@/lib/strapi/dashboard/management/digital-marketing/digital-marketing";
 import type { DigitalMarketingVM } from "@/lib/strapi/dashboard/management/digital-marketing/digital-marketing";
-import digitalMarketingData from "@/data/strapi-mock/dashboard/digital-marketing-overview.json";
+import digitalMarketingData from "@/data/strapi-mock/dashboard/admin/digital-marketing/digital-marketing-overview.json";
 
 function resolveIcon(name: string): LucideIcon {
   const icon = (Icons as Record<string, unknown>)[name];
