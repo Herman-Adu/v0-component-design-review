@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import {
   ArticleContentDocumentSchema,
   type ArticleLevel,
@@ -83,12 +84,10 @@ async function fetchArticlesFromStrapi(): Promise<ArticleContentDocument[]> {
 // Registry builder (keyed by slug for O(1) lookups)
 // ============================================================================
 
-async function buildArticleRegistry(): Promise<
-  Record<string, ArticleContentDocument>
-> {
+const buildArticleRegistry = cache(async (): Promise<Record<string, ArticleContentDocument>> => {
   const documents = await fetchArticlesFromStrapi();
   return Object.fromEntries(documents.map((doc) => [doc.meta.slug, doc]));
-}
+});
 
 // ============================================================================
 // Public API (async — repositories and pages must await these)

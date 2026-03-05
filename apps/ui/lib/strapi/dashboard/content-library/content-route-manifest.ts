@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { listArticles } from "@/lib/strapi/dashboard/content-library/articles/article-repository";
 import { listTutorials } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-repository";
 import { listGuides } from "@/lib/strapi/dashboard/content-library/guides/guide-repository";
@@ -40,7 +41,19 @@ function mapEntries(
   }));
 }
 
-export async function getContentRouteManifest(): Promise<ContentRouteManifest> {
+/**
+ * Fetches and assembles the full content route manifest from all 4 repositories.
+ *
+ * Wrapped in React cache() for per-request deduplication — multiple RSC calls
+ * within the same render pass return the same Promise without re-fetching.
+ *
+ * Cache scope is per-REQUEST, not per-build. generateStaticParams() runs in a
+ * separate render context and cannot share this cache with the page render;
+ * those are always independent fetches. In production (Vercel ISR) the
+ * underlying fetch() responses are CDN-cached, so there are zero Strapi hits
+ * per navigation after the initial build.
+ */
+export const getContentRouteManifest = cache(async function (): Promise<ContentRouteManifest> {
   const [articles, tutorials, guides, caseStudies] = await Promise.all([
     listArticles().then((r) => mapEntries("articles", r)),
     listTutorials().then((r) => mapEntries("tutorials", r)),
@@ -60,4 +73,4 @@ export async function getContentRouteManifest(): Promise<ContentRouteManifest> {
     caseStudies,
     all,
   };
-}
+});

@@ -19,7 +19,7 @@ const SectionHeaderSchema = z.object({
 });
 
 const NoticeBlockSchema = z.object({
-  icon: z.string().optional(),
+  icon: z.string().nullish(),
   title: z.string().min(1),
   description: z.string().min(1),
   noticeType: z.enum(["warning", "info", "success", "error"]).default("info"),
@@ -28,9 +28,9 @@ const NoticeBlockSchema = z.object({
 const QuickStatSchema = z.object({
   statId: z.string().min(1),
   label: z.string().min(1),
-  value: z.string().optional(),
-  description: z.string().optional(),
-  source: z.string().optional(),
+  value: z.string().nullish(),
+  description: z.string().nullish(),
+  source: z.string().nullish(),
 });
 
 const ToolItemSchema = z.object({
@@ -39,9 +39,9 @@ const ToolItemSchema = z.object({
   icon: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
-  status: z.string().optional().default("Available"),
-  badge: z.string().optional(),
-  badgeColor: z.string().optional(),
+  status: z.string().nullish().default("Available"),
+  badge: z.string().nullish(),
+  badgeColor: z.string().nullish(),
 });
 
 const ToolSectionSchema = z.object({
@@ -57,7 +57,7 @@ const UpcomingFeatureSchema = z.object({
   icon: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
-  status: z.string().optional().default("Coming Soon"),
+  status: z.string().nullish().default("Coming Soon"),
 });
 
 const CtaBlockSchema = z.object({
@@ -65,7 +65,7 @@ const CtaBlockSchema = z.object({
   description: z.string().min(1),
   linkText: z.string().min(1),
   linkHref: z.string().min(1),
-  linkIcon: z.string().optional().default("ArrowRight"),
+  linkIcon: z.string().nullish().default("ArrowRight"),
 });
 
 // ─── Root document schema ─────────────────────────────────────────────────────
@@ -76,8 +76,8 @@ export const AdminOverviewDocumentSchema = z.object({
   notice: NoticeBlockSchema.optional().nullable(),
   quickStats: z.array(QuickStatSchema).default([]),
   toolSections: z.array(ToolSectionSchema).default([]),
-  upcomingTitle: z.string().optional(),
-  upcomingDescription: z.string().optional(),
+  upcomingTitle: z.string().nullish(),
+  upcomingDescription: z.string().nullish(),
   upcomingFeatures: z.array(UpcomingFeatureSchema).default([]),
   cta: CtaBlockSchema.optional().nullable(),
 });

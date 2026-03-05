@@ -149,11 +149,11 @@ export default async function AdminOverviewPage() {
 
   const resolvedStats = fallback.quickStats.map((stat) => ({
     ...stat,
-    displayValue: stat.source === "content-library" ? dynamicCounts.contentLibrary : stat.value,
+    displayValue: stat.source === "content-library" ? dynamicCounts.contentLibrary : (stat.value ?? "—"),
     displayDescription:
       stat.source === "content-library"
         ? dynamicCounts.contentDetail
-        : stat.description,
+        : (stat.description ?? ""),
   }));
 
   const HeaderIcon = resolveIcon(fallback.header.icon);
