@@ -1,12 +1,14 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { EmailManagementDocumentSchema, type EmailManagementDocument } from "./email-management-schema";
 
 /**
  * Email Management Content Builder
  *
  * Fetches the management-page record for section=email-management from Strapi.
- * CI guard: returns null when STRAPI_URL is not set (build-time, CI).
+ * Falls back to JSON mock when STRAPI_URL is not set (Vercel, CI, local dev without Docker).
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,11 +21,25 @@ const ENDPOINT =
 
 let cached: EmailManagementDocument | null | undefined;
 
-export async function loadEmailManagement(): Promise<EmailManagementDocument | null> {
-  if (!STRAPI_URL) {
+function loadFromJson(): EmailManagementDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "email-management.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = EmailManagementDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[email-management-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
     return null;
   }
+}
 
+export async function loadEmailManagement(): Promise<EmailManagementDocument | null> {
+  if (!STRAPI_URL) return loadFromJson();
+
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {

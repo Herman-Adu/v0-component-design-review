@@ -1,0 +1,77 @@
+{
+  "platform": "google",
+  "header": {
+    "icon": "Search",
+    "title": "Google Marketing",
+    "description": "Full-stack Google presence management for electrical services. Business Profile, SEO, Tag Manager, Ads, Analytics, and Content Composer."
+  },
+  "introTitle": "Google Ecosystem",
+  "introText": "This section covers the full Google marketing stack: from establishing your Business Profile and optimising for search, to running ads, tracking conversions, and composing Google Business posts. Each tool is designed specifically for electrical service businesses.",
+  "ecosystemPhases": [
+    {
+      "title": "Attract",
+      "description": "Drive qualified traffic to your site",
+      "items": ["SEO & Site Optimization", "Google Ads & Campaigns"]
+    },
+    {
+      "title": "Convert",
+      "description": "Turn visitors into leads and customers",
+      "items": ["Business Profile & FAQs", "Content Composer"]
+    },
+    {
+      "title": "Measure",
+      "description": "Track performance and optimise spend",
+      "items": ["Tag Manager", "Analytics & Reporting"]
+    }
+  ],
+  "tools": [
+    {
+      "itemId": "business-profile",
+      "href": "/dashboard/admin/digital-marketing/google/business-profile",
+      "icon": "Building2",
+      "title": "Business Profile & FAQs",
+      "description": "Google Business Profile setup, NAP consistency, FAQ management, review response templates, and local SEO signals.",
+      "status": "Active"
+    },
+    {
+      "itemId": "seo",
+      "href": "/dashboard/admin/digital-marketing/google/seo",
+      "icon": "Search",
+      "title": "SEO & Site Optimization",
+      "description": "On-page SEO audit checklists, structured data markup, XML sitemap, Core Web Vitals, and keyword strategy for electrical services.",
+      "status": "Active"
+    },
+    {
+      "itemId": "tag-manager",
+      "href": "/dashboard/admin/digital-marketing/google/tag-manager",
+      "icon": "Tag",
+      "title": "Tag Manager",
+      "description": "GTM container setup, event tracking tags, conversion tracking for Google Ads and GA4, custom events, and trigger management.",
+      "status": "Active"
+    },
+    {
+      "itemId": "ads-campaigns",
+      "href": "/dashboard/admin/digital-marketing/google/ads-campaigns",
+      "icon": "DollarSign",
+      "title": "Ads & Campaigns",
+      "description": "Campaign structure for search, display, and local services ads. Budget allocation, bidding strategy, ad copy templates, and negative keywords.",
+      "status": "Active"
+    },
+    {
+      "itemId": "analytics",
+      "href": "/dashboard/admin/digital-marketing/google/analytics",
+      "icon": "LineChart",
+      "title": "Analytics & Reporting",
+      "description": "GA4 setup, key metrics dashboard, goal configuration, custom report templates, and attribution model guidance.",
+      "status": "Active"
+    },
+    {
+      "itemId": "composer",
+      "href": "/dashboard/admin/digital-marketing/google/composer",
+      "icon": "PenSquare",
+      "title": "Content Composer",
+      "description": "Compose Google Business posts with character limits, post type selection, image sizing, CTA buttons, and live preview.",
+      "status": "Active"
+    }
+  ]
+}

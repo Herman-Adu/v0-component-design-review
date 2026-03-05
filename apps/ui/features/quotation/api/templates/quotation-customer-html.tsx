@@ -4,10 +4,10 @@
  */
 
 import {
-  COMPANY,
   BRAND_COLORS,
   SLA,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface QuotationCustomerEmailProps {
   customerName: string
@@ -17,6 +17,7 @@ interface QuotationCustomerEmailProps {
   projectType: string
   budgetRange: string
   timeline: string
+  config: ResolvedEmailConfig
 }
 
 const formatBudgetRange = (value: string) => {
@@ -45,7 +46,7 @@ const formatTimeline = (value: string) => {
 }
 
 export function generateQuotationCustomerEmail(props: QuotationCustomerEmailProps): string {
-  const { customerName, company, requestId, projectCategory, projectType, budgetRange, timeline } = props
+  const { customerName, company, requestId, projectCategory, projectType, budgetRange, timeline, config } = props
 
   return `
 <!DOCTYPE html>
@@ -60,11 +61,14 @@ export function generateQuotationCustomerEmail(props: QuotationCustomerEmailProp
     <tr>
       <td align="center">
         <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: ${BRAND_COLORS.bgCard}; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <!-- Header -->
+
+          ${getSharedHeaderHtml(config)}
+
+          <!-- Title row after header -->
           <tr>
-            <td style="background-color: #18181b; padding: 32px; text-align: center;">
-              <h1 style="margin: 0; color: ${BRAND_COLORS.textWhite}; font-size: 24px; font-weight: 700;">Quotation Request Received</h1>
-              <p style="margin: 8px 0 0; color: #d4a825; font-size: 14px;">Reference: ${requestId}</p>
+            <td style="padding: 32px 40px 0; text-align: center;">
+              <h2 style="margin: 0; color: #1a1a1a; font-size: 22px; font-weight: 700;">Quotation Request Received</h2>
+              <p style="margin: 8px 0 0; color: #6b7280; font-size: 14px;">Reference: ${requestId}</p>
             </td>
           </tr>
 
@@ -74,7 +78,7 @@ export function generateQuotationCustomerEmail(props: QuotationCustomerEmailProp
               <p style="margin: 0 0 16px; color: #27272a; font-size: 16px; line-height: 1.6;">
                 Dear ${customerName}${company ? ` (${company})` : ""},
               </p>
-              
+
               <p style="margin: 0 0 24px; color: #52525b; font-size: 14px; line-height: 1.6;">
                 Thank you for submitting your quotation request. We have received your enquiry and our team will review your requirements shortly.
               </p>
@@ -121,17 +125,7 @@ export function generateQuotationCustomerEmail(props: QuotationCustomerEmailProp
             </td>
           </tr>
 
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: ${BRAND_COLORS.bgCardMutedAlt}; padding: 24px 32px; border-top: 1px solid ${BRAND_COLORS.borderLight};">
-              <p style="margin: 0 0 8px; color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-align: center;">
-                This is an automated confirmation email.
-              </p>
-              <p style="margin: 0; color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-align: center;">
-                Please keep this email for your records.
-              </p>
-            </td>
-          </tr>
+          ${getSharedFooterHtml(config, "customer")}
         </table>
       </td>
     </tr>

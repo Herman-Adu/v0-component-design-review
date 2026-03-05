@@ -17,6 +17,8 @@ export interface EmailSettingsVM {
   slaUrgentHours: number;
   footerDisclaimer: string | null;
   emailSignatureTemplate: string | null;
+  urgencyColorsJson: string | null;
+  slaJson: string | null;
 }
 
 export function toEmailSettingsVM(doc: EmailSettingsDocument): EmailSettingsVM {
@@ -29,5 +31,7 @@ export function toEmailSettingsVM(doc: EmailSettingsDocument): EmailSettingsVM {
     slaUrgentHours: doc.slaUrgentHours,
     footerDisclaimer: doc.footerDisclaimer ?? null,
     emailSignatureTemplate: doc.emailSignatureTemplate ?? null,
+    urgencyColorsJson: doc.urgencyColorsJson ?? null,
+    slaJson: doc.slaJson ?? null,
   };
 }

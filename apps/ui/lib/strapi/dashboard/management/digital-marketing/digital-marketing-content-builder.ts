@@ -1,12 +1,14 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { DigitalMarketingDocumentSchema, type DigitalMarketingDocument } from "./digital-marketing-schema";
 
 /**
  * Digital Marketing Content Builder
  *
  * Fetches the management-page record for section=digital-marketing from Strapi.
- * CI guard: returns null when STRAPI_URL is not set (build-time, CI).
+ * Falls back to JSON mock when STRAPI_URL is not set (Vercel, CI, local dev without Docker).
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,8 +21,25 @@ const ENDPOINT =
 
 let cached: DigitalMarketingDocument | null | undefined;
 
+function loadFromJson(): DigitalMarketingDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "digital-marketing.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = DigitalMarketingDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[digital-marketing-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadDigitalMarketing(): Promise<DigitalMarketingDocument | null> {
-  if (!STRAPI_URL) return null;
+  if (!STRAPI_URL) return loadFromJson();
+
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {

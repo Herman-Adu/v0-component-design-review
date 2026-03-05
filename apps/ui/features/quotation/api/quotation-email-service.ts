@@ -5,6 +5,7 @@ import { generateQuotationCustomerEmail } from "./templates/quotation-customer-h
 import { generateQuotationBusinessEmail } from "./templates/quotation-business-html"
 import type { CompleteQuotationInput } from "../schemas/quotation-schemas"
 import { logDelivery } from "@/lib/email/services/delivery-log"
+import { buildEmailConfig } from "@/lib/email/config/email-config-builder"
 
 function getResendClient() {
   if (!process.env.RESEND_API_KEY) {
@@ -61,6 +62,7 @@ async function sendQuotationCustomerEmail(props: {
   budgetRange: string
   timeline: string
 }): Promise<EmailResult> {
+  const config = await buildEmailConfig()
   try {
     if (!process.env.RESEND_API_KEY) {
       console.error("[email] RESEND_API_KEY is not set")
@@ -71,17 +73,16 @@ async function sendQuotationCustomerEmail(props: {
     }
 
     const resend = getResendClient()
-    
-    const htmlContent = generateQuotationCustomerEmail(props)
+    const quotFrom = config.email.quotationFromEmail
+
+    const htmlContent = generateQuotationCustomerEmail({ ...props, config })
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: quotFrom,
       to: props.to,
       subject: `Quotation Request Received - ${props.requestId}`,
       html: htmlContent,
     })
-
-    const quotFrom = process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com"
     const quotSubject = `Quotation Request Received - ${props.requestId}`
 
     if (error) {
@@ -125,7 +126,7 @@ async function sendQuotationCustomerEmail(props: {
       category: "quotation",
       recipientType: "customer",
       templateName: "Quotation Customer Confirmation",
-      from: process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: config.email.quotationFromEmail,
       to: props.to,
       subject: `Quotation Request - ${props.requestId}`,
       status: "failed",
@@ -144,6 +145,7 @@ async function sendQuotationBusinessEmail(props: {
   submittedAt: string
   formData: CompleteQuotationInput
 }): Promise<EmailResult> {
+  const config = await buildEmailConfig()
   try {
     if (!process.env.RESEND_API_KEY) {
       console.error("[email] RESEND_API_KEY is not set")
@@ -154,23 +156,22 @@ async function sendQuotationBusinessEmail(props: {
     }
 
     const resend = getResendClient()
-    
-    const htmlContent = generateQuotationBusinessEmail(props)
+    const bizFrom = config.email.quotationFromEmail
+    const bizTo = config.company.email.support
+
+    const htmlContent = generateQuotationBusinessEmail({ ...props, config })
 
     const isUrgent = props.formData.budget.timeline === "urgent"
+    const bizSubject = isUrgent ? `URGENT QUOTATION REQUEST - ${props.requestId}` : `New Quotation Request - ${props.requestId}`
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
-      to: process.env.BUSINESS_EMAIL || "admin@electricalservices.com",
+      from: bizFrom,
+      to: bizTo,
       subject: isUrgent
         ? `URGENT QUOTATION REQUEST - ${props.requestId}`
         : `New Quotation Request - ${props.requestId}`,
       html: htmlContent,
     })
-
-    const bizTo = process.env.BUSINESS_EMAIL || "admin@electricalservices.com"
-    const bizFrom = process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com"
-    const bizSubject = isUrgent ? `URGENT QUOTATION REQUEST - ${props.requestId}` : `New Quotation Request - ${props.requestId}`
 
     if (error) {
       console.error("[email] Business email error:", error)
@@ -213,8 +214,8 @@ async function sendQuotationBusinessEmail(props: {
       category: "quotation",
       recipientType: "business",
       templateName: "Quotation Business Notification",
-      from: process.env.EMAIL_QUOTATION_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
-      to: process.env.BUSINESS_EMAIL || "admin@electricalservices.com",
+      from: config.email.quotationFromEmail,
+      to: config.company.email.support,
       subject: `Quotation Request - ${props.requestId}`,
       status: "failed",
       error: error instanceof Error ? error.message : "Unknown error",

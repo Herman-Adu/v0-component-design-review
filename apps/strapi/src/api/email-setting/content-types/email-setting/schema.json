@@ -38,6 +38,12 @@
     },
     "emailSignatureTemplate": {
       "type": "richtext"
+    },
+    "urgencyColorsJson": {
+      "type": "text"
+    },
+    "slaJson": {
+      "type": "text"
     }
   }
 }
