@@ -1,0 +1,43 @@
+{
+  "kind": "singleType",
+  "collectionName": "email_settings",
+  "info": {
+    "singularName": "email-setting",
+    "pluralName": "email-settings",
+    "displayName": "Email Setting",
+    "description": "Global email system configuration — from addresses, SLA times, signature, footer"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fromEmail": {
+      "type": "email",
+      "required": true
+    },
+    "contactFromEmail": {
+      "type": "email"
+    },
+    "quotationFromEmail": {
+      "type": "email"
+    },
+    "replyToEmail": {
+      "type": "email"
+    },
+    "slaResponseHours": {
+      "type": "integer",
+      "default": 24
+    },
+    "slaUrgentHours": {
+      "type": "integer",
+      "default": 4
+    },
+    "footerDisclaimer": {
+      "type": "text"
+    },
+    "emailSignatureTemplate": {
+      "type": "richtext"
+    }
+  }
+}

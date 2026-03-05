@@ -658,6 +658,82 @@ export interface ApiCmsReferenceCmsReference
   };
 }
 
+export interface ApiCompanySettingCompanySetting
+  extends Struct.SingleTypeSchema {
+  collectionName: 'company_settings';
+  info: {
+    description: 'Global company configuration \u2014 feeds all email templates, page headers, and branding';
+    displayName: 'Company Setting';
+    pluralName: 'company-settings';
+    singularName: 'company-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    brandAccentColor: Schema.Attribute.String;
+    brandPrimaryColor: Schema.Attribute.String;
+    brandSecondaryColor: Schema.Attribute.String;
+    businessAddress: Schema.Attribute.Text & Schema.Attribute.Required;
+    businessEmail: Schema.Attribute.Email & Schema.Attribute.Required;
+    businessName: Schema.Attribute.String & Schema.Attribute.Required;
+    businessPhone: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::company-setting.company-setting'
+    > &
+      Schema.Attribute.Private;
+    logoUrl: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registrationNumber: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    vatNumber: Schema.Attribute.String;
+    website: Schema.Attribute.String;
+  };
+}
+
+export interface ApiEmailSettingEmailSetting extends Struct.SingleTypeSchema {
+  collectionName: 'email_settings';
+  info: {
+    description: 'Global email system configuration \u2014 from addresses, SLA times, signature, footer';
+    displayName: 'Email Setting';
+    pluralName: 'email-settings';
+    singularName: 'email-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contactFromEmail: Schema.Attribute.Email;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailSignatureTemplate: Schema.Attribute.RichText;
+    footerDisclaimer: Schema.Attribute.Text;
+    fromEmail: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::email-setting.email-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quotationFromEmail: Schema.Attribute.Email;
+    replyToEmail: Schema.Attribute.Email;
+    slaResponseHours: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<24>;
+    slaUrgentHours: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<4>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGuideGuide extends Struct.CollectionTypeSchema {
   collectionName: 'guides';
   info: {
@@ -1491,6 +1567,8 @@ declare module '@strapi/strapi' {
       'api::article.article': ApiArticleArticle;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::cms-reference.cms-reference': ApiCmsReferenceCmsReference;
+      'api::company-setting.company-setting': ApiCompanySettingCompanySetting;
+      'api::email-setting.email-setting': ApiEmailSettingEmailSetting;
       'api::guide.guide': ApiGuideGuide;
       'api::infrastructure-ops.infrastructure-ops': ApiInfrastructureOpsInfrastructureOps;
       'api::management-page.management-page': ApiManagementPageManagementPage;
