@@ -22,8 +22,8 @@ import {
   Shield,
   Users,
 } from "lucide-react";
-import featuresData from "@/data/strapi-mock/email-administration/infrastructure/features.json";
-import systemChecksData from "@/data/strapi-mock/email-administration/infrastructure/system-checks.json";
+import featuresData from "@/data/strapi-mock/dashboard/admin/email-management/infrastructure/features.json";
+import systemChecksData from "@/data/strapi-mock/dashboard/admin/email-management/infrastructure/system-checks.json";
 
 const iconMap = {
   Send,

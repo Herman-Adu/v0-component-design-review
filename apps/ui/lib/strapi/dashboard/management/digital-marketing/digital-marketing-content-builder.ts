@@ -23,7 +23,7 @@ let cached: DigitalMarketingDocument | null | undefined;
 
 function loadFromJson(): DigitalMarketingDocument | null {
   try {
-    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "digital-marketing.json");
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "digital-marketing.json");
     const raw = JSON.parse(readFileSync(filePath, "utf-8"));
     const result = DigitalMarketingDocumentSchema.safeParse(raw);
     if (!result.success) {

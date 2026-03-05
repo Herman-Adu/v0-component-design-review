@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Copy, CheckCircle2 } from "lucide-react";
 import { socialPosts } from "./data"; // Assuming hashtags are imported from a separate data file
-import socialListData from "@/data/strapi-mock/dashboard/social-list.json";
+import socialListData from "@/data/strapi-mock/dashboard/content-library/social-list.json";
 import type { SocialListContent } from "@/types/dashboard";
 
 // Type the imported JSON

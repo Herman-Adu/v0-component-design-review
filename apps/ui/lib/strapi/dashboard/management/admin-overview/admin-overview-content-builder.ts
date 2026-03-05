@@ -23,7 +23,7 @@ let cached: AdminOverviewDocument | null | undefined;
 
 function loadFromJson(): AdminOverviewDocument | null {
   try {
-    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "admin-overview.json");
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "admin-overview.json");
     const raw = JSON.parse(readFileSync(filePath, "utf-8"));
     const result = AdminOverviewDocumentSchema.safeParse(raw);
     if (!result.success) {

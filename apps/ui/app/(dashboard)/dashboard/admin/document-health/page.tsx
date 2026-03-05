@@ -12,7 +12,7 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getDocumentHealth } from "@/lib/strapi/dashboard/management/document-health/document-health";
 import type { DocumentHealthVM } from "@/lib/strapi/dashboard/management/document-health/document-health";
-import documentAdminData from "@/data/strapi-mock/dashboard/document-administration-overview.json";
+import documentAdminData from "@/data/strapi-mock/dashboard/admin/document-health/document-health-overview.json";
 
 function resolveIcon(name: string): LucideIcon {
   const icon = (Icons as Record<string, unknown>)[name];

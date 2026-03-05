@@ -1,6 +1,6 @@
 import * as Icons from "lucide-react";
 import Link from "next/link";
-import contentLibraryData from "@/data/strapi-mock/dashboard/content-library-overview.json";
+import contentLibraryData from "@/data/strapi-mock/dashboard/content-library/content-library-overview.json";
 import type {
   ContentLibraryOverviewContent,
   DashboardIconName,

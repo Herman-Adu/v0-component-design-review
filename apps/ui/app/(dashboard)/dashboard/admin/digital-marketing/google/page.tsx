@@ -6,8 +6,8 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getGooglePlatform } from "@/lib/strapi/dashboard/platforms/google/google-platform";
 import type { GooglePlatformVM } from "@/lib/strapi/dashboard/platforms/google/google-platform";
-import ecosystemData from "@/data/strapi-mock/platforms/google-ecosystem.json";
-import toolsData from "@/data/strapi-mock/platforms/google-tools.json";
+import ecosystemData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/google-ecosystem.json";
+import toolsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/google-tools.json";
 
 function resolveIcon(name: string): LucideIcon {
   const icon = (Icons as Record<string, unknown>)[name];

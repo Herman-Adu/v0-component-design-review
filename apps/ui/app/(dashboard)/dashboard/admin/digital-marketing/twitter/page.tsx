@@ -16,10 +16,10 @@ import {
 
 const TW = "/dashboard/admin/digital-marketing/twitter";
 
-import toolsData from "@/data/strapi-mock/platforms/twitter-tools.json";
+import toolsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/twitter-tools.json";
 const tools = toolsData.tools || [];
 
-import strategyData from "@/data/strapi-mock/platforms/twitter-strategy.json";
+import strategyData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/twitter-strategy.json";
 const strategy = strategyData.strategy || [];
 
 // Icon mapping for tools

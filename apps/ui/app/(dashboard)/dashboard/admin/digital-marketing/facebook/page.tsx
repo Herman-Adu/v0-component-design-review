@@ -15,10 +15,10 @@ import {
 
 const FB = "/dashboard/admin/digital-marketing/facebook";
 
-import toolsData from "@/data/strapi-mock/platforms/facebook-tools.json";
+import toolsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/facebook-tools.json";
 const tools = toolsData.tools || [];
 
-import strategyData from "@/data/strapi-mock/platforms/facebook-strategy.json";
+import strategyData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/facebook-strategy.json";
 const strategy = strategyData.strategy || [];
 
 // Icon mapping for tools
