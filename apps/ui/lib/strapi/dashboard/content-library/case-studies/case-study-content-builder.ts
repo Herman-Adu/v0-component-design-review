@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import {
   CaseStudyContentDocumentSchema,
   type CaseStudyLevel,
@@ -83,10 +84,10 @@ async function fetchCaseStudiesFromStrapi(): Promise<CaseStudyContentDocument[]>
 // Registry builder (keyed by slug for O(1) lookups)
 // ============================================================================
 
-async function buildCaseStudyRegistry(): Promise<Record<string, CaseStudyContentDocument>> {
+const buildCaseStudyRegistry = cache(async (): Promise<Record<string, CaseStudyContentDocument>> => {
   const documents = await fetchCaseStudiesFromStrapi();
   return Object.fromEntries(documents.map((doc) => [doc.meta.slug, doc]));
-}
+});
 
 // ============================================================================
 // Public API (async — repositories and pages must await these)

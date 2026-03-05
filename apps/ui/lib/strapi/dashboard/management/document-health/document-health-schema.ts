@@ -24,8 +24,8 @@ const PageSectionSchema = z.object({
   description: z.string().min(1),
   icon: z.string().min(1),
   href: z.string().min(1),
-  role: z.string().optional(),
-  pages: z.number().int().optional(),
+  role: z.string().nullish(),
+  pages: z.number().int().nullish(),
   color: z
     .enum(["emerald", "violet", "amber", "blue", "red", "green", "indigo", "orange", "pink", "slate"])
     .default("slate"),

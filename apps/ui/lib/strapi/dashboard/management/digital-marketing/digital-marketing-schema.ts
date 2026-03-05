@@ -19,7 +19,7 @@ const SectionHeaderSchema = z.object({
 });
 
 const NoticeBlockSchema = z.object({
-  icon: z.string().optional(),
+  icon: z.string().nullish(),
   title: z.string().min(1),
   description: z.string().min(1),
   noticeType: z.enum(["warning", "info", "success", "error"]).default("info"),
@@ -28,8 +28,8 @@ const NoticeBlockSchema = z.object({
 const QuickStatSchema = z.object({
   statId: z.string().min(1),
   label: z.string().min(1),
-  value: z.string().optional(),
-  description: z.string().optional(),
+  value: z.string().nullish(),
+  description: z.string().nullish(),
 });
 
 const QuickLinkSchema = z.object({
@@ -52,9 +52,9 @@ const PlatformCardSchema = z.object({
   icon: z.string().min(1),
   href: z.string().min(1),
   status: z.enum(["Active", "Coming Soon", "Beta"]).default("Coming Soon"),
-  badge: z.string().optional(),
-  badgeColor: z.string().optional(),
-  iconColor: z.string().optional(),
+  badge: z.string().nullish(),
+  badgeColor: z.string().nullish(),
+  iconColor: z.string().nullish(),
   pageItems: z.array(PlatformPageItemSchema).default([]),
 });
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import {
   getCaseStudyRecordBySlug,
-  listCaseStudySlugs,
+  listCaseStudies,
 } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-repository";
 import { getContentDetailPath } from "@/lib/content-library/url-policy";
 import { toCaseStudyDetailViewModel } from "@/lib/strapi/dashboard/content-library/case-studies/case-study-view-models";
@@ -13,16 +13,8 @@ import type { CaseStudy } from "@/lib/strapi/dashboard/content-library/case-stud
 
 export async function generateStaticParams() {
   try {
-    const slugs = await listCaseStudySlugs();
-    const records = await Promise.all(
-      slugs.map((slug) => getCaseStudyRecordBySlug(slug)),
-    );
-    return records
-      .filter(Boolean)
-      .map((record) => ({
-        slug: record!.caseStudy.slug,
-        category: record!.caseStudy.category,
-      }));
+    const list = await listCaseStudies();
+    return list.map((cs) => ({ slug: cs.slug, category: cs.category }));
   } catch {
     return []; // Strapi unavailable in CI
   }
