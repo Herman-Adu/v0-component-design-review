@@ -1,0 +1,52 @@
+{
+  "kind": "singleType",
+  "collectionName": "company_settings",
+  "info": {
+    "singularName": "company-setting",
+    "pluralName": "company-settings",
+    "displayName": "Company Setting",
+    "description": "Global company configuration — feeds all email templates, page headers, and branding"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "businessName": {
+      "type": "string",
+      "required": true
+    },
+    "businessAddress": {
+      "type": "text",
+      "required": true
+    },
+    "businessPhone": {
+      "type": "string"
+    },
+    "businessEmail": {
+      "type": "email",
+      "required": true
+    },
+    "logoUrl": {
+      "type": "string"
+    },
+    "brandPrimaryColor": {
+      "type": "string"
+    },
+    "brandSecondaryColor": {
+      "type": "string"
+    },
+    "brandAccentColor": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "registrationNumber": {
+      "type": "string"
+    },
+    "vatNumber": {
+      "type": "string"
+    }
+  }
+}
