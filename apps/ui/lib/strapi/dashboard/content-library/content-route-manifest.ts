@@ -11,6 +11,8 @@ export interface ContentRouteEntry {
   section: ContentSection;
   category: string;
   slug: string;
+  title: string;
+  level?: string;
   path: string;
   publishedAt: string;
 }
@@ -25,12 +27,14 @@ export interface ContentRouteManifest {
 
 function mapEntries(
   section: ContentSection,
-  records: Array<{ category: string; slug: string; publishedAt: string }>,
+  records: Array<{ category: string; slug: string; publishedAt: string; title?: string; level?: string }>,
 ): ContentRouteEntry[] {
   return records.map((record) => ({
     section,
     category: record.category,
     slug: record.slug,
+    title: record.title ?? "",
+    level: record.level,
     publishedAt: record.publishedAt,
     path: getContentDetailPath(section, record.category, record.slug),
   }));
