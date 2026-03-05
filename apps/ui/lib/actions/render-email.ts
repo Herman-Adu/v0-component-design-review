@@ -7,6 +7,7 @@ import { generateContactBusinessEmail } from "@/features/contact/api/templates/c
 import { generateQuotationCustomerEmail } from "@/features/quotation/api/templates/quotation-customer-html"
 import { generateQuotationBusinessEmail } from "@/features/quotation/api/templates/quotation-business-html"
 import type { EmailTemplate } from "./action.types"
+import { buildEmailConfig } from "@/lib/email/config/email-config-builder"
 
 export async function renderEmailPreview(
   template: EmailTemplate | "customer" | "business",
@@ -19,7 +20,7 @@ export async function renderEmailPreview(
       template === "business" ? "service-business" :
       template
 
-    const html = generateTemplateHtml(resolvedTemplate, urgency)
+    const html = await generateTemplateHtml(resolvedTemplate, urgency)
     return { html }
   } catch (error) {
     console.error("[email] Error rendering template:", error)
@@ -30,10 +31,11 @@ export async function renderEmailPreview(
   }
 }
 
-function generateTemplateHtml(
+async function generateTemplateHtml(
   template: EmailTemplate,
   urgency: "routine" | "urgent" | "emergency",
-): string {
+): Promise<string> {
+  const config = await buildEmailConfig()
   const now = new Date()
   const futureDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
   const altDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString()
@@ -50,6 +52,7 @@ function generateTemplateHtml(
         address: "42 Electric Avenue",
         city: "London",
         postcode: "SW11 5NT",
+        config,
       })
 
     case "service-business":
@@ -77,6 +80,7 @@ function generateTemplateHtml(
         accessInstructions: "Please use the side gate to access the property. Ring the doorbell twice.",
         flexibleScheduling: true,
         submittedAt: now.toISOString(),
+        config,
       })
 
     case "contact-customer":
@@ -85,6 +89,7 @@ function generateTemplateHtml(
         referenceId: "CQ-2024-0312",
         subject: "Question about commercial electrical upgrades",
         inquiryType: "general-inquiry",
+        config,
       })
 
     case "contact-business":
@@ -103,6 +108,7 @@ function generateTemplateHtml(
         preferredContactMethod: "email",
         bestTimeToContact: "afternoon",
         newsletterOptIn: true,
+        config,
       })
 
     case "quotation-customer":
@@ -114,6 +120,7 @@ function generateTemplateHtml(
         projectType: "full-rewire",
         budgetRange: "50k-100k",
         timeline: "3-6-months",
+        config,
       })
 
     case "quotation-business":
@@ -164,6 +171,7 @@ function generateTemplateHtml(
             termsAccepted: true,
           },
         },
+        config,
       })
 
     default:

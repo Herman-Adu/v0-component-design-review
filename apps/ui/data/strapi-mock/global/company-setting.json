@@ -1,0 +1,13 @@
+{
+  "businessName": "Electrical Services",
+  "businessAddress": "123 Electrical House, London EC1A 1BB",
+  "businessPhone": "0800 123 4567",
+  "businessEmail": "info@electricalservices.com",
+  "logoUrl": null,
+  "brandPrimaryColor": "#f59e0b",
+  "brandSecondaryColor": "#1a1a1a",
+  "brandAccentColor": "#fbbf24",
+  "website": "www.electricalservices.com",
+  "registrationNumber": null,
+  "vatNumber": null
+}

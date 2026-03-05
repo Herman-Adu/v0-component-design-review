@@ -1,5 +1,7 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { EmailSettingsDocumentSchema, type EmailSettingsDocument } from "./email-settings-schema";
 
 /**
@@ -7,7 +9,7 @@ import { EmailSettingsDocumentSchema, type EmailSettingsDocument } from "./email
  *
  * Fetches the email-setting Single Type from Strapi.
  * Single Type endpoint: GET /api/email-setting (returns flat object under `data`)
- * CI guard: returns null when STRAPI_URL is not set.
+ * JSON fallback: loads from data/strapi-mock/global/email-setting.json when STRAPI_URL is not set.
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,8 +21,23 @@ const ENDPOINT = "/api/email-setting";
 
 let cached: EmailSettingsDocument | null | undefined;
 
+function loadEmailSettingsFromJson(): EmailSettingsDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "global", "email-setting.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = EmailSettingsDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[email-settings-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadEmailSettings(): Promise<EmailSettingsDocument | null> {
-  if (!STRAPI_URL) return null;
+  if (!STRAPI_URL) return loadEmailSettingsFromJson();
 
   if (cached !== undefined) return cached;
 

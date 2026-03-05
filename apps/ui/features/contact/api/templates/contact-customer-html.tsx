@@ -5,18 +5,17 @@
  */
 
 import {
-  COMPANY,
   BRAND_COLORS,
   SLA,
-  getDefaultHeaderGradient,
-  getContactInfoHtml,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface ContactCustomerEmailProps {
   customerName: string
   referenceId: string
   subject: string
   inquiryType: string
+  config: ResolvedEmailConfig
 }
 
 const inquiryTypeLabels: Record<string, string> = {
@@ -35,6 +34,7 @@ export function generateContactCustomerEmail({
   referenceId,
   subject,
   inquiryType,
+  config,
 }: ContactCustomerEmailProps): string {
   const firstName = customerName.split(" ")[0]
   const inquiryLabel = inquiryTypeLabels[inquiryType] || inquiryType
@@ -52,16 +52,14 @@ export function generateContactCustomerEmail({
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          
-          <!-- Header -->
+
+          ${getSharedHeaderHtml(config)}
+
+          <!-- Title row after header -->
           <tr>
-            <td style="background: ${getDefaultHeaderGradient()}; padding: 32px 40px; text-align: center;">
-              <h1 style="margin: 0; color: ${BRAND_COLORS.primary}; font-size: 24px; font-weight: 700;">
-                Message Received
-              </h1>
-              <p style="margin: 8px 0 0; color: #a1a1aa; font-size: 14px;">
-                Reference: ${referenceId}
-              </p>
+            <td style="padding: 32px 40px 0; text-align: center;">
+              <h2 style="margin: 0; color: #1a1a1a; font-size: 22px; font-weight: 700;">Message Received</h2>
+              <p style="margin: 8px 0 0; color: #6b7280; font-size: 14px;">Reference: ${referenceId}</p>
             </td>
           </tr>
 
@@ -71,9 +69,9 @@ export function generateContactCustomerEmail({
               <p style="margin: 0 0 20px; color: ${BRAND_COLORS.textDark}; font-size: 16px; line-height: 1.6;">
                 Dear ${firstName},
               </p>
-              
+
               <p style="margin: 0 0 20px; color: #52525b; font-size: 16px; line-height: 1.6;">
-                Thank you for contacting ${COMPANY.name}. We have received your inquiry and our team will review it promptly.
+                Thank you for contacting ${config.company.name}. We have received your inquiry and our team will review it promptly.
               </p>
 
               <!-- Inquiry Summary -->
@@ -98,7 +96,7 @@ export function generateContactCustomerEmail({
               </table>
 
               <!-- What to Expect -->
-              <div style="margin: 24px 0; padding: 20px; background-color: #fffbeb; border-radius: 8px; border-left: 4px solid ${BRAND_COLORS.primary};">
+              <div style="margin: 24px 0; padding: 20px; background-color: #fffbeb; border-radius: 8px; border-left: 4px solid ${config.brand.primary};">
                 <h3 style="margin: 0 0 12px; color: #92400e; font-size: 14px; font-weight: 600;">
                   What happens next?
                 </h3>
@@ -110,28 +108,17 @@ export function generateContactCustomerEmail({
               </div>
 
               <p style="margin: 24px 0 0; color: #52525b; font-size: 14px; line-height: 1.6;">
-                If you have any urgent questions, please don't hesitate to call us at <strong>${COMPANY.phone.local}</strong>.
+                If you have any urgent questions, please don't hesitate to call us at <strong>${config.company.phone}</strong>.
               </p>
 
               <p style="margin: 24px 0 0; color: #52525b; font-size: 16px; line-height: 1.6;">
                 Best regards,<br>
-                <strong style="color: ${BRAND_COLORS.textDark};">The ${COMPANY.name} Team</strong>
+                <strong style="color: ${BRAND_COLORS.textDark};">The ${config.company.name} Team</strong>
               </p>
             </td>
           </tr>
 
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: ${BRAND_COLORS.bgCardMutedAlt}; padding: 24px 40px; border-top: 1px solid ${BRAND_COLORS.borderLight};">
-              <p style="margin: 0; color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-align: center; line-height: 1.6;">
-                This email was sent regarding your contact inquiry.<br>
-                Reference: ${referenceId}
-              </p>
-              <p style="margin: 12px 0 0; color: #a1a1aa; font-size: 11px; text-align: center;">
-                ${COMPANY.legalName} | ${COMPANY.address.full}
-              </p>
-            </td>
-          </tr>
+          ${getSharedFooterHtml(config, "customer")}
 
         </table>
       </td>

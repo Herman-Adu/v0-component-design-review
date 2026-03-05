@@ -7,8 +7,8 @@
 import {
   BRAND_COLORS,
   SLA,
-  getDefaultHeaderGradient,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface ContactBusinessEmailProps {
   referenceId: string
@@ -27,6 +27,7 @@ interface ContactBusinessEmailProps {
   preferredContactMethod: string
   bestTimeToContact: string
   newsletterOptIn?: boolean
+  config: ResolvedEmailConfig
 }
 
 const inquiryTypeLabels: Record<string, string> = {
@@ -84,6 +85,7 @@ export function generateContactBusinessEmail({
   preferredContactMethod,
   bestTimeToContact,
   newsletterOptIn,
+  config,
 }: ContactBusinessEmailProps): string {
   const priorityStyle = priorityColors[priority] || priorityColors.normal
   const submittedAt = new Date().toLocaleString("en-GB", {
@@ -105,19 +107,29 @@ export function generateContactBusinessEmail({
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 700px; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          
-          <!-- Header -->
+
+          ${getSharedHeaderHtml(config)}
+
+          <!-- Reference Banner -->
           <tr>
-            <td style="background: ${getDefaultHeaderGradient()}; padding: 24px 40px;">
+            <td style="background-color: ${BRAND_COLORS.bgCardMutedAlt}; padding: 16px 40px; border-bottom: 1px solid ${BRAND_COLORS.borderLight};">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>
-                    <h1 style="margin: 0; color: ${BRAND_COLORS.primary}; font-size: 20px; font-weight: 700;">
-                      New Contact Inquiry
-                    </h1>
-                    <p style="margin: 4px 0 0; color: #a1a1aa; font-size: 13px;">
-                      ${submittedAt}
-                    </p>
+                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Reference</span><br>
+                    <span style="color: ${config.brand.primary}; font-size: 16px; font-weight: 700; font-family: monospace;">${referenceId}</span>
+                  </td>
+                  <td style="text-align: center;">
+                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Type</span><br>
+                    <span style="color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 500;">${inquiryTypeLabels[inquiryType] || inquiryType}</span>
+                  </td>
+                  <td style="text-align: center;">
+                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Submitted</span><br>
+                    <span style="color: ${BRAND_COLORS.textDark}; font-size: 13px; font-weight: 500;">${submittedAt}</span>
+                  </td>
+                  <td style="text-align: right;">
+                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Sector</span><br>
+                    <span style="color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 500;">${sectorLabels[sector] || sector}</span>
                   </td>
                   <td style="text-align: right;">
                     <span style="display: inline-block; padding: 6px 16px; background-color: ${priorityStyle.bg}; color: ${priorityStyle.text}; border: 1px solid ${priorityStyle.border}; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
@@ -129,34 +141,12 @@ export function generateContactBusinessEmail({
             </td>
           </tr>
 
-          <!-- Reference Banner -->
-          <tr>
-            <td style="background-color: ${BRAND_COLORS.bgCardMutedAlt}; padding: 16px 40px; border-bottom: 1px solid ${BRAND_COLORS.borderLight};">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Reference</span><br>
-                    <span style="color: ${BRAND_COLORS.primary}; font-size: 16px; font-weight: 700; font-family: monospace;">${referenceId}</span>
-                  </td>
-                  <td style="text-align: center;">
-                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Type</span><br>
-                    <span style="color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 500;">${inquiryTypeLabels[inquiryType] || inquiryType}</span>
-                  </td>
-                  <td style="text-align: right;">
-                    <span style="color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Sector</span><br>
-                    <span style="color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 500;">${sectorLabels[sector] || sector}</span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
           <!-- Content -->
           <tr>
             <td style="padding: 32px 40px;">
-              
+
               <!-- Contact Information -->
-              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${BRAND_COLORS.primary}; padding-bottom: 8px; display: inline-block;">
+              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${config.brand.primary}; padding-bottom: 8px; display: inline-block;">
                 Contact Information
               </h2>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 28px;">
@@ -182,7 +172,7 @@ export function generateContactBusinessEmail({
 
               ${hasExistingReference && existingReferenceId ? `
               <!-- Linked Reference -->
-              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${BRAND_COLORS.primary}; padding-bottom: 8px; display: inline-block;">
+              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${config.brand.primary}; padding-bottom: 8px; display: inline-block;">
                 Linked Reference
               </h2>
               <div style="margin-bottom: 28px; padding: 16px; background-color: #fffbeb; border-radius: 8px; border: 1px solid #fcd34d;">
@@ -198,7 +188,7 @@ export function generateContactBusinessEmail({
               ` : ""}
 
               <!-- Message Details -->
-              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${BRAND_COLORS.primary}; padding-bottom: 8px; display: inline-block;">
+              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${config.brand.primary}; padding-bottom: 8px; display: inline-block;">
                 Message Details
               </h2>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 16px;">
@@ -212,7 +202,7 @@ export function generateContactBusinessEmail({
               </div>
 
               <!-- Contact Preferences -->
-              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${BRAND_COLORS.primary}; padding-bottom: 8px; display: inline-block;">
+              <h2 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${config.brand.primary}; padding-bottom: 8px; display: inline-block;">
                 Contact Preferences
               </h2>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -244,15 +234,7 @@ export function generateContactBusinessEmail({
             </td>
           </tr>
 
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: ${BRAND_COLORS.headerGradient.start}; padding: 20px 40px;">
-              <p style="margin: 0; color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-align: center;">
-                This is an automated notification from your website contact form.<br>
-                Reference: ${referenceId}
-              </p>
-            </td>
-          </tr>
+          ${getSharedFooterHtml(config, "business")}
 
         </table>
       </td>

@@ -5,6 +5,7 @@ import { generateCustomerConfirmationEmail } from "./templates/customer-confirma
 import { generateBusinessNotificationEmail } from "./templates/business-notification-html"
 import type { CompleteFormInput } from "../schemas/schemas"
 import { logDelivery } from "@/lib/email/services/delivery-log"
+import { buildEmailConfig } from "@/lib/email/config/email-config-builder"
 
 function getResendClient() {
   if (!process.env.RESEND_API_KEY) {
@@ -80,6 +81,7 @@ async function sendCustomerConfirmationEmail(props: {
   city: string
   postcode: string
 }): Promise<EmailResult> {
+  const config = await buildEmailConfig()
   try {
     if (!process.env.RESEND_API_KEY) {
       console.error("[email] RESEND_API_KEY is not set")
@@ -90,7 +92,7 @@ async function sendCustomerConfirmationEmail(props: {
     }
 
     const resend = getResendClient()
-    
+
     // Generate HTML email content
     const htmlContent = generateCustomerConfirmationEmail({
       customerName: props.customerName,
@@ -102,10 +104,11 @@ async function sendCustomerConfirmationEmail(props: {
       address: props.address,
       city: props.city,
       postcode: props.postcode,
+      config,
     })
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: config.email.fromEmail,
       to: props.to,
       subject:
         props.urgency === "emergency"
@@ -120,7 +123,7 @@ async function sendCustomerConfirmationEmail(props: {
         category: "service",
         recipientType: "customer",
         templateName: "Service Customer Confirmation",
-        from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
+        from: config.email.fromEmail,
         to: props.to,
         subject: props.urgency === "emergency" ? `EMERGENCY - Service Request Received (${props.requestId})` : `Service Request Confirmed - ${props.requestId}`,
         status: "failed",
@@ -137,7 +140,7 @@ async function sendCustomerConfirmationEmail(props: {
       category: "service",
       recipientType: "customer",
       templateName: "Service Customer Confirmation",
-      from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: config.email.fromEmail,
       to: props.to,
       subject: props.urgency === "emergency" ? `EMERGENCY - Service Request Received (${props.requestId})` : `Service Request Confirmed - ${props.requestId}`,
       status: "sent",
@@ -155,7 +158,7 @@ async function sendCustomerConfirmationEmail(props: {
       category: "service",
       recipientType: "customer",
       templateName: "Service Customer Confirmation",
-      from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: config.email.fromEmail,
       to: props.to,
       subject: "Service Request Confirmed",
       status: "failed",
@@ -189,6 +192,7 @@ async function sendBusinessNotificationEmail(props: {
   flexibleScheduling: boolean
   submittedAt: string
 }): Promise<EmailResult> {
+  const config = await buildEmailConfig()
   try {
     if (!process.env.RESEND_API_KEY) {
       console.error("[email] RESEND_API_KEY is not set")
@@ -199,13 +203,15 @@ async function sendBusinessNotificationEmail(props: {
     }
 
     const resend = getResendClient()
-    
+    const businessFrom = config.email.fromEmail
+    const businessTo = config.company.email.support
+
     // Generate HTML email content
-    const htmlContent = generateBusinessNotificationEmail(props)
+    const htmlContent = generateBusinessNotificationEmail({ ...props, config })
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
-      to: process.env.BUSINESS_EMAIL || "admin@electricalservices.com",
+      from: businessFrom,
+      to: businessTo,
       subject:
         props.urgency === "emergency"
           ? `EMERGENCY SERVICE REQUEST - ${props.requestId} - IMMEDIATE ACTION REQUIRED`
@@ -214,8 +220,6 @@ async function sendBusinessNotificationEmail(props: {
     })
 
     const businessSubject = props.urgency === "emergency" ? `EMERGENCY SERVICE REQUEST - ${props.requestId}` : `New Service Request - ${props.requestId}`
-    const businessTo = process.env.BUSINESS_EMAIL || "admin@electricalservices.com"
-    const businessFrom = process.env.EMAIL_FROM || "noreply@electricalservices.com"
 
     if (error) {
       console.error("[email] Business email error:", error)
@@ -258,8 +262,8 @@ async function sendBusinessNotificationEmail(props: {
       category: "service",
       recipientType: "business",
       templateName: "Service Business Notification",
-      from: process.env.EMAIL_FROM || "noreply@electricalservices.com",
-      to: process.env.BUSINESS_EMAIL || "admin@electricalservices.com",
+      from: config.email.fromEmail,
+      to: config.company.email.support,
       subject: `Service Request - ${props.requestId}`,
       status: "failed",
       error: error instanceof Error ? error.message : "Unknown error",

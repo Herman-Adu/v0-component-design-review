@@ -1,13 +1,11 @@
 import {
-  COMPANY,
   BRAND_COLORS,
   SLA,
-  getHeaderGradient,
   getUrgencyBadgeStyle,
-  getFooterHtml,
-  getContactInfoHtml,
+  URGENCY_COLORS,
   type UrgencyLevel,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface CustomerConfirmationEmailProps {
   customerName: string
@@ -19,10 +17,11 @@ interface CustomerConfirmationEmailProps {
   address: string
   city: string
   postcode: string
+  config: ResolvedEmailConfig
 }
 
 export function generateCustomerConfirmationEmail(props: CustomerConfirmationEmailProps): string {
-  const { customerName, requestId, serviceType, urgency, preferredDate, preferredTimeSlot, address, city, postcode } =
+  const { customerName, requestId, serviceType, urgency, preferredDate, preferredTimeSlot, address, city, postcode, config } =
     props
 
   const isEmergency = urgency === "emergency"
@@ -49,35 +48,16 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          
-          <!-- Header -->
-          <tr>
-            <td style="padding: 40px 40px 32px; background: ${getHeaderGradient(urgency)}; border-radius: 12px 12px 0 0;">
-              <table role="presentation" style="width: 100%;">
-                <tr>
-                  <td align="center">
-                    <div style="display: inline-block; background: ${BRAND_COLORS.primary}; width: 64px; height: 64px; border-radius: 12px; text-align: center; line-height: 64px; font-size: 32px; margin-bottom: 16px;">
-                      &#9889;
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center">
-                    <h1 style="margin: 0; color: ${BRAND_COLORS.textWhite}; font-size: 28px; font-weight: 700;">${COMPANY.name}</h1>
-                    <p style="margin: 8px 0 0; color: ${BRAND_COLORS.primaryLight}; font-size: 14px;">${COMPANY.tagline}</p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+
+          ${getSharedHeaderHtml(config, URGENCY_COLORS[urgency].headerGradient.start, URGENCY_COLORS[urgency].headerGradient.end)}
 
           <!-- Main Content -->
           <tr>
             <td style="padding: 40px;">
               <h2 style="margin: 0 0 24px; color: ${BRAND_COLORS.textDark}; font-size: 24px; font-weight: 700;">Request Confirmed!</h2>
-              
+
               <p style="margin: 0 0 16px; color: ${BRAND_COLORS.textMuted}; font-size: 16px; line-height: 1.6;">Dear ${customerName},</p>
-              
+
               <p style="margin: 0 0 24px; color: ${BRAND_COLORS.textMuted}; font-size: 16px; line-height: 1.6;">
                 Thank you for choosing our electrical services. We have received your service request and our team will contact you shortly to confirm the appointment details.
               </p>
@@ -117,7 +97,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
                 <tr>
                   <td style="padding: 24px;">
                     <h3 style="margin: 0 0 16px; color: ${BRAND_COLORS.textDark}; font-size: 18px; font-weight: 700;">Request Details</h3>
-                    
+
                     <table role="presentation" style="width: 100%;">
                       <tr>
                         <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; font-weight: 600;">Request ID:</td>
@@ -172,16 +152,12 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
               <hr style="border: none; border-top: 1px solid ${BRAND_COLORS.borderDefault}; margin: 32px 0;">
 
               <p style="margin: 0 0 16px; color: ${BRAND_COLORS.textMuted}; font-size: 16px; line-height: 1.6;">
-                If you have any questions or need to modify your request, please contact us:
+                If you have any questions or need to modify your request, please contact us at <strong>${config.company.email.support}</strong> or call <strong>${config.company.phone}</strong>.
               </p>
-              ${getContactInfoHtml()}
             </td>
           </tr>
 
-          <!-- Footer -->
-          <tr>
-            ${getFooterHtml("customer")}
-          </tr>
+          ${getSharedFooterHtml(config, "customer")}
 
         </table>
       </td>

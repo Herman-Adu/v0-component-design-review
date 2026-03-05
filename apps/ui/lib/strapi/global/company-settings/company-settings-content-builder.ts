@@ -1,5 +1,7 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { CompanySettingsDocumentSchema, type CompanySettingsDocument } from "./company-settings-schema";
 
 /**
@@ -7,7 +9,7 @@ import { CompanySettingsDocumentSchema, type CompanySettingsDocument } from "./c
  *
  * Fetches the company-setting Single Type from Strapi.
  * Single Type endpoint: GET /api/company-setting (returns flat object under `data`)
- * CI guard: returns null when STRAPI_URL is not set.
+ * JSON fallback: loads from data/strapi-mock/global/company-setting.json when STRAPI_URL is not set.
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,8 +21,23 @@ const ENDPOINT = "/api/company-setting";
 
 let cached: CompanySettingsDocument | null | undefined;
 
+function loadCompanySettingsFromJson(): CompanySettingsDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "global", "company-setting.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = CompanySettingsDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[company-settings-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadCompanySettings(): Promise<CompanySettingsDocument | null> {
-  if (!STRAPI_URL) return null;
+  if (!STRAPI_URL) return loadCompanySettingsFromJson();
 
   if (cached !== undefined) return cached;
 

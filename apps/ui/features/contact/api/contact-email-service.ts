@@ -11,6 +11,7 @@ import { generateContactCustomerEmail } from "./templates/contact-customer-html"
 import { generateContactBusinessEmail } from "./templates/contact-business-html"
 import type { ServerContactFormInput } from "../schemas/contact-schemas"
 import { logDelivery } from "@/lib/email/services/delivery-log"
+import { buildEmailConfig } from "@/lib/email/config/email-config-builder"
 
 function getResendClient() {
   return new Resend(process.env.RESEND_API_KEY)
@@ -26,14 +27,17 @@ interface EmailResult {
 }
 
 export async function sendContactEmails(data: ContactEmailData): Promise<EmailResult> {
+  const config = await buildEmailConfig()
   try {
     const resend = getResendClient()
     const customerEmail = data.contactInfo.email
     const customerName = data.contactInfo.fullName
+    const contactFrom = config.email.contactFromEmail
+    const businessTo = config.company.email.support
 
     // Send customer confirmation email
     const customerResult = await resend.emails.send({
-      from: process.env.EMAIL_CONTACT_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: contactFrom,
       to: customerEmail,
       subject: `Contact Inquiry Received - ${data.referenceId}`,
       html: generateContactCustomerEmail({
@@ -41,10 +45,10 @@ export async function sendContactEmails(data: ContactEmailData): Promise<EmailRe
         referenceId: data.referenceId,
         subject: data.messageDetails.subject,
         inquiryType: data.inquiryType.inquiryType,
+        config,
       }),
     })
 
-    const contactFrom = process.env.EMAIL_CONTACT_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com"
     const contactSubject = `Contact Inquiry Received - ${data.referenceId}`
 
     if (customerResult.error) {
@@ -80,8 +84,8 @@ export async function sendContactEmails(data: ContactEmailData): Promise<EmailRe
 
     // Send business notification email
     const businessResult = await resend.emails.send({
-      from: process.env.EMAIL_CONTACT_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
-      to: process.env.BUSINESS_EMAIL || "admin@electricalservices.com",
+      from: contactFrom,
+      to: businessTo,
       subject: `New Contact Inquiry: ${data.messageDetails.subject} [${data.inquiryType.priority.toUpperCase()}]`,
       html: generateContactBusinessEmail({
         referenceId: data.referenceId,
@@ -100,10 +104,9 @@ export async function sendContactEmails(data: ContactEmailData): Promise<EmailRe
         preferredContactMethod: data.messageDetails.preferredContactMethod,
         bestTimeToContact: data.messageDetails.bestTimeToContact,
         newsletterOptIn: data.messageDetails.newsletterOptIn,
+        config,
       }),
     })
-
-    const businessTo = process.env.BUSINESS_EMAIL || "admin@electricalservices.com"
     const businessSubject = `New Contact Inquiry: ${data.messageDetails.subject} [${data.inquiryType.priority.toUpperCase()}]`
 
     if (businessResult.error) {
@@ -141,7 +144,7 @@ export async function sendContactEmails(data: ContactEmailData): Promise<EmailRe
       category: "contact",
       recipientType: "customer",
       templateName: "Contact Emails",
-      from: process.env.EMAIL_CONTACT_FROM || process.env.EMAIL_FROM || "noreply@electricalservices.com",
+      from: config.email.contactFromEmail,
       to: data.contactInfo.email,
       subject: `Contact Inquiry - ${data.referenceId}`,
       status: "failed",

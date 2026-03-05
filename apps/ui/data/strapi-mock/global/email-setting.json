@@ -1,0 +1,10 @@
+{
+  "fromEmail": "noreply@electricalservices.com",
+  "contactFromEmail": "contact@electricalservices.com",
+  "quotationFromEmail": "quotations@electricalservices.com",
+  "replyToEmail": "support@electricalservices.com",
+  "slaResponseHours": 24,
+  "slaUrgentHours": 4,
+  "footerDisclaimer": "This email and any attachments are confidential and intended solely for the named recipient. If you have received this in error, please notify us immediately.",
+  "emailSignatureTemplate": null
+}

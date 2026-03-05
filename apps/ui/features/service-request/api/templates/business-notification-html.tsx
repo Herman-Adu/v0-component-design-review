@@ -1,13 +1,12 @@
 import {
-  COMPANY,
   BRAND_COLORS,
   SLA,
-  getHeaderGradient,
   getUrgencyBadgeStyle,
   getUrgencyCardStyle,
-  getFooterHtml,
+  URGENCY_COLORS,
   type UrgencyLevel,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface BusinessNotificationEmailProps {
   requestId: string
@@ -28,6 +27,7 @@ interface BusinessNotificationEmailProps {
   accessInstructions?: string
   flexibleScheduling: boolean
   submittedAt: string
+  config: ResolvedEmailConfig
 }
 
 export function generateBusinessNotificationEmail(props: BusinessNotificationEmailProps): string {
@@ -50,6 +50,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
     accessInstructions,
     flexibleScheduling,
     submittedAt,
+    config,
   } = props
 
   const isEmergency = urgency === "emergency"
@@ -77,21 +78,23 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="width: 100%; max-width: 680px; border-collapse: collapse; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          
-          <!-- Header -->
+
+          ${getSharedHeaderHtml(config, URGENCY_COLORS[urgency].headerGradient.start, URGENCY_COLORS[urgency].headerGradient.end)}
+
+          <!-- Request ID / Title row -->
           <tr>
-            <td style="padding: 32px 40px; background: ${getHeaderGradient(urgency)}; border-radius: 12px 12px 0 0; text-align: center;">
-              <h1 style="margin: 0 0 8px; color: ${BRAND_COLORS.textWhite}; font-size: 28px; font-weight: 700;">
+            <td style="padding: 32px 40px 0; text-align: center;">
+              <h2 style="margin: 0; color: #1a1a1a; font-size: 22px; font-weight: 700;">
                 ${isEmergency ? "EMERGENCY SERVICE REQUEST" : isUrgent ? "URGENT SERVICE REQUEST" : "New Service Request"}
-              </h1>
-              <p style="margin: 0; color: ${BRAND_COLORS.primaryLight}; font-size: 16px;">Request ID: ${requestId}</p>
+              </h2>
+              <p style="margin: 8px 0 0; color: #6b7280; font-size: 14px;">Request ID: ${requestId}</p>
             </td>
           </tr>
 
           <!-- Main Content -->
           <tr>
             <td style="padding: 40px;">
-              
+
               ${
                 isEmergency
                   ? `
@@ -273,10 +276,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
             </td>
           </tr>
 
-          <!-- Footer -->
-          <tr>
-            ${getFooterHtml("business")}
-          </tr>
+          ${getSharedFooterHtml(config, "business")}
 
         </table>
       </td>

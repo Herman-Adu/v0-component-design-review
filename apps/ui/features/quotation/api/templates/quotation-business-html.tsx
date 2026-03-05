@@ -8,11 +8,13 @@ import {
   BRAND_COLORS,
   SLA,
 } from "@/lib/email/config/email-config"
+import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
 
 interface QuotationBusinessEmailProps {
   requestId: string
   submittedAt: string
   formData: CompleteQuotationInput
+  config: ResolvedEmailConfig
 }
 
 const formatBudgetRange = (value: string) => {
@@ -51,11 +53,10 @@ const formatProjectSize = (value: string) => {
 }
 
 export function generateQuotationBusinessEmail(props: QuotationBusinessEmailProps): string {
-  const { requestId, submittedAt, formData } = props
+  const { requestId, submittedAt, formData, config } = props
   const { contact, projectType, scope, site, budget, additional } = formData
 
   const isUrgent = budget.timeline === "urgent"
-  const headerBgColor = isUrgent ? "#dc2626" : "#18181b"
   const headerText = isUrgent ? "URGENT QUOTATION REQUEST" : "New Quotation Request"
 
   const formattedDate = new Date(submittedAt).toLocaleString("en-GB", {
@@ -76,11 +77,14 @@ export function generateQuotationBusinessEmail(props: QuotationBusinessEmailProp
     <tr>
       <td align="center">
         <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 700px; background-color: ${BRAND_COLORS.bgCard}; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <!-- Header -->
+
+          ${getSharedHeaderHtml(config)}
+
+          <!-- Title row -->
           <tr>
-            <td style="background-color: ${headerBgColor}; padding: 32px; text-align: center;">
-              <h1 style="margin: 0; color: ${BRAND_COLORS.textWhite}; font-size: 24px; font-weight: 700;">${headerText}</h1>
-              <p style="margin: 8px 0 0; color: #d4a825; font-size: 14px;">Request ID: ${requestId}</p>
+            <td style="padding: 32px 40px 0; text-align: center;">
+              <h2 style="margin: 0; color: #1a1a1a; font-size: 22px; font-weight: 700;">${headerText}</h2>
+              <p style="margin: 8px 0 0; color: #6b7280; font-size: 14px;">Request ID: ${requestId}</p>
             </td>
           </tr>
 
@@ -296,14 +300,16 @@ export function generateQuotationBusinessEmail(props: QuotationBusinessEmailProp
             </td>
           </tr>
 
-          <!-- Footer -->
+          <!-- SLA Reminder -->
           <tr>
-            <td style="background-color: ${BRAND_COLORS.bgCardMutedAlt}; padding: 16px 32px; border-top: 1px solid ${BRAND_COLORS.borderLight};">
+            <td style="padding: 0 32px 24px;">
               <p style="margin: 0; color: ${BRAND_COLORS.textLighter}; font-size: 12px; text-align: center;">
                 ${SLA.quotation.businessAction}
               </p>
             </td>
           </tr>
+
+          ${getSharedFooterHtml(config, "business")}
         </table>
       </td>
     </tr>
