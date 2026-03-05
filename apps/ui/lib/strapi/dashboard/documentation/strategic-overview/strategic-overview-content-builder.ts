@@ -4,6 +4,7 @@ import {
   type StrategicOverviewDocument,
 } from "./strategic-overview-schema";
 import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
+import { loadJsonMockFiles, mockDataPath } from "@/lib/strapi/dashboard/_shared/json-mock-loader";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // ============================================================================
@@ -14,10 +15,18 @@ const POPULATE =
   "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
 const PAGE_SIZE = "pagination[pageSize]=100";
 
+function loadStrategicOverviewsFromJson(): StrategicOverviewDocument[] {
+  const raws = loadJsonMockFiles(mockDataPath("dashboard", "documentation", "strategic-overview"));
+  return raws.flatMap((raw) => {
+    const result = StrategicOverviewDocumentSchema.safeParse(raw);
+    return result.success ? [result.data] : [];
+  });
+}
+
 async function fetchStrategicOverviewsFromStrapi(): Promise<
   StrategicOverviewDocument[]
 > {
-  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  if (!process.env.STRAPI_URL) return loadStrategicOverviewsFromJson();
   const url = `${process.env.STRAPI_URL}/api/strategic-overviews?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {

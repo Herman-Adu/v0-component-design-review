@@ -4,6 +4,7 @@ import {
   type CmsReferenceDocument,
 } from "./cms-reference-schema";
 import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
+import { loadJsonMockFiles, mockDataPath } from "@/lib/strapi/dashboard/_shared/json-mock-loader";
 import { dataLogger } from "@/lib/utils/arch-logger";
 
 // ============================================================================
@@ -14,8 +15,16 @@ const POPULATE =
   "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
 const PAGE_SIZE = "pagination[pageSize]=100";
 
+function loadCmsReferencesFromJson(): CmsReferenceDocument[] {
+  const raws = loadJsonMockFiles(mockDataPath("dashboard", "documentation", "cms-reference"));
+  return raws.flatMap((raw) => {
+    const result = CmsReferenceDocumentSchema.safeParse(raw);
+    return result.success ? [result.data] : [];
+  });
+}
+
 async function fetchCmsReferencesFromStrapi(): Promise<CmsReferenceDocument[]> {
-  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  if (!process.env.STRAPI_URL) return loadCmsReferencesFromJson();
   const url = `${process.env.STRAPI_URL}/api/cms-references?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {

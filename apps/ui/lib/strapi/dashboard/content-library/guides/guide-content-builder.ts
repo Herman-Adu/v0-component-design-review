@@ -9,6 +9,7 @@ import {
 export type { GuideContentMeta } from "@/lib/strapi/dashboard/content-library/guides/guide-schema";
 import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
+import { loadJsonMockFiles, mockDataPath } from "@/lib/strapi/dashboard/_shared/json-mock-loader";
 
 /**
  * Guide list item generated from content metadata + blocks
@@ -34,8 +35,16 @@ const POPULATE =
   "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
 const PAGE_SIZE = "pagination[pageSize]=100";
 
+function loadGuidesFromJson(): GuideContentDocument[] {
+  const raws = loadJsonMockFiles(mockDataPath("dashboard", "content-library", "guides"));
+  return raws.flatMap((raw) => {
+    const result = GuideContentDocumentSchema.safeParse(raw);
+    return result.success ? [result.data] : [];
+  });
+}
+
 async function fetchGuidesFromStrapi(): Promise<GuideContentDocument[]> {
-  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  if (!process.env.STRAPI_URL) return loadGuidesFromJson();
   const url = `${process.env.STRAPI_URL}/api/guides?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {

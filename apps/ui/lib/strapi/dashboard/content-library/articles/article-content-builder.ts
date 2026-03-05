@@ -9,6 +9,7 @@ import {
 export type { ArticleContentMeta } from "@/lib/strapi/dashboard/content-library/articles/article-schema";
 import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
+import { loadJsonMockFiles, mockDataPath } from "@/lib/strapi/dashboard/_shared/json-mock-loader";
 
 /**
  * Article list item generated from content metadata + blocks
@@ -34,8 +35,16 @@ const POPULATE =
   "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
 const PAGE_SIZE = "pagination[pageSize]=100";
 
+function loadArticlesFromJson(): ArticleContentDocument[] {
+  const raws = loadJsonMockFiles(mockDataPath("dashboard", "content-library", "articles"));
+  return raws.flatMap((raw) => {
+    const result = ArticleContentDocumentSchema.safeParse(raw);
+    return result.success ? [result.data] : [];
+  });
+}
+
 async function fetchArticlesFromStrapi(): Promise<ArticleContentDocument[]> {
-  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  if (!process.env.STRAPI_URL) return loadArticlesFromJson();
   const url = `${process.env.STRAPI_URL}/api/articles?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {

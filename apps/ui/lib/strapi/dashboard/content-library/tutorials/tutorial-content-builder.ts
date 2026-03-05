@@ -10,6 +10,7 @@ import {
 export type { TutorialContentMeta } from "@/lib/strapi/dashboard/content-library/tutorials/tutorial-schema";
 import { transformStrapiContentDTO } from "@/lib/strapi/dashboard/_shared/strapi-dto-transformer";
 import { dataLogger } from "@/lib/utils/arch-logger";
+import { loadJsonMockFiles, mockDataPath } from "@/lib/strapi/dashboard/_shared/json-mock-loader";
 
 /**
  * Tutorial list item generated from content metadata + blocks
@@ -35,8 +36,16 @@ const POPULATE =
   "populate[blocks][populate]=*&populate[meta]=*&populate[toc]=*";
 const PAGE_SIZE = "pagination[pageSize]=100";
 
+function loadTutorialsFromJson(): TutorialContentDocument[] {
+  const raws = loadJsonMockFiles(mockDataPath("dashboard", "content-library", "tutorials"));
+  return raws.flatMap((raw) => {
+    const result = TutorialContentDocumentSchema.safeParse(raw);
+    return result.success ? [result.data] : [];
+  });
+}
+
 async function fetchTutorialsFromStrapi(): Promise<TutorialContentDocument[]> {
-  if (!process.env.STRAPI_URL) return []; // Strapi not configured (CI)
+  if (!process.env.STRAPI_URL) return loadTutorialsFromJson();
   const url = `${process.env.STRAPI_URL}/api/tutorials?${POPULATE}&${PAGE_SIZE}`;
 
   const res = await fetch(url, {
