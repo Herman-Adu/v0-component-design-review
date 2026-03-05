@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronRight, User, Settings } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronRight, User, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,33 +20,42 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarSeparator,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { useHydration } from "@/hooks/use-hydration"
-import { SidebarSkeleton } from "@/components/molecules/sidebar-skeleton"
+} from "@/components/ui/collapsible";
+import { useHydration } from "@/hooks/use-hydration";
+import { SidebarSkeleton } from "@/components/molecules/sidebar-skeleton";
 
-import type { NavItem, NavSection } from "@/data/nav-data"
+import type { NavItem, NavSection } from "@/data/nav-data";
 import {
   adminSection,
   strategicOverviewSection,
   cmsReferenceSection,
   appReferenceSection,
   infrastructureOpsSection,
-  learningHubSection,
-} from "@/data/nav-data"
+} from "@/data/nav-data";
 
-function NavItemWithChildren({ item, pathname, depth = 0 }: { item: NavItem; pathname: string; depth?: number }) {
-  const isActive = pathname === item.href
+function NavItemWithChildren({
+  item,
+  pathname,
+  depth = 0,
+}: {
+  item: NavItem;
+  pathname: string;
+  depth?: number;
+}) {
+  const isActive = pathname === item.href;
   const hasActiveChild = item.children?.some(
-    (child) => pathname === child.href || child.children?.some((c) => pathname === c.href)
-  )
-  const shouldBeOpen = isActive || hasActiveChild
-  const [isOpen, setIsOpen] = React.useState(shouldBeOpen)
-  const Icon = item.icon
+    (child) =>
+      pathname === child.href ||
+      child.children?.some((c) => pathname === c.href),
+  );
+  const shouldBeOpen = isActive || hasActiveChild;
+  const [isOpen, setIsOpen] = React.useState(shouldBeOpen);
+  const Icon = item.icon;
 
   if (!item.children || item.children.length === 0) {
     return (
@@ -54,18 +63,23 @@ function NavItemWithChildren({ item, pathname, depth = 0 }: { item: NavItem; pat
         <SidebarMenuSubButton asChild isActive={isActive}>
           <Link href={item.href}>
             <Icon className={depth > 0 ? "h-2 w-2" : "h-3.5 w-3.5"} />
-            <span className={depth > 0 ? "text-xs truncate" : "truncate"}>{item.label}</span>
+            <span className={depth > 0 ? "text-xs truncate" : "truncate"}>
+              {item.label}
+            </span>
           </Link>
         </SidebarMenuSubButton>
       </SidebarMenuSubItem>
-    )
+    );
   }
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <SidebarMenuSubItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuSubButton className="w-full cursor-pointer" isActive={isActive}>
+          <SidebarMenuSubButton
+            className="w-full cursor-pointer"
+            isActive={isActive}
+          >
             <Icon className={depth > 0 ? "h-2 w-2" : "h-3.5 w-3.5"} />
             <span className="flex-1 truncate">{item.label}</span>
             <ChevronRight className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-90" />
@@ -74,26 +88,45 @@ function NavItemWithChildren({ item, pathname, depth = 0 }: { item: NavItem; pat
         <CollapsibleContent>
           <SidebarMenuSub className="ml-2 border-l border-border/50 pl-2">
             {item.children.map((child) => (
-              <NavItemWithChildren key={`${child.href}-${child.label}`} item={child} pathname={pathname} depth={depth + 1} />
+              <NavItemWithChildren
+                key={`${child.href}-${child.label}`}
+                item={child}
+                pathname={pathname}
+                depth={depth + 1}
+              />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>
       </SidebarMenuSubItem>
     </Collapsible>
-  )
+  );
 }
 
-function NavCollapsible({ section, pathname }: { section: NavSection; pathname: string }) {
+function NavCollapsible({
+  section,
+  pathname,
+}: {
+  section: NavSection;
+  pathname: string;
+}) {
   const hasActiveItem = section.items.some(
     (item) =>
       pathname === item.href ||
-      item.children?.some((child) => pathname === child.href || child.children?.some((c) => pathname === c.href))
-  )
-  const [isOpen, setIsOpen] = React.useState(hasActiveItem)
-  const Icon = section.icon
+      item.children?.some(
+        (child) =>
+          pathname === child.href ||
+          child.children?.some((c) => pathname === c.href),
+      ),
+  );
+  const [isOpen, setIsOpen] = React.useState(hasActiveItem);
+  const Icon = section.icon;
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="group/collapsible">
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className="group/collapsible"
+    >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton className="w-full">
@@ -105,21 +138,29 @@ function NavCollapsible({ section, pathname }: { section: NavSection; pathname: 
         <CollapsibleContent>
           <SidebarMenuSub>
             {section.items.map((item) => (
-              <NavItemWithChildren key={item.href} item={item} pathname={pathname} />
+              <NavItemWithChildren
+                key={item.href}
+                item={item}
+                pathname={pathname}
+              />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>
       </SidebarMenuItem>
     </Collapsible>
-  )
+  );
 }
 
-export function DocsSidebar() {
-  const hydrated = useHydration()
-  const pathname = usePathname()
+export function DocsSidebar({
+  learningHubSection,
+}: {
+  learningHubSection: NavSection;
+}) {
+  const hydrated = useHydration();
+  const pathname = usePathname();
 
   if (!hydrated) {
-    return <SidebarSkeleton />
+    return <SidebarSkeleton />;
   }
 
   return (
@@ -137,7 +178,7 @@ export function DocsSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Management
+            Admin
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -154,10 +195,22 @@ export function DocsSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <NavCollapsible section={strategicOverviewSection} pathname={pathname} />
-              <NavCollapsible section={cmsReferenceSection} pathname={pathname} />
-              <NavCollapsible section={appReferenceSection} pathname={pathname} />
-              <NavCollapsible section={infrastructureOpsSection} pathname={pathname} />
+              <NavCollapsible
+                section={strategicOverviewSection}
+                pathname={pathname}
+              />
+              <NavCollapsible
+                section={cmsReferenceSection}
+                pathname={pathname}
+              />
+              <NavCollapsible
+                section={appReferenceSection}
+                pathname={pathname}
+              />
+              <NavCollapsible
+                section={infrastructureOpsSection}
+                pathname={pathname}
+              />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -170,7 +223,10 @@ export function DocsSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <NavCollapsible section={learningHubSection} pathname={pathname} />
+              <NavCollapsible
+                section={learningHubSection}
+                pathname={pathname}
+              />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -184,11 +240,13 @@ export function DocsSidebar() {
             <User className="h-4 w-4 text-accent" />
           </div>
           <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
-            <p className="text-sm font-medium text-foreground truncate">Guest User</p>
+            <p className="text-sm font-medium text-foreground truncate">
+              Guest User
+            </p>
             <p className="text-xs text-muted-foreground">Sign in for more</p>
           </div>
         </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

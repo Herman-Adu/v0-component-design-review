@@ -4,6 +4,8 @@ import type React from "react"
 import { Suspense } from "react"
 import { DocsSidebar } from "@/components/molecules/docs-sidebar"
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
+import { buildLearningHubSection } from "@/data/nav-data"
+import type { ContentRouteManifest } from "@/lib/strapi/dashboard/content-library/content-route-manifest"
 
 /**
  * DashboardShell -- the sole client boundary for the dashboard layout.
@@ -34,10 +36,17 @@ import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/s
  * - No Date.now(), Math.random(), or locale-dependent formatting here
  * - No nested <main> tags -- SidebarInset renders <main>, we use <div> inside it
  */
-export function DashboardShell({ children }: { children: React.ReactNode }) {
+export function DashboardShell({
+  children,
+  manifest,
+}: {
+  children: React.ReactNode
+  manifest: ContentRouteManifest
+}) {
+  const learningHubSection = buildLearningHubSection(manifest)
   return (
     <SidebarProvider defaultOpen={true}>
-      <DocsSidebar />
+      <DocsSidebar learningHubSection={learningHubSection} />
       <SidebarInset>
         <header className="sticky top-16 z-40 flex h-12 items-center gap-2 border-b border-border bg-background/95 backdrop-blur-sm px-4">
           <SidebarTrigger className="-ml-1" />
