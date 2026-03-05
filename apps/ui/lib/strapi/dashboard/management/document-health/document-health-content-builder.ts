@@ -23,7 +23,7 @@ let cached: DocumentHealthDocument | null | undefined;
 
 function loadFromJson(): DocumentHealthDocument | null {
   try {
-    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "document-health.json");
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "document-health.json");
     const raw = JSON.parse(readFileSync(filePath, "utf-8"));
     const result = DocumentHealthDocumentSchema.safeParse(raw);
     if (!result.success) {

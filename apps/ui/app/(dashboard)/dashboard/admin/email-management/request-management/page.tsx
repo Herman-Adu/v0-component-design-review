@@ -20,8 +20,8 @@ import {
   CheckCircle2,
   AlertTriangle,
 } from "lucide-react";
-import featuresData from "@/data/strapi-mock/email-administration/request-management/features.json";
-import capabilitiesData from "@/data/strapi-mock/email-administration/request-management/capabilities.json";
+import featuresData from "@/data/strapi-mock/dashboard/admin/email-management/request-management/features.json";
+import capabilitiesData from "@/data/strapi-mock/dashboard/admin/email-management/request-management/capabilities.json";
 
 const iconMap = {
   Briefcase,

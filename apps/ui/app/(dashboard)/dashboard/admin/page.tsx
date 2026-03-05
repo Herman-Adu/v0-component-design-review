@@ -10,7 +10,7 @@ import { getAdminOverview } from "@/lib/strapi/dashboard/management/admin-overvi
 import { articles } from "@/data/content-library/articles";
 import { caseStudies } from "@/data/content-library/case-studies";
 import { tutorials } from "@/data/content-library/tutorials";
-import adminOverviewData from "@/data/strapi-mock/dashboard/admin-overview.json";
+import adminOverviewData from "@/data/strapi-mock/dashboard/admin/admin-overview.json";
 import type { AdminOverviewContent } from "@/types/dashboard";
 
 // ─── Icon resolution ──────────────────────────────────────────────────────────

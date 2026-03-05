@@ -23,7 +23,7 @@ let cached: GooglePlatformDocument | null | undefined;
 
 function loadFromJson(): GooglePlatformDocument | null {
   try {
-    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "platforms", "google.json");
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "google.json");
     const raw = JSON.parse(readFileSync(filePath, "utf-8"));
     const result = GooglePlatformDocumentSchema.safeParse(raw);
     if (!result.success) {

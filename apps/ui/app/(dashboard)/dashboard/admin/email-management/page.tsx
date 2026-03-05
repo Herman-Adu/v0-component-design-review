@@ -12,7 +12,7 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getEmailManagement } from "@/lib/strapi/dashboard/management/email-management/email-management";
 import type { EmailManagementVM } from "@/lib/strapi/dashboard/management/email-management/email-management";
-import emailAdminData from "@/data/strapi-mock/dashboard/email-administration-overview.json";
+import emailAdminData from "@/data/strapi-mock/dashboard/admin/email-management/email-management-overview.json";
 
 function resolveIcon(name: string): LucideIcon {
   const icon = (Icons as Record<string, unknown>)[name];

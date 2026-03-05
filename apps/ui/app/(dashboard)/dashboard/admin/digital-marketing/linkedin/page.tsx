@@ -16,10 +16,10 @@ import {
 
 const LI = "/dashboard/admin/digital-marketing/linkedin";
 
-import toolsData from "@/data/strapi-mock/platforms/linkedin-tools.json";
+import toolsData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/linkedin-tools.json";
 const tools = toolsData.tools || [];
 
-import strategyData from "@/data/strapi-mock/platforms/linkedin-strategy.json";
+import strategyData from "@/data/strapi-mock/dashboard/admin/digital-marketing/platforms/linkedin-strategy.json";
 const strategy = strategyData.strategy || [];
 
 // Icon mapping for tools
