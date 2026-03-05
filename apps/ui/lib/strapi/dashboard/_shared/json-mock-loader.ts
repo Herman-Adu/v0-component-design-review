@@ -14,7 +14,9 @@ import { join } from "path";
 
 /**
  * Recursively collect all .json files from a directory.
- * Skips list/overview/pages index files (they are not content documents).
+ * Skips known index/list files (e.g. articles-list.json, guides-list.json).
+ * Note: *-overview.json is NOT excluded — files like app-overview.json and
+ * getting-started-overview.json are valid content documents.
  */
 function collectJsonFiles(dir: string): string[] {
   const results: string[] = [];
@@ -28,7 +30,6 @@ function collectJsonFiles(dir: string): string[] {
       } else if (
         entry.endsWith(".json") &&
         !entry.endsWith("-list.json") &&
-        !entry.endsWith("-overview.json") &&
         !entry.endsWith("-pages.json")
       ) {
         results.push(fullPath);
