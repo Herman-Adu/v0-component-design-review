@@ -9,11 +9,12 @@
 
 **Name:** Document Administration / v0-component-design-review
 **Stack:** Next.js 16 (App Router) + TypeScript strict + Zod + Tailwind + shadcn/ui
-**CMS (planned):** Strapi 5 (not yet live — mocked with JSON files in `data/strapi-mock/`)
+**CMS:** Strapi 5 — running locally via Docker; JSON mock fallback for Vercel/CI
 **API layer (planned):** oRPC (end-to-end type safety with chaining)
 **Testing:** Vitest (unit/integration) + Playwright (E2E)
 **Package manager:** pnpm
 **Deploy:** Vercel (live at https://vercel.com/hermanadus-projects/v0-component-design-review)
+**Repository:** Public — https://github.com/Herman-Adu/v0-component-design-review
 
 ---
 
@@ -22,15 +23,26 @@
 ### 6-Layer Data Architecture (ALL modules, NO exceptions)
 
 ```
-JSON Data → Content Builder → Repository → View Models → Facade → Routes/Pages
+JSON/Strapi Data → Content Builder → Repository → View Models → Facade → Routes/Pages
 ```
 
 - **Schema** (`*-schema.ts`) — Zod validation, PascalCase exports e.g. `ArticleContentDocumentSchema`
-- **Content Builder** (`*-content-builder.ts`) — static load + validate + register, `import "server-only"`
+- **Content Builder** (`*-content-builder.ts`) — load + validate + register, `import "server-only"`, wrapped in React `cache()`
 - **Repository** (`*-repository.ts`) — server-only queries with `repoLogger`, `import "server-only"`
 - **View Models** (`*-view-models.ts`) — domain → UI transform, computed properties, NO repo calls
 - **Facade** (`articles.ts` etc.) — thin public re-export API
-- **Route Manifest** (`content-route-manifest.ts`) — sitemap/SEO single source of truth
+- **Route Manifest** (`content-route-manifest.ts`) — sitemap/SEO single source of truth, wrapped in React `cache()`
+
+### Dual-Environment Data Flow
+
+| Environment | Data source | Behaviour |
+|-------------|-------------|-----------|
+| Local + Docker Strapi running | Live Strapi REST API | Full read/write |
+| Vercel production (no STRAPI_URL) | JSON files in `data/strapi-mock/` | Read-only fallback, Save disabled |
+| CI | JSON files in `data/strapi-mock/` | Read-only, build validates all content |
+
+**Strapi null handling:** All optional Strapi fields use `.nullish()` in Zod schemas (NOT `.optional()`).
+Strapi returns `null` for empty optional fields; `.optional()` only accepts `undefined`.
 
 ### Atomic Block Format (SSOT)
 
@@ -46,7 +58,7 @@ All 8 content types import `BLOCK_TYPE_ALIASES` and `atomicLevelSchema` from:
 |------|---------|
 | `block-schema.ts` | SSOT — block type aliases, atomicLevelSchema, discriminated blockSchema |
 | `base-view-model.ts` | Base interfaces: BaseDetailViewModel, BaseListItemViewModel + extensions |
-| `content-meta-schema.ts` | Unified ContentMetaSchema (WIP — Session 2 task) |
+| `strapi-dto-transformer.ts` | Transformer SSOT — shared Strapi → domain mapping logic |
 
 ### Module Structure
 
@@ -58,42 +70,45 @@ lib/strapi/dashboard/
 │   ├── tutorials/                   # article-repository.ts, article-view-models.ts
 │   ├── case-studies/                # (same 4-file pattern for each)
 │   └── guides/
+├── management/
+│   ├── admin-overview/              # Admin dashboard overview
+│   ├── digital-marketing/           # Digital marketing management page
+│   ├── document-health/             # Document health management page
+│   └── email-management/            # Email management page
 └── documentation/
-    ├── strategic-overview/          # strategic-overview-schema.ts, etc.
+    ├── strategic-overview/
     ├── cms-reference/
     ├── app-reference/
     └── infrastructure-ops/
 
-data/strapi-mock/                    # Mocked JSON content (replaces live Strapi for now)
+data/strapi-mock/                    # Mirrors sidebar structure; fallback JSON for Vercel/CI
+data/nav-data/                       # Per-section nav definitions (barrel: data/nav-data.ts)
 __tests__/
 ├── integration-test/content-library/   # Repository integration tests
-├── integration-test/documentation/     # (content-builder + repo + viewmodel pipeline)
+├── integration-test/documentation/
 └── e2e/                                # Playwright
 ```
 
 ---
 
-## Current Work — March 3, 2026
+## Current State — March 5, 2026
 
-**Branch:** `feature/repository-viewmodel-standardization`
+**Branch:** `main` — clean, all work merged
 
-**What is done:**
-- All 8 content types migrated to atomic block format ✅
-- `_shared/block-schema.ts` created (SSOT) ✅
-- `_shared/base-view-model.ts` created ✅ (new file, not yet committed)
-- Build: 166/166 pages SSG ✅, 39 integration tests passing ✅
+**Completed (all on main):**
+- All 8 content types — 6-layer architecture, atomic blocks, JSON + Strapi dual-source ✅
+- All 4 management sections — admin-overview, document-health, email-management, digital-marketing ✅
+- Global config — company-setting + email-setting Single Types, 6-layer in `lib/strapi/global/` ✅
+- Phase 5 — Email config admin self-service + ColorPicker + JSON mock fallbacks (PR #19) ✅
+- Sidebar nav — async RSC, manifest-driven, `data/content-library/` deleted (PR #20) ✅
+- Schema hardening — `.nullish()` across all 4 management schemas, `cache()` on all builders ✅
+- `nav-data.ts` modularised — 792 lines → 20-line barrel + `data/nav-data/` per-section files ✅
+- Build: **165/165 pages SSG** ✅ | **148/148 tests** ✅ | **0 TS errors** ✅
 
-**Session 2 Architecture Alignment tasks** (from `ARCHITECTURE_ALIGNMENT_SESSION2_HANDOFF.md`):
-1. Rename schema exports → PascalCase across all 8 schemas
-2. Create unified `ContentMetaSchema` in `_shared/content-meta-schema.ts`
-3. Standardize type exports per schema (Document, Meta, Block, TocItem, Level, Category)
-4. Adopt strict shared blockSchema across ALL content types (remove permissive local blockSchemas)
-5. Add authority reference file headers to all schema files
-6. Extract `TocItemSchema` to `_shared/toc-schema.ts`
-
-**Key reading before doing schema work:**
-- `ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md` — 8 findings with exact code templates
-- `ARCHITECTURE_ALIGNMENT_SESSION2_HANDOFF.md` — task list for current session
+**Next up (discuss before starting):**
+- Facebook / LinkedIn / Twitter platform landing pages
+- `email-template`, `recipient-group`, `ab-subject-line` collection types
+- oRPC API layer (Phase 3)
 
 ---
 
@@ -103,12 +118,15 @@ __tests__/
 - **Schema exports** — PascalCase always: `ArticleContentDocumentSchema`, `GuideContentDocumentSchema`
 - **Type exports** — always export: `${Type}Document`, `${Type}Meta`, `${Type}Block`, `${Type}TocItem`, `${Type}Level`, `${Type}Category`
 - **server-only** — ALL content builders and repositories must `import "server-only"` at top
+- **React cache()** — ALL content builders AND `getContentRouteManifest` must be wrapped in `cache()`
+- **Zod nullish** — ALL optional Strapi fields use `.nullish()` not `.optional()`
 - **No inline MetaSchema** — import from `_shared/content-meta-schema.ts`
 - **No inline TocItemSchema** — import from `_shared/toc-schema.ts`
 - **No drift** — if you add a method to one repository, add it to all equivalent repositories
 - **No new block types** without the formal proposal process in `STRAPI_DYNAMIC_ZONES_AUTHORITY.md`
 - **Authority headers** — every schema file references `STRAPI_DYNAMIC_ZONES_AUTHORITY.md`
 - **Reuse-first** — check existing components/blocks before creating new ones
+- **Nav sections** — add new sections in `data/nav-data/` sub-files, not in `data/nav-data.ts` barrel
 
 ---
 
@@ -123,7 +141,7 @@ pnpm test -- __tests__/integration-test/documentation  # Single module
 pnpm lint                                         # ESLint
 ```
 
-**Build pass criteria:** 166/166 pages, zero TypeScript errors, zero Zod validation errors.
+**Build pass criteria:** 165/165 pages, zero TypeScript errors, zero Zod validation errors.
 
 ---
 
@@ -132,27 +150,28 @@ pnpm lint                                         # ESLint
 | File | Purpose |
 |------|---------|
 | `STRAPI_DYNAMIC_ZONES_AUTHORITY.md` | Governance lock — canonical contract, block registry, 5 validation gates |
-| `ARCHITECTURE_ALIGNMENT_AUDIT_2026-03-03.md` | 8 architectural findings to fix (Session 2) |
-| `ARCHITECTURE_ALIGNMENT_SESSION2_HANDOFF.md` | Current session task list with code templates |
 | `ARCHITECTURE.md` | Full system architecture reference |
-| `ROADMAP.md` | Phase roadmap — currently Phase 2 (data layer), Phase 3 = oRPC, Phase 5 = MCP |
+| `ROADMAP.md` | Phase roadmap — Phase 2 complete, Phase 3 = oRPC, Phase 5 = MCP |
 | `INFRASTRUCTURE.md` | Docker Compose, DB schema, caching layers, CI/CD |
 | `STRAPI_BUILDER_PATTERN.md` | Strapi collection type patterns |
 | `STRAPI_COLLECTION_TYPE_SCHEMAS.md` | Full Strapi field definitions for 4 documentation domains |
-| `HANDOFF_SESSION_SUMMARY.md` | March 2 session handoff — atomic migration complete |
+| `TESTING_ARCHITECTURE.md` | Test organization, colocation rules, integration test patterns |
+
+*Note: Session handoffs and refactor plans are in `docs/archive/` — historical reference only.*
 
 ---
 
-## Strapi Status (NOT Yet Live)
+## Strapi Status
 
-Strapi 5 is **planned but not implemented**. All content is currently:
-- JSON files in `data/strapi-mock/` structured to match future Strapi API responses
-- Content builders load JSON statically at module init (build-time)
-- The repository pattern is backend-agnostic — swapping JSON → Strapi REST changes ONLY the content builder
+Strapi 5 is **running locally via Docker** and fully connected on local dev.
+All 4 management sections + 8 content types + global config are live.
 
-**When Strapi goes live:** use `STRAPI_COLLECTION_TYPE_SCHEMAS.md` for collection type setup.
-Install `strapi-plugin-seo`. Update content builders to call Strapi REST API.
-Pages, view models, and routes do NOT change (the abstraction works).
+- **Local dev:** Content builders call Strapi REST API; full read/write via server actions
+- **Vercel/CI:** Falls back to `data/strapi-mock/` JSON files; Save buttons disabled
+- **Swap boundary:** Only the content builder changes when switching JSON ↔ Strapi. Pages, view models, and routes do NOT change.
+
+**When adding new Strapi collection types:** use `STRAPI_COLLECTION_TYPE_SCHEMAS.md`.
+Install `strapi-plugin-seo`. Update content builder only.
 
 ---
 
@@ -181,19 +200,27 @@ Every content document must include a `seo` object, even if values fall back to 
 - Do NOT define `MetaSchema` or `TocItemSchema` inline — use shared modules
 - Do NOT use camelCase for schema const exports
 - Do NOT skip `import "server-only"` on builders/repositories
+- Do NOT skip `cache()` on content builders or `getContentRouteManifest`
+- Do NOT use `.optional()` for Strapi optional fields — use `.nullish()`
 - Do NOT let content-library and documentation drift apart in naming, methods, or patterns
 - Do NOT commit without running `pnpm build` first (build validates all content)
 - Do NOT create new files unless absolutely necessary — edit existing patterns
+- Do NOT add nav section data directly to `data/nav-data.ts` — use the per-section files
 
 ---
 
 ## MCP Servers & Tooling
 
-See `.claude/mcp-config.md` for MCP server setup (Strapi MCP, Docker MCP Toolkit, filesystem, git).
+See `.claude/mcp-config.md` for full MCP server setup.
+
+**Active MCP servers (Docker MCP Toolkit):**
+- GitHub — repo is PUBLIC, GitHub MCP tools work for issues/PRs/branches
+- Docker — manage Postgres, Redis, Strapi containers via tool calls
+- Filesystem + Git — local file and git context
 
 Current AI setup: Claude Code (VS Code extension) + GitHub Copilot
 Rate limiting on Copilot — use Claude Code for primary coding, Copilot for autocomplete.
 
 ---
 
-*Last updated: March 3, 2026 | Branch: feature/repository-viewmodel-standardization*
+*Last updated: March 5, 2026 | Branch: main | Build: 165/165 ✅*

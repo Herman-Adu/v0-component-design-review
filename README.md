@@ -1,30 +1,43 @@
-# Document Administration refactor
+# Document Administration Portal
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Enterprise-grade document and content administration platform built on Next.js 16 (App Router) with a Strapi 5 CMS backend.
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/hermanadus-projects/v0-component-design-review)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/M97D9hy8k0I)
+[![CI](https://github.com/Herman-Adu/v0-component-design-review/actions/workflows/ci.yml/badge.svg)](https://github.com/Herman-Adu/v0-component-design-review/actions/workflows/ci.yml)
 
-## Overview
+## Stack
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- **Frontend:** Next.js 16 (App Router) · TypeScript strict · Tailwind CSS · shadcn/ui
+- **CMS:** Strapi 5 (Docker locally; JSON fallback on Vercel)
+- **Validation:** Zod · 6-layer data architecture
+- **Testing:** Vitest (148 tests) · Playwright (E2E)
+- **Deploy:** Vercel (production) · GitHub Actions CI
 
-## Deployment
+## Architecture
 
-Your project is live at:
+All data flows through a strict 6-layer pattern:
 
-**[https://vercel.com/hermanadus-projects/v0-component-design-review](https://vercel.com/hermanadus-projects/v0-component-design-review)**
+```
+Schema → Content Builder → Repository → View Models → Facade → Routes/Pages
+```
 
-## Build your app
+Full details: [`ARCHITECTURE.md`](ARCHITECTURE.md) · [`STRAPI_DYNAMIC_ZONES_AUTHORITY.md`](STRAPI_DYNAMIC_ZONES_AUTHORITY.md)
 
-Continue building your app on:
+## Development
 
-**[https://v0.app/chat/M97D9hy8k0I](https://v0.app/chat/M97D9hy8k0I)**
+```bash
+pnpm install
+pnpm dev          # http://localhost:3000
+pnpm build        # Full build + content validation
+pnpm test         # 148 integration tests
+```
 
-## How It Works
+**With Strapi (full stack):**
+```bash
+docker compose --env-file .env.docker --profile cms up -d
+# Strapi admin: http://localhost:1337/admin
+```
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## AI Assistant Context
+
+See [`CLAUDE.md`](CLAUDE.md) for Claude Code session context, architecture rules, and coding standards.
