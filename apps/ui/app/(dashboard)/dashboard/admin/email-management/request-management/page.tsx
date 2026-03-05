@@ -92,14 +92,14 @@ export default function RequestManagementOverviewPage() {
               send branded correspondence, and ensure nothing falls through the
               cracks. For email branding and templates, see{" "}
               <Link
-                href="/dashboard/admin/email-administration/configuration"
+                href="/dashboard/admin/email-management/configuration"
                 className="text-accent hover:underline"
               >
                 Configuration
               </Link>
               . For technical operations, see{" "}
               <Link
-                href="/dashboard/admin/email-administration/infrastructure"
+                href="/dashboard/admin/email-management/infrastructure"
                 className="text-accent hover:underline"
               >
                 Infrastructure
@@ -212,7 +212,7 @@ export default function RequestManagementOverviewPage() {
             </div>
           </div>
           <Button size="sm" asChild>
-            <Link href="/dashboard/admin/email-administration/request-management/email-dashboard">
+            <Link href="/dashboard/admin/email-management/request-management/email-dashboard">
               Open Dashboard
               <ArrowRight className="ml-2 h-3 w-3" />
             </Link>

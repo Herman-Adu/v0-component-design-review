@@ -358,7 +358,7 @@ export const digitalMarketingSection: NavSection = {
 // Nested URL structure mirrors Email Administration pattern.
 // Roles: Project Lead, CTO, Web Administrator, DevOps.
 
-const DA = "/dashboard/admin/document-administration";
+const DA = "/dashboard/admin/document-health";
 
 // Documentation Health subsection items
 const docAdminHealth: NavItem[] = [
@@ -401,7 +401,7 @@ const docAdminQualityEngineering: NavItem[] = [
 ];
 
 export const documentAdministrationSection: NavSection = {
-  title: "Document Administration",
+  title: "Document Health",
   icon: HeartPulse,
   items: [
     { href: DA, label: "Overview", icon: HeartPulse },
@@ -432,7 +432,7 @@ export const docQASection = documentAdministrationSection;
 // Nested URL structure mirrors documentation pattern.
 // Roles: Business Administrator, Office Staff, Project Lead, DevOps.
 
-const EA = "/dashboard/admin/email-administration";
+const EA = "/dashboard/admin/email-management";
 
 // Request Management subsection items
 const emailAdminRequestManagement: NavItem[] = [
@@ -505,7 +505,7 @@ const emailAdminInfrastructure: NavItem[] = [
 ];
 
 export const emailAdministrationSection: NavSection = {
-  title: "Email Administration",
+  title: "Email Management",
   icon: Mail,
   items: [
     { href: EA, label: "Overview", icon: Mail },

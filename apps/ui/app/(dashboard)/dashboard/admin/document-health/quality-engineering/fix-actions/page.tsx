@@ -257,7 +257,7 @@ export default function FixActionsPage() {
       {/* Header */}
       <div>
         <Link
-          href="/dashboard/admin/document-administration/quality-engineering"
+          href="/dashboard/admin/document-health/quality-engineering"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -553,10 +553,10 @@ export default function FixActionsPage() {
         </h2>
         <div className="responsive-grid-2">
           {[
-            { href: "/dashboard/admin/document-administration/quality-engineering/count-validation", label: "Count Validation", desc: "Verify data array counts match documentation claims" },
-            { href: "/dashboard/admin/document-administration/quality-engineering/route-verification", label: "Route Verification", desc: "Check all sidebar nav links resolve to real pages" },
-            { href: "/dashboard/admin/document-administration/quality-engineering/toc-integrity", label: "TOC Integrity", desc: "Validate table-of-contents anchor IDs exist on page" },
-            { href: "/dashboard/admin/document-administration/quality-engineering/pattern-compliance", label: "Pattern Compliance", desc: "Check content follows naming, tagging, and structure conventions" },
+            { href: "/dashboard/admin/document-health/quality-engineering/count-validation", label: "Count Validation", desc: "Verify data array counts match documentation claims" },
+            { href: "/dashboard/admin/document-health/quality-engineering/route-verification", label: "Route Verification", desc: "Check all sidebar nav links resolve to real pages" },
+            { href: "/dashboard/admin/document-health/quality-engineering/toc-integrity", label: "TOC Integrity", desc: "Validate table-of-contents anchor IDs exist on page" },
+            { href: "/dashboard/admin/document-health/quality-engineering/pattern-compliance", label: "Pattern Compliance", desc: "Check content follows naming, tagging, and structure conventions" },
           ].map((tool) => (
             <Link key={tool.href} href={tool.href} className="group">
               <Card className="h-full transition-colors hover:border-accent/50">

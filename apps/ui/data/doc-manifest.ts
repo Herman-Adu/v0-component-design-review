@@ -320,23 +320,23 @@ export const ROUTES = {
   },
   admin: {
     overview: "/dashboard/admin",
-    documentAdministration: "/dashboard/admin/document-administration",
+    documentAdministration: "/dashboard/admin/document-health",
     documentationHealth:
-      "/dashboard/admin/document-administration/documentation-health",
+      "/dashboard/admin/document-health/documentation-health",
     gapAnalysis:
-      "/dashboard/admin/document-administration/documentation-health/gap-analysis",
+      "/dashboard/admin/document-health/documentation-health/gap-analysis",
     qualityEngineering:
-      "/dashboard/admin/document-administration/quality-engineering",
+      "/dashboard/admin/document-health/quality-engineering",
     countValidation:
-      "/dashboard/admin/document-administration/quality-engineering/count-validation",
+      "/dashboard/admin/document-health/quality-engineering/count-validation",
     routeVerification:
-      "/dashboard/admin/document-administration/quality-engineering/route-verification",
+      "/dashboard/admin/document-health/quality-engineering/route-verification",
     tocIntegrity:
-      "/dashboard/admin/document-administration/quality-engineering/toc-integrity",
+      "/dashboard/admin/document-health/quality-engineering/toc-integrity",
     patternCompliance:
-      "/dashboard/admin/document-administration/quality-engineering/pattern-compliance",
+      "/dashboard/admin/document-health/quality-engineering/pattern-compliance",
     fixActions:
-      "/dashboard/admin/document-administration/quality-engineering/fix-actions",
+      "/dashboard/admin/document-health/quality-engineering/fix-actions",
     emailTemplates: "/dashboard/admin/email-templates",
     emailSend: "/dashboard/admin/email-send",
     emailLogs: "/dashboard/admin/email-logs",
@@ -775,8 +775,8 @@ export const DOC_HEALTH = {
   consumers: [
     "app/dashboard/page.tsx",
     "app/(dashboard)/dashboard/documentation/[category]/[slug]/page.tsx",
-    "app/(dashboard)/dashboard/admin/document-administration/documentation-health/page.tsx",
-    "app/(dashboard)/dashboard/admin/document-administration/quality-engineering/route-verification/page.tsx",
+    "app/(dashboard)/dashboard/admin/document-health/documentation-health/page.tsx",
+    "app/(dashboard)/dashboard/admin/document-health/quality-engineering/route-verification/page.tsx",
     "app/(dashboard)/dashboard/admin/page.tsx",
   ],
   /** Change types and which manifest sections they affect */

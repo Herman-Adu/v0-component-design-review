@@ -102,7 +102,7 @@ export default function TemplateVersionsPage() {
       <div className="space-y-4">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/dashboard/admin/email-administration/infrastructure"><ArrowLeft className="mr-2 h-4 w-4" /> Infrastructure</Link>
+            <Link href="/dashboard/admin/email-management/infrastructure"><ArrowLeft className="mr-2 h-4 w-4" /> Infrastructure</Link>
           </Button>
         </div>
         <div>

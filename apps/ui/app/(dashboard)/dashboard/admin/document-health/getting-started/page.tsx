@@ -17,7 +17,7 @@ import {
   Wrench,
 } from "lucide-react"
 
-const DA = "/dashboard/admin/document-administration"
+const DA = "/dashboard/admin/document-health"
 
 export default function DocumentAdministrationGettingStartedPage() {
   const journeys = [

@@ -25,7 +25,7 @@ const qaTools = [
   {
     title: "Count Validation",
     description: "Verify documented component counts match actual codebase. Catches drift between docs and reality.",
-    href: "/dashboard/admin/document-administration/quality-engineering/count-validation",
+    href: "/dashboard/admin/document-health/quality-engineering/count-validation",
     icon: SearchCheck,
     badge: "Automated",
     status: "active",
@@ -33,7 +33,7 @@ const qaTools = [
   {
     title: "Route Verification",
     description: "Check all documented routes resolve to actual page files. Catches broken nav links and missing pages.",
-    href: "/dashboard/admin/document-administration/quality-engineering/route-verification",
+    href: "/dashboard/admin/document-health/quality-engineering/route-verification",
     icon: Link2,
     badge: "Automated",
     status: "active",
@@ -41,7 +41,7 @@ const qaTools = [
   {
     title: "TOC Integrity",
     description: "Validate table of contents entries match page headings and section structure across all doc pages.",
-    href: "/dashboard/admin/document-administration/quality-engineering/toc-integrity",
+    href: "/dashboard/admin/document-health/quality-engineering/toc-integrity",
     icon: ClipboardCheck,
     badge: "Automated",
     status: "active",
@@ -49,7 +49,7 @@ const qaTools = [
   {
     title: "Pattern Compliance",
     description: "Check documentation pages follow established patterns: JSDoc headers, section ordering, code examples.",
-    href: "/dashboard/admin/document-administration/quality-engineering/pattern-compliance",
+    href: "/dashboard/admin/document-health/quality-engineering/pattern-compliance",
     icon: FileCheck,
     badge: "Automated",
     status: "active",
@@ -57,7 +57,7 @@ const qaTools = [
   {
     title: "Fix Actions",
     description: "One-click remediation for common documentation issues found by the other QA tools.",
-    href: "/dashboard/admin/document-administration/quality-engineering/fix-actions",
+    href: "/dashboard/admin/document-health/quality-engineering/fix-actions",
     icon: Wrench,
     badge: "Semi-Auto",
     status: "active",

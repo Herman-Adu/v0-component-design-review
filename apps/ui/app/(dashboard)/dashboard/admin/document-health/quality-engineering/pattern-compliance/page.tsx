@@ -460,7 +460,7 @@ export default function PatternCompliancePage() {
       {/* Header */}
       <div>
         <Link
-          href="/dashboard/admin/document-administration/quality-engineering"
+          href="/dashboard/admin/document-health/quality-engineering"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
         >
           <ArrowLeft className="h-3 w-3" /> Back to Quality Engineering
@@ -597,10 +597,10 @@ export default function PatternCompliancePage() {
               This engine validates {articles.length} articles, {caseStudies.length} case studies,
               and {tutorials.length} tutorials against {checkRun.results.length} pattern rules.
               For route-level checks see{" "}
-              <Link href="/dashboard/admin/document-administration/quality-engineering/route-verification" className="text-accent underline">
+              <Link href="/dashboard/admin/document-health/quality-engineering/route-verification" className="text-accent underline">
                 Route Verification
               </Link>. For DOM-level checks see{" "}
-              <Link href="/dashboard/admin/document-administration/quality-engineering/toc-integrity" className="text-accent underline">
+              <Link href="/dashboard/admin/document-health/quality-engineering/toc-integrity" className="text-accent underline">
                 TOC Integrity
               </Link>.
             </p>

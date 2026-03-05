@@ -79,7 +79,7 @@ const TEST_SECTIONS: TestSection[] = [
     title: "Page Load & Stats",
     icon: BarChart3,
     tests: [
-      { id: 1, test: "Stats cards render", steps: "Navigate to /dashboard/admin/email-administration/request-management/email-dashboard", expected: "6 stat cards: Total Active, Needs Action, Unassigned, Urgent/High, In Progress, Resolved" },
+      { id: 1, test: "Stats cards render", steps: "Navigate to /dashboard/admin/email-management/request-management/email-dashboard", expected: "6 stat cards: Total Active, Needs Action, Unassigned, Urgent/High, In Progress, Resolved" },
       { id: 2, test: "Stats accuracy", steps: "Compare card values to seed data", expected: "Total Active = 15, Needs Action = new + awaiting_client count, Unassigned = no-assignee count" },
       { id: 3, test: "Accent highlighting", steps: "Check Unassigned and Urgent/High cards", expected: "Cards with values > 0 have accent-coloured borders" },
     ],
@@ -316,7 +316,7 @@ export default function TestingGuidePage() {
       {/* Header */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <Link href="/dashboard/admin/email-administration/request-management/email-dashboard">
+          <Link href="/dashboard/admin/email-management/request-management/email-dashboard">
             <Button variant="outline" size="sm" className="gap-2 bg-transparent">
               <ArrowLeft className="h-4 w-4" />
               Back to Job Tracker
@@ -538,7 +538,7 @@ export default function TestingGuidePage() {
             </CardHeader>
             <CardContent>
               <ol className="space-y-3 text-sm text-foreground">
-                <li className="flex gap-3"><span className="shrink-0 h-6 w-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs font-bold">1</span><span>Open <Link href="/dashboard/admin/email-administration/request-management/email-dashboard" className="text-accent hover:underline">Request Management</Link> and check the <strong>Needs Action</strong> stat card</span></li>
+                <li className="flex gap-3"><span className="shrink-0 h-6 w-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs font-bold">1</span><span>Open <Link href="/dashboard/admin/email-management/request-management/email-dashboard" className="text-accent hover:underline">Request Management</Link> and check the <strong>Needs Action</strong> stat card</span></li>
                 <li className="flex gap-3"><span className="shrink-0 h-6 w-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs font-bold">2</span><span>Filter by <strong>Status: New</strong> to see only unprocessed requests</span></li>
                 <li className="flex gap-3"><span className="shrink-0 h-6 w-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs font-bold">3</span><span>Click each row to open the detail sheet. Read the initial correspondence</span></li>
                 <li className="flex gap-3"><span className="shrink-0 h-6 w-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs font-bold">4</span><span>Set <strong>priority</strong> (Urgent/High/Normal/Low) and <strong>assign</strong> to a team member</span></li>

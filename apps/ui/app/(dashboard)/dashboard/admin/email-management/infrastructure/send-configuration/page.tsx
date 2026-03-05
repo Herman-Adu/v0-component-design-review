@@ -553,21 +553,21 @@ export default function SendConfigurationPage() {
       {/* Quick Links */}
       <div className="flex flex-wrap gap-3">
         <Button variant="outline" size="sm" asChild className="bg-transparent">
-          <Link href="/dashboard/admin/email-administration/configuration/email-preview">
+          <Link href="/dashboard/admin/email-management/configuration/email-preview">
             <Mail className="mr-2 h-4 w-4" />
             Email Preview
             <ArrowRight className="ml-2 h-3 w-3" />
           </Link>
         </Button>
         <Button variant="outline" size="sm" asChild className="bg-transparent">
-          <Link href="/dashboard/admin/email-administration/configuration/template-and-brand">
+          <Link href="/dashboard/admin/email-management/configuration/template-and-brand">
             <Settings className="mr-2 h-4 w-4" />
             Template Management
             <ArrowRight className="ml-2 h-3 w-3" />
           </Link>
         </Button>
         <Button variant="outline" size="sm" asChild className="bg-transparent">
-          <Link href="/dashboard/admin/email-administration/infrastructure">
+          <Link href="/dashboard/admin/email-management/infrastructure">
             <ArrowRight className="mr-2 h-4 w-4" />
             Infrastructure
           </Link>

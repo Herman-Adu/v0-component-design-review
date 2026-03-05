@@ -80,7 +80,7 @@ const healthChecks: HealthCheckSummary[] = [
     name: "Count Validation",
     description:
       "Verify stats on overview and listing pages match actual data counts",
-    href: "/dashboard/admin/document-administration/quality-engineering/count-validation",
+    href: "/dashboard/admin/document-health/quality-engineering/count-validation",
     icon: SearchCheck,
     status: "unchecked",
     lastRun: null,
@@ -92,7 +92,7 @@ const healthChecks: HealthCheckSummary[] = [
     name: "Route Verification",
     description:
       "Check all sidebar links, cross-references, and content slugs resolve",
-    href: "/dashboard/admin/document-administration/quality-engineering/route-verification",
+    href: "/dashboard/admin/document-health/quality-engineering/route-verification",
     icon: Link2,
     status: "unchecked",
     lastRun: null,
@@ -104,7 +104,7 @@ const healthChecks: HealthCheckSummary[] = [
     name: "TOC Integrity",
     description:
       "Validate TOC item IDs match SectionHeader IDs in article/case-study pages",
-    href: "/dashboard/admin/document-administration/quality-engineering/toc-integrity",
+    href: "/dashboard/admin/document-health/quality-engineering/toc-integrity",
     icon: ClipboardCheck,
     status: "unchecked",
     lastRun: null,
@@ -116,7 +116,7 @@ const healthChecks: HealthCheckSummary[] = [
     name: "Pattern Compliance",
     description:
       "Audit data-driven listings, filter logic, and atomic design adherence",
-    href: "/dashboard/admin/document-administration/quality-engineering/pattern-compliance",
+    href: "/dashboard/admin/document-health/quality-engineering/pattern-compliance",
     icon: FileCheck,
     status: "unchecked",
     lastRun: null,
@@ -805,13 +805,13 @@ export default function DocSystemOverviewPage() {
             })}
           </div>
           <div className="mt-4 flex justify-end gap-2">
-            <Link href="/dashboard/admin/document-administration/quality-engineering">
+            <Link href="/dashboard/admin/document-health/quality-engineering">
               <Button variant="outline" className="gap-2 bg-transparent">
                 <Activity className="h-4 w-4" />
                 Quality Engineering
               </Button>
             </Link>
-            <Link href="/dashboard/admin/document-administration/quality-engineering/fix-actions">
+            <Link href="/dashboard/admin/document-health/quality-engineering/fix-actions">
               <Button variant="outline" className="gap-2 bg-transparent">
                 <Wrench className="h-4 w-4" />
                 Fix Actions

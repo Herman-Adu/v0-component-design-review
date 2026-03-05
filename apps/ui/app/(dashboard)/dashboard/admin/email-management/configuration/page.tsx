@@ -107,14 +107,14 @@ export default function EmailConfigurationPage() {
               template content, subject lines, recipient routing, and
               scheduling. For client request handling, see{" "}
               <Link
-                href="/dashboard/admin/email-administration/request-management"
+                href="/dashboard/admin/email-management/request-management"
                 className="text-accent hover:underline"
               >
                 Request Management
               </Link>
               . For API health and security monitoring, see{" "}
               <Link
-                href="/dashboard/admin/email-administration/infrastructure"
+                href="/dashboard/admin/email-management/infrastructure"
                 className="text-accent hover:underline"
               >
                 Infrastructure

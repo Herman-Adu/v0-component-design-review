@@ -398,7 +398,7 @@ export default function EmailTemplateManagementPage() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="bg-transparent" asChild>
-            <Link href="/dashboard/admin/email-administration/configuration/email-preview">
+            <Link href="/dashboard/admin/email-management/configuration/email-preview">
               <Eye className="mr-2 h-4 w-4" />
               Preview Templates
             </Link>
@@ -924,7 +924,7 @@ export default function EmailTemplateManagementPage() {
                 </div>
               </div>
               <Button variant="outline" size="sm" className="bg-transparent" asChild>
-                <Link href="/dashboard/admin/email-administration/configuration/email-preview">
+                <Link href="/dashboard/admin/email-management/configuration/email-preview">
                   Open Preview
                   <ArrowRight className="ml-2 h-3 w-3" />
                 </Link>

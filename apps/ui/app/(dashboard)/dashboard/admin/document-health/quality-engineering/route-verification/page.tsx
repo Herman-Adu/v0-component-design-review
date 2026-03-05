@@ -161,58 +161,58 @@ const knownStaticRoutes = [
     name: "Content Strategy",
   },
   {
-    route: "/dashboard/admin/document-administration",
+    route: "/dashboard/admin/document-health",
     category: "Document Administration",
     name: "Overview",
   },
   {
-    route: "/dashboard/admin/document-administration/getting-started",
+    route: "/dashboard/admin/document-health/getting-started",
     category: "Document Administration",
     name: "Getting Started",
   },
   {
-    route: "/dashboard/admin/document-administration/documentation-health",
+    route: "/dashboard/admin/document-health/documentation-health",
     category: "Documentation Health",
     name: "Documentation Health Overview",
   },
   {
     route:
-      "/dashboard/admin/document-administration/documentation-health/gap-analysis",
+      "/dashboard/admin/document-health/documentation-health/gap-analysis",
     category: "Documentation Health",
     name: "Gap Analysis",
   },
   {
-    route: "/dashboard/admin/document-administration/quality-engineering",
+    route: "/dashboard/admin/document-health/quality-engineering",
     category: "Quality Engineering",
     name: "Quality Engineering Overview",
   },
   {
     route:
-      "/dashboard/admin/document-administration/quality-engineering/count-validation",
+      "/dashboard/admin/document-health/quality-engineering/count-validation",
     category: "Quality Engineering",
     name: "Count Validation",
   },
   {
     route:
-      "/dashboard/admin/document-administration/quality-engineering/route-verification",
+      "/dashboard/admin/document-health/quality-engineering/route-verification",
     category: "Quality Engineering",
     name: "Route Verification",
   },
   {
     route:
-      "/dashboard/admin/document-administration/quality-engineering/toc-integrity",
+      "/dashboard/admin/document-health/quality-engineering/toc-integrity",
     category: "Quality Engineering",
     name: "TOC Integrity",
   },
   {
     route:
-      "/dashboard/admin/document-administration/quality-engineering/pattern-compliance",
+      "/dashboard/admin/document-health/quality-engineering/pattern-compliance",
     category: "Quality Engineering",
     name: "Pattern Compliance",
   },
   {
     route:
-      "/dashboard/admin/document-administration/quality-engineering/fix-actions",
+      "/dashboard/admin/document-health/quality-engineering/fix-actions",
     category: "Quality Engineering",
     name: "Fix Actions",
   },
@@ -221,16 +221,16 @@ const knownStaticRoutes = [
 // Sidebar nav hrefs (these are what the sidebar actually links to)
 const sidebarNavHrefs = [
   "/dashboard/admin",
-  "/dashboard/admin/document-administration",
-  "/dashboard/admin/document-administration/getting-started",
-  "/dashboard/admin/document-administration/documentation-health",
-  "/dashboard/admin/document-administration/documentation-health/gap-analysis",
-  "/dashboard/admin/document-administration/quality-engineering",
-  "/dashboard/admin/document-administration/quality-engineering/count-validation",
-  "/dashboard/admin/document-administration/quality-engineering/route-verification",
-  "/dashboard/admin/document-administration/quality-engineering/toc-integrity",
-  "/dashboard/admin/document-administration/quality-engineering/pattern-compliance",
-  "/dashboard/admin/document-administration/quality-engineering/fix-actions",
+  "/dashboard/admin/document-health",
+  "/dashboard/admin/document-health/getting-started",
+  "/dashboard/admin/document-health/documentation-health",
+  "/dashboard/admin/document-health/documentation-health/gap-analysis",
+  "/dashboard/admin/document-health/quality-engineering",
+  "/dashboard/admin/document-health/quality-engineering/count-validation",
+  "/dashboard/admin/document-health/quality-engineering/route-verification",
+  "/dashboard/admin/document-health/quality-engineering/toc-integrity",
+  "/dashboard/admin/document-health/quality-engineering/pattern-compliance",
+  "/dashboard/admin/document-health/quality-engineering/fix-actions",
   "/dashboard/content-library/social",
   "/dashboard/admin/email-preview",
   "/dashboard/admin/content-strategy",
@@ -479,7 +479,7 @@ export default function RouteVerificationPage() {
       {/* Header */}
       <div>
         <Link
-          href="/dashboard/admin/document-administration/quality-engineering"
+          href="/dashboard/admin/document-health/quality-engineering"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />

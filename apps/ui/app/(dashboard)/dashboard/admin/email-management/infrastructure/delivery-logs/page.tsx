@@ -365,7 +365,7 @@ export default function DeliveryLogsPage() {
               </p>
               {!hasFilters && (
                 <Button variant="outline" size="sm" className="mt-4 bg-transparent" asChild>
-                  <a href="/dashboard/admin/email-administration/infrastructure/send-configuration">
+                  <a href="/dashboard/admin/email-management/infrastructure/send-configuration">
                     Send a Test Email
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>

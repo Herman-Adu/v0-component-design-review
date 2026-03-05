@@ -14,7 +14,7 @@ import {
   CheckCircle2,
 } from "lucide-react"
 
-const EA = "/dashboard/admin/email-administration"
+const EA = "/dashboard/admin/email-management"
 
 export default function EmailAdministrationGettingStartedPage() {
   const journeys = [
