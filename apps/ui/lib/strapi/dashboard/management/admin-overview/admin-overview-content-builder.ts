@@ -1,12 +1,14 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { AdminOverviewDocumentSchema, type AdminOverviewDocument } from "./admin-overview-schema";
 
 /**
  * Admin Overview Content Builder
  *
  * Fetches the management-page record for section=admin from Strapi.
- * CI guard: returns null when STRAPI_URL is not set (build-time, CI).
+ * Falls back to JSON mock when STRAPI_URL is not set (Vercel, CI, local dev without Docker).
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,12 +21,25 @@ const ENDPOINT =
 
 let cached: AdminOverviewDocument | null | undefined;
 
-export async function loadAdminOverview(): Promise<AdminOverviewDocument | null> {
-  // CI guard — no Strapi in CI or when URL not configured
-  if (!STRAPI_URL) {
+function loadFromJson(): AdminOverviewDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "admin-overview.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = AdminOverviewDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[admin-overview-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
     return null;
   }
+}
 
+export async function loadAdminOverview(): Promise<AdminOverviewDocument | null> {
+  if (!STRAPI_URL) return loadFromJson();
+
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {

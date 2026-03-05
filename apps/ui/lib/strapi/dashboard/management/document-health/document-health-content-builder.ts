@@ -1,12 +1,14 @@
 import "server-only";
 
+import { readFileSync } from "fs";
+import { join } from "path";
 import { DocumentHealthDocumentSchema, type DocumentHealthDocument } from "./document-health-schema";
 
 /**
  * Document Health Content Builder
  *
  * Fetches the management-page record for section=document-health from Strapi.
- * CI guard: returns null when STRAPI_URL is not set (build-time, CI).
+ * Falls back to JSON mock when STRAPI_URL is not set (Vercel, CI, local dev without Docker).
  *
  * Authority: STRAPI_DYNAMIC_ZONES_AUTHORITY.md
  */
@@ -19,11 +21,25 @@ const ENDPOINT =
 
 let cached: DocumentHealthDocument | null | undefined;
 
-export async function loadDocumentHealth(): Promise<DocumentHealthDocument | null> {
-  if (!STRAPI_URL) {
+function loadFromJson(): DocumentHealthDocument | null {
+  try {
+    const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "management", "document-health.json");
+    const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+    const result = DocumentHealthDocumentSchema.safeParse(raw);
+    if (!result.success) {
+      console.warn("[document-health-builder] JSON mock validation failed:", result.error.flatten());
+      return null;
+    }
+    return result.data;
+  } catch {
     return null;
   }
+}
 
+export async function loadDocumentHealth(): Promise<DocumentHealthDocument | null> {
+  if (!STRAPI_URL) return loadFromJson();
+
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {

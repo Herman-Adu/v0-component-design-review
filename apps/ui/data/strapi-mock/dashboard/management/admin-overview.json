@@ -1,0 +1,191 @@
+{
+  "section": "admin",
+  "header": {
+    "icon": "ShieldCheck",
+    "title": "Admin Dashboard",
+    "description": "Centralized administration for managing documentation health, content tools, and system settings. Run health checks, validate data integrity, and maintain the documentation library at scale."
+  },
+  "notice": {
+    "icon": "Lock",
+    "title": "Authentication Required",
+    "description": "In production, all admin features will require authentication. Role-based access control (RBAC) will restrict features based on user permissions. Currently in development mode for demonstration.",
+    "noticeType": "warning"
+  },
+  "quickStats": [
+    {
+      "statId": "content-items",
+      "label": "Content Items",
+      "value": "165+",
+      "description": "Articles, case studies, tutorials and guides",
+      "source": "content-library"
+    },
+    {
+      "statId": "doc-pages",
+      "label": "Doc Pages",
+      "value": "35",
+      "description": "Across 4 major documentation sections"
+    },
+    {
+      "statId": "admin-tools",
+      "label": "Admin Tools",
+      "value": "9",
+      "description": "Doc health, QA, and content tools"
+    },
+    {
+      "statId": "health-score",
+      "label": "Health Score",
+      "value": "98%",
+      "description": "Documentation quality index"
+    }
+  ],
+  "toolSections": [
+    {
+      "sectionId": "doc-system",
+      "title": "Documentation System",
+      "description": "Health monitoring, gap analysis, quality assurance, and automated remediation tools.",
+      "icon": "HeartPulse",
+      "tools": [
+        {
+          "itemId": "health-overview",
+          "href": "/dashboard/admin/document-health",
+          "icon": "Activity",
+          "title": "Health Overview",
+          "description": "System-wide health dashboard with real-time stats, coverage tracking, and changelog history.",
+          "status": "Available",
+          "badge": "Doc Health",
+          "badgeColor": "cyan"
+        },
+        {
+          "itemId": "gap-analysis",
+          "href": "/dashboard/admin/document-health/gap-analysis",
+          "icon": "Compass",
+          "title": "Gap Analysis",
+          "description": "Identify missing content areas, under-covered topics, and opportunities for new documentation.",
+          "status": "Available",
+          "badge": "Doc Health",
+          "badgeColor": "cyan"
+        },
+        {
+          "itemId": "doc-qa",
+          "href": "/dashboard/admin/document-health/quality-engineering",
+          "icon": "FlaskConical",
+          "title": "Doc QA Overview",
+          "description": "Automated documentation quality assurance hub with 5 validation tools and remediation workflow.",
+          "status": "Available",
+          "badge": "Doc QA",
+          "badgeColor": "violet"
+        },
+        {
+          "itemId": "count-validation",
+          "href": "/dashboard/admin/document-health/count-validation",
+          "icon": "SearchCheck",
+          "title": "Count Validation",
+          "description": "Validate that all overview pages, listing pages, and stat cards display accurate counts matching the data layer.",
+          "status": "Available",
+          "badge": "Doc QA",
+          "badgeColor": "violet"
+        },
+        {
+          "itemId": "route-verification",
+          "href": "/dashboard/admin/document-health/route-verification",
+          "icon": "Link2",
+          "title": "Route Verification",
+          "description": "Verify every sidebar nav link, cross-reference href, and content slug resolves to an existing page.",
+          "status": "Available",
+          "badge": "Doc QA",
+          "badgeColor": "violet"
+        },
+        {
+          "itemId": "toc-integrity",
+          "href": "/dashboard/admin/document-health/toc-integrity",
+          "icon": "ClipboardCheck",
+          "title": "TOC Integrity",
+          "description": "Ensure table of contents links point to valid heading anchors within each documentation page.",
+          "status": "Available",
+          "badge": "Doc QA",
+          "badgeColor": "violet"
+        },
+        {
+          "itemId": "auto-remediation",
+          "href": "/dashboard/admin/document-health/auto-remediation",
+          "icon": "Wrench",
+          "title": "Auto Remediation",
+          "description": "One-click fixes for common issues: stale counts, missing anchors, broken cross-references.",
+          "status": "Available",
+          "badge": "Doc QA",
+          "badgeColor": "violet"
+        }
+      ]
+    },
+    {
+      "sectionId": "content-tools",
+      "title": "Content & Marketing Tools",
+      "description": "Digital marketing management, email preview, and content pipeline for scaling content production.",
+      "icon": "Share2",
+      "tools": [
+        {
+          "itemId": "digital-marketing",
+          "href": "/dashboard/admin/digital-marketing",
+          "icon": "Megaphone",
+          "title": "Digital Marketing",
+          "description": "Platform marketing for Google, LinkedIn, Twitter/X, and Facebook. SEO, ads, content composers, and analytics.",
+          "status": "Available",
+          "badge": "Marketing",
+          "badgeColor": "accent"
+        },
+        {
+          "itemId": "email-management",
+          "href": "/dashboard/admin/email-management",
+          "icon": "Mail",
+          "title": "Email Management",
+          "description": "Request handling, template branding, email preview, and delivery infrastructure for all client communications.",
+          "status": "Available",
+          "badge": "Email",
+          "badgeColor": "accent"
+        },
+        {
+          "itemId": "content-pipeline",
+          "href": "/dashboard/admin/document-health/gap-analysis",
+          "icon": "Target",
+          "title": "Content Pipeline",
+          "description": "10-pass gap analysis with review log scanning, audience coverage, and batch content pipeline.",
+          "status": "Available",
+          "badge": "Pipeline",
+          "badgeColor": "teal"
+        }
+      ]
+    }
+  ],
+  "upcomingTitle": "Upcoming Features",
+  "upcomingDescription": "Planned enhancements to the admin dashboard for future releases.",
+  "upcomingFeatures": [
+    {
+      "featureId": "user-management",
+      "icon": "Users",
+      "title": "User Management",
+      "description": "Manage user accounts, roles, and permissions for team members and administrators.",
+      "status": "Coming Soon"
+    },
+    {
+      "featureId": "analytics",
+      "icon": "BarChart3",
+      "title": "Analytics Dashboard",
+      "description": "Track form submissions, user engagement, and business metrics in real-time.",
+      "status": "Planned"
+    },
+    {
+      "featureId": "settings",
+      "icon": "Settings",
+      "title": "System Settings",
+      "description": "Configure application settings, email providers, and integration options.",
+      "status": "Planned"
+    }
+  ],
+  "cta": {
+    "title": "Need Help?",
+    "description": "Visit the documentation section for guides on using admin tools, running health checks, and troubleshooting common issues.",
+    "linkText": "View Admin Documentation",
+    "linkHref": "/dashboard/documentation/app-reference/getting-started",
+    "linkIcon": "ArrowRight"
+  }
+}

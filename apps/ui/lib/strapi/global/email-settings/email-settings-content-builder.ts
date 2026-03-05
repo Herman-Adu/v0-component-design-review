@@ -39,6 +39,7 @@ function loadEmailSettingsFromJson(): EmailSettingsDocument | null {
 export async function loadEmailSettings(): Promise<EmailSettingsDocument | null> {
   if (!STRAPI_URL) return loadEmailSettingsFromJson();
 
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {

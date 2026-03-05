@@ -1,0 +1,113 @@
+{
+  "section": "digital-marketing",
+  "header": {
+    "icon": "Megaphone",
+    "title": "Digital Marketing",
+    "description": "Centralized platform marketing for your electrical services business. Manage your presence on Google, LinkedIn, Twitter/X, and Facebook with professional tools for content creation, SEO, advertising, and analytics."
+  },
+  "notice": {
+    "icon": "Lock",
+    "title": "Authentication Required",
+    "description": "In production, Digital Marketing tools require authentication. Role-based access control will restrict platform management based on user permissions. Currently in development mode for demonstration.",
+    "noticeType": "warning"
+  },
+  "quickStats": [
+    {
+      "statId": "platforms",
+      "label": "Platforms",
+      "value": "4",
+      "description": "Google, LinkedIn, Twitter, Facebook"
+    },
+    {
+      "statId": "active-tools",
+      "label": "Active Tools",
+      "value": "6",
+      "description": "Google platform suite"
+    },
+    {
+      "statId": "total-pages",
+      "label": "Total Pages",
+      "value": "13",
+      "description": "Across all platforms"
+    },
+    {
+      "statId": "status",
+      "label": "Status",
+      "value": "Active",
+      "description": "Google platform live"
+    }
+  ],
+  "quickLinks": [
+    {
+      "linkId": "google-overview",
+      "href": "/dashboard/admin/digital-marketing/google",
+      "icon": "Search",
+      "title": "Google Overview",
+      "description": "Full Google marketing ecosystem — Business Profile, SEO, Ads, Analytics, and Composer"
+    },
+    {
+      "linkId": "content-strategy",
+      "href": "/dashboard/admin/digital-marketing",
+      "icon": "TrendingUp",
+      "title": "Platform Hub",
+      "description": "Overview of all 4 marketing platforms and their current status"
+    }
+  ],
+  "platforms": [
+    {
+      "platformId": "google",
+      "href": "/dashboard/admin/digital-marketing/google",
+      "icon": "Search",
+      "title": "Google",
+      "description": "Business Profile, SEO, Tag Manager, Ads & Campaigns, Analytics, and Content Composer. Full ecosystem management.",
+      "status": "Active",
+      "badge": "6 Tools",
+      "badgeColor": "blue",
+      "iconColor": "blue",
+      "pageItems": [
+        { "itemLabel": "Business Profile & FAQs", "icon": "Building2" },
+        { "itemLabel": "SEO & Site Optimization", "icon": "Search" },
+        { "itemLabel": "Tag Manager", "icon": "Tag" },
+        { "itemLabel": "Ads & Campaigns", "icon": "DollarSign" },
+        { "itemLabel": "Analytics & Reporting", "icon": "LineChart" },
+        { "itemLabel": "Content Composer", "icon": "PenSquare" }
+      ]
+    },
+    {
+      "platformId": "linkedin",
+      "href": "/dashboard/admin/digital-marketing/linkedin",
+      "icon": "Share2",
+      "title": "LinkedIn",
+      "description": "Company page management, professional post composer, article publishing, and B2B engagement strategy.",
+      "status": "Coming Soon",
+      "badge": "B2B Focus",
+      "badgeColor": "sky",
+      "iconColor": "sky",
+      "pageItems": []
+    },
+    {
+      "platformId": "twitter",
+      "href": "/dashboard/admin/digital-marketing/twitter",
+      "icon": "Globe",
+      "title": "Twitter/X",
+      "description": "Tweet composer with character limits, thread builder, hashtag strategy, and real-time engagement tracking.",
+      "status": "Coming Soon",
+      "badge": "Quick Updates",
+      "badgeColor": "slate",
+      "iconColor": "slate",
+      "pageItems": []
+    },
+    {
+      "platformId": "facebook",
+      "href": "/dashboard/admin/digital-marketing/facebook",
+      "icon": "Users",
+      "title": "Facebook",
+      "description": "Business page management, post composer, event creation, community engagement, and Messenger configuration.",
+      "status": "Coming Soon",
+      "badge": "Community",
+      "badgeColor": "indigo",
+      "iconColor": "indigo",
+      "pageItems": []
+    }
+  ]
+}

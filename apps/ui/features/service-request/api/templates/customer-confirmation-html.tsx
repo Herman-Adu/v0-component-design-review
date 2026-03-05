@@ -1,11 +1,13 @@
 import {
   BRAND_COLORS,
-  SLA,
-  getUrgencyBadgeStyle,
-  URGENCY_COLORS,
   type UrgencyLevel,
 } from "@/lib/email/config/email-config"
-import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
+import {
+  type ResolvedEmailConfig,
+  getSharedHeaderHtml,
+  getSharedFooterHtml,
+  getUrgencyBadgeStyleFromConfig,
+} from "@/lib/email/config/email-config-builder"
 
 interface CustomerConfirmationEmailProps {
   customerName: string
@@ -33,7 +35,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
     day: "numeric",
   })
 
-  const sla = SLA.service[urgency]
+  const sla = config.sla.service[urgency]
 
   return `
 <!DOCTYPE html>
@@ -49,7 +51,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 
-          ${getSharedHeaderHtml(config, URGENCY_COLORS[urgency].headerGradient.start, URGENCY_COLORS[urgency].headerGradient.end)}
+          ${getSharedHeaderHtml(config, config.urgency[urgency].gradientStart, config.urgency[urgency].gradientEnd)}
 
           <!-- Main Content -->
           <tr>
@@ -70,7 +72,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
                   <td style="background-color: #fee2e2; border-left: 4px solid #dc2626; padding: 20px; border-radius: 8px;">
                     <p style="margin: 0 0 8px; color: #dc2626; font-size: 18px; font-weight: 700;">EMERGENCY SERVICE REQUEST</p>
                     <p style="margin: 0; color: #991b1b; font-size: 14px;">
-                      Our emergency response team has been notified and will contact you within ${SLA.service.emergency.time}.
+                      Our emergency response team has been notified and will contact you within ${config.sla.service.emergency.time}.
                     </p>
                   </td>
                 </tr>
@@ -83,7 +85,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
                   <td style="background-color: #fffbeb; border-left: 4px solid #d97706; padding: 20px; border-radius: 8px;">
                     <p style="margin: 0 0 8px; color: #b45309; font-size: 18px; font-weight: 700;">URGENT SERVICE REQUEST</p>
                     <p style="margin: 0; color: #92400e; font-size: 14px;">
-                      Your request has been marked as urgent. Our team will prioritise this and contact you within ${SLA.service.urgent.time}.
+                      Your request has been marked as urgent. Our team will prioritise this and contact you within ${config.sla.service.urgent.time}.
                     </p>
                   </td>
                 </tr>
@@ -110,7 +112,7 @@ export function generateCustomerConfirmationEmail(props: CustomerConfirmationEma
                       <tr>
                         <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; font-weight: 600;">Priority:</td>
                         <td style="padding: 8px 0;">
-                          <span style="${getUrgencyBadgeStyle(urgency)}">
+                          <span style="${getUrgencyBadgeStyleFromConfig(urgency, config)}">
                             ${urgency.toUpperCase()}
                           </span>
                         </td>

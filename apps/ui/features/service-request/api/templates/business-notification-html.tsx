@@ -1,12 +1,14 @@
 import {
   BRAND_COLORS,
-  SLA,
-  getUrgencyBadgeStyle,
   getUrgencyCardStyle,
-  URGENCY_COLORS,
   type UrgencyLevel,
 } from "@/lib/email/config/email-config"
-import { type ResolvedEmailConfig, getSharedHeaderHtml, getSharedFooterHtml } from "@/lib/email/config/email-config-builder"
+import {
+  type ResolvedEmailConfig,
+  getSharedHeaderHtml,
+  getSharedFooterHtml,
+  getUrgencyBadgeStyleFromConfig,
+} from "@/lib/email/config/email-config-builder"
 
 interface BusinessNotificationEmailProps {
   requestId: string
@@ -62,7 +64,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
     day: "numeric",
   })
   const formattedSubmitted = new Date(submittedAt).toLocaleString("en-GB")
-  const sla = SLA.service[urgency]
+  const sla = config.sla.service[urgency]
   const cardStyle = getUrgencyCardStyle(urgency)
 
   return `
@@ -79,7 +81,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="width: 100%; max-width: 680px; border-collapse: collapse; background-color: ${BRAND_COLORS.bgCard}; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 
-          ${getSharedHeaderHtml(config, URGENCY_COLORS[urgency].headerGradient.start, URGENCY_COLORS[urgency].headerGradient.end)}
+          ${getSharedHeaderHtml(config, config.urgency[urgency].gradientStart, config.urgency[urgency].gradientEnd)}
 
           <!-- Request ID / Title row -->
           <tr>
@@ -103,7 +105,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
                   <td style="background-color: #fee2e2; border: 3px solid #dc2626; padding: 24px; border-radius: 8px; text-align: center;">
                     <h2 style="margin: 0 0 12px; color: #dc2626; font-size: 24px; font-weight: 700;">IMMEDIATE ATTENTION REQUIRED</h2>
                     <p style="margin: 0 0 8px; color: #991b1b; font-size: 16px; font-weight: 600;">
-                      This is an emergency service request. Customer expects contact within ${SLA.service.emergency.time}.
+                      This is an emergency service request. Customer expects contact within ${config.sla.service.emergency.time}.
                     </p>
                     <p style="margin: 0; color: #7f1d1d; font-size: 14px;">Submitted: ${formattedSubmitted}</p>
                   </td>
@@ -117,7 +119,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
                   <td style="background-color: #fffbeb; border: 3px solid #d97706; padding: 24px; border-radius: 8px; text-align: center;">
                     <h2 style="margin: 0 0 12px; color: #b45309; font-size: 24px; font-weight: 700;">PRIORITY ATTENTION REQUIRED</h2>
                     <p style="margin: 0 0 8px; color: #92400e; font-size: 16px; font-weight: 600;">
-                      This is an urgent service request. Customer expects contact within ${SLA.service.urgent.time}.
+                      This is an urgent service request. Customer expects contact within ${config.sla.service.urgent.time}.
                     </p>
                     <p style="margin: 0; color: #78350f; font-size: 14px;">Submitted: ${formattedSubmitted}</p>
                   </td>
@@ -163,7 +165,7 @@ export function generateBusinessNotificationEmail(props: BusinessNotificationEma
                       <tr>
                         <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; font-weight: 600;">Priority:</td>
                         <td style="padding: 8px 0;">
-                          <span style="${getUrgencyBadgeStyle(urgency)}">
+                          <span style="${getUrgencyBadgeStyleFromConfig(urgency, config)}">
                             ${urgency.toUpperCase()}
                           </span>
                         </td>

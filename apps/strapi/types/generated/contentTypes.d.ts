@@ -726,11 +726,13 @@ export interface ApiEmailSettingEmailSetting extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     quotationFromEmail: Schema.Attribute.Email;
     replyToEmail: Schema.Attribute.Email;
+    slaJson: Schema.Attribute.Text;
     slaResponseHours: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<24>;
     slaUrgentHours: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<4>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    urgencyColorsJson: Schema.Attribute.Text;
   };
 }
 

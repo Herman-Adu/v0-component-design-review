@@ -18,6 +18,8 @@ export const EmailSettingsDocumentSchema = z.object({
   slaUrgentHours: z.number().int().positive().default(4),
   footerDisclaimer: z.string().optional().nullable(),
   emailSignatureTemplate: z.string().optional().nullable(),
+  urgencyColorsJson: z.string().optional().nullable(),
+  slaJson: z.string().optional().nullable(),
 });
 
 export type EmailSettingsDocument = z.infer<typeof EmailSettingsDocumentSchema>;

@@ -39,6 +39,7 @@ function loadCompanySettingsFromJson(): CompanySettingsDocument | null {
 export async function loadCompanySettings(): Promise<CompanySettingsDocument | null> {
   if (!STRAPI_URL) return loadCompanySettingsFromJson();
 
+  if (process.env.NODE_ENV === "development") cached = undefined;
   if (cached !== undefined) return cached;
 
   try {
