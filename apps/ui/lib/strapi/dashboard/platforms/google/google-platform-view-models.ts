@@ -26,7 +26,7 @@ export interface GoogleToolVM {
 }
 
 export interface GooglePlatformVM {
-  header: { iconName: string; title: string; description: string };
+  header: { iconName: string; title: string; description: string } | null;
   introTitle: string;
   introText: string;
   ecosystemPhases: GoogleEcosystemPhaseVM[];
@@ -35,7 +35,7 @@ export interface GooglePlatformVM {
 
 export function toGooglePlatformVM(doc: GooglePlatformDocument): GooglePlatformVM {
   return {
-    header: { iconName: doc.header.icon, title: doc.header.title, description: doc.header.description },
+    header: doc.header ? { iconName: doc.header.icon, title: doc.header.title, description: doc.header.description } : null,
     introTitle: doc.introTitle ?? "Google Ecosystem",
     introText: doc.introText ?? "",
     ecosystemPhases: doc.ecosystemPhases.map((p) => ({

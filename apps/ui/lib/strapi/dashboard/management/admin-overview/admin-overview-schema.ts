@@ -72,7 +72,7 @@ const CtaBlockSchema = z.object({
 
 export const AdminOverviewDocumentSchema = z.object({
   section: z.literal("admin"),
-  header: SectionHeaderSchema,
+  header: SectionHeaderSchema.nullish(),
   notice: NoticeBlockSchema.optional().nullable(),
   quickStats: z.array(QuickStatSchema).default([]),
   toolSections: z.array(ToolSectionSchema).default([]),

@@ -50,7 +50,7 @@ const QuickLinkSchema = z.object({
 
 export const EmailManagementDocumentSchema = z.object({
   section: z.literal("email-management"),
-  header: SectionHeaderSchema,
+  header: SectionHeaderSchema.nullish(),
   pageSections: z.array(PageSectionSchema).default([]),
   highlights: z.array(HighlightItemSchema).default([]),
   quickLinks: z.array(QuickLinkSchema).default([]),

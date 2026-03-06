@@ -38,7 +38,7 @@ const ToolItemSchema = z.object({
 
 export const GooglePlatformDocumentSchema = z.object({
   platform: z.literal("google"),
-  header: SectionHeaderSchema,
+  header: SectionHeaderSchema.nullish(),
   introTitle: z.string().optional(),
   introText: z.string().optional(),
   ecosystemPhases: z.array(EcosystemPhaseSchema).default([]),

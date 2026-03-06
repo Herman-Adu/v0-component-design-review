@@ -46,9 +46,9 @@ export interface DocumentHealthVM {
 export function toDocumentHealthVM(doc: DocumentHealthDocument): DocumentHealthVM {
   return {
     header: {
-      iconName: doc.header.icon,
-      title: doc.header.title,
-      description: doc.header.description,
+      iconName: doc.header?.icon ?? "",
+      title: doc.header?.title ?? "",
+      description: doc.header?.description ?? "",
     },
     pageSections: doc.pageSections.map((s) => ({
       id: s.sectionId,

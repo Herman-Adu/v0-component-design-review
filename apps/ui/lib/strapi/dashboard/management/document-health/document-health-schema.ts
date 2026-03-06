@@ -50,7 +50,7 @@ const QuickLinkSchema = z.object({
 
 export const DocumentHealthDocumentSchema = z.object({
   section: z.literal("document-health"),
-  header: SectionHeaderSchema,
+  header: SectionHeaderSchema.nullish(),
   pageSections: z.array(PageSectionSchema).default([]),
   highlights: z.array(HighlightItemSchema).default([]),
   quickLinks: z.array(QuickLinkSchema).default([]),

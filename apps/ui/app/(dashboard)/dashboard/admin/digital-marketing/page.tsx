@@ -49,7 +49,8 @@ function buildFallbackVM(): DigitalMarketingVM {
 
 export default async function DigitalMarketingOverviewPage() {
   const vm = (await getDigitalMarketing()) ?? buildFallbackVM();
-  const { header, notice, quickStats, quickLinks, platforms } = vm;
+  const { notice, quickStats, quickLinks, platforms } = vm;
+  const header = vm.header ?? { iconName: "BarChart3", title: "Digital Marketing", description: "" };
 
   const HeaderIcon = resolveIcon(header.iconName);
 

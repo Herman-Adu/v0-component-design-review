@@ -49,7 +49,7 @@ export interface DigitalMarketingNoticeVM {
 }
 
 export interface DigitalMarketingVM {
-  header: { iconName: string; title: string; description: string };
+  header: { iconName: string; title: string; description: string } | null;
   notice: DigitalMarketingNoticeVM | null;
   quickStats: DigitalMarketingStatVM[];
   quickLinks: DigitalMarketingQuickLinkVM[];
@@ -58,7 +58,7 @@ export interface DigitalMarketingVM {
 
 export function toDigitalMarketingVM(doc: DigitalMarketingDocument): DigitalMarketingVM {
   return {
-    header: { iconName: doc.header.icon, title: doc.header.title, description: doc.header.description },
+    header: doc.header ? { iconName: doc.header.icon, title: doc.header.title, description: doc.header.description } : null,
     notice: doc.notice
       ? { type: doc.notice.noticeType, title: doc.notice.title, description: doc.notice.description }
       : null,

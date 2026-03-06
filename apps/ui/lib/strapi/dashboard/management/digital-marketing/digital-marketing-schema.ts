@@ -62,7 +62,7 @@ const PlatformCardSchema = z.object({
 
 export const DigitalMarketingDocumentSchema = z.object({
   section: z.literal("digital-marketing"),
-  header: SectionHeaderSchema,
+  header: SectionHeaderSchema.nullish(),
   notice: NoticeBlockSchema.optional().nullable(),
   quickStats: z.array(QuickStatSchema).default([]),
   quickLinks: z.array(QuickLinkSchema).default([]),
