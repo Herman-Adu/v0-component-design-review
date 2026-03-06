@@ -14,6 +14,7 @@ import {
 import Link from "next/link"
 import type { SchedulerConfigVM } from "@/lib/strapi/global/email-config/scheduler-config/scheduler-config-view-models"
 import type { ScheduledEmailVM, QueueStatsVM, EmailQueueStatus } from "@/lib/strapi/global/email-config/scheduled-email/scheduled-email-view-models"
+import type { EmailTemplateVM } from "@/lib/strapi/global/email-config/email-template/email-template-view-models"
 import { saveSchedulerConfig } from "@/lib/strapi/global/email-config/scheduler-config/scheduler-config-actions"
 import {
   cancelScheduledEmail,
@@ -38,19 +39,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   quotation: "Quotation Request",
 }
 
-const TEMPLATE_KEY_LABELS: Record<string, string> = {
-  serviceCustomer: "Service Customer",
-  serviceStaff: "Service Staff",
-  contactCustomer: "Contact Customer",
-  contactBusiness: "Contact Business",
-  quotationCustomer: "Quotation Customer",
-  quotationBusiness: "Quotation Business",
-}
-
-function templateKeyToLabel(key: string): string {
-  return TEMPLATE_KEY_LABELS[key] ?? key
-}
-
 // ---------------------------------------------------------------------------
 // Props
 // ---------------------------------------------------------------------------
@@ -58,18 +46,25 @@ interface Props {
   initialConfig: SchedulerConfigVM | null
   initialEmails: ScheduledEmailVM[]
   initialStats: QueueStatsVM
+  emailTemplates: EmailTemplateVM[]
 }
 
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
-export function EmailSchedulingClient({ initialConfig, initialEmails, initialStats }: Props) {
+export function EmailSchedulingClient({ initialConfig, initialEmails, initialStats, emailTemplates }: Props) {
   const router = useRouter()
   const [config, setConfig] = useState(initialConfig)
   const [emails, setEmails] = useState(initialEmails)
   const [stats, setStats] = useState(initialStats)
   const [statusFilter, setStatusFilter] = useState<EmailQueueStatus | "all">("all")
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+
+  // Build templateKey → label map from repository data (replaces hardcoded TEMPLATE_KEY_LABELS)
+  const templateKeyMap = useMemo(
+    () => new Map(emailTemplates.map((t) => [t.templateKey, t.templateLabel])),
+    [emailTemplates],
+  )
 
   // Sync when RSC delivers fresh props after router.refresh()
   useEffect(() => { setConfig(initialConfig) }, [initialConfig])
@@ -438,7 +433,7 @@ export function EmailSchedulingClient({ initialConfig, initialEmails, initialSta
                         </Badge>
                       </div>
                       <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span>{templateKeyToLabel(email.templateKey)}</span>
+                        <span>{templateKeyMap.get(email.templateKey) ?? email.templateKey}</span>
                         <span className="opacity-50">|</span>
                         <span>{email.to}</span>
                         <span className="opacity-50">|</span>

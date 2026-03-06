@@ -789,6 +789,50 @@ export interface ApiEmailSettingEmailSetting extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiEmailTemplateEmailTemplate
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'email_templates';
+  info: {
+    description: 'Canonical registry of email templates \u2014 each entry is the SSOT for a templateKey used across AB variants, recipient groups, and scheduled emails';
+    displayName: 'Email Template';
+    pluralName: 'email-templates';
+    singularName: 'email-template';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['service', 'contact', 'quotation']
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    fromEmail: Schema.Attribute.Email;
+    fromName: Schema.Attribute.String;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::email-template.email-template'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    recipientType: Schema.Attribute.Enumeration<['customer', 'business']> &
+      Schema.Attribute.Required;
+    replyTo: Schema.Attribute.Email;
+    templateKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    templateLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGuideGuide extends Struct.CollectionTypeSchema {
   collectionName: 'guides';
   info: {
@@ -1755,6 +1799,7 @@ declare module '@strapi/strapi' {
       'api::cms-reference.cms-reference': ApiCmsReferenceCmsReference;
       'api::company-setting.company-setting': ApiCompanySettingCompanySetting;
       'api::email-setting.email-setting': ApiEmailSettingEmailSetting;
+      'api::email-template.email-template': ApiEmailTemplateEmailTemplate;
       'api::guide.guide': ApiGuideGuide;
       'api::infrastructure-ops.infrastructure-ops': ApiInfrastructureOpsInfrastructureOps;
       'api::management-page.management-page': ApiManagementPageManagementPage;

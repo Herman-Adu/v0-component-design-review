@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import type { TemplateSubjectsVM, ABSubjectVariantVM } from "@/lib/strapi/global/email-config/ab-subject-variant/ab-subject-variant-view-models"
+import type { EmailTemplateVM } from "@/lib/strapi/global/email-config/email-template/email-template-view-models"
 import {
   createABVariant,
   updateABVariant,
@@ -28,16 +29,6 @@ const CAT_COLORS: Record<string, string> = {
   service: "bg-blue-500/20 text-blue-400",
   contact: "bg-green-500/20 text-green-400",
   quotation: "bg-purple-500/20 text-purple-400",
-}
-
-function deriveCategory(key: string): "service" | "contact" | "quotation" {
-  if (key.startsWith("service")) return "service"
-  if (key.startsWith("contact")) return "contact"
-  return "quotation"
-}
-
-function deriveRecipientType(key: string): "customer" | "staff" {
-  return key.toLowerCase().endsWith("customer") ? "customer" : "staff"
 }
 
 function resolveSubjectLocal(
@@ -62,12 +53,17 @@ function resolveSubjectLocal(
 // ---------------------------------------------------------------------------
 interface Props {
   initialTemplates: TemplateSubjectsVM[]
+  emailTemplates: EmailTemplateVM[]
 }
 
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
-export function ABSubjectLinesClient({ initialTemplates }: Props) {
+export function ABSubjectLinesClient({ initialTemplates, emailTemplates }: Props) {
+  const templateMap = useMemo(
+    () => new Map(emailTemplates.map((t) => [t.templateKey, t])),
+    [emailTemplates],
+  )
   const router = useRouter()
   const [templates, setTemplates] = useState(initialTemplates)
   const [expandedKey, setExpandedKey] = useState<string | null>(null)
@@ -193,8 +189,9 @@ export function ABSubjectLinesClient({ initialTemplates }: Props) {
         <div className="space-y-4">
           {templates.map((tmpl) => {
             const isExpanded = expandedKey === tmpl.templateKey
-            const category = deriveCategory(tmpl.templateKey)
-            const recipientType = deriveRecipientType(tmpl.templateKey)
+            const etMeta = templateMap.get(tmpl.templateKey)
+            const category = etMeta?.category ?? (tmpl.templateKey.startsWith("service") ? "service" : tmpl.templateKey.startsWith("contact") ? "contact" : "quotation")
+            const recipientType = etMeta?.recipientType ?? (tmpl.templateKey.toLowerCase().endsWith("customer") ? "customer" : "business")
             const totalWeight = tmpl.variants.reduce((sum, v) => sum + v.weight, 0)
             const totalSends = tmpl.variants.reduce((sum, v) => sum + v.sends, 0)
 

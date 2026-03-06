@@ -3,6 +3,7 @@ import {
   Briefcase,
   ClipboardCheck,
   Eye,
+  FileText,
   HardDrive,
   History,
   Inbox,
@@ -29,6 +30,7 @@ export const emailAdminRequestManagement: NavItem[] = [
 export const emailAdminConfiguration: NavItem[] = [
   { href: `${EA}/configuration`, label: "Overview", icon: Mail },
   { href: `${EA}/configuration/template-and-brand`, label: "Template & Brand", icon: Palette },
+  { href: `${EA}/configuration/email-templates`, label: "Email Templates", icon: FileText },
   { href: `${EA}/configuration/email-preview`, label: "Email Preview", icon: Eye },
   { href: `${EA}/configuration/ab-subject-lines`, label: "A/B Subject Lines", icon: Split },
   { href: `${EA}/configuration/recipient-groups`, label: "Recipient Groups", icon: UsersRound },
