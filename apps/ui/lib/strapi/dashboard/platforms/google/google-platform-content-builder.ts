@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { GooglePlatformDocumentSchema, type GooglePlatformDocument } from "./google-platform-schema";
@@ -19,8 +20,6 @@ const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 const ENDPOINT =
   "/api/platform-pages?filters[platform][$eq]=google&populate[header]=true&populate[ecosystemPhases]=true&populate[tools]=true";
 
-let cached: GooglePlatformDocument | null | undefined;
-
 function loadFromJson(): GooglePlatformDocument | null {
   try {
     const filePath = join(process.cwd(), "data", "strapi-mock", "dashboard", "admin", "admin", "google.json");
@@ -36,45 +35,39 @@ function loadFromJson(): GooglePlatformDocument | null {
   }
 }
 
-export async function loadGooglePlatform(): Promise<GooglePlatformDocument | null> {
-  if (!STRAPI_URL) return loadFromJson();
+export const loadGooglePlatform = cache(
+  async (): Promise<GooglePlatformDocument | null> => {
+    if (!STRAPI_URL) return loadFromJson();
 
-  if (process.env.NODE_ENV === "development") cached = undefined;
-  if (cached !== undefined) return cached;
+    try {
+      const res = await fetch(`${STRAPI_URL}${ENDPOINT}`, {
+        headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
+        next: { revalidate: 3600, tags: ["platform-page", "google-platform"] },
+      });
 
-  try {
-    const res = await fetch(`${STRAPI_URL}${ENDPOINT}`, {
-      headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
-      next: { revalidate: 3600, tags: ["platform-page", "google-platform"] },
-    });
+      if (!res.ok) {
+        console.error(`[google-platform-builder] Strapi ${res.status}: ${await res.text()}`);
+        return loadFromJson();
+      }
 
-    if (!res.ok) {
-      console.error(`[google-platform-builder] Strapi ${res.status}: ${await res.text()}`);
-      cached = null;
-      return null;
+      const json = (await res.json()) as { data: unknown[] };
+      const raw = json.data?.[0];
+
+      if (!raw) {
+        console.warn("[google-platform-builder] No google platform-page found in Strapi");
+        return loadFromJson();
+      }
+
+      const parsed = GooglePlatformDocumentSchema.safeParse(raw);
+      if (!parsed.success) {
+        console.error("[google-platform-builder] Validation failed:", parsed.error.flatten());
+        return loadFromJson();
+      }
+
+      return parsed.data;
+    } catch (err) {
+      console.error("[google-platform-builder] Fetch error:", err);
+      return loadFromJson();
     }
-
-    const json = await res.json();
-    const raw = json.data?.[0];
-
-    if (!raw) {
-      console.warn("[google-platform-builder] No google platform-page found in Strapi");
-      cached = null;
-      return null;
-    }
-
-    const parsed = GooglePlatformDocumentSchema.safeParse(raw);
-    if (!parsed.success) {
-      console.error("[google-platform-builder] Validation failed:", parsed.error.flatten());
-      cached = null;
-      return null;
-    }
-
-    cached = parsed.data;
-    return cached;
-  } catch (err) {
-    console.error("[google-platform-builder] Fetch error:", err);
-    cached = null;
-    return null;
-  }
-}
+  },
+);
