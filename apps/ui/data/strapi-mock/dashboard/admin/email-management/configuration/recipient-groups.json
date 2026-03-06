@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "documentId": "rg-001",
+    "name": "Emergency Response Team",
+    "description": "Receives all emergency and urgent service requests for immediate dispatch",
+    "templateTypes": ["service"],
+    "urgencyFilter": "urgent-and-emergency",
+    "isActive": true,
+    "members": [
+      { "id": 1, "name": "James Mitchell", "email": "james@electricalservices.com", "role": "Lead Electrician", "isActive": true },
+      { "id": 2, "name": "Sarah Thompson", "email": "sarah@electricalservices.com", "role": "Emergency Coordinator", "isActive": true },
+      { "id": 3, "name": "David Chen", "email": "david@electricalservices.com", "role": "Senior Technician", "isActive": true }
+    ]
+  },
+  {
+    "id": 2,
+    "documentId": "rg-002",
+    "name": "Quotation Team",
+    "description": "Handles all incoming quotation requests and prepares estimates",
+    "templateTypes": ["quotation"],
+    "urgencyFilter": "all",
+    "isActive": true,
+    "members": [
+      { "id": 4, "name": "Emma Williams", "email": "emma@electricalservices.com", "role": "Estimator", "isActive": true },
+      { "id": 5, "name": "Michael Brown", "email": "michael@electricalservices.com", "role": "Senior Estimator", "isActive": true }
+    ]
+  },
+  {
+    "id": 3,
+    "documentId": "rg-003",
+    "name": "Customer Relations",
+    "description": "Receives all contact form inquiries and general customer communications",
+    "templateTypes": ["contact"],
+    "urgencyFilter": "all",
+    "isActive": true,
+    "members": [
+      { "id": 6, "name": "Lisa Park", "email": "lisa@electricalservices.com", "role": "Customer Relations Manager", "isActive": true },
+      { "id": 7, "name": "Tom Wilson", "email": "tom@electricalservices.com", "role": "Support Agent", "isActive": true }
+    ]
+  },
+  {
+    "id": 4,
+    "documentId": "rg-004",
+    "name": "Management Oversight",
+    "description": "Business owners receive copies of all notifications for oversight",
+    "templateTypes": ["service", "contact", "quotation"],
+    "urgencyFilter": "all",
+    "isActive": true,
+    "members": [
+      { "id": 8, "name": "Robert Taylor", "email": "robert@electricalservices.com", "role": "Managing Director", "isActive": true }
+    ]
+  }
+]
