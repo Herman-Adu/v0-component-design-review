@@ -38,7 +38,8 @@ function buildFallbackVM(): GooglePlatformVM {
 
 export default async function GoogleOverviewPage() {
   const vm = (await getGooglePlatform()) ?? buildFallbackVM();
-  const { header, introTitle, introText, ecosystemPhases, tools } = vm;
+  const { introTitle, introText, ecosystemPhases, tools } = vm;
+  const header = vm.header ?? { iconName: "Search", title: "Google Marketing", description: "" };
 
   const HeaderIcon = resolveIcon(header.iconName);
 

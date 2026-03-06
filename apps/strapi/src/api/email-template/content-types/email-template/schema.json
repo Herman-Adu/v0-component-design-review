@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "email_templates",
+  "info": {
+    "singularName": "email-template",
+    "pluralName": "email-templates",
+    "displayName": "Email Template",
+    "description": "Canonical registry of email templates — each entry is the SSOT for a templateKey used across AB variants, recipient groups, and scheduled emails"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "templateKey": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "templateLabel": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["service", "contact", "quotation"],
+      "required": true
+    },
+    "recipientType": {
+      "type": "enumeration",
+      "enum": ["customer", "business"],
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "fromName": {
+      "type": "string"
+    },
+    "fromEmail": {
+      "type": "email"
+    },
+    "replyTo": {
+      "type": "email"
+    }
+  }
+}

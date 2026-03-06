@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "documentId": "et-001",
+    "templateKey": "serviceCustomer",
+    "templateLabel": "Service Customer Confirmation",
+    "category": "service",
+    "recipientType": "customer",
+    "description": "Sent to the customer immediately after a service request is submitted. Confirms receipt and provides a reference ID.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  },
+  {
+    "id": 2,
+    "documentId": "et-002",
+    "templateKey": "serviceBusiness",
+    "templateLabel": "Service Business Notification",
+    "category": "service",
+    "recipientType": "business",
+    "description": "Sent to the internal team when a new service request arrives. Includes full form data and urgency classification.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  },
+  {
+    "id": 3,
+    "documentId": "et-003",
+    "templateKey": "contactCustomer",
+    "templateLabel": "Contact Customer Confirmation",
+    "category": "contact",
+    "recipientType": "customer",
+    "description": "Sent to the customer after a contact form submission. Acknowledges the inquiry and sets expectations for response time.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  },
+  {
+    "id": 4,
+    "documentId": "et-004",
+    "templateKey": "contactBusiness",
+    "templateLabel": "Contact Business Notification",
+    "category": "contact",
+    "recipientType": "business",
+    "description": "Sent to the internal team when a contact form is submitted. Routes to the customer relations group.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  },
+  {
+    "id": 5,
+    "documentId": "et-005",
+    "templateKey": "quotationCustomer",
+    "templateLabel": "Quotation Customer Confirmation",
+    "category": "quotation",
+    "recipientType": "customer",
+    "description": "Sent to the customer after a quotation request. Confirms receipt and advises on expected turnaround.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  },
+  {
+    "id": 6,
+    "documentId": "et-006",
+    "templateKey": "quotationBusiness",
+    "templateLabel": "Quotation Business Notification",
+    "category": "quotation",
+    "recipientType": "business",
+    "description": "Sent to the estimations team when a quotation request is received. Triggers the preparation workflow.",
+    "isActive": true,
+    "fromName": null,
+    "fromEmail": null,
+    "replyTo": null
+  }
+]

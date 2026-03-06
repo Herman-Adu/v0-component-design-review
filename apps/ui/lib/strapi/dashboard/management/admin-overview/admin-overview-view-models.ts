@@ -102,9 +102,9 @@ export function toAdminOverviewVM(
 
   return {
     header: {
-      iconName: doc.header.icon,
-      title: doc.header.title,
-      description: doc.header.description,
+      iconName: doc.header?.icon ?? "",
+      title: doc.header?.title ?? "",
+      description: doc.header?.description ?? "",
     },
     notice: doc.notice
       ? {
