@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_admin_highlight_items",
+  "info": {
+    "displayName": "Highlight Item",
+    "description": "A key capability or highlight item for management overview pages"
+  },
+  "options": {},
+  "attributes": {
+    "itemId": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_admin_email_staffs",
+  "info": {
+    "displayName": "Email Staff",
+    "icon": "user",
+    "description": "Staff member who receives email notifications for a recipient group"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

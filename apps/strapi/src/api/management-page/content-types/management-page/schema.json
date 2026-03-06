@@ -21,25 +21,25 @@
     "header": {
       "type": "component",
       "repeatable": false,
-      "component": "management.section-header",
+      "component": "admin.section-header",
       "required": true
     },
     "notice": {
       "type": "component",
       "repeatable": false,
-      "component": "management.notice-block",
+      "component": "admin.notice-block",
       "required": false
     },
     "quickStats": {
       "type": "component",
       "repeatable": true,
-      "component": "management.quick-stat",
+      "component": "admin.quick-stat",
       "required": false
     },
     "toolSections": {
       "type": "component",
       "repeatable": true,
-      "component": "management.tool-section",
+      "component": "admin.tool-section",
       "required": false
     },
     "upcomingTitle": {
@@ -53,37 +53,37 @@
     "upcomingFeatures": {
       "type": "component",
       "repeatable": true,
-      "component": "management.upcoming-feature",
+      "component": "admin.upcoming-feature",
       "required": false
     },
     "cta": {
       "type": "component",
       "repeatable": false,
-      "component": "management.cta-block",
+      "component": "admin.cta-block",
       "required": false
     },
     "pageSections": {
       "type": "component",
       "repeatable": true,
-      "component": "management.page-section",
+      "component": "admin.page-section",
       "required": false
     },
     "highlights": {
       "type": "component",
       "repeatable": true,
-      "component": "management.highlight-item",
+      "component": "admin.highlight-item",
       "required": false
     },
     "quickLinks": {
       "type": "component",
       "repeatable": true,
-      "component": "management.quick-link",
+      "component": "admin.quick-link",
       "required": false
     },
     "platforms": {
       "type": "component",
       "repeatable": true,
-      "component": "management.platform-card",
+      "component": "admin.platform-card",
       "required": false
     }
   }

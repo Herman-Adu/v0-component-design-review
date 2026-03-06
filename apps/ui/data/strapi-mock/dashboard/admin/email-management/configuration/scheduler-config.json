@@ -1,0 +1,8 @@
+{
+  "isEnabled": true,
+  "batchSize": 10,
+  "batchIntervalMinutes": 15,
+  "timezone": "Europe/London",
+  "immediateCategories": ["service"],
+  "businessHoursJson": "[{\"dayOfWeek\":0,\"dayName\":\"Sunday\",\"startHour\":0,\"endHour\":0,\"isEnabled\":false},{\"dayOfWeek\":1,\"dayName\":\"Monday\",\"startHour\":8,\"endHour\":18,\"isEnabled\":true},{\"dayOfWeek\":2,\"dayName\":\"Tuesday\",\"startHour\":8,\"endHour\":18,\"isEnabled\":true},{\"dayOfWeek\":3,\"dayName\":\"Wednesday\",\"startHour\":8,\"endHour\":18,\"isEnabled\":true},{\"dayOfWeek\":4,\"dayName\":\"Thursday\",\"startHour\":8,\"endHour\":18,\"isEnabled\":true},{\"dayOfWeek\":5,\"dayName\":\"Friday\",\"startHour\":8,\"endHour\":17,\"isEnabled\":true},{\"dayOfWeek\":6,\"dayName\":\"Saturday\",\"startHour\":9,\"endHour\":13,\"isEnabled\":true}]"
+}

@@ -430,6 +430,59 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAbSubjectVariantAbSubjectVariant
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ab_subject_variants';
+  info: {
+    description: 'Subject line variant for A/B testing on email templates';
+    displayName: 'A/B Subject Variant';
+    pluralName: 'ab-subject-variants';
+    singularName: 'ab-subject-variant';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    abEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ab-subject-variant.ab-subject-variant'
+    > &
+      Schema.Attribute.Private;
+    pattern: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    sends: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    templateKey: Schema.Attribute.String & Schema.Attribute.Required;
+    templateLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    weight: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<50>;
+  };
+}
+
 export interface ApiAppReferenceAppReference
   extends Struct.CollectionTypeSchema {
   collectionName: 'app_references';
@@ -863,31 +916,31 @@ export interface ApiManagementPageManagementPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    cta: Schema.Attribute.Component<'management.cta-block', false>;
-    header: Schema.Attribute.Component<'management.section-header', false> &
+    cta: Schema.Attribute.Component<'admin.cta-block', false>;
+    header: Schema.Attribute.Component<'admin.section-header', false> &
       Schema.Attribute.Required;
-    highlights: Schema.Attribute.Component<'management.highlight-item', true>;
+    highlights: Schema.Attribute.Component<'admin.highlight-item', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::management-page.management-page'
     > &
       Schema.Attribute.Private;
-    notice: Schema.Attribute.Component<'management.notice-block', false>;
-    pageSections: Schema.Attribute.Component<'management.page-section', true>;
-    platforms: Schema.Attribute.Component<'management.platform-card', true>;
+    notice: Schema.Attribute.Component<'admin.notice-block', false>;
+    pageSections: Schema.Attribute.Component<'admin.page-section', true>;
+    platforms: Schema.Attribute.Component<'admin.platform-card', true>;
     publishedAt: Schema.Attribute.DateTime;
-    quickLinks: Schema.Attribute.Component<'management.quick-link', true>;
-    quickStats: Schema.Attribute.Component<'management.quick-stat', true>;
+    quickLinks: Schema.Attribute.Component<'admin.quick-link', true>;
+    quickStats: Schema.Attribute.Component<'admin.quick-stat', true>;
     section: Schema.Attribute.Enumeration<
       ['admin', 'document-health', 'email-management', 'digital-marketing']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    toolSections: Schema.Attribute.Component<'management.tool-section', true>;
+    toolSections: Schema.Attribute.Component<'admin.tool-section', true>;
     upcomingDescription: Schema.Attribute.Text;
     upcomingFeatures: Schema.Attribute.Component<
-      'management.upcoming-feature',
+      'admin.upcoming-feature',
       true
     >;
     upcomingTitle: Schema.Attribute.String;
@@ -913,11 +966,8 @@ export interface ApiPlatformPagePlatformPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    ecosystemPhases: Schema.Attribute.Component<
-      'management.ecosystem-phase',
-      true
-    >;
-    header: Schema.Attribute.Component<'management.section-header', false> &
+    ecosystemPhases: Schema.Attribute.Component<'admin.ecosystem-phase', true>;
+    header: Schema.Attribute.Component<'admin.section-header', false> &
       Schema.Attribute.Required;
     introText: Schema.Attribute.Text;
     introTitle: Schema.Attribute.String;
@@ -933,7 +983,140 @@ export interface ApiPlatformPagePlatformPage
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
-    tools: Schema.Attribute.Component<'management.tool-item', true>;
+    tools: Schema.Attribute.Component<'admin.tool-item', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRecipientGroupRecipientGroup
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'recipient_groups';
+  info: {
+    description: 'Named group of staff who receive email notifications for specific template types and urgency levels';
+    displayName: 'Recipient Group';
+    pluralName: 'recipient-groups';
+    singularName: 'recipient-group';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::recipient-group.recipient-group'
+    > &
+      Schema.Attribute.Private;
+    members: Schema.Attribute.Component<'admin.email-staff', true>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    templateTypes: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    urgencyFilter: Schema.Attribute.Enumeration<
+      ['all', 'emergency-only', 'urgent-and-emergency', 'routine-only']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'all'>;
+  };
+}
+
+export interface ApiScheduledEmailScheduledEmail
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'scheduled_emails';
+  info: {
+    description: 'Persistent email queue \u2014 entries are created at send-time and processed by the Vercel Cron batch job';
+    displayName: 'Scheduled Email';
+    pluralName: 'scheduled-emails';
+    singularName: 'scheduled-email';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    error: Schema.Attribute.Text;
+    htmlContent: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::scheduled-email.scheduled-email'
+    > &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
+    processedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    scheduledFor: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['queued', 'scheduled', 'sent', 'failed', 'cancelled']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'queued'>;
+    subject: Schema.Attribute.String & Schema.Attribute.Required;
+    templateKey: Schema.Attribute.String & Schema.Attribute.Required;
+    to: Schema.Attribute.Email & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSchedulerConfigSchedulerConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: 'scheduler_configs';
+  info: {
+    description: 'Global email scheduler configuration \u2014 batch size, business hours, and immediate-send categories';
+    displayName: 'Scheduler Config';
+    pluralName: 'scheduler-configs';
+    singularName: 'scheduler-config';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    batchIntervalMinutes: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 120;
+          min: 5;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<15>;
+    batchSize: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 50;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<10>;
+    businessHoursJson: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    immediateCategories: Schema.Attribute.JSON;
+    isEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::scheduler-config.scheduler-config'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    timezone: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Europe/London'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1565,6 +1748,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ab-subject-variant.ab-subject-variant': ApiAbSubjectVariantAbSubjectVariant;
       'api::app-reference.app-reference': ApiAppReferenceAppReference;
       'api::article.article': ApiArticleArticle;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
@@ -1575,6 +1759,9 @@ declare module '@strapi/strapi' {
       'api::infrastructure-ops.infrastructure-ops': ApiInfrastructureOpsInfrastructureOps;
       'api::management-page.management-page': ApiManagementPageManagementPage;
       'api::platform-page.platform-page': ApiPlatformPagePlatformPage;
+      'api::recipient-group.recipient-group': ApiRecipientGroupRecipientGroup;
+      'api::scheduled-email.scheduled-email': ApiScheduledEmailScheduledEmail;
+      'api::scheduler-config.scheduler-config': ApiSchedulerConfigSchedulerConfig;
       'api::strategic-overview.strategic-overview': ApiStrategicOverviewStrategicOverview;
       'api::tutorial.tutorial': ApiTutorialTutorial;
       'plugin::content-releases.release': PluginContentReleasesRelease;

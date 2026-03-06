@@ -1,26 +1,7 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface AtomParagraph extends Struct.ComponentSchema {
-  collectionName: 'components_atom_paragraphs';
-  info: {
-    description: 'Atom: paragraph block with text content';
-    displayName: 'Paragraph';
-  };
-  attributes: {
-    atomicLevel: Schema.Attribute.Enumeration<
-      ['atom', 'molecule', 'organism']
-    > &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'atom'>;
-    blockType: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'atom.paragraph'>;
-    props: Schema.Attribute.JSON & Schema.Attribute.Required;
-  };
-}
-
-export interface ManagementCtaBlock extends Struct.ComponentSchema {
-  collectionName: 'components_management_cta_blocks';
+export interface AdminCtaBlock extends Struct.ComponentSchema {
+  collectionName: 'components_admin_cta_blocks';
   info: {
     description: 'Call-to-action card with a single navigation link';
     displayName: 'CTA Block';
@@ -35,8 +16,8 @@ export interface ManagementCtaBlock extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementEcosystemPhase extends Struct.ComponentSchema {
-  collectionName: 'components_management_ecosystem_phases';
+export interface AdminEcosystemPhase extends Struct.ComponentSchema {
+  collectionName: 'components_admin_ecosystem_phases';
   info: {
     description: 'A marketing funnel phase (Attract / Convert / Measure)';
     displayName: 'Ecosystem Phase';
@@ -48,8 +29,23 @@ export interface ManagementEcosystemPhase extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementHighlightItem extends Struct.ComponentSchema {
-  collectionName: 'components_management_highlight_items';
+export interface AdminEmailStaff extends Struct.ComponentSchema {
+  collectionName: 'components_admin_email_staffs';
+  info: {
+    description: 'Staff member who receives email notifications for a recipient group';
+    displayName: 'Email Staff';
+    icon: 'user';
+  };
+  attributes: {
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface AdminHighlightItem extends Struct.ComponentSchema {
+  collectionName: 'components_admin_highlight_items';
   info: {
     description: 'A key capability or highlight item for management overview pages';
     displayName: 'Highlight Item';
@@ -62,8 +58,8 @@ export interface ManagementHighlightItem extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementNoticeBlock extends Struct.ComponentSchema {
-  collectionName: 'components_management_notice_blocks';
+export interface AdminNoticeBlock extends Struct.ComponentSchema {
+  collectionName: 'components_admin_notice_blocks';
   info: {
     description: 'Callout-style notice: warning, info, success, error';
     displayName: 'Notice Block';
@@ -79,8 +75,8 @@ export interface ManagementNoticeBlock extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementPageSection extends Struct.ComponentSchema {
-  collectionName: 'components_management_page_sections';
+export interface AdminPageSection extends Struct.ComponentSchema {
+  collectionName: 'components_admin_page_sections';
   info: {
     description: 'A navigable section card for management overview pages';
     displayName: 'Page Section';
@@ -111,8 +107,8 @@ export interface ManagementPageSection extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementPlatformCard extends Struct.ComponentSchema {
-  collectionName: 'components_management_platform_cards';
+export interface AdminPlatformCard extends Struct.ComponentSchema {
+  collectionName: 'components_admin_platform_cards';
   info: {
     description: 'A marketing platform card (Google, LinkedIn, Twitter, Facebook)';
     displayName: 'Platform Card';
@@ -124,10 +120,7 @@ export interface ManagementPlatformCard extends Struct.ComponentSchema {
     href: Schema.Attribute.String & Schema.Attribute.Required;
     icon: Schema.Attribute.String & Schema.Attribute.Required;
     iconColor: Schema.Attribute.String;
-    pageItems: Schema.Attribute.Component<
-      'management.platform-page-item',
-      true
-    >;
+    pageItems: Schema.Attribute.Component<'admin.platform-page-item', true>;
     platformId: Schema.Attribute.String & Schema.Attribute.Required;
     status: Schema.Attribute.Enumeration<['Active', 'Coming Soon', 'Beta']> &
       Schema.Attribute.DefaultTo<'Coming Soon'>;
@@ -135,8 +128,8 @@ export interface ManagementPlatformCard extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementPlatformPageItem extends Struct.ComponentSchema {
-  collectionName: 'components_management_platform_page_items';
+export interface AdminPlatformPageItem extends Struct.ComponentSchema {
+  collectionName: 'components_admin_platform_page_items';
   info: {
     description: 'A page label inside a platform card';
     displayName: 'Platform Page Item';
@@ -147,8 +140,8 @@ export interface ManagementPlatformPageItem extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementQuickLink extends Struct.ComponentSchema {
-  collectionName: 'components_management_quick_links';
+export interface AdminQuickLink extends Struct.ComponentSchema {
+  collectionName: 'components_admin_quick_links';
   info: {
     description: 'A quick navigation link for management overview pages';
     displayName: 'Quick Link';
@@ -162,8 +155,8 @@ export interface ManagementQuickLink extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementQuickStat extends Struct.ComponentSchema {
-  collectionName: 'components_management_quick_stats';
+export interface AdminQuickStat extends Struct.ComponentSchema {
+  collectionName: 'components_admin_quick_stats';
   info: {
     description: "Dashboard stat card. Use source='content-library' for runtime-computed values.";
     displayName: 'Quick Stat';
@@ -177,8 +170,8 @@ export interface ManagementQuickStat extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementSectionHeader extends Struct.ComponentSchema {
-  collectionName: 'components_management_section_headers';
+export interface AdminSectionHeader extends Struct.ComponentSchema {
+  collectionName: 'components_admin_section_headers';
   info: {
     description: 'Page header: icon name (Lucide), title, description';
     displayName: 'Section Header';
@@ -194,8 +187,8 @@ export interface ManagementSectionHeader extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementToolItem extends Struct.ComponentSchema {
-  collectionName: 'components_management_tool_items';
+export interface AdminToolItem extends Struct.ComponentSchema {
+  collectionName: 'components_admin_tool_items';
   info: {
     description: 'Link card to a tool or feature page within an admin section';
     displayName: 'Tool Item';
@@ -212,8 +205,8 @@ export interface ManagementToolItem extends Struct.ComponentSchema {
   };
 }
 
-export interface ManagementToolSection extends Struct.ComponentSchema {
-  collectionName: 'components_management_tool_sections';
+export interface AdminToolSection extends Struct.ComponentSchema {
+  collectionName: 'components_admin_tool_sections';
   info: {
     description: 'Grouped set of tool link cards with a section header';
     displayName: 'Tool Section';
@@ -223,12 +216,12 @@ export interface ManagementToolSection extends Struct.ComponentSchema {
     icon: Schema.Attribute.String & Schema.Attribute.Required;
     sectionId: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    tools: Schema.Attribute.Component<'management.tool-item', true>;
+    tools: Schema.Attribute.Component<'admin.tool-item', true>;
   };
 }
 
-export interface ManagementUpcomingFeature extends Struct.ComponentSchema {
-  collectionName: 'components_management_upcoming_features';
+export interface AdminUpcomingFeature extends Struct.ComponentSchema {
+  collectionName: 'components_admin_upcoming_features';
   info: {
     description: 'Dimmed feature preview card shown in the upcoming features section';
     displayName: 'Upcoming Feature';
@@ -239,6 +232,25 @@ export interface ManagementUpcomingFeature extends Struct.ComponentSchema {
     icon: Schema.Attribute.String & Schema.Attribute.Required;
     status: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Coming Soon'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface AtomParagraph extends Struct.ComponentSchema {
+  collectionName: 'components_atom_paragraphs';
+  info: {
+    description: 'Atom: paragraph block with text content';
+    displayName: 'Paragraph';
+  };
+  attributes: {
+    atomicLevel: Schema.Attribute.Enumeration<
+      ['atom', 'molecule', 'organism']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'atom'>;
+    blockType: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'atom.paragraph'>;
+    props: Schema.Attribute.JSON & Schema.Attribute.Required;
   };
 }
 
@@ -684,20 +696,21 @@ export interface SharedTocItem extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'admin.cta-block': AdminCtaBlock;
+      'admin.ecosystem-phase': AdminEcosystemPhase;
+      'admin.email-staff': AdminEmailStaff;
+      'admin.highlight-item': AdminHighlightItem;
+      'admin.notice-block': AdminNoticeBlock;
+      'admin.page-section': AdminPageSection;
+      'admin.platform-card': AdminPlatformCard;
+      'admin.platform-page-item': AdminPlatformPageItem;
+      'admin.quick-link': AdminQuickLink;
+      'admin.quick-stat': AdminQuickStat;
+      'admin.section-header': AdminSectionHeader;
+      'admin.tool-item': AdminToolItem;
+      'admin.tool-section': AdminToolSection;
+      'admin.upcoming-feature': AdminUpcomingFeature;
       'atom.paragraph': AtomParagraph;
-      'management.cta-block': ManagementCtaBlock;
-      'management.ecosystem-phase': ManagementEcosystemPhase;
-      'management.highlight-item': ManagementHighlightItem;
-      'management.notice-block': ManagementNoticeBlock;
-      'management.page-section': ManagementPageSection;
-      'management.platform-card': ManagementPlatformCard;
-      'management.platform-page-item': ManagementPlatformPageItem;
-      'management.quick-link': ManagementQuickLink;
-      'management.quick-stat': ManagementQuickStat;
-      'management.section-header': ManagementSectionHeader;
-      'management.tool-item': ManagementToolItem;
-      'management.tool-section': ManagementToolSection;
-      'management.upcoming-feature': ManagementUpcomingFeature;
       'molecule.code-block': MoleculeCodeBlock;
       'molecule.info-box': MoleculeInfoBox;
       'molecule.key-takeaway': MoleculeKeyTakeaway;

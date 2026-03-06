@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_admin_platform_page_items",
+  "info": {
+    "displayName": "Platform Page Item",
+    "description": "A page label inside a platform card"
+  },
+  "options": {},
+  "attributes": {
+    "itemLabel": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

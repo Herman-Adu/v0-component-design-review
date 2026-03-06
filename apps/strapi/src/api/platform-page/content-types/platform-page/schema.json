@@ -21,7 +21,7 @@
     "header": {
       "type": "component",
       "repeatable": false,
-      "component": "management.section-header",
+      "component": "admin.section-header",
       "required": true
     },
     "introTitle": {
@@ -35,13 +35,13 @@
     "ecosystemPhases": {
       "type": "component",
       "repeatable": true,
-      "component": "management.ecosystem-phase",
+      "component": "admin.ecosystem-phase",
       "required": false
     },
     "tools": {
       "type": "component",
       "repeatable": true,
-      "component": "management.tool-item",
+      "component": "admin.tool-item",
       "required": false
     }
   }

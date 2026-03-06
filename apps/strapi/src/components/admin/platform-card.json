@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_admin_platform_cards",
+  "info": {
+    "displayName": "Platform Card",
+    "description": "A marketing platform card (Google, LinkedIn, Twitter, Facebook)"
+  },
+  "options": {},
+  "attributes": {
+    "platformId": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Active", "Coming Soon", "Beta"],
+      "default": "Coming Soon"
+    },
+    "badge": {
+      "type": "string"
+    },
+    "badgeColor": {
+      "type": "string"
+    },
+    "iconColor": {
+      "type": "string"
+    },
+    "pageItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "admin.platform-page-item"
+    }
+  }
+}
