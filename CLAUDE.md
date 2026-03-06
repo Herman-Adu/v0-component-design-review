@@ -55,7 +55,7 @@ All 8 content types import `BLOCK_TYPE_ALIASES` and `atomicLevelSchema` from:
 ### Shared Module (`lib/strapi/dashboard/_shared/`)
 
 | File | Purpose |
-|------|---------|
+|------|----------|
 | `block-schema.ts` | SSOT — block type aliases, atomicLevelSchema, discriminated blockSchema |
 | `base-view-model.ts` | Base interfaces: BaseDetailViewModel, BaseListItemViewModel + extensions |
 | `strapi-dto-transformer.ts` | Transformer SSOT — shared Strapi → domain mapping logic |
@@ -91,9 +91,10 @@ __tests__/
 
 ---
 
-## Current State — March 5, 2026
+## Current State — March 6, 2026
 
 **Branch:** `main` — clean, all work merged
+**Build:** 165/165 pages SSG ✅ | 148/148 tests ✅ | 0 TS errors ✅
 
 **Completed (all on main):**
 - All 8 content types — 6-layer architecture, atomic blocks, JSON + Strapi dual-source ✅
@@ -101,13 +102,14 @@ __tests__/
 - Global config — company-setting + email-setting Single Types, 6-layer in `lib/strapi/global/` ✅
 - Phase 5 — Email config admin self-service + ColorPicker + JSON mock fallbacks (PR #19) ✅
 - Sidebar nav — async RSC, manifest-driven, `data/content-library/` deleted (PR #20) ✅
-- Schema hardening — `.nullish()` across all 4 management schemas, `cache()` on all builders ✅
+- Schema hardening — `.nullish()` across all management schemas, `cache()` on all builders ✅
 - `nav-data.ts` modularised — 792 lines → 20-line barrel + `data/nav-data/` per-section files ✅
-- Build: **165/165 pages SSG** ✅ | **148/148 tests** ✅ | **0 TS errors** ✅
+- **PR #21** — Email config Strapi backing: 4 × 6-layer modules (ab-subject-variant, recipient-group, scheduler-config, scheduled-email); 3 pages wired RSC → client island; dead in-memory services deleted ✅
+- **PR #22** — email-template CT + 6-layer module + page + derive-map elimination + schema hardening ✅
 
-**Next up (discuss before starting):**
+**Next up (see `.claude/session-state.md` for sprint detail):**
+- `email-preview` page wiring — feature/email-preview-wiring
 - Facebook / LinkedIn / Twitter platform landing pages
-- `email-template`, `recipient-group`, `ab-subject-line` collection types
 - oRPC API layer (Phase 3)
 
 ---
@@ -148,7 +150,7 @@ pnpm lint                                         # ESLint
 ## Key Authority Documents
 
 | File | Purpose |
-|------|---------|
+|------|----------|
 | `STRAPI_DYNAMIC_ZONES_AUTHORITY.md` | Governance lock — canonical contract, block registry, 5 validation gates |
 | `ARCHITECTURE.md` | Full system architecture reference |
 | `ROADMAP.md` | Phase roadmap — Phase 2 complete, Phase 3 = oRPC, Phase 5 = MCP |
@@ -156,6 +158,7 @@ pnpm lint                                         # ESLint
 | `STRAPI_BUILDER_PATTERN.md` | Strapi collection type patterns |
 | `STRAPI_COLLECTION_TYPE_SCHEMAS.md` | Full Strapi field definitions for 4 documentation domains |
 | `TESTING_ARCHITECTURE.md` | Test organization, colocation rules, integration test patterns |
+| `.claude/session-state.md` | Current sprint state, active branch, next actions |
 
 *Note: Session handoffs and refactor plans are in `docs/archive/` — historical reference only.*
 
@@ -165,6 +168,7 @@ pnpm lint                                         # ESLint
 
 Strapi 5 is **running locally via Docker** and fully connected on local dev.
 All 4 management sections + 8 content types + global config are live.
+Email config: 5 collection types fully Strapi-backed (ab-subject-variant, recipient-group, scheduler-config, scheduled-email, email-template).
 
 - **Local dev:** Content builders call Strapi REST API; full read/write via server actions
 - **Vercel/CI:** Falls back to `data/strapi-mock/` JSON files; Save buttons disabled
@@ -206,6 +210,8 @@ Every content document must include a `seo` object, even if values fall back to 
 - Do NOT commit without running `pnpm build` first (build validates all content)
 - Do NOT create new files unless absolutely necessary — edit existing patterns
 - Do NOT add nav section data directly to `data/nav-data.ts` — use the per-section files
+- Do NOT use `gh` CLI — use `mcp__MCP_DOCKER__*` GitHub tools for all GitHub operations
+- Do NOT expose secret values in chat — reference env var names only, never values
 
 ---
 
@@ -213,14 +219,26 @@ Every content document must include a `seo` object, even if values fall back to 
 
 See `.claude/mcp-config.md` for full MCP server setup.
 
-**Active MCP servers (Docker MCP Toolkit):**
-- GitHub — repo is PUBLIC, GitHub MCP tools work for issues/PRs/branches
-- Docker — manage Postgres, Redis, Strapi containers via tool calls
-- Filesystem + Git — local file and git context
+**Active MCP servers (Docker MCP Toolkit) — PAT authenticated, full write access:**
+
+| Operation | Tool |
+|-----------|------|
+| Create PR | `mcp__MCP_DOCKER__create_pull_request` |
+| Merge PR | `mcp__MCP_DOCKER__merge_pull_request` |
+| Create branch | `mcp__MCP_DOCKER__create_branch` |
+| Read PR / CI status | `mcp__MCP_DOCKER__pull_request_read` |
+| List branches | `mcp__MCP_DOCKER__list_branches` |
+| Push files (docs/config) | `mcp__MCP_DOCKER__push_files` |
+| Strapi container ops | `mcp__MCP_DOCKER__mcp-exec` |
+
+**Rules:**
+- ALWAYS use `mcp__MCP_DOCKER__*` for GitHub — never `gh` CLI
+- Load tools with `ToolSearch` before first use each session
+- Secrets stay in containers — never pipe through host shell
 
 Current AI setup: Claude Code (VS Code extension) + GitHub Copilot
 Rate limiting on Copilot — use Claude Code for primary coding, Copilot for autocomplete.
 
 ---
 
-*Last updated: March 5, 2026 | Branch: main | Build: 165/165 ✅*
+*Last updated: March 6, 2026 | Branch: main | Build: 165/165 ✅ | PRs merged: #19 #20 #21 #22*
