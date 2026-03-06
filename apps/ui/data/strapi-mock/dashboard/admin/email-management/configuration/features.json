@@ -4,35 +4,42 @@
       "title": "Template & Brand",
       "description": "Manage brand identity, company details, color scheme, urgency & SLA configuration, dark mode color schemes with live preview, and per-template settings. All values are centralised in a single config.",
       "icon": "Palette",
-      "href": "/dashboard/admin/email-administration/configuration/template-and-brand",
+      "href": "/dashboard/admin/email-management/configuration/template-and-brand",
+      "role": "Business Admin / Project Lead"
+    },
+    {
+      "title": "Email Templates",
+      "description": "Canonical registry of all email templates. Define templateKey, category, recipient type, and per-template sender overrides. SSOT for A/B variants, recipient group routing, and the email queue.",
+      "icon": "FileText",
+      "href": "/dashboard/admin/email-management/configuration/email-templates",
       "role": "Business Admin / Project Lead"
     },
     {
       "title": "Email Preview",
       "description": "Preview all 6 email templates across 3 form types. Test urgency-based styling with live toggling between routine, urgent, and emergency visual treatments.",
       "icon": "Eye",
-      "href": "/dashboard/admin/email-administration/configuration/email-preview",
+      "href": "/dashboard/admin/email-management/configuration/email-preview",
       "role": "Business Admin / Project Lead"
     },
     {
       "title": "A/B Subject Lines",
       "description": "Store multiple subject line variants per template with weighted random selection. Track send counts per variant and toggle A/B testing on or off per template.",
       "icon": "Split",
-      "href": "/dashboard/admin/email-administration/configuration/ab-subject-lines",
+      "href": "/dashboard/admin/email-management/configuration/ab-subject-lines",
       "role": "Business Admin"
     },
     {
       "title": "Recipient Groups",
       "description": "Define staff groups that receive business notifications per template type. Filter by urgency level so emergency alerts reach the right team instantly.",
       "icon": "UsersRound",
-      "href": "/dashboard/admin/email-administration/configuration/recipient-groups",
+      "href": "/dashboard/admin/email-management/configuration/recipient-groups",
       "role": "Business Admin"
     },
     {
       "title": "Email Scheduling",
       "description": "Queue emails for batch delivery during business hours. Configure per-day send windows, batch sizes, and which categories bypass the queue for immediate delivery.",
       "icon": "Timer",
-      "href": "/dashboard/admin/email-administration/configuration/email-scheduling",
+      "href": "/dashboard/admin/email-management/configuration/email-scheduling",
       "role": "Business Admin / Project Lead"
     }
   ]
