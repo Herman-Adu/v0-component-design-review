@@ -8,7 +8,7 @@
 ## Current Sprint — March 6, 2026
 
 **Active branch:** `main` — clean, ready for next feature
-**Build:** 165/165 pages ✅ | 148/148 tests ✅ | 0 TS errors ✅
+**Build:** 166/166 pages ✅ | 148/148 tests ✅ | 0 TS errors ✅
 
 ---
 
@@ -16,6 +16,7 @@
 
 | PR | Branch | Summary |
 |----|--------|---------|
+| #25 | feature/platform-pages-fb-li-tw | Facebook/LinkedIn/Twitter 6-layer wiring + React.cache() on all builders + Zod nullish hardening |
 | #24 | feature/email-preview-wiring | email-preview RSC shell + Strapi-backed client island |
 | #23 | chore/claude-memory-to-git | Memory migrated to git: CLAUDE.md updated + session-state.md created |
 | #22 | feature/email-template-ct | email-template CT + 6-layer module + page + derive-map elimination + schema hardening |
@@ -42,8 +43,8 @@ All 6 email config pages are Strapi-backed and following RSC shell → client is
 
 ## Backlog (ordered)
 
-1. **Facebook / LinkedIn / Twitter platform landing pages** ← next
-2. oRPC API layer (Phase 3)
+1. **Email preview full wiring (Option B)** ← next — RSC shell exists, client island stub needs React Email render + send-test action
+2. oRPC API layer (Phase 3) — end-to-end type-safe mutations, dedicated session
 3. Request management hardening (inbound email via Resend)
 4. Playwright E2E for email config pages
 
@@ -60,7 +61,7 @@ All 6 email config pages are Strapi-backed and following RSC shell → client is
 
 ## PR Checklist (every PR)
 
-- [ ] `pnpm build` passes locally (165/165 pages, 0 TS errors)
+- [ ] `pnpm build` passes locally (166/166 pages, 0 TS errors)
 - [ ] `pnpm test` passes (148/148)
 - [ ] Update this file (`session-state.md`) — move completed items to Recently Merged
 - [ ] Update `CLAUDE.md` Current State section if build numbers change

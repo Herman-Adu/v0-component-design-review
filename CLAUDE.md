@@ -94,7 +94,7 @@ __tests__/
 ## Current State — March 6, 2026
 
 **Branch:** `main` — clean, all work merged
-**Build:** 165/165 pages SSG ✅ | 148/148 tests ✅ | 0 TS errors ✅
+**Build:** 166/166 pages SSG ✅ | 148/148 tests ✅ | 0 TS errors ✅
 
 **Completed (all on main):**
 - All 8 content types — 6-layer architecture, atomic blocks, JSON + Strapi dual-source ✅
@@ -106,10 +106,11 @@ __tests__/
 - `nav-data.ts` modularised — 792 lines → 20-line barrel + `data/nav-data/` per-section files ✅
 - **PR #21** — Email config Strapi backing: 4 × 6-layer modules (ab-subject-variant, recipient-group, scheduler-config, scheduled-email); 3 pages wired RSC → client island; dead in-memory services deleted ✅
 - **PR #22** — email-template CT + 6-layer module + page + derive-map elimination + schema hardening ✅
+- **PR #24** — email-preview RSC shell + Strapi-backed client island ✅
+- **PR #25** — Facebook/LinkedIn/Twitter 6-layer wiring + `React.cache()` on all 5 management/platform builders + Zod nullish hardening ✅
 
 **Next up (see `.claude/session-state.md` for sprint detail):**
-- `email-preview` page wiring — feature/email-preview-wiring
-- Facebook / LinkedIn / Twitter platform landing pages
+- `email-preview` full wiring — React Email render + send-test action (client island is currently a stub)
 - oRPC API layer (Phase 3)
 
 ---
