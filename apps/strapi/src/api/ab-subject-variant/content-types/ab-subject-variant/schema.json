@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ab_subject_variants",
+  "info": {
+    "singularName": "ab-subject-variant",
+    "pluralName": "ab-subject-variants",
+    "displayName": "A/B Subject Variant",
+    "description": "Subject line variant for A/B testing on email templates"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "templateKey": {
+      "type": "string",
+      "required": true
+    },
+    "templateLabel": {
+      "type": "string",
+      "required": true
+    },
+    "pattern": {
+      "type": "text",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "weight": {
+      "type": "integer",
+      "min": 0,
+      "max": 100,
+      "default": 50,
+      "required": true
+    },
+    "sends": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "abEnabled": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

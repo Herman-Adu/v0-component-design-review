@@ -1,12 +1,12 @@
 {
-  "collectionName": "components_management_upcoming_features",
+  "collectionName": "components_admin_quick_links",
   "info": {
-    "displayName": "Upcoming Feature",
-    "description": "Dimmed feature preview card shown in the upcoming features section"
+    "displayName": "Quick Link",
+    "description": "A quick navigation link for management overview pages"
   },
   "options": {},
   "attributes": {
-    "featureId": {
+    "linkId": {
       "type": "string",
       "required": true
     },
@@ -22,10 +22,9 @@
       "type": "text",
       "required": true
     },
-    "status": {
+    "href": {
       "type": "string",
-      "required": false,
-      "default": "Coming Soon"
+      "required": true
     }
   }
 }

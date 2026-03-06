@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_management_platform_cards",
+  "collectionName": "components_admin_platform_cards",
   "info": {
     "displayName": "Platform Card",
     "description": "A marketing platform card (Google, LinkedIn, Twitter, Facebook)"
@@ -43,7 +43,7 @@
     "pageItems": {
       "type": "component",
       "repeatable": true,
-      "component": "management.platform-page-item"
+      "component": "admin.platform-page-item"
     }
   }
 }

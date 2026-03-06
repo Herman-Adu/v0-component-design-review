@@ -1,12 +1,12 @@
 {
-  "collectionName": "components_management_highlight_items",
+  "collectionName": "components_admin_upcoming_features",
   "info": {
-    "displayName": "Highlight Item",
-    "description": "A key capability or highlight item for management overview pages"
+    "displayName": "Upcoming Feature",
+    "description": "Dimmed feature preview card shown in the upcoming features section"
   },
   "options": {},
   "attributes": {
-    "itemId": {
+    "featureId": {
       "type": "string",
       "required": true
     },
@@ -21,6 +21,11 @@
     "description": {
       "type": "text",
       "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": false,
+      "default": "Coming Soon"
     }
   }
 }

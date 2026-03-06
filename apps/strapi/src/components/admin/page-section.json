@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_management_page_sections",
+  "collectionName": "components_admin_page_sections",
   "info": {
     "displayName": "Page Section",
     "description": "A navigable section card for management overview pages"

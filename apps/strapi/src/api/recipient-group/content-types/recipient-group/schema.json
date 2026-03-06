@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipient_groups",
+  "info": {
+    "singularName": "recipient-group",
+    "pluralName": "recipient-groups",
+    "displayName": "Recipient Group",
+    "description": "Named group of staff who receive email notifications for specific template types and urgency levels"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "templateTypes": {
+      "type": "json"
+    },
+    "urgencyFilter": {
+      "type": "enumeration",
+      "enum": ["all", "emergency-only", "urgent-and-emergency", "routine-only"],
+      "default": "all",
+      "required": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "members": {
+      "type": "component",
+      "repeatable": true,
+      "component": "admin.email-staff"
+    }
+  }
+}

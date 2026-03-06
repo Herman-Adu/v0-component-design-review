@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_management_notice_blocks",
+  "collectionName": "components_admin_notice_blocks",
   "info": {
     "displayName": "Notice Block",
     "description": "Callout-style notice: warning, info, success, error"

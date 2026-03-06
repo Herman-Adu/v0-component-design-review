@@ -1,0 +1,42 @@
+{
+  "kind": "singleType",
+  "collectionName": "scheduler_configs",
+  "info": {
+    "singularName": "scheduler-config",
+    "pluralName": "scheduler-configs",
+    "displayName": "Scheduler Config",
+    "description": "Global email scheduler configuration — batch size, business hours, and immediate-send categories"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "isEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "batchSize": {
+      "type": "integer",
+      "min": 1,
+      "max": 50,
+      "default": 10
+    },
+    "batchIntervalMinutes": {
+      "type": "integer",
+      "min": 5,
+      "max": 120,
+      "default": 15
+    },
+    "timezone": {
+      "type": "string",
+      "default": "Europe/London"
+    },
+    "immediateCategories": {
+      "type": "json"
+    },
+    "businessHoursJson": {
+      "type": "text"
+    }
+  }
+}

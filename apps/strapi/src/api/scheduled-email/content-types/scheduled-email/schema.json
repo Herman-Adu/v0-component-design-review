@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scheduled_emails",
+  "info": {
+    "singularName": "scheduled-email",
+    "pluralName": "scheduled-emails",
+    "displayName": "Scheduled Email",
+    "description": "Persistent email queue — entries are created at send-time and processed by the Vercel Cron batch job"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "templateKey": {
+      "type": "string",
+      "required": true
+    },
+    "to": {
+      "type": "email",
+      "required": true
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "htmlContent": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["queued", "scheduled", "sent", "failed", "cancelled"],
+      "default": "queued",
+      "required": true
+    },
+    "scheduledFor": {
+      "type": "datetime"
+    },
+    "processedAt": {
+      "type": "datetime"
+    },
+    "error": {
+      "type": "text"
+    },
+    "metadata": {
+      "type": "json"
+    }
+  }
+}

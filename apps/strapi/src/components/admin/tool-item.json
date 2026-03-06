@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_management_tool_items",
+  "collectionName": "components_admin_tool_items",
   "info": {
     "displayName": "Tool Item",
     "description": "Link card to a tool or feature page within an admin section"

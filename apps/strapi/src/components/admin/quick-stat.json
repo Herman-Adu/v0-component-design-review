@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_management_quick_stats",
+  "collectionName": "components_admin_quick_stats",
   "info": {
     "displayName": "Quick Stat",
     "description": "Dashboard stat card. Use source='content-library' for runtime-computed values."
